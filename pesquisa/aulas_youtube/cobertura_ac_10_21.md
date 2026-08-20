@@ -1,6 +1,6 @@
 # Cobertura de videoaulas — AC-10 a AC-21 (Transpetro 2026, Cesgranrio)
 
-Status: CONCLUÍDO (com 2 códigos em 2/3, gaps documentados abaixo). Última atualização: 2026-08-20.
+Status: CONCLUÍDO — 11 de 12 códigos em 3/3; AC-14 permanece em 2/3 após pesquisa adicional dedicada (ver seção própria). Última atualização: 2026-08-20 (rodada de complementação: AC-17 completado).
 
 Metodologia: buscas reais no YouTube via WebSearch e navegação/inspeção direta de páginas do YouTube (metadados de canal, data de publicação e duração extraídos diretamente do HTML/meta tags da página do vídeo ou da listagem de busca/playlist). Nenhum vídeo foi incluído sem confirmação real de título, canal e URL. Quando a data exata não pôde ser confirmada (apenas a data relativa exibida pelo YouTube, ex. "há 1 ano"), isso foi registrado explicitamente no campo `data_publicacao` em vez de inventar uma data.
 
@@ -23,13 +23,13 @@ Metodologia: buscas reais no YouTube via WebSearch e navegação/inspeção dire
 | AC-14 | 2 | fora_do_universo_concursos (2) | NÃO — 2/3 |
 | AC-15 | 3 | fora_do_universo_concursos (2) + CPWS (1) | SIM |
 | AC-16 | 3 | CPWS (2) + Estratégia Concursos (1) | SIM |
-| AC-17 | 2 | Estratégia Concursos (1) + CPWS (1) | NÃO — 2/3 |
+| AC-17 | 3 | Estratégia Concursos (1) + CPWS (1) + outro_canal_concursos (1) | SIM |
 | AC-18 | 3 | outro_canal_concursos (3) | SIM |
 | AC-19 | 3 | outro_canal_concursos (3) | SIM |
 | AC-20 | 3 | outro_canal_concursos (3) | SIM |
 | AC-21 | 3 | outro_canal_concursos (3) | SIM |
 
-**Total: 10 de 12 códigos com 3/3. 2 códigos (AC-14, AC-17) com 2/3, gaps documentados abaixo.**
+**Total: 11 de 12 códigos com 3/3. 1 código (AC-14) permanece em 2/3, gap documentado abaixo.**
 
 ## Notas por código
 
@@ -45,8 +45,8 @@ Esgotamento de pesquisa: buscas com os termos "gestão de estoques Estratégia/G
 ### AC-13 — Armazenagem (3/3, fora do universo de concursos)
 Mesma situação de esgotamento: não localizada aula específica de tipos de armazém/layout nos canais de concursos pesquisados (Estratégia Concursos, CPWS, Adriane Fauth). Usados 3 vídeos de canais de logística generalistas (SAC Logística x2, Canal de Logística).
 
-### AC-14 — Manuseio de Materiais (2/3 — INCOMPLETO)
-Encontrados 2 vídeos aderentes: "Equipamentos de Movimentação" (SAC Logística, princípios/equipamentos) e "Movimentação e Armazenagem — Aula 01" (EaD IFPI, princípios de movimentação eficiente). Não foi localizado um terceiro vídeo especificamente sobre "tecnologias de automação" no manuseio/movimentação de materiais (buscas: "SAC Logística automação armazém", "automação armazém WMS robótica logística aula completa", "CPWS manuseio de materiais") — os resultados retornaram apenas artigos/blogs, sem aula em vídeo dedicada e verificável ao tema de automação. Recomenda-se busca adicional futura com termos como "AS/RS armazém aula" ou "robótica logística concurso" caso se queira completar o terceiro vídeo.
+### AC-14 — Manuseio de Materiais (2/3 — INCOMPLETO, pesquisa adicional já esgotada)
+Encontrados 2 vídeos aderentes: "Equipamentos de Movimentação" (SAC Logística, princípios/equipamentos) e "Movimentação e Armazenagem — Aula 01" (EaD IFPI, princípios de movimentação eficiente). Rodada original de buscas: "SAC Logística automação armazém", "automação armazém WMS robótica logística aula completa", "CPWS manuseio de materiais". **Rodada adicional dedicada a este gap** (2026-08-20): "robótica logística armazém automação AS/RS aula concurso", "site:youtube.com AGV OR veículos guiados armazém aula OR empilhadeira automática tecnologia movimentação", "SAC Logística youtube tecnologias movimentação de materiais aula", "indústria 4.0 logística tecnologias automação armazém aula completa youtube", "Logística 4.0 aula completa youtube tecnologias emergentes armazém automação". Resultado: apenas vídeos institucionais/comerciais de fabricantes de equipamento (Bertolini, Mecalux — demonstração de produto, não aula didática), artigos/blogs (TOTVS, Tegma, Cobli, ARV Systems) e um webinar em espanhol (Slot's Eyes/ZLC) fora do escopo de idioma e de concursos. Nenhum candidato atendeu ao critério de ser uma aula didática verificável, em português, de canal de concursos ou de educação geral especificamente sobre tecnologias de automação (AGV, AS/RS, WMS aplicado) no manuseio de materiais. **Conclusão: código permanece em 2/3 por esgotamento de pesquisa comprovado em duas rodadas distintas — não é falta de esforço.**
 
 ### AC-15 — Embalagem (3/3)
 Vídeo principal sobre embalagem na logística (Canal de Logística); complementar sobre unitização de cargas (SAC Logística), subtema explícito do código; complementar CPWS sobre cargas perigosas, cobrindo "segurança no transporte". Esgotamento documentado: 3+ variações de busca não localizaram aula específica e completa sobre embalagem nos canais prioritários de concursos.
@@ -54,8 +54,8 @@ Vídeo principal sobre embalagem na logística (Canal de Logística); complement
 ### AC-16 — Gestão de Compras (3/3) — atenção à legislação vigente
 Principal: CPWS sobre Lei 13.303/2016 (procedimento de licitação), regime aplicável a estatais como a Transpetro. Aprofundamento: curso completo do Prof. Herbert Almeida (Estratégia Concursos) sobre a Lei 14.133/2021 (Nova Lei Geral de Licitações). Revisão: CPWS revisitando a Lei 13.303/2016 sob a ótica de suprimento de bens e serviços. **Nenhum vídeo do conjunto trata da Lei 8.666/1993 (revogada)** — todos os três cobrem legislação vigente, conforme exigido.
 
-### AC-17 — Gestão de Contratos (2/3 — INCOMPLETO)
-Encontrados 2 vídeos aderentes, ambos reaproveitados de AC-16 em papéis diferentes (o curso Herbert Almeida e a aula CPWS sobre Lei 13.303/2016 cobrem também contratos/procedimento que antecede a formalização contratual). Não foi localizado um terceiro vídeo específico e verificável sobre "gestão de contratos" com foco em fiscalização/aditivos/contratos digitais nos canais prioritários — as buscas ("gestão de contratos ciclo de vida fiscalização aditivos CPWS/Estratégia/Gran", "fiscal de contrato gestor de contrato Lei 14133 aula", "questões fiscalização de contratos Cesgranrio") retornaram majoritariamente artigos e PDFs, ou vídeos cujo ID não carregou/parece indisponível (ex.: um vídeo "Gestão e Fiscalização de Contratos da Lei nº 14.133/2021" não pôde ser confirmado como acessível). Recomenda-se pesquisa adicional futura diretamente no canal do YouTube da Estratégia Concursos (playlist de Direito Administrativo/Contratos) ou Gran Cursos para completar o terceiro vídeo com um recorte mais específico de gestão/fiscalização contratual.
+### AC-17 — Gestão de Contratos (3/3 — completado em rodada adicional)
+Dois vídeos originais reaproveitados de AC-16 em papéis diferentes (curso Herbert Almeida — Estratégia Concursos — e aula CPWS sobre Lei 13.303/2016, ambos cobrindo também contratos/procedimento que antecede a formalização contratual). Rodada adicional dedicada a este gap (2026-08-20), busca "gestão e fiscalização de contratos Lei 14.133 aula Estratégia Concursos OR Gran Cursos youtube", localizou e confirmou via oEmbed do YouTube: **"Minicurso de GESTÃO DE CONTRATOS para CONCURSOS - Lei 14.133/21 - AULA 01 - Professor Franco"**, canal **JUS POLIS** (https://www.youtube.com/watch?v=EO-WGTYYAqA) — minicurso dedicado especificamente a gestão de contratos (não licitação em geral), de canal de concursos, distinto em conteúdo e professor dos dois vídeos já usados. Registrado como `complementar_revisao`.
 
 ### AC-18 — Fundamentos de computação (3/3)
 Série "Informática para Concursos 2026" do Prof. Alan Souza, publicada em fevereiro de 2026 (atual): Aula 1 (Windows 11, fundamentos) como principal, Aula 8 (utilitários/acessórios do Windows 11) como aprofundamento; questões de sistemas operacionais (Prof. Marcelo Narciso) como treino.
@@ -71,6 +71,7 @@ Aula extensa do AlfaCon sobre segurança da informação como principal; aula re
 
 ## Resumo final
 
-- **10 de 12 códigos atingiram 3/3 vídeos**: AC-10, AC-11, AC-12, AC-13, AC-15, AC-16, AC-18, AC-19, AC-20, AC-21.
-- **2 códigos ficaram em 2/3**: AC-14 (Manuseio de Materiais — faltou vídeo específico sobre tecnologias de automação) e AC-17 (Gestão de Contratos — faltou vídeo específico e verificável sobre fiscalização/aditivos, distinto dos já usados em AC-16).
+- **11 de 12 códigos atingiram 3/3 vídeos**: AC-10, AC-11, AC-12, AC-13, AC-15, AC-16, AC-17, AC-18, AC-19, AC-20, AC-21.
+- **1 código permanece em 2/3**: AC-14 (Manuseio de Materiais — faltou vídeo específico sobre tecnologias de automação, esgotamento comprovado em duas rodadas de busca).
+- AC-17 foi completado em rodada adicional de pesquisa (2026-08-20) com um vídeo do canal JUS POLIS.
 - Nenhum vídeo foi inventado; todos os registros do CSV foram confirmados por título, canal e URL reais, via busca e inspeção direta das páginas do YouTube.
