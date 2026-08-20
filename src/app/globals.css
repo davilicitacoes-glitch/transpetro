@@ -1,0 +1,298 @@
+@import "tailwindcss";
+
+:root {
+  --background: #f3f5f8;
+  --surface: #ffffff;
+  --surface-muted: #f0f2f6;
+  --surface-raised: #ffffff;
+  --foreground: #101828;
+  --foreground-muted: #5d6b82;
+  --foreground-subtle: #8896ab;
+  --border: #e2e6ee;
+  --border-strong: #cbd3e1;
+
+  --brand: #1a4fd6;
+  --brand-hover: #143fb0;
+  --brand-foreground: #ffffff;
+  --brand-soft: #eaf0ff;
+
+  --navy: #0b1e3f;
+  --navy-soft: #142a52;
+  --navy-foreground: #e8edf9;
+
+  --accent: #f59e0b;
+  --accent-foreground: #1a1200;
+
+  --success: #15803d;
+  --success-soft: #e9f7ef;
+  --warning: #b45309;
+  --warning-soft: #fdf1e0;
+  --danger: #be123c;
+  --danger-soft: #fdeaef;
+
+  --focus-ring: #1a4fd6;
+  --shadow-sm: 0 1px 2px rgba(16, 24, 40, 0.06);
+  --shadow-md: 0 4px 12px rgba(16, 24, 40, 0.08);
+  --shadow-lg: 0 12px 32px rgba(16, 24, 40, 0.12);
+}
+
+:root[data-theme="dark"] {
+  --background: #0a0e18;
+  --surface: #111726;
+  --surface-muted: #182036;
+  --surface-raised: #141c30;
+  --foreground: #eef1f8;
+  --foreground-muted: #9aa7c2;
+  --foreground-subtle: #6b7793;
+  --border: #232e48;
+  --border-strong: #2f3c5c;
+
+  --brand: #5b8bff;
+  --brand-hover: #7ba0ff;
+  --brand-foreground: #06122f;
+  --brand-soft: #16244a;
+
+  --navy: #060a16;
+  --navy-soft: #0e1830;
+  --navy-foreground: #dbe4fb;
+
+  --accent: #fbbf24;
+  --accent-foreground: #1a1200;
+
+  --success: #4ade80;
+  --success-soft: #113322;
+  --warning: #fbbf24;
+  --warning-soft: #3a2a0c;
+  --danger: #fb7185;
+  --danger-soft: #3a1420;
+
+  --focus-ring: #5b8bff;
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.4);
+  --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.45);
+  --shadow-lg: 0 16px 40px rgba(0, 0, 0, 0.55);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --background: #0a0e18;
+    --surface: #111726;
+    --surface-muted: #182036;
+    --surface-raised: #141c30;
+    --foreground: #eef1f8;
+    --foreground-muted: #9aa7c2;
+    --foreground-subtle: #6b7793;
+    --border: #232e48;
+    --border-strong: #2f3c5c;
+
+    --brand: #5b8bff;
+    --brand-hover: #7ba0ff;
+    --brand-foreground: #06122f;
+    --brand-soft: #16244a;
+
+    --navy: #060a16;
+    --navy-soft: #0e1830;
+    --navy-foreground: #dbe4fb;
+
+    --accent: #fbbf24;
+    --accent-foreground: #1a1200;
+
+    --success: #4ade80;
+    --success-soft: #113322;
+    --warning: #fbbf24;
+    --warning-soft: #3a2a0c;
+    --danger: #fb7185;
+    --danger-soft: #3a1420;
+
+    --focus-ring: #5b8bff;
+    --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.4);
+    --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.45);
+    --shadow-lg: 0 16px 40px rgba(0, 0, 0, 0.55);
+  }
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-surface: var(--surface);
+  --color-surface-muted: var(--surface-muted);
+  --color-surface-raised: var(--surface-raised);
+  --color-foreground: var(--foreground);
+  --color-foreground-muted: var(--foreground-muted);
+  --color-foreground-subtle: var(--foreground-subtle);
+  --color-border: var(--border);
+  --color-border-strong: var(--border-strong);
+  --color-brand: var(--brand);
+  --color-brand-hover: var(--brand-hover);
+  --color-brand-foreground: var(--brand-foreground);
+  --color-brand-soft: var(--brand-soft);
+  --color-navy: var(--navy);
+  --color-navy-soft: var(--navy-soft);
+  --color-navy-foreground: var(--navy-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-success: var(--success);
+  --color-success-soft: var(--success-soft);
+  --color-warning: var(--warning);
+  --color-warning-soft: var(--warning-soft);
+  --color-danger: var(--danger);
+  --color-danger-soft: var(--danger-soft);
+  --font-sans: var(--font-inter), system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+}
+
+* {
+  border-color: var(--border);
+}
+
+html {
+  color-scheme: light dark;
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-feature-settings: "cv02", "cv03", "cv04", "cv11";
+  letter-spacing: -0.011em;
+}
+
+h1, h2, h3, h4 {
+  letter-spacing: -0.021em;
+  text-wrap: balance;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+:focus-visible {
+  outline: 2px solid var(--focus-ring);
+  outline-offset: 2px;
+}
+
+.card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  box-shadow: var(--shadow-sm);
+}
+
+.card-raised {
+  background: var(--surface-raised);
+  border: 1px solid var(--border);
+  border-radius: 18px;
+  box-shadow: var(--shadow-md);
+}
+
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  border-radius: 9999px;
+  padding: 0.25rem 0.7rem;
+  font-size: 0.71rem;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  line-height: 1.2;
+}
+
+/* --- Botões: alvo de toque >= 44px, estados de foco/disabled consistentes em todo o app --- */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  min-height: 44px;
+  padding: 0 1rem;
+  border-radius: 12px;
+  font-size: 0.875rem;
+  font-weight: 600;
+  letter-spacing: -0.006em;
+  transition: background-color 0.15s ease, opacity 0.15s ease, transform 0.06s ease;
+  cursor: pointer;
+}
+.btn:active:not(:disabled) {
+  transform: translateY(1px);
+}
+.btn:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+.btn-primary {
+  background: var(--brand);
+  color: var(--brand-foreground);
+  box-shadow: var(--shadow-sm);
+}
+.btn-primary:hover:not(:disabled) {
+  background: var(--brand-hover);
+}
+
+.btn-secondary {
+  background: var(--surface);
+  color: var(--foreground);
+  border: 1px solid var(--border-strong);
+}
+.btn-secondary:hover:not(:disabled) {
+  background: var(--surface-muted);
+}
+
+/* Link de navegação/ação com alvo de toque mínimo de 44px (exigência mobile).
+   Usa padding vertical + margem negativa para crescer a área clicável sem mexer no layout visual. */
+.tap-target {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  padding-block: 0.75rem;
+  margin-block: -0.75rem;
+}
+
+/* Barra de progresso reutilizável */
+.progress-track {
+  height: 6px;
+  border-radius: 9999px;
+  background: var(--surface-muted);
+  overflow: hidden;
+}
+.progress-fill {
+  height: 100%;
+  border-radius: 9999px;
+  background: var(--brand);
+  transition: width 0.3s ease;
+}
+
+.prose-lesson p {
+  margin-bottom: 1rem;
+}
+.prose-lesson strong {
+  color: var(--foreground);
+  font-weight: 600;
+}
+.prose-lesson code {
+  background: var(--surface-muted);
+  border-radius: 4px;
+  padding: 0.1rem 0.35rem;
+  font-size: 0.85em;
+}
+
+.scrollbar-thin::-webkit-scrollbar {
+  height: 6px;
+  width: 6px;
+}
+.scrollbar-thin::-webkit-scrollbar-thumb {
+  background: var(--border-strong);
+  border-radius: 9999px;
+}
+
+@keyframes fade-in {
+  from { opacity: 0; transform: translateY(4px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.animate-fade-in {
+  animation: fade-in 0.25s ease-out;
+}
