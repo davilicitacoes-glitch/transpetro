@@ -6,197 +6,162 @@ export const AC_02_SISTEMA_GESTAO_INTEGRADO: LessonContent = {
   subjectSlug: "especificas",
   moduleSlug: "especificas-processos-legislacao",
   title: `Sistema de Gestão Integrado`,
-  learningObjective: `Este material cobre o conteúdo oficial de **Sistema de Gestão Integrado** com foco na prova objetiva da Cesgranrio. O tema deve ser estudado em três camadas: vocabulário técnico, relações entre os conceitos e aplicação em situações-problema. Questões da banca frequentemente exigem inferência controlada, comparação de alternativas próximas e atenção a exceções; por isso, a preparação deve combinar teoria, exemplos e revisão dos erros.`,
+  learningObjective: `Dominar a lógica de um Sistema de Gestão Integrado (qualidade, ambiente, saúde e segurança sob uma única estrutura), a diferença entre correção e ação corretiva, o ciclo PDCA, o papel da auditoria interna, e as ferramentas de controle estatístico de qualidade (amostragem, cartas de controle, Kaizen) — tema em que a Cesgranrio gosta de descrever uma ferramenta pelo seu propósito e pedir o nome técnico correto.`,
   syllabusCodes: ["AC-02"],
   estimatedMinutes: 40,
   expectedMastery: "intermediario",
   bodyMdx: `# AC-02 — Sistema de Gestão Integrado
 
-## Visão geral
+## 1. O que é um Sistema de Gestão Integrado (SGI)
 
-Este material cobre o conteúdo oficial de **Sistema de Gestão Integrado** com foco na prova objetiva da Cesgranrio. O tema deve ser estudado em três camadas: vocabulário técnico, relações entre os conceitos e aplicação em situações-problema. Questões da banca frequentemente exigem inferência controlada, comparação de alternativas próximas e atenção a exceções; por isso, a preparação deve combinar teoria, exemplos e revisão dos erros.
+Um **SGI** integra, sob uma única estrutura de processos, requisitos que antes eram tratados por sistemas paralelos e desconectados — tipicamente **qualidade** (ISO 9001), **meio ambiente** (ISO 14001) e **saúde e segurança ocupacional** (ISO 45001). A lógica da integração é evitar duplicidade de documentação, auditorias separadas e políticas conflitantes entre essas três áreas, tratando-as como dimensões de um mesmo sistema de gestão da organização.
 
-## Núcleo conceitual e regras operacionais
+## 2. Elementos comuns às normas de gestão (estrutura de alto nível)
 
-1. SGI integra requisitos e processos comuns, evitando sistemas paralelos desconectados.
-2. Auditoria busca evidência objetiva e compara situação com critério; não é mera inspeção punitiva.
-3. Correção elimina a não conformidade detectada; ação corretiva elimina sua causa para evitar recorrência.
-4. Na lógica atual de riscos, prevenção é incorporada ao planejamento e aos controles.
-5. PDCA significa planejar, executar, verificar e agir para padronizar ou melhorar.
-6. Risco combina incerteza e efeito sobre objetivos; oportunidade também deve ser tratada.
+As normas ISO de sistema de gestão modernas compartilham uma estrutura comum, o que facilita a integração:
 
-### 1. Integração de qualidade, ambiente, saúde e segurança
+- **Contexto da organização**: entender fatores internos/externos e **partes interessadas** relevantes.
+- **Liderança**: comprometimento da alta direção, política e papéis definidos.
+- **Planejamento**: tratamento de **riscos e oportunidades**.
+- **Apoio**: recursos, competência, comunicação, informação documentada.
+- **Operação**: controle dos processos operacionais.
+- **Avaliação de desempenho**: monitoramento, auditoria interna, análise crítica.
+- **Melhoria**: tratamento de não conformidades e melhoria contínua.
 
-Integração de qualidade, ambiente, saúde e segurança integra o núcleo de **Sistema de Gestão Integrado**. Para a prova, não basta reconhecer o termo: é preciso distinguir conceito, finalidade, condições de aplicação e efeitos. A leitura correta começa pela pergunta “qual problema este conceito resolve?” e continua com “em que situação ele não se aplica?”. Essa dupla verificação evita respostas baseadas apenas em palavras familiares.
+## 3. Auditoria interna: evidência objetiva, não inspeção punitiva
 
-Na prática administrativa ou linguística, identifique o contexto, os elementos envolvidos, o critério aplicável e a consequência antes de escolher a alternativa. A Cesgranrio costuma apresentar uma situação concreta e trocar um requisito, uma relação lógica ou a ordem de uma etapa. Por isso, compare cada alternativa com todos os dados do caso, não apenas com a primeira expressão que parece correta. Um bom resumo operacional é: definir, relacionar, aplicar e conferir.
+A **auditoria** é um processo sistemático de buscar **evidência objetiva** e compará-la com um **critério de auditoria** (norma, procedimento, requisito legal) para determinar em que medida ele é atendido. Um erro comum é tratar auditoria como sinônimo de "fiscalização para punir" — na verdade, seu propósito é **verificar conformidade e identificar oportunidades de melhoria**, com base em evidências (registros, entrevistas, observação), não em opiniões ou suposições.
 
-### 2. Processos, contexto, partes interessadas e requisitos
+## 4. Correção x ação corretiva — a distinção mais cobrada do código
 
-Processos, contexto, partes interessadas e requisitos integra o núcleo de **Sistema de Gestão Integrado**. Para a prova, não basta reconhecer o termo: é preciso distinguir conceito, finalidade, condições de aplicação e efeitos. A leitura correta começa pela pergunta “qual problema este conceito resolve?” e continua com “em que situação ele não se aplica?”. Essa dupla verificação evita respostas baseadas apenas em palavras familiares.
+Ao identificar uma **não conformidade** (descumprimento de um requisito), duas ações diferentes podem ser tomadas, e a banca adora cobrar a diferença entre elas:
 
-Na prática administrativa ou linguística, identifique o contexto, os elementos envolvidos, o critério aplicável e a consequência antes de escolher a alternativa. A Cesgranrio costuma apresentar uma situação concreta e trocar um requisito, uma relação lógica ou a ordem de uma etapa. Por isso, compare cada alternativa com todos os dados do caso, não apenas com a primeira expressão que parece correta. Um bom resumo operacional é: definir, relacionar, aplicar e conferir.
+- **Correção**: ação para **eliminar a não conformidade já detectada** — resolve o sintoma imediato (ex.: descartar o lote de produto fora da especificação).
+- **Ação corretiva**: ação para **eliminar a causa** da não conformidade, de forma a **evitar sua recorrência** — ataca a raiz do problema (ex.: recalibrar o equipamento que produziu o lote fora da especificação).
 
-### 3. Documentação e responsabilidades integradas
+**Regra de ouro**: correção resolve o problema que já aconteceu; ação corretiva impede que ele aconteça de novo.
 
-Documentação e responsabilidades integradas integra o núcleo de **Sistema de Gestão Integrado**. Para a prova, não basta reconhecer o termo: é preciso distinguir conceito, finalidade, condições de aplicação e efeitos. A leitura correta começa pela pergunta “qual problema este conceito resolve?” e continua com “em que situação ele não se aplica?”. Essa dupla verificação evita respostas baseadas apenas em palavras familiares.
+## 5. Ciclo PDCA: a lógica da melhoria contínua
 
-Na prática administrativa ou linguística, identifique o contexto, os elementos envolvidos, o critério aplicável e a consequência antes de escolher a alternativa. A Cesgranrio costuma apresentar uma situação concreta e trocar um requisito, uma relação lógica ou a ordem de uma etapa. Por isso, compare cada alternativa com todos os dados do caso, não apenas com a primeira expressão que parece correta. Um bom resumo operacional é: definir, relacionar, aplicar e conferir.
+O **PDCA** (Plan-Do-Check-Act / Planejar-Executar-Verificar-Agir) é o ciclo básico de gestão de processos e melhoria contínua:
 
-### 4. Auditorias internas e evidências
+- **P (Planejar)**: definir objetivos e processos necessários para entregar resultados.
+- **D (Executar/Fazer)**: implementar o que foi planejado.
+- **C (Verificar/Checar)**: monitorar e medir os resultados em relação ao planejado.
+- **A (Agir)**: tomar ações para melhorar continuamente o desempenho — pode significar padronizar o que deu certo ou corrigir o que não funcionou.
 
-Auditorias internas e evidências integra o núcleo de **Sistema de Gestão Integrado**. Para a prova, não basta reconhecer o termo: é preciso distinguir conceito, finalidade, condições de aplicação e efeitos. A leitura correta começa pela pergunta “qual problema este conceito resolve?” e continua com “em que situação ele não se aplica?”. Essa dupla verificação evita respostas baseadas apenas em palavras familiares.
+O PDCA se repete em ciclos sucessivos, cada volta consolidando o que funcionou e ajustando o que não funcionou — é a espinha dorsal da lógica de melhoria contínua em qualquer sistema de gestão (ISO 9001, 14001, 45001).
 
-Na prática administrativa ou linguística, identifique o contexto, os elementos envolvidos, o critério aplicável e a consequência antes de escolher a alternativa. A Cesgranrio costuma apresentar uma situação concreta e trocar um requisito, uma relação lógica ou a ordem de uma etapa. Por isso, compare cada alternativa com todos os dados do caso, não apenas com a primeira expressão que parece correta. Um bom resumo operacional é: definir, relacionar, aplicar e conferir.
+## 6. Gestão de riscos e oportunidades (lógica atual das normas ISO)
 
-### 5. Não conformidade, correção e ação corretiva
+Nas versões atuais das normas de sistema de gestão, a **prevenção** deixou de ser um capítulo isolado e passou a ser **incorporada ao planejamento e aos controles** desde o início, por meio do conceito de **risco** — o efeito da incerteza sobre os objetivos. Importante: a lógica atual trata risco e **oportunidade** como duas faces do mesmo processo de planejamento — não é só sobre evitar o que pode dar errado, mas também aproveitar o que pode dar certo.
 
-Não conformidade, correção e ação corretiva integra o núcleo de **Sistema de Gestão Integrado**. Para a prova, não basta reconhecer o termo: é preciso distinguir conceito, finalidade, condições de aplicação e efeitos. A leitura correta começa pela pergunta “qual problema este conceito resolve?” e continua com “em que situação ele não se aplica?”. Essa dupla verificação evita respostas baseadas apenas em palavras familiares.
+## 7. Ferramentas de controle estatístico da qualidade
 
-Na prática administrativa ou linguística, identifique o contexto, os elementos envolvidos, o critério aplicável e a consequência antes de escolher a alternativa. A Cesgranrio costuma apresentar uma situação concreta e trocar um requisito, uma relação lógica ou a ordem de uma etapa. Por isso, compare cada alternativa com todos os dados do caso, não apenas com a primeira expressão que parece correta. Um bom resumo operacional é: definir, relacionar, aplicar e conferir.
+Além da estrutura de gestão, o código cobre ferramentas técnicas usadas no controle da qualidade em processos produtivos:
 
-### 6. Melhoria contínua pelo ciclo PDCA
-
-Melhoria contínua pelo ciclo PDCA integra o núcleo de **Sistema de Gestão Integrado**. Para a prova, não basta reconhecer o termo: é preciso distinguir conceito, finalidade, condições de aplicação e efeitos. A leitura correta começa pela pergunta “qual problema este conceito resolve?” e continua com “em que situação ele não se aplica?”. Essa dupla verificação evita respostas baseadas apenas em palavras familiares.
-
-Na prática administrativa ou linguística, identifique o contexto, os elementos envolvidos, o critério aplicável e a consequência antes de escolher a alternativa. A Cesgranrio costuma apresentar uma situação concreta e trocar um requisito, uma relação lógica ou a ordem de uma etapa. Por isso, compare cada alternativa com todos os dados do caso, não apenas com a primeira expressão que parece correta. Um bom resumo operacional é: definir, relacionar, aplicar e conferir.
-
-### 7. Gestão integrada de riscos e oportunidades
-
-Gestão integrada de riscos e oportunidades integra o núcleo de **Sistema de Gestão Integrado**. Para a prova, não basta reconhecer o termo: é preciso distinguir conceito, finalidade, condições de aplicação e efeitos. A leitura correta começa pela pergunta “qual problema este conceito resolve?” e continua com “em que situação ele não se aplica?”. Essa dupla verificação evita respostas baseadas apenas em palavras familiares.
-
-Na prática administrativa ou linguística, identifique o contexto, os elementos envolvidos, o critério aplicável e a consequência antes de escolher a alternativa. A Cesgranrio costuma apresentar uma situação concreta e trocar um requisito, uma relação lógica ou a ordem de uma etapa. Por isso, compare cada alternativa com todos os dados do caso, não apenas com a primeira expressão que parece correta. Um bom resumo operacional é: definir, relacionar, aplicar e conferir.
-
-## Método de resolução
-
-1. Classifique o comando: definição, cálculo, aplicação, exceção ou interpretação.
-2. Sublinhe restrições, negações, unidades, prazos e qualificadores como “sempre”, “apenas” e “necessariamente”.
-3. Recupere a regra central antes de olhar as alternativas.
-4. Elimine opções que misturam conceitos verdadeiros em relação errada.
-5. Teste a resposta no caso concreto e faça uma conferência final.
+- **Amostragem estatística**: técnica de **controle estatístico de qualidade** (inspeção por amostragem) — em vez de inspecionar 100% da produção, inspeciona-se uma amostra representativa e infere-se sobre o lote inteiro. É a ferramenta especificamente estatística entre as opções de inspeção de qualidade (diferente de inspeção simples, instrução ou treinamento, que não são técnicas estatísticas).
+- **Cartas de controle** (controle estatístico de processo): ferramenta gráfica que monitora a **estabilidade de um processo produtivo ao longo do tempo**, sinalizando quando uma variação relevante (**causa especial**, diferente da variação normal/aleatória do processo) afeta a qualidade — seu propósito central é **indicar quando o processo mudou** de forma a comprometer a qualidade, não diagnosticar a causa em si, nem desenvolver normas, nem tratar de clima organizacional.
+  - **Cartas de variáveis**: monitoram grandezas mensuráveis em escala contínua (peso, comprimento, temperatura).
+  - **Cartas de atributos**: monitoram características discretas (conforme/não conforme, número de defeitos por unidade).
+- **Kaizen**: filosofia japonesa de **melhoria contínua e gradual** dos processos — se contrapõe à **reengenharia**, que promove mudanças **radicais e abruptas**. Kaizen é sobre pequenos ajustes constantes; reengenharia é sobre reconstruir do zero.
 
 ## Síntese
 
-O domínio de Sistema de Gestão Integrado resulta da conexão entre integração de qualidade, ambiente, saúde e segurança, processos, contexto, partes interessadas e requisitos, documentação e responsabilidades integradas e os demais pontos do edital. Revise o mapa mental, explique cada ramo com suas próprias palavras e resolva questões reais. Se uma regra parecer absoluta, procure condições, limites e exceções: é nesse deslocamento que se concentram muitas pegadinhas.
+O AC-02 combina a lógica estrutural de um SGI (contexto, riscos, PDCA, auditoria) com a distinção fina entre correção e ação corretiva, e com ferramentas técnicas de controle estatístico (amostragem, cartas de controle, Kaizen x reengenharia). A pegadinha mais recorrente é a banca descrever o propósito de uma ferramenta e oferecer nomes de ferramentas vizinhas como distratores.
 
 ## Mapa mental
 
-# AC-02 — Mapa mental
-
 \`\`\`mermaid
 mindmap
-  root((Sistema de Gestão Integrado))
-    integração de qualidade, ambiente, saúde e segurança
-      Conceito e finalidade
-      Condições de aplicação
-      Exemplo de prova
-      Contraste e exceção
-    processos, contexto, partes interessadas e requisitos
-      Conceito e finalidade
-      Condições de aplicação
-      Exemplo de prova
-      Contraste e exceção
-    documentação e responsabilidades integradas
-      Conceito e finalidade
-      Condições de aplicação
-      Exemplo de prova
-      Contraste e exceção
-    auditorias internas e evidências
-      Conceito e finalidade
-      Condições de aplicação
-      Exemplo de prova
-      Contraste e exceção
-    não conformidade, correção e ação corretiva
-      Conceito e finalidade
-      Condições de aplicação
-      Exemplo de prova
-      Contraste e exceção
-    melhoria contínua pelo ciclo PDCA
-      Conceito e finalidade
-      Condições de aplicação
-      Exemplo de prova
-      Contraste e exceção
-    gestão integrada de riscos e oportunidades
-      Conceito e finalidade
-      Condições de aplicação
-      Exemplo de prova
-      Contraste e exceção
-    Estratégia Cesgranrio
-      Ler o comando
-      Eliminar extrapolações
-      Conferir o caso
+  root((Sistema de Gestão Integrado — AC-02))
+    SGI
+      Integra qualidade, ambiente, SST
+      Evita sistemas paralelos
+    Auditoria
+      Evidencia objetiva x criterio
+      Nao e inspecao punitiva
+    Correcao x Acao Corretiva
+      Correcao: elimina o sintoma
+      Acao corretiva: elimina a causa
+    PDCA
+      Planejar, Executar, Verificar, Agir
+    Riscos e oportunidades
+      Prevencao incorporada ao planejamento
+    Ferramentas estatisticas
+      Amostragem: inspecao por amostra
+      Cartas de controle: sinaliza mudanca no processo
+      Kaizen: melhoria gradual x Reengenharia: radical
 \`\`\``,
   mustMemorize: [
-    `SGI integra requisitos e processos comuns, evitando sistemas paralelos desconectados.`,
-    `Auditoria busca evidência objetiva e compara situação com critério; não é mera inspeção punitiva.`,
-    `Correção elimina a não conformidade detectada; ação corretiva elimina sua causa para evitar recorrência.`,
-    `Na lógica atual de riscos, prevenção é incorporada ao planejamento e aos controles.`,
-    `PDCA significa planejar, executar, verificar e agir para padronizar ou melhorar.`,
-    `Risco combina incerteza e efeito sobre objetivos; oportunidade também deve ser tratada.`,
-    `**Integração de qualidade, ambiente, saúde e segurança:** associe definição, finalidade, condição e contraste.`,
-    `**Processos, contexto, partes interessadas e requisitos:** associe definição, finalidade, condição e contraste.`,
-    `**Documentação e responsabilidades integradas:** associe definição, finalidade, condição e contraste.`,
-    `**Auditorias internas e evidências:** associe definição, finalidade, condição e contraste.`,
-    `**Não conformidade, correção e ação corretiva:** associe definição, finalidade, condição e contraste.`,
-    `**Melhoria contínua pelo ciclo PDCA:** associe definição, finalidade, condição e contraste.`,
+    `SGI integra requisitos e processos comuns (qualidade, ambiente, SST), evitando sistemas paralelos desconectados.`,
+    `Auditoria busca evidência objetiva e compara com um critério; não é inspeção punitiva.`,
+    `Correção elimina a não conformidade JÁ DETECTADA; ação corretiva elimina a CAUSA para evitar recorrência.`,
+    `PDCA = Planejar, Executar (fazer), Verificar (checar), Agir — ciclo repetido de melhoria contínua.`,
+    `Na lógica atual das normas ISO, prevenção é incorporada ao planejamento via gestão de riscos E oportunidades.`,
+    `Amostragem estatística = ferramenta de controle estatístico de QUALIDADE (inspeção por amostra).`,
+    `Cartas de controle = ferramenta de controle estatístico de PROCESSO; sinalizam quando o processo mudou de forma a afetar a qualidade.`,
+    `Kaizen = melhoria contínua e gradual. Reengenharia = mudança radical e abrupta.`,
   ],
   workedExamples: [
-    `Amostragem estatística é a ferramenta de controle estatístico de qualidade (inspeção por amostragem), diferente das demais opções, que são ações de gestão de qualidade não estritamente estatísticas. Mapeada em AC-02 com confiança baixa: controle estatístico de qualidade (CEP) não é subtema nomeado explicitamente na matriz de Sistema de Gestão Integrado, que cita de forma genérica 'auditorias internas' e 'melhoria contínua'. **Lição de prova:** identifique exatamente qual dado sustenta o gabarito e por que as demais opções extrapolam, invertem ou misturam conceitos.`,
-    `As cartas de controle (controle estatístico de processo) servem para monitorar a estabilidade de um processo produtivo e sinalizar quando uma variação relevante (causa especial) afeta a qualidade. Mapeada em AC-02 com confiança baixa: ferramenta específica de controle estatístico de processo, não citada nominalmente na matriz. **Lição de prova:** identifique exatamente qual dado sustenta o gabarito e por que as demais opções extrapolam, invertem ou misturam conceitos.`,
-    `Kaizen é a filosofia japonesa de melhoria contínua e gradual dos processos, em contraposição a mudanças radicais (reengenharia). Mapeada em AC-02 (2.3 melhoria contínua e gestão de riscos integrada), com confiança alta por corresponder diretamente a subtema explícito da matriz. **Lição de prova:** identifique exatamente qual dado sustenta o gabarito e por que as demais opções extrapolam, invertem ou misturam conceitos.`,
-    `Cartas de controle de variáveis monitoram grandezas mensuráveis em escala contínua (ex.: peso, comprimento), enquanto cartas de atributos monitoram características discretas (conforme/não conforme, número de defeitos). Mapeada em AC-02 com confiança baixa: detalhamento técnico de controle estatístico de processo não constante explicitamente na matriz. **Lição de prova:** identifique exatamente qual dado sustenta o gabarito e por que as demais opções extrapolam, invertem ou misturam conceitos.`,
+    `Amostragem estatística é a ferramenta de controle estatístico de qualidade (inspeção por amostragem) — diferente de inspeção simples, instrução ou treinamento, que não são técnicas estatísticas.`,
+    `As cartas de controle (controle estatístico de processo) servem para monitorar a estabilidade de um processo produtivo e sinalizar quando uma variação relevante (causa especial) afeta a qualidade — seu propósito central é indicar a MUDANÇA, não diagnosticar a causa nem desenvolver normas.`,
+    `Kaizen é a filosofia japonesa de melhoria contínua e gradual dos processos, em contraposição a mudanças radicais (reengenharia).`,
+    `Cartas de controle de variáveis monitoram grandezas mensuráveis em escala contínua (ex.: peso, comprimento), enquanto cartas de atributos monitoram características discretas (conforme/não conforme, número de defeitos).`,
   ],
   commonMistakes: [
-    `Reconhecer palavra-chave e ignorar o contexto: **Por que engana:** a alternativa repete termos do enunciado, mas altera a relação entre eles. **Correto:** valide definição, condição e consequência no caso completo.`,
-    `Transformar regra condicionada em regra absoluta: **Por que engana:** expressões como “sempre”, “nunca” e “somente” parecem categóricas. **Correto:** procure exceções e requisitos antes de aceitar a afirmação.`,
-    `Confundir conceitos vizinhos: **Por que engana:** integração de qualidade, ambiente, saúde e segurança e processos, contexto, partes interessadas e requisitos pertencem ao mesmo tema, mas não são sinônimos. **Correto:** compare finalidade, objeto e modo de aplicação.`,
-    `Padrão observado no acervo real (AC-02-2012-CESGRANRIO-21): Amostragem estatística é a ferramenta de controle estatístico de qualidade (inspeção por amostragem), diferente das demais opções, que são ações de gestão de qualidade não estritamente estatísticas. Mapeada em AC-02 com confiança baixa: controle estatístico de qualidade (CEP) não é subtema nomeado explicitamente na matriz de Sistema de Gestão Integrado, que cita de forma genérica 'auditorias internas' e 'melhoria contínua'. **Lição de prova:** identifique exatamente qual dado sustenta o gabarito e por que as demais opções extrapolam, invertem ou misturam conceitos.`,
-    `Padrão observado no acervo real (AC-02-2012-CESGRANRIO-22): As cartas de controle (controle estatístico de processo) servem para monitorar a estabilidade de um processo produtivo e sinalizar quando uma variação relevante (causa especial) afeta a qualidade. Mapeada em AC-02 com confiança baixa: ferramenta específica de controle estatístico de processo, não citada nominalmente na matriz. **Lição de prova:** identifique exatamente qual dado sustenta o gabarito e por que as demais opções extrapolam, invertem ou misturam conceitos.`,
-    `Padrão observado no acervo real (AC-02-2012-CESGRANRIO-23): Kaizen é a filosofia japonesa de melhoria contínua e gradual dos processos, em contraposição a mudanças radicais (reengenharia). Mapeada em AC-02 (2.3 melhoria contínua e gestão de riscos integrada), com confiança alta por corresponder diretamente a subtema explícito da matriz. **Lição de prova:** identifique exatamente qual dado sustenta o gabarito e por que as demais opções extrapolam, invertem ou misturam conceitos.`,
-    `Padrão observado no acervo real (AC-02-2012-CESGRANRIO-24): Cartas de controle de variáveis monitoram grandezas mensuráveis em escala contínua (ex.: peso, comprimento), enquanto cartas de atributos monitoram características discretas (conforme/não conforme, número de defeitos). Mapeada em AC-02 com confiança baixa: detalhamento técnico de controle estatístico de processo não constante explicitamente na matriz. **Lição de prova:** identifique exatamente qual dado sustenta o gabarito e por que as demais opções extrapolam, invertem ou misturam conceitos.`,
+    `Confundir correção (elimina o sintoma já ocorrido) com ação corretiva (elimina a causa, evita recorrência) — são conceitos e ações distintas, não sinônimos.`,
+    `Tratar auditoria interna como fiscalização punitiva — na verdade é um processo de busca de evidência objetiva comparada a um critério, com foco em melhoria.`,
+    `Achar que PDCA é linear e "termina" — na verdade é um CICLO que se repete continuamente, consolidando acertos e corrigindo desvios a cada volta.`,
+    `Confundir amostragem estatística (ferramenta de controle de QUALIDADE) com cartas de controle (ferramenta de controle de PROCESSO) — propósitos diferentes.`,
+    `Achar que cartas de controle servem para "determinar causas" de um problema — seu propósito é apenas SINALIZAR que o processo mudou; encontrar a causa é uma etapa posterior e distinta.`,
+    `Confundir Kaizen (melhoria gradual e contínua) com reengenharia (mudança radical e abrupta) — são abordagens opostas de mudança organizacional.`,
+    `Padrão observado no acervo real (AC-02-2012-CESGRANRIO-21): identificar amostragem estatística como a ferramenta de controle estatístico de qualidade entre opções não estatísticas (inspeção, instrução, treinamento, testagem).`,
+    `Padrão observado no acervo real (AC-02-2012-CESGRANRIO-22): reconhecer que o propósito das cartas de controle é indicar quando o processo mudou de forma a afetar a qualidade, não outras funções (clima, saúde, normas, causas).`,
+    `Padrão observado no acervo real (AC-02-2012-CESGRANRIO-23): identificar Kaizen como melhoria contínua/gradual, em contraposição à reengenharia (mudança radical).`,
+    `Padrão observado no acervo real (AC-02-2012-CESGRANRIO-24): diferenciar cartas de controle de variáveis (grandezas contínuas) de cartas de atributos (características discretas).`,
   ],
   howBoardMightAsk: [
-    `Ver padrão real: AC-02-2012-CESGRANRIO-21 — Amostragem estatística é a ferramenta de controle estatístico de qualidade (inspeção por amostragem), diferente das demais opções, que são ações de gestão de qu...`,
-    `Ver padrão real: AC-02-2012-CESGRANRIO-22 — As cartas de controle (controle estatístico de processo) servem para monitorar a estabilidade de um processo produtivo e sinalizar quando uma variação relevante...`,
-    `Ver padrão real: AC-02-2012-CESGRANRIO-23 — Kaizen é a filosofia japonesa de melhoria contínua e gradual dos processos, em contraposição a mudanças radicais (reengenharia). Mapeada em AC-02 (2.3 melhoria ...`,
-    `Ver padrão real: AC-02-2012-CESGRANRIO-24 — Cartas de controle de variáveis monitoram grandezas mensuráveis em escala contínua (ex.: peso, comprimento), enquanto cartas de atributos monitoram característi...`,
+    `Pede para diferenciar correção de ação corretiva a partir de uma situação de não conformidade descrita.`,
+    `Descreve o propósito de uma ferramenta de controle de qualidade/processo e pede seu nome técnico, com nomes de ferramentas vizinhas como distratores.`,
+    `Pede a sequência ou significado das etapas do PDCA.`,
+    `Contrasta Kaizen com reengenharia a partir da descrição do tipo de mudança (gradual x radical).`,
   ],
   legalReferences: [],
   reviewSummaryPoints: [
-    `SGI integra requisitos e processos comuns, evitando sistemas paralelos desconectados.`,
-    `Auditoria busca evidência objetiva e compara situação com critério; não é mera inspeção punitiva.`,
-    `Correção elimina a não conformidade detectada; ação corretiva elimina sua causa para evitar recorrência.`,
-    `Na lógica atual de riscos, prevenção é incorporada ao planejamento e aos controles.`,
-    `PDCA significa planejar, executar, verificar e agir para padronizar ou melhorar.`,
-    `Risco combina incerteza e efeito sobre objetivos; oportunidade também deve ser tratada.`,
-    `**Integração de qualidade, ambiente, saúde e segurança:** associe definição, finalidade, condição e contraste.`,
-    `**Processos, contexto, partes interessadas e requisitos:** associe definição, finalidade, condição e contraste.`,
-    `**Documentação e responsabilidades integradas:** associe definição, finalidade, condição e contraste.`,
-    `**Auditorias internas e evidências:** associe definição, finalidade, condição e contraste.`,
-    `**Não conformidade, correção e ação corretiva:** associe definição, finalidade, condição e contraste.`,
-    `**Melhoria contínua pelo ciclo PDCA:** associe definição, finalidade, condição e contraste.`,
+    `SGI integra qualidade, ambiente e SST sob uma única estrutura.`,
+    `Auditoria = evidência objetiva x critério, não punição.`,
+    `Correção = elimina o sintoma. Ação corretiva = elimina a causa.`,
+    `PDCA = Planejar, Executar, Verificar, Agir — ciclo contínuo.`,
+    `Amostragem = controle de qualidade. Cartas de controle = controle de processo (sinaliza mudança).`,
+    `Kaizen = gradual. Reengenharia = radical.`,
   ],
-  flashcards: [],
+  flashcards: [
+    { front: "Diferença entre correção e ação corretiva?", back: "Correção elimina a não conformidade já detectada (o sintoma). Ação corretiva elimina a causa, para evitar que se repita." },
+    { front: "O que significa cada letra do PDCA?", back: "Plan (Planejar), Do (Executar), Check (Verificar), Act (Agir) — ciclo repetido de melhoria contínua." },
+    { front: "Qual o propósito principal das cartas de controle?", back: "Sinalizar quando um processo mudou de forma a afetar a qualidade (detectar causa especial de variação)." },
+    { front: "Diferença entre Kaizen e reengenharia?", back: "Kaizen: melhoria contínua e gradual. Reengenharia: mudança radical e abrupta." },
+  ],
   miniQuiz: [
-      {
-        statement: `Qual dos elementos corresponde a um conceito estatístico de controle de qualidade?`,
-        options: [
-        { key: "A", text: `Amostragem`, isCorrect: true, explanation: `Amostragem estatística é a ferramenta de controle estatístico de qualidade (inspeção por amostragem), diferente das demais opções, que são ações de gestão de qualidade não estritamente estatísticas. Mapeada em AC-02 com confiança baixa: controle estatístico de qualidade (CEP) não é subtema nomeado explicitamente na matriz de Sistema de Gestão Integrado, que cita de forma genérica 'auditorias internas' e 'melhoria contínua'.` },
-        { key: "B", text: `Inspeção`, isCorrect: false, explanation: `Alternativa incorreta — compare com o gabarito e a justificativa da alternativa correta.` },
-        { key: "C", text: `Instrução`, isCorrect: false, explanation: `Alternativa incorreta — compare com o gabarito e a justificativa da alternativa correta.` },
-        { key: "D", text: `Treinamento`, isCorrect: false, explanation: `Alternativa incorreta — compare com o gabarito e a justificativa da alternativa correta.` },
-        { key: "E", text: `Testagem`, isCorrect: false, explanation: `Alternativa incorreta — compare com o gabarito e a justificativa da alternativa correta.` },
-        ],
-      },
-      {
-        statement: `O principal propósito das cartas de controle consiste em`,
-        options: [
-        { key: "A", text: `indicar quando um processo mudou de maneira a afetar a qualidade.`, isCorrect: true, explanation: `As cartas de controle (controle estatístico de processo) servem para monitorar a estabilidade de um processo produtivo e sinalizar quando uma variação relevante (causa especial) afeta a qualidade. Mapeada em AC-02 com confiança baixa: ferramenta específica de controle estatístico de processo, não citada nominalmente na matriz.` },
-        { key: "B", text: `indicar mudanças no clima organizacional.`, isCorrect: false, explanation: `Alternativa incorreta — compare com o gabarito e a justificativa da alternativa correta.` },
-        { key: "C", text: `indicar como o processo produtivo afeta a saúde dos trabalhadores.`, isCorrect: false, explanation: `Alternativa incorreta — compare com o gabarito e a justificativa da alternativa correta.` },
-        { key: "D", text: `desenvolver normas para a qualidade.`, isCorrect: false, explanation: `Alternativa incorreta — compare com o gabarito e a justificativa da alternativa correta.` },
-        { key: "E", text: `determinar as causas de um problema.`, isCorrect: false, explanation: `Alternativa incorreta — compare com o gabarito e a justificativa da alternativa correta.` },
-        ],
-      },
+    {
+      statement: `Qual dos elementos corresponde a um conceito estatístico de controle de qualidade?`,
+      options: [
+        { key: "A", text: `Amostragem`, isCorrect: true, explanation: `Correto: amostragem estatística é a ferramenta de controle estatístico de qualidade (inspeção por amostragem) — diferente das demais opções, que são ações de gestão de qualidade não estritamente estatísticas.` },
+        { key: "B", text: `Inspeção`, isCorrect: false, explanation: `Inspeção é um termo genérico de verificação de conformidade — não é, por si só, uma técnica estatística como a amostragem.` },
+        { key: "C", text: `Instrução`, isCorrect: false, explanation: `Instrução refere-se a orientações/procedimentos de trabalho — não é uma ferramenta estatística de controle de qualidade.` },
+        { key: "D", text: `Treinamento`, isCorrect: false, explanation: `Treinamento é uma ação de capacitação de pessoas — não é uma técnica estatística de controle de qualidade.` },
+        { key: "E", text: `Testagem`, isCorrect: false, explanation: `Testagem é um termo genérico de verificação — não corresponde especificamente a uma ferramenta estatística como a amostragem.` },
+      ],
+    },
+    {
+      statement: `O principal propósito das cartas de controle consiste em`,
+      options: [
+        { key: "A", text: `indicar quando um processo mudou de maneira a afetar a qualidade.`, isCorrect: true, explanation: `Correto: as cartas de controle (controle estatístico de processo) monitoram a estabilidade de um processo produtivo e sinalizam quando uma variação relevante (causa especial) afeta a qualidade.` },
+        { key: "B", text: `indicar mudanças no clima organizacional.`, isCorrect: false, explanation: `Clima organizacional é medido por pesquisas de clima/engajamento, não por cartas de controle, que são uma ferramenta estatística de processo produtivo.` },
+        { key: "C", text: `indicar como o processo produtivo afeta a saúde dos trabalhadores.`, isCorrect: false, explanation: `Esse é o escopo de gestão de saúde e segurança ocupacional (SST), não o propósito das cartas de controle, que monitoram variação estatística de processo.` },
+        { key: "D", text: `desenvolver normas para a qualidade.`, isCorrect: false, explanation: `Desenvolver normas é atividade de normatização/padronização — as cartas de controle monitoram um processo já existente, não criam normas.` },
+        { key: "E", text: `determinar as causas de um problema.`, isCorrect: false, explanation: `As cartas de controle SINALIZAM que houve uma mudança relevante no processo — encontrar a causa raiz é uma etapa posterior e distinta (ex.: usando diagrama de Ishikawa), não o propósito da carta em si.` },
+      ],
+    },
   ],
 };
