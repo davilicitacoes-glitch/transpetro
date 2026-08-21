@@ -6,201 +6,165 @@ export const AC_05_GESTAO_INDICADORES: LessonContent = {
   subjectSlug: "especificas",
   moduleSlug: "especificas-processos-legislacao",
   title: `Gestão de Indicadores`,
-  learningObjective: `Este material cobre o conteúdo oficial de **Gestão de indicadores** com foco na prova objetiva da Cesgranrio. O tema deve ser estudado em três camadas: vocabulário técnico, relações entre os conceitos e aplicação em situações-problema. Questões da banca frequentemente exigem inferência controlada, comparação de alternativas próximas e atenção a exceções; por isso, a preparação deve combinar teoria, exemplos e revisão dos erros.`,
+  learningObjective: `Diferenciar eficiência, eficácia e efetividade, entender a estrutura completa de um KPI, distinguir ambiente externo (fora do controle da empresa) de decisões internas, aplicar a matriz importância x urgência (Eisenhower) para priorização, e reconhecer os limites de metas mal desenhadas — a Cesgranrio gosta de dar um cenário de priorização ou classificação de variáveis (interna x externa) e pedir a decisão tecnicamente correta.`,
   syllabusCodes: ["AC-05"],
   estimatedMinutes: 40,
   expectedMastery: "intermediario",
-  bodyMdx: `# AC-05 — Gestão de indicadores
+  bodyMdx: `# AC-05 — Gestão de Indicadores
 
-## Visão geral
+## 1. Dado, métrica, indicador e meta — a cadeia de valor da informação
 
-Este material cobre o conteúdo oficial de **Gestão de indicadores** com foco na prova objetiva da Cesgranrio. O tema deve ser estudado em três camadas: vocabulário técnico, relações entre os conceitos e aplicação em situações-problema. Questões da banca frequentemente exigem inferência controlada, comparação de alternativas próximas e atenção a exceções; por isso, a preparação deve combinar teoria, exemplos e revisão dos erros.
+- **Dado**: registro bruto, sem interpretação (ex.: "150 atendimentos hoje").
+- **Métrica**: dado organizado de forma quantificável (ex.: "número de atendimentos por dia").
+- **Indicador**: métrica associada a um **significado gerencial**, usada para acompanhar desempenho em relação a um objetivo (ex.: "tempo médio de atendimento").
+- **Meta**: o **valor-alvo** que o indicador deve atingir num prazo definido (ex.: "reduzir o tempo médio de atendimento para 5 minutos até dezembro").
 
-## Núcleo conceitual e regras operacionais
+## 2. Eficiência, eficácia e efetividade — a distinção mais cobrada
 
-1. Eficiência relaciona recursos e produtos; eficácia compara resultado com meta; efetividade observa impacto.
-2. KPI precisa de definição, fórmula, unidade, fonte, responsável, frequência e meta.
-3. Indicador atrasado mostra resultado; indicador antecedente sinaliza condições que conduzem ao resultado.
-4. Meta sem contexto pode induzir comportamento disfuncional e otimização local.
-5. ESG reúne dimensões ambiental, social e de governança; uma métrica isolada não representa todo o desempenho.
-6. Decisão exige tendência, comparação, causa e qualidade do dado, não apenas um número pontual.
+- **Eficiência**: relação entre **recursos usados e produtos gerados** — fazer mais com menos, ou o mesmo com menos recursos ("fazer certo as coisas").
+- **Eficácia**: compara o **resultado obtido com a meta estabelecida** — atingir o objetivo, independente do quanto se gastou para chegar lá ("fazer as coisas certas").
+- **Efetividade**: observa o **impacto real** gerado na sociedade/no público-alvo, além do simples cumprimento da meta — é possível ser eficaz (bater a meta) sem ser efetivo (gerar o impacto desejado de fato).
 
-### 1. Diferença entre dado, métrica, indicador e meta
+**Regra de decoreba**: eficiência = recursos x produto; eficácia = resultado x meta; efetividade = impacto real na ponta.
 
-Diferença entre dado, métrica, indicador e meta integra o núcleo de **Gestão de indicadores**. Para a prova, não basta reconhecer o termo: é preciso distinguir conceito, finalidade, condições de aplicação e efeitos. A leitura correta começa pela pergunta “qual problema este conceito resolve?” e continua com “em que situação ele não se aplica?”. Essa dupla verificação evita respostas baseadas apenas em palavras familiares.
+## 3. Estrutura completa de um KPI
 
-Na prática administrativa ou linguística, identifique o contexto, os elementos envolvidos, o critério aplicável e a consequência antes de escolher a alternativa. A Cesgranrio costuma apresentar uma situação concreta e trocar um requisito, uma relação lógica ou a ordem de uma etapa. Por isso, compare cada alternativa com todos os dados do caso, não apenas com a primeira expressão que parece correta. Um bom resumo operacional é: definir, relacionar, aplicar e conferir.
+Um **KPI** (Key Performance Indicator) bem construído precisa ter, no mínimo: **definição** clara do que mede, **fórmula** de cálculo, **unidade** de medida, **fonte** dos dados, **responsável** pela apuração, **frequência** de medição e **meta** associada. Um número sem essa estrutura completa não é um KPI confiável — é só um dado solto, sujeito a interpretação ambígua.
 
-### 2. Indicadores de eficiência, eficácia e efetividade
+## 4. Indicadores atrasados x antecedentes (lagging x leading)
 
-Indicadores de eficiência, eficácia e efetividade integra o núcleo de **Gestão de indicadores**. Para a prova, não basta reconhecer o termo: é preciso distinguir conceito, finalidade, condições de aplicação e efeitos. A leitura correta começa pela pergunta “qual problema este conceito resolve?” e continua com “em que situação ele não se aplica?”. Essa dupla verificação evita respostas baseadas apenas em palavras familiares.
+- **Indicador atrasado (lagging)**: mostra o **resultado** já ocorrido (ex.: faturamento do mês passado) — útil para avaliar o que já aconteceu, mas tarde para agir sobre ele.
+- **Indicador antecedente (leading)**: sinaliza **condições que conduzem** ao resultado futuro (ex.: número de propostas em andamento) — permite agir **antes** que o resultado final se concretize.
 
-Na prática administrativa ou linguística, identifique o contexto, os elementos envolvidos, o critério aplicável e a consequência antes de escolher a alternativa. A Cesgranrio costuma apresentar uma situação concreta e trocar um requisito, uma relação lógica ou a ordem de uma etapa. Por isso, compare cada alternativa com todos os dados do caso, não apenas com a primeira expressão que parece correta. Um bom resumo operacional é: definir, relacionar, aplicar e conferir.
+Um bom painel de gestão combina os dois tipos: atrasados para confirmar desempenho, antecedentes para antecipar tendências.
 
-### 3. Construção de KPI com fórmula, fonte e periodicidade
+## 5. Metas mal desenhadas: risco de comportamento disfuncional
 
-Construção de KPI com fórmula, fonte e periodicidade integra o núcleo de **Gestão de indicadores**. Para a prova, não basta reconhecer o termo: é preciso distinguir conceito, finalidade, condições de aplicação e efeitos. A leitura correta começa pela pergunta “qual problema este conceito resolve?” e continua com “em que situação ele não se aplica?”. Essa dupla verificação evita respostas baseadas apenas em palavras familiares.
+Uma **meta sem contexto** (isolada, sem olhar o sistema completo) pode induzir **comportamento disfuncional** e **otimização local** — as pessoas otimizam exatamente o que é medido, mesmo que isso prejudique o resultado global (ex.: meta de "reduzir custo de manutenção" pode levar a adiar manutenções necessárias, aumentando falhas depois). Por isso, metas devem ser acompanhadas de indicadores complementares que evitem esse efeito colateral.
 
-Na prática administrativa ou linguística, identifique o contexto, os elementos envolvidos, o critério aplicável e a consequência antes de escolher a alternativa. A Cesgranrio costuma apresentar uma situação concreta e trocar um requisito, uma relação lógica ou a ordem de uma etapa. Por isso, compare cada alternativa com todos os dados do caso, não apenas com a primeira expressão que parece correta. Um bom resumo operacional é: definir, relacionar, aplicar e conferir.
+## 6. ESG e indicadores de sustentabilidade
 
-### 4. Painéis e acompanhamento de tendências
+**ESG** (Environmental, Social, Governance) reúne três dimensões — **ambiental**, **social** e de **governança** — e nenhuma métrica isolada representa todo o desempenho ESG de uma organização; é preciso olhar as três dimensões em conjunto. O **alinhamento estratégico** a estruturas ESG/ODS (Objetivos de Desenvolvimento Sustentável) implica **incorporar riscos socioambientais na gestão estratégica** dos negócios, não tratá-los como um item isolado de relações públicas.
 
-Painéis e acompanhamento de tendências integra o núcleo de **Gestão de indicadores**. Para a prova, não basta reconhecer o termo: é preciso distinguir conceito, finalidade, condições de aplicação e efeitos. A leitura correta começa pela pergunta “qual problema este conceito resolve?” e continua com “em que situação ele não se aplica?”. Essa dupla verificação evita respostas baseadas apenas em palavras familiares.
+## 7. Análise do ambiente: externo x interno
 
-Na prática administrativa ou linguística, identifique o contexto, os elementos envolvidos, o critério aplicável e a consequência antes de escolher a alternativa. A Cesgranrio costuma apresentar uma situação concreta e trocar um requisito, uma relação lógica ou a ordem de uma etapa. Por isso, compare cada alternativa com todos os dados do caso, não apenas com a primeira expressão que parece correta. Um bom resumo operacional é: definir, relacionar, aplicar e conferir.
+Ao analisar o ambiente para decisões estratégicas, é essencial diferenciar:
 
-### 5. Análise de causa e decisão baseada em evidências
+- **Ambiente externo**: variáveis **fora do controle** da empresa — por exemplo, **alterações na taxa de juros e inflação** (variáveis macroeconômicas). A empresa não controla a taxa Selic, mas precisa se adaptar a ela.
+- **Ambiente interno**: decisões e controles que a empresa **de fato controla** — contratação de pesquisa de mercado, desenvolvimento de sistema ERP, dimensionamento de equipe, monitoramento de fornecedores.
 
-Análise de causa e decisão baseada em evidências integra o núcleo de **Gestão de indicadores**. Para a prova, não basta reconhecer o termo: é preciso distinguir conceito, finalidade, condições de aplicação e efeitos. A leitura correta começa pela pergunta “qual problema este conceito resolve?” e continua com “em que situação ele não se aplica?”. Essa dupla verificação evita respostas baseadas apenas em palavras familiares.
+**Pegadinha clássica**: listar itens de controle interno (pesquisa de mercado, ERP, equipe de vendas) como distratores de uma pergunta sobre ambiente externo — a resposta correta é sempre a variável macroeconômica que a empresa não controla.
 
-Na prática administrativa ou linguística, identifique o contexto, os elementos envolvidos, o critério aplicável e a consequência antes de escolher a alternativa. A Cesgranrio costuma apresentar uma situação concreta e trocar um requisito, uma relação lógica ou a ordem de uma etapa. Por isso, compare cada alternativa com todos os dados do caso, não apenas com a primeira expressão que parece correta. Um bom resumo operacional é: definir, relacionar, aplicar e conferir.
+## 8. Matriz importância x urgência (matriz de Eisenhower)
 
-### 6. Indicadores ambientais, sociais e de governança
+Ferramenta de priorização de ações que classifica cada item em dois eixos: **importância** (impacto estratégico) e **urgência** (prazo apertado). A prioridade número um é sempre a ação com **maior importância E maior urgência simultaneamente** — não basta ser só importante (pode esperar) nem só urgente (pode ser trivial); a combinação dos dois é que define o topo da fila.
 
-Indicadores ambientais, sociais e de governança integra o núcleo de **Gestão de indicadores**. Para a prova, não basta reconhecer o termo: é preciso distinguir conceito, finalidade, condições de aplicação e efeitos. A leitura correta começa pela pergunta “qual problema este conceito resolve?” e continua com “em que situação ele não se aplica?”. Essa dupla verificação evita respostas baseadas apenas em palavras familiares.
+## 9. Boas práticas de análise de dados para decisão
 
-Na prática administrativa ou linguística, identifique o contexto, os elementos envolvidos, o critério aplicável e a consequência antes de escolher a alternativa. A Cesgranrio costuma apresentar uma situação concreta e trocar um requisito, uma relação lógica ou a ordem de uma etapa. Por isso, compare cada alternativa com todos os dados do caso, não apenas com a primeira expressão que parece correta. Um bom resumo operacional é: definir, relacionar, aplicar e conferir.
-
-### 7. Limites, vieses e efeitos de metas mal desenhadas
-
-Limites, vieses e efeitos de metas mal desenhadas integra o núcleo de **Gestão de indicadores**. Para a prova, não basta reconhecer o termo: é preciso distinguir conceito, finalidade, condições de aplicação e efeitos. A leitura correta começa pela pergunta “qual problema este conceito resolve?” e continua com “em que situação ele não se aplica?”. Essa dupla verificação evita respostas baseadas apenas em palavras familiares.
-
-Na prática administrativa ou linguística, identifique o contexto, os elementos envolvidos, o critério aplicável e a consequência antes de escolher a alternativa. A Cesgranrio costuma apresentar uma situação concreta e trocar um requisito, uma relação lógica ou a ordem de uma etapa. Por isso, compare cada alternativa com todos os dados do caso, não apenas com a primeira expressão que parece correta. Um bom resumo operacional é: definir, relacionar, aplicar e conferir.
-
-## Método de resolução
-
-1. Classifique o comando: definição, cálculo, aplicação, exceção ou interpretação.
-2. Sublinhe restrições, negações, unidades, prazos e qualificadores como “sempre”, “apenas” e “necessariamente”.
-3. Recupere a regra central antes de olhar as alternativas.
-4. Elimine opções que misturam conceitos verdadeiros em relação errada.
-5. Teste a resposta no caso concreto e faça uma conferência final.
+Decisões bem fundamentadas exigem olhar **tendência** (não um número isolado), **comparação** (contra meta, período anterior ou benchmark), **causa** (por que o número está assim) e **qualidade do dado** (fonte confiável, sem viés). O uso de **gráficos de dispersão** para explorar a relação entre variáveis quantitativas é um exemplo de boa prática analítica — permite visualizar correlações antes de tirar conclusões precipitadas de um único indicador.
 
 ## Síntese
 
-O domínio de Gestão de indicadores resulta da conexão entre diferença entre dado, métrica, indicador e meta, indicadores de eficiência, eficácia e efetividade, construção de KPI com fórmula, fonte e periodicidade e os demais pontos do edital. Revise o mapa mental, explique cada ramo com suas próprias palavras e resolva questões reais. Se uma regra parecer absoluta, procure condições, limites e exceções: é nesse deslocamento que se concentram muitas pegadinhas.
+O AC-05 combina a estrutura técnica de indicadores (dado/métrica/indicador/meta, KPI completo, atrasado x antecedente) com ferramentas de priorização e decisão (matriz de Eisenhower, ambiente externo x interno, ESG). A pegadinha mais recorrente é confundir controle interno com variável de ambiente externo, ou tratar um número isolado como suficiente para decisão.
 
 ## Mapa mental
 
-# AC-05 — Mapa mental
-
 \`\`\`mermaid
 mindmap
-  root((Gestão de indicadores))
-    diferença entre dado, métrica, indicador e meta
-      Conceito e finalidade
-      Condições de aplicação
-      Exemplo de prova
-      Contraste e exceção
-    indicadores de eficiência, eficácia e efetividade
-      Conceito e finalidade
-      Condições de aplicação
-      Exemplo de prova
-      Contraste e exceção
-    construção de KPI com fórmula, fonte e periodicidade
-      Conceito e finalidade
-      Condições de aplicação
-      Exemplo de prova
-      Contraste e exceção
-    painéis e acompanhamento de tendências
-      Conceito e finalidade
-      Condições de aplicação
-      Exemplo de prova
-      Contraste e exceção
-    análise de causa e decisão baseada em evidências
-      Conceito e finalidade
-      Condições de aplicação
-      Exemplo de prova
-      Contraste e exceção
-    indicadores ambientais, sociais e de governança
-      Conceito e finalidade
-      Condições de aplicação
-      Exemplo de prova
-      Contraste e exceção
-    limites, vieses e efeitos de metas mal desenhadas
-      Conceito e finalidade
-      Condições de aplicação
-      Exemplo de prova
-      Contraste e exceção
-    Estratégia Cesgranrio
-      Ler o comando
-      Eliminar extrapolações
-      Conferir o caso
+  root((Gestão de Indicadores — AC-05))
+    Cadeia de valor
+      Dado -> Metrica -> Indicador -> Meta
+    Eficiencia x Eficacia x Efetividade
+      Eficiencia: recursos x produto
+      Eficacia: resultado x meta
+      Efetividade: impacto real
+    KPI completo
+      Definicao, formula, unidade, fonte, responsavel, frequencia, meta
+    Atrasado x Antecedente
+      Lagging: mostra resultado
+      Leading: sinaliza tendencia
+    Metas mal desenhadas
+      Risco de otimizacao local
+    ESG
+      Ambiental, Social, Governanca
+    Ambiente
+      Externo: fora do controle (juros, inflacao)
+      Interno: controle da empresa (ERP, equipe)
+    Priorizacao
+      Matriz Eisenhower: importancia x urgencia
 \`\`\``,
   mustMemorize: [
-    `Eficiência relaciona recursos e produtos; eficácia compara resultado com meta; efetividade observa impacto.`,
-    `KPI precisa de definição, fórmula, unidade, fonte, responsável, frequência e meta.`,
-    `Indicador atrasado mostra resultado; indicador antecedente sinaliza condições que conduzem ao resultado.`,
-    `Meta sem contexto pode induzir comportamento disfuncional e otimização local.`,
-    `ESG reúne dimensões ambiental, social e de governança; uma métrica isolada não representa todo o desempenho.`,
-    `Decisão exige tendência, comparação, causa e qualidade do dado, não apenas um número pontual.`,
-    `**Diferença entre dado, métrica, indicador e meta:** associe definição, finalidade, condição e contraste.`,
-    `**Indicadores de eficiência, eficácia e efetividade:** associe definição, finalidade, condição e contraste.`,
-    `**Construção de KPI com fórmula, fonte e periodicidade:** associe definição, finalidade, condição e contraste.`,
-    `**Painéis e acompanhamento de tendências:** associe definição, finalidade, condição e contraste.`,
-    `**Análise de causa e decisão baseada em evidências:** associe definição, finalidade, condição e contraste.`,
-    `**Indicadores ambientais, sociais e de governança:** associe definição, finalidade, condição e contraste.`,
+    `Eficiência = recursos x produtos. Eficácia = resultado x meta. Efetividade = impacto real gerado.`,
+    `KPI completo precisa de: definição, fórmula, unidade, fonte, responsável, frequência e meta.`,
+    `Indicador atrasado (lagging) mostra resultado já ocorrido; antecedente (leading) sinaliza tendência futura.`,
+    `Meta sem contexto pode induzir comportamento disfuncional (otimização local que prejudica o todo).`,
+    `ESG = Ambiental + Social + Governança. Nenhuma métrica isolada representa o desempenho ESG completo.`,
+    `Ambiente EXTERNO = variáveis fora do controle da empresa (juros, inflação). Ambiente INTERNO = controles próprios (ERP, equipe, fornecedores).`,
+    `Matriz de Eisenhower: prioridade nº1 = maior importância E maior urgência simultaneamente.`,
   ],
   workedExamples: [
-    `Na matriz importância x urgência (matriz de Eisenhower), a ação de maior importância E maior urgência ('cumprir o prazo de um contrato grande') deve ser a prioridade número um. A matriz do edital 2026 não cita explicitamente ferramentas de priorização como a matriz de Eisenhower; mapeada por proximidade a AC-05 (Gestão de Indicadores — análise de indicadores para tomada de decisão), com confiança média, por tratar-se de instrumento de apoio à decisão gerencial. **Lição de prova:** identifique exatamente qual dado sustenta o gabarito e por que as demais opções extrapolam, invertem ou misturam conceitos.`,
-    `Alterações na taxa de juros e inflação são variáveis macroeconômicas do ambiente externo (fora do controle da empresa), diferentemente das demais alternativas, que são decisões/controles internos. A matriz do edital 2026 não prevê um código específico para 'planejamento estratégico e análise de ambiente'; mapeada por proximidade a AC-05 (Gestão de Indicadores — análise de indicadores para tomada de decisão), com confiança baixa, por ausência de código mais específico. **Lição de prova:** identifique exatamente qual dado sustenta o gabarito e por que as demais opções extrapolam, invertem ou misturam conceitos.`,
-    `O alinhamento estratégico a estruturas ESG/ODS implica incorporar riscos socioambientais na gestão estratégica dos negócios. Mapeada em AC-05 (5.3 indicadores de desempenho ESG), com confiança média por tratar do alinhamento estratégico ESG de forma mais ampla do que um indicador específico. **Lição de prova:** identifique exatamente qual dado sustenta o gabarito e por que as demais opções extrapolam, invertem ou misturam conceitos.`,
-    `O uso de gráficos de dispersão para explorar a relação entre variáveis quantitativas é uma boa prática de análise de dados voltada à tomada de decisão estratégica, ao contrário das demais alternativas, que descrevem vieses ou más práticas de análise. Núcleo do código AC-05 (5.2 análise de indicadores para tomada de decisão). **Lição de prova:** identifique exatamente qual dado sustenta o gabarito e por que as demais opções extrapolam, invertem ou misturam conceitos.`,
+    `Na matriz importância x urgência (matriz de Eisenhower), a ação de maior importância E maior urgência ("cumprir o prazo de um contrato grande") deve ser a prioridade número um — não basta ser só importante ou só urgente isoladamente.`,
+    `Alterações na taxa de juros e inflação são variáveis macroeconômicas do ambiente EXTERNO (fora do controle da empresa) — diferente de contratação de pesquisa de mercado, ERP, dimensionamento de equipe ou monitoramento de fornecedores, que são controles internos.`,
+    `O alinhamento estratégico a estruturas ESG/ODS implica incorporar riscos socioambientais na gestão estratégica dos negócios, não tratá-los isoladamente.`,
+    `O uso de gráficos de dispersão para explorar a relação entre variáveis quantitativas é uma boa prática de análise de dados para decisão estratégica.`,
   ],
   commonMistakes: [
-    `Reconhecer palavra-chave e ignorar o contexto: **Por que engana:** a alternativa repete termos do enunciado, mas altera a relação entre eles. **Correto:** valide definição, condição e consequência no caso completo.`,
-    `Transformar regra condicionada em regra absoluta: **Por que engana:** expressões como “sempre”, “nunca” e “somente” parecem categóricas. **Correto:** procure exceções e requisitos antes de aceitar a afirmação.`,
-    `Confundir conceitos vizinhos: **Por que engana:** diferença entre dado, métrica, indicador e meta e indicadores de eficiência, eficácia e efetividade pertencem ao mesmo tema, mas não são sinônimos. **Correto:** compare finalidade, objeto e modo de aplicação.`,
-    `Padrão observado no acervo real (AC-05-2013-CESGRANRIO-49): Na matriz importância x urgência (matriz de Eisenhower), a ação de maior importância E maior urgência ('cumprir o prazo de um contrato grande') deve ser a prioridade número um. A matriz do edital 2026 não cita explicitamente ferramentas de priorização como a matriz de Eisenhower; mapeada por proximidade a AC-05 (Gestão de Indicadores — análise de indicadores para tomada de decisão), com confiança média, por tratar-se de instrumento de apoio à decisão gerencial. **Lição de prova:** identifique exatamente qual dado sustenta o gabarito e por que as demais opções extrapolam, invertem ou misturam conceitos.`,
-    `Padrão observado no acervo real (AC-05-2013-CESGRANRIO-50): Alterações na taxa de juros e inflação são variáveis macroeconômicas do ambiente externo (fora do controle da empresa), diferentemente das demais alternativas, que são decisões/controles internos. A matriz do edital 2026 não prevê um código específico para 'planejamento estratégico e análise de ambiente'; mapeada por proximidade a AC-05 (Gestão de Indicadores — análise de indicadores para tomada de decisão), com confiança baixa, por ausência de código mais específico. **Lição de prova:** identifique exatamente qual dado sustenta o gabarito e por que as demais opções extrapolam, invertem ou misturam conceitos.`,
-    `Padrão observado no acervo real (AC-05-2025-CESGRANRIO-75): O alinhamento estratégico a estruturas ESG/ODS implica incorporar riscos socioambientais na gestão estratégica dos negócios. Mapeada em AC-05 (5.3 indicadores de desempenho ESG), com confiança média por tratar do alinhamento estratégico ESG de forma mais ampla do que um indicador específico. **Lição de prova:** identifique exatamente qual dado sustenta o gabarito e por que as demais opções extrapolam, invertem ou misturam conceitos.`,
-    `Padrão observado no acervo real (AC-05-2025-CESGRANRIO-26): O uso de gráficos de dispersão para explorar a relação entre variáveis quantitativas é uma boa prática de análise de dados voltada à tomada de decisão estratégica, ao contrário das demais alternativas, que descrevem vieses ou más práticas de análise. Núcleo do código AC-05 (5.2 análise de indicadores para tomada de decisão). **Lição de prova:** identifique exatamente qual dado sustenta o gabarito e por que as demais opções extrapolam, invertem ou misturam conceitos.`,
+    `Confundir eficiência (recursos x produto) com eficácia (resultado x meta) — são medidas de coisas diferentes; uma empresa pode ser eficaz (bateu a meta) sem ser eficiente (gastou recursos demais para isso).`,
+    `Tratar um número isolado como KPI completo — sem fórmula, fonte, responsável e frequência definidos, não há como confiar ou auditar o indicador.`,
+    `Confundir indicador antecedente (sinaliza tendência futura) com atrasado (mostra resultado já ocorrido) — são complementares, não substitutos um do outro.`,
+    `Achar que uma meta isolada, sem indicadores complementares, é sempre segura — metas mal desenhadas induzem otimização local que prejudica o resultado global.`,
+    `Classificar variáveis de controle interno (ERP, equipe, pesquisa de mercado) como ambiente externo — o ambiente externo é especificamente o que a empresa NÃO controla (juros, inflação, câmbio).`,
+    `Na matriz de Eisenhower, escolher uma ação só importante ou só urgente como prioridade máxima — a prioridade nº1 exige as duas dimensões simultaneamente altas.`,
+    `Padrão observado no acervo real (AC-05-2013-CESGRANRIO-49): identificar a ação de maior importância E urgência simultânea como prioridade número um na matriz de Eisenhower.`,
+    `Padrão observado no acervo real (AC-05-2013-CESGRANRIO-50): reconhecer taxa de juros/inflação como variáveis de ambiente externo, descartando itens de controle interno como distratores.`,
+    `Padrão observado no acervo real (AC-05-2025-CESGRANRIO-75): identificar o alinhamento ESG/ODS como incorporação de riscos socioambientais à gestão estratégica.`,
+    `Padrão observado no acervo real (AC-05-2025-CESGRANRIO-26): reconhecer gráficos de dispersão como boa prática de análise de dados para decisão.`,
   ],
   howBoardMightAsk: [
-    `Ver padrão real: AC-05-2013-CESGRANRIO-49 — Na matriz importância x urgência (matriz de Eisenhower), a ação de maior importância E maior urgência ('cumprir o prazo de um contrato grande') deve ser a prior...`,
-    `Ver padrão real: AC-05-2013-CESGRANRIO-50 — Alterações na taxa de juros e inflação são variáveis macroeconômicas do ambiente externo (fora do controle da empresa), diferentemente das demais alternativas, ...`,
-    `Ver padrão real: AC-05-2025-CESGRANRIO-75 — O alinhamento estratégico a estruturas ESG/ODS implica incorporar riscos socioambientais na gestão estratégica dos negócios. Mapeada em AC-05 (5.3 indicadores d...`,
-    `Ver padrão real: AC-05-2025-CESGRANRIO-26 — O uso de gráficos de dispersão para explorar a relação entre variáveis quantitativas é uma boa prática de análise de dados voltada à tomada de decisão estratégi...`,
+    `Dá uma lista de ações com importância/urgência classificadas e pede a prioridade número um pela matriz de Eisenhower.`,
+    `Dá uma lista de itens e pede para identificar qual pertence ao ambiente externo (fora de controle) versus interno.`,
+    `Pede para diferenciar eficiência, eficácia e efetividade a partir de uma situação concreta.`,
+    `Descreve os componentes de um KPI e pede o que está faltando para torná-lo completo/confiável.`,
   ],
   legalReferences: [],
   reviewSummaryPoints: [
-    `Eficiência relaciona recursos e produtos; eficácia compara resultado com meta; efetividade observa impacto.`,
-    `KPI precisa de definição, fórmula, unidade, fonte, responsável, frequência e meta.`,
-    `Indicador atrasado mostra resultado; indicador antecedente sinaliza condições que conduzem ao resultado.`,
-    `Meta sem contexto pode induzir comportamento disfuncional e otimização local.`,
-    `ESG reúne dimensões ambiental, social e de governança; uma métrica isolada não representa todo o desempenho.`,
-    `Decisão exige tendência, comparação, causa e qualidade do dado, não apenas um número pontual.`,
-    `**Diferença entre dado, métrica, indicador e meta:** associe definição, finalidade, condição e contraste.`,
-    `**Indicadores de eficiência, eficácia e efetividade:** associe definição, finalidade, condição e contraste.`,
-    `**Construção de KPI com fórmula, fonte e periodicidade:** associe definição, finalidade, condição e contraste.`,
-    `**Painéis e acompanhamento de tendências:** associe definição, finalidade, condição e contraste.`,
-    `**Análise de causa e decisão baseada em evidências:** associe definição, finalidade, condição e contraste.`,
-    `**Indicadores ambientais, sociais e de governança:** associe definição, finalidade, condição e contraste.`,
+    `Eficiência = recursos/produto. Eficácia = resultado/meta. Efetividade = impacto real.`,
+    `KPI completo: definição, fórmula, unidade, fonte, responsável, frequência, meta.`,
+    `Lagging = resultado passado. Leading = sinaliza tendência futura.`,
+    `Meta isolada pode gerar otimização local disfuncional.`,
+    `Ambiente externo = fora de controle (juros, inflação). Interno = controle da empresa.`,
+    `Eisenhower: prioridade nº1 = importância E urgência altas juntas.`,
   ],
-  flashcards: [],
+  flashcards: [
+    { front: "Diferença entre eficiência, eficácia e efetividade?", back: "Eficiência: recursos x produto. Eficácia: resultado x meta. Efetividade: impacto real gerado." },
+    { front: "O que um KPI precisa ter para ser confiável?", back: "Definição, fórmula, unidade, fonte, responsável, frequência e meta — não só um número isolado." },
+    { front: "Diferença entre indicador atrasado e antecedente?", back: "Atrasado (lagging) mostra resultado já ocorrido. Antecedente (leading) sinaliza condições que levam a um resultado futuro." },
+    { front: "Na matriz de Eisenhower, qual ação é prioridade número um?", back: "A que tem maior importância E maior urgência simultaneamente — não basta ter só uma das duas." },
+  ],
   miniQuiz: [
-      {
-        statement: `A direção de uma empresa de serviços de vigilância, considerando uma série de ações a serem executadas no próximo mês, preparou uma matriz que distribui as ações por importância e urgência de forma a identificar prioridades: 'Renovar o seguro da frota de automóveis' (importância grande, urgência pouca), 'Cumprir o prazo de um contrato grande' (importância grande, urgência muita), 'Reformar a recepção do escritório' (importância pequena, urgência pouca), 'Trocar a cor dos uniformes' (importância pequena, urgência pouca), 'Aprimorar o treinamento dos supervisores' (importância pequena, urgência muita).
+    {
+      statement: `A direção de uma empresa de serviços de vigilância, considerando uma série de ações a serem executadas no próximo mês, preparou uma matriz que distribui as ações por importância e urgência de forma a identificar prioridades: "Renovar o seguro da frota de automóveis" (importância grande, urgência pouca), "Cumprir o prazo de um contrato grande" (importância grande, urgência muita), "Reformar a recepção do escritório" (importância pequena, urgência pouca), "Trocar a cor dos uniformes" (importância pequena, urgência pouca), "Aprimorar o treinamento dos supervisores" (importância pequena, urgência muita).
 
 A partir da matriz apresentada, qual ação deve ser a prioridade número um?`,
-        options: [
-        { key: "A", text: `Aprimorar o treinamento dos supervisores.`, isCorrect: false, explanation: `Alternativa incorreta — compare com o gabarito e a justificativa da alternativa correta.` },
-        { key: "B", text: `Cumprir o prazo de um contrato grande.`, isCorrect: true, explanation: `Na matriz importância x urgência (matriz de Eisenhower), a ação de maior importância E maior urgência ('cumprir o prazo de um contrato grande') deve ser a prioridade número um. A matriz do edital 2026 não cita explicitamente ferramentas de priorização como a matriz de Eisenhower; mapeada por proximidade a AC-05 (Gestão de Indicadores — análise de indicadores para tomada de decisão), com confiança média, por tratar-se de instrumento de apoio à decisão gerencial.` },
-        { key: "C", text: `Reformar a recepção do escritório.`, isCorrect: false, explanation: `Alternativa incorreta — compare com o gabarito e a justificativa da alternativa correta.` },
-        { key: "D", text: `Renovar o seguro da frota de automóveis.`, isCorrect: false, explanation: `Alternativa incorreta — compare com o gabarito e a justificativa da alternativa correta.` },
-        { key: "E", text: `Trocar a cor dos uniformes.`, isCorrect: false, explanation: `Alternativa incorreta — compare com o gabarito e a justificativa da alternativa correta.` },
-        ],
-      },
-      {
-        statement: `Uma empresa de serviços de limpeza está realizando um planejamento estratégico e encontra-se na fase de análise do ambiente externo.
+      options: [
+        { key: "A", text: `Aprimorar o treinamento dos supervisores.`, isCorrect: false, explanation: `Tem urgência muita, mas importância PEQUENA — a matriz de Eisenhower exige as duas dimensões altas para ser a prioridade máxima.` },
+        { key: "B", text: `Cumprir o prazo de um contrato grande.`, isCorrect: true, explanation: `Correto: é a única ação com importância GRANDE e urgência MUITA simultaneamente — combinação que define a prioridade número um na matriz de Eisenhower.` },
+        { key: "C", text: `Reformar a recepção do escritório.`, isCorrect: false, explanation: `Importância pequena e urgência pouca — a ação de menor prioridade entre as listadas, não a de maior.` },
+        { key: "D", text: `Renovar o seguro da frota de automóveis.`, isCorrect: false, explanation: `Tem importância grande, mas urgência POUCA — pode ser planejada com antecedência, não é a prioridade imediata.` },
+        { key: "E", text: `Trocar a cor dos uniformes.`, isCorrect: false, explanation: `Importância pequena e urgência pouca — não há justificativa para tratá-la como prioridade máxima.` },
+      ],
+    },
+    {
+      statement: `Uma empresa de serviços de limpeza está realizando um planejamento estratégico e encontra-se na fase de análise do ambiente externo.
 
 Qual dimensão deve ser considerada na análise do ambiente externo?`,
-        options: [
-        { key: "A", text: `Alteração na taxa de juros e inflação`, isCorrect: true, explanation: `Alterações na taxa de juros e inflação são variáveis macroeconômicas do ambiente externo (fora do controle da empresa), diferentemente das demais alternativas, que são decisões/controles internos. A matriz do edital 2026 não prevê um código específico para 'planejamento estratégico e análise de ambiente'; mapeada por proximidade a AC-05 (Gestão de Indicadores — análise de indicadores para tomada de decisão), com confiança baixa, por ausência de código mais específico.` },
-        { key: "B", text: `Contratação de pesquisa de mercado`, isCorrect: false, explanation: `Alternativa incorreta — compare com o gabarito e a justificativa da alternativa correta.` },
-        { key: "C", text: `Desenvolvimento de sistema ERP`, isCorrect: false, explanation: `Alternativa incorreta — compare com o gabarito e a justificativa da alternativa correta.` },
-        { key: "D", text: `Dimensionamento da equipe de vendas`, isCorrect: false, explanation: `Alternativa incorreta — compare com o gabarito e a justificativa da alternativa correta.` },
-        { key: "E", text: `Monitoramento do desempenho de fornecedores`, isCorrect: false, explanation: `Alternativa incorreta — compare com o gabarito e a justificativa da alternativa correta.` },
-        ],
-      },
+      options: [
+        { key: "A", text: `Alteração na taxa de juros e inflação`, isCorrect: true, explanation: `Correto: taxa de juros e inflação são variáveis macroeconômicas do ambiente EXTERNO — a empresa não as controla, mas precisa se adaptar a elas no planejamento estratégico.` },
+        { key: "B", text: `Contratação de pesquisa de mercado`, isCorrect: false, explanation: `É uma decisão que a própria empresa toma e controla — pertence ao ambiente INTERNO, não externo.` },
+        { key: "C", text: `Desenvolvimento de sistema ERP`, isCorrect: false, explanation: `É um investimento/decisão interna da empresa — não é uma variável do ambiente externo.` },
+        { key: "D", text: `Dimensionamento da equipe de vendas`, isCorrect: false, explanation: `É uma decisão de gestão interna de recursos humanos — controlada pela própria empresa, não pelo ambiente externo.` },
+        { key: "E", text: `Monitoramento do desempenho de fornecedores`, isCorrect: false, explanation: `Embora envolva terceiros, o monitoramento em si é uma atividade de controle INTERNO da empresa — não uma variável macroeconômica do ambiente externo.` },
+      ],
+    },
   ],
 };
