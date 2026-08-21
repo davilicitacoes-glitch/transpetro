@@ -6,202 +6,173 @@ export const AC_18_FUNDAMENTOS_COMPUTACAO: LessonContent = {
   subjectSlug: "especificas",
   moduleSlug: "especificas-informatica",
   title: `Fundamentos de computação (Windows 11)`,
-  learningObjective: `Este material cobre o conteúdo oficial de **Fundamentos de computação e Windows 11** com foco na prova objetiva da Cesgranrio. O tema deve ser estudado em três camadas: vocabulário técnico, relações entre os conceitos e aplicação em situações-problema. Questões da banca frequentemente exigem inferência controlada, comparação de alternativas próximas e atenção a exceções; por isso, a preparação deve combinar teoria, exemplos e revisão dos erros.`,
+  learningObjective: `Diferenciar CPU/RAM/armazenamento, entender o papel do sistema operacional na gestão de recursos, dominar arquivos/pastas/atalhos/Lixeira, e reconhecer as funcionalidades nativas de segurança do Windows 11 (Secure Boot, Windows Defender Firewall, BitLocker, UAC) e conceitos correlatos (firewall, antimalware) — a Cesgranrio gosta de descrever um cenário de segurança concreto e pedir a configuração/ferramenta tecnicamente correta.`,
   syllabusCodes: ["AC-18"],
   estimatedMinutes: 40,
   expectedMastery: "intermediario",
-  bodyMdx: `# AC-18 — Fundamentos de computação e Windows 11
+  bodyMdx: `# AC-18 — Fundamentos de Computação e Windows 11
 
-## Visão geral
+## 1. Hardware básico: CPU, RAM e armazenamento
 
-Este material cobre o conteúdo oficial de **Fundamentos de computação e Windows 11** com foco na prova objetiva da Cesgranrio. O tema deve ser estudado em três camadas: vocabulário técnico, relações entre os conceitos e aplicação em situações-problema. Questões da banca frequentemente exigem inferência controlada, comparação de alternativas próximas e atenção a exceções; por isso, a preparação deve combinar teoria, exemplos e revisão dos erros.
+- **CPU** (unidade central de processamento): **executa instruções** — é o "cérebro" que processa os cálculos e comandos.
+- **RAM**: memória **volátil** — perde todo o conteúdo quando a energia é desligada; usada para dados e programas em uso ativo, por ser muito mais rápida que o armazenamento permanente.
+- **Armazenamento** (HD/SSD): **preserva dados sem energia** — é onde ficam os arquivos entre uma sessão e outra do computador.
 
-## Núcleo conceitual e regras operacionais
+**Consequência prática**: se o computador desliga inesperadamente, o que estava só na RAM (um documento não salvo) se perde; o que já foi salvo no armazenamento permanece.
 
-1. CPU executa instruções; RAM é memória volátil; armazenamento preserva dados sem energia.
-2. Núcleos são unidades de execução; threads são fluxos lógicos; clock sozinho não determina desempenho.
-3. Sistema operacional gerencia hardware, processos, memória, arquivos, usuários e interface.
-4. Extensão auxilia a identificar formato, mas não garante conteúdo seguro.
-5. Caminho localiza arquivo em hierarquia; atalho aponta para o item e não é o próprio arquivo.
-6. Excluir para a Lixeira pode permitir restauração; Shift+Delete tende a ignorá-la.
-7. Backup é cópia recuperável; sincronização não substitui backup por si só.
+## 2. Núcleos, threads e clock — desempenho não é uma variável só
 
-### 1. Hardware: processamento, memória, armazenamento e periféricos
+- **Núcleos (cores)**: unidades físicas de execução dentro do processador — mais núcleos permitem processar mais tarefas verdadeiramente em paralelo.
+- **Threads**: fluxos lógicos de execução — um núcleo pode gerenciar múltiplas threads (ex.: com Hyper-Threading), simulando paralelismo adicional.
+- **Clock** (frequência): velocidade de execução de cada núcleo, medida em GHz.
 
-Hardware: processamento, memória, armazenamento e periféricos integra o núcleo de **Fundamentos de computação e Windows 11**. Para a prova, não basta reconhecer o termo: é preciso distinguir conceito, finalidade, condições de aplicação e efeitos. A leitura correta começa pela pergunta “qual problema este conceito resolve?” e continua com “em que situação ele não se aplica?”. Essa dupla verificação evita respostas baseadas apenas em palavras familiares.
+**Pegadinha clássica**: achar que o clock **sozinho** determina o desempenho — na prática, número de núcleos, arquitetura, cache e a natureza da tarefa (paralelizável ou não) também importam tanto quanto ou mais que o clock isolado.
 
-Na prática administrativa ou linguística, identifique o contexto, os elementos envolvidos, o critério aplicável e a consequência antes de escolher a alternativa. A Cesgranrio costuma apresentar uma situação concreta e trocar um requisito, uma relação lógica ou a ordem de uma etapa. Por isso, compare cada alternativa com todos os dados do caso, não apenas com a primeira expressão que parece correta. Um bom resumo operacional é: definir, relacionar, aplicar e conferir.
+## 3. O papel do sistema operacional
 
-### 2. Software básico, utilitário e aplicativo
+O **sistema operacional** é o software que **gerencia todos os recursos** do computador: hardware (CPU, memória, periféricos), processos em execução, memória alocada a cada programa, sistema de arquivos, contas de usuário e a interface com o usuário. Ele é a camada intermediária entre o hardware físico e os programas/aplicativos que o usuário utiliza.
 
-Software básico, utilitário e aplicativo integra o núcleo de **Fundamentos de computação e Windows 11**. Para a prova, não basta reconhecer o termo: é preciso distinguir conceito, finalidade, condições de aplicação e efeitos. A leitura correta começa pela pergunta “qual problema este conceito resolve?” e continua com “em que situação ele não se aplica?”. Essa dupla verificação evita respostas baseadas apenas em palavras familiares.
+## 4. Arquivos, extensões, caminhos e atalhos
 
-Na prática administrativa ou linguística, identifique o contexto, os elementos envolvidos, o critério aplicável e a consequência antes de escolher a alternativa. A Cesgranrio costuma apresentar uma situação concreta e trocar um requisito, uma relação lógica ou a ordem de uma etapa. Por isso, compare cada alternativa com todos os dados do caso, não apenas com a primeira expressão que parece correta. Um bom resumo operacional é: definir, relacionar, aplicar e conferir.
+- Um **arquivo**, do ponto de vista técnico dos sistemas operacionais, é uma **coleção nomeada de informações relacionadas, gravada em memória secundária** (disco) — essa é a definição formal usada em teoria de sistemas operacionais.
+- **Extensão** (.docx, .pdf, .exe): ajuda a identificar o **formato** do arquivo, mas **não garante** que o conteúdo seja seguro — um arquivo malicioso pode ter extensão de aparência inofensiva (ex.: disfarçado como .pdf.exe).
+- **Caminho** (path): localiza um arquivo dentro da hierarquia de pastas (ex.: C:\\Usuarios\\Nome\\Documentos\\arquivo.docx).
+- **Atalho**: um ponteiro que **aponta para** o arquivo/programa original — **não é o próprio arquivo**. Apagar um atalho não apaga o item original; mover ou renomear o item original pode quebrar o atalho.
 
-### 3. Processadores, núcleos, threads, clock e arquitetura
+## 5. Lixeira e exclusão de arquivos
 
-Processadores, núcleos, threads, clock e arquitetura integra o núcleo de **Fundamentos de computação e Windows 11**. Para a prova, não basta reconhecer o termo: é preciso distinguir conceito, finalidade, condições de aplicação e efeitos. A leitura correta começa pela pergunta “qual problema este conceito resolve?” e continua com “em que situação ele não se aplica?”. Essa dupla verificação evita respostas baseadas apenas em palavras familiares.
+- **Excluir para a Lixeira** (Delete simples): o arquivo vai para a Lixeira e pode ser **restaurado** posteriormente.
+- **Shift+Delete**: tende a **ignorar a Lixeira**, excluindo o arquivo de forma mais direta (embora ainda recuperável por ferramentas forenses especializadas em alguns casos, não pelo fluxo normal do usuário).
 
-Na prática administrativa ou linguística, identifique o contexto, os elementos envolvidos, o critério aplicável e a consequência antes de escolher a alternativa. A Cesgranrio costuma apresentar uma situação concreta e trocar um requisito, uma relação lógica ou a ordem de uma etapa. Por isso, compare cada alternativa com todos os dados do caso, não apenas com a primeira expressão que parece correta. Um bom resumo operacional é: definir, relacionar, aplicar e conferir.
+## 6. Backup x sincronização
 
-### 4. Sistema operacional e gerenciamento de recursos
+- **Backup**: uma **cópia recuperável** dos dados, guardada separadamente, pensada especificamente para restauração em caso de perda.
+- **Sincronização** (ex.: OneDrive, Google Drive espelhando pastas): mantém cópias **atualizadas** entre dispositivos, mas **não substitui um backup por si só** — se um arquivo é corrompido ou apagado por engano, a sincronização pode propagar esse mesmo erro para todas as cópias sincronizadas, ao contrário de um backup versionado que preserva um ponto anterior no tempo.
 
-Sistema operacional e gerenciamento de recursos integra o núcleo de **Fundamentos de computação e Windows 11**. Para a prova, não basta reconhecer o termo: é preciso distinguir conceito, finalidade, condições de aplicação e efeitos. A leitura correta começa pela pergunta “qual problema este conceito resolve?” e continua com “em que situação ele não se aplica?”. Essa dupla verificação evita respostas baseadas apenas em palavras familiares.
+## 7. Segurança no Windows 11 — funcionalidades nativas
 
-Na prática administrativa ou linguística, identifique o contexto, os elementos envolvidos, o critério aplicável e a consequência antes de escolher a alternativa. A Cesgranrio costuma apresentar uma situação concreta e trocar um requisito, uma relação lógica ou a ordem de uma etapa. Por isso, compare cada alternativa com todos os dados do caso, não apenas com a primeira expressão que parece correta. Um bom resumo operacional é: definir, relacionar, aplicar e conferir.
+O Windows 11 traz recursos nativos de segurança que devem ser **habilitados**, não desabilitados, em ambientes que exigem proteção (como uma agência bancária processando operações diárias):
 
-### 5. Windows 11: interface, configurações e ferramentas
+- **Secure Boot (Inicialização Segura)**: verifica a integridade do processo de boot, impedindo que malware seja carregado antes do sistema operacional.
+- **Windows Defender Firewall**: filtra o tráfego de rede de entrada/saída conforme regras.
+- **BitLocker**: criptografa o disco — **desabilitá-lo** reduz a proteção dos dados armazenados, não deve ser feito num cenário que exige segurança.
+- **UAC (Controle de Conta de Usuário)**: solicita confirmação para ações que exigem privilégios elevados — **desabilitá-lo** (junto com ativar o Modo Desenvolvedor) reduz a segurança, permitindo mudanças no sistema sem aviso.
 
-Windows 11: interface, configurações e ferramentas integra o núcleo de **Fundamentos de computação e Windows 11**. Para a prova, não basta reconhecer o termo: é preciso distinguir conceito, finalidade, condições de aplicação e efeitos. A leitura correta começa pela pergunta “qual problema este conceito resolve?” e continua com “em que situação ele não se aplica?”. Essa dupla verificação evita respostas baseadas apenas em palavras familiares.
+**Regra de prova**: num cenário que pede "aumentar a segurança sem comprometer o desempenho", a resposta certa **habilita** Secure Boot e Windows Defender Firewall — não desabilita BitLocker/UAC, nem depende de soluções de terceiros ou de configurações extremas (modo de segurança para todos os usuários, desativar atualizações automáticas).
 
-Na prática administrativa ou linguística, identifique o contexto, os elementos envolvidos, o critério aplicável e a consequência antes de escolher a alternativa. A Cesgranrio costuma apresentar uma situação concreta e trocar um requisito, uma relação lógica ou a ordem de uma etapa. Por isso, compare cada alternativa com todos os dados do caso, não apenas com a primeira expressão que parece correta. Um bom resumo operacional é: definir, relacionar, aplicar e conferir.
+## 8. Firewall x Antimalware x ameaças
 
-### 6. Arquivos, pastas, extensões, atalhos e permissões
+- **Firewall**: solução de hardware e/ou software que **filtra o tráfego de rede** segundo regras predefinidas — atua na **borda**, decidindo o que entra/sai da rede/máquina.
+- **Antimalware**: foca em detectar e remover **código malicioso já presente** no sistema (vírus, trojans, ransomware) — atua **depois** que algo já pode ter chegado.
+- **Phishing**: técnica de engenharia social para enganar o usuário e obter dados sensíveis — é uma **ameaça**, não uma solução de proteção.
+- **SQL injection**: técnica de ataque que explora falhas de validação de entrada em aplicações que usam banco de dados — também é uma **ameaça**, não uma ferramenta de defesa.
 
-Arquivos, pastas, extensões, atalhos e permissões integra o núcleo de **Fundamentos de computação e Windows 11**. Para a prova, não basta reconhecer o termo: é preciso distinguir conceito, finalidade, condições de aplicação e efeitos. A leitura correta começa pela pergunta “qual problema este conceito resolve?” e continua com “em que situação ele não se aplica?”. Essa dupla verificação evita respostas baseadas apenas em palavras familiares.
-
-Na prática administrativa ou linguística, identifique o contexto, os elementos envolvidos, o critério aplicável e a consequência antes de escolher a alternativa. A Cesgranrio costuma apresentar uma situação concreta e trocar um requisito, uma relação lógica ou a ordem de uma etapa. Por isso, compare cada alternativa com todos os dados do caso, não apenas com a primeira expressão que parece correta. Um bom resumo operacional é: definir, relacionar, aplicar e conferir.
-
-### 7. Backup, compactação e utilitários
-
-Backup, compactação e utilitários integra o núcleo de **Fundamentos de computação e Windows 11**. Para a prova, não basta reconhecer o termo: é preciso distinguir conceito, finalidade, condições de aplicação e efeitos. A leitura correta começa pela pergunta “qual problema este conceito resolve?” e continua com “em que situação ele não se aplica?”. Essa dupla verificação evita respostas baseadas apenas em palavras familiares.
-
-Na prática administrativa ou linguística, identifique o contexto, os elementos envolvidos, o critério aplicável e a consequência antes de escolher a alternativa. A Cesgranrio costuma apresentar uma situação concreta e trocar um requisito, uma relação lógica ou a ordem de uma etapa. Por isso, compare cada alternativa com todos os dados do caso, não apenas com a primeira expressão que parece correta. Um bom resumo operacional é: definir, relacionar, aplicar e conferir.
-
-## Método de resolução
-
-1. Classifique o comando: definição, cálculo, aplicação, exceção ou interpretação.
-2. Sublinhe restrições, negações, unidades, prazos e qualificadores como “sempre”, “apenas” e “necessariamente”.
-3. Recupere a regra central antes de olhar as alternativas.
-4. Elimine opções que misturam conceitos verdadeiros em relação errada.
-5. Teste a resposta no caso concreto e faça uma conferência final.
+**Regra de decoreba**: firewall filtra tráfego de **rede**; antimalware combate código malicioso **já instalado**; phishing e SQL injection são **ataques**, nunca soluções.
 
 ## Síntese
 
-O domínio de Fundamentos de computação e Windows 11 resulta da conexão entre hardware: processamento, memória, armazenamento e periféricos, software básico, utilitário e aplicativo, processadores, núcleos, threads, clock e arquitetura e os demais pontos do edital. Revise o mapa mental, explique cada ramo com suas próprias palavras e resolva questões reais. Se uma regra parecer absoluta, procure condições, limites e exceções: é nesse deslocamento que se concentram muitas pegadinhas.
+O AC-18 combina fundamentos de hardware (CPU/RAM/armazenamento, núcleos/threads/clock) com conceitos de sistema operacional (arquivos, atalhos, Lixeira, backup) e segurança prática do Windows 11 (Secure Boot, Firewall, BitLocker, UAC, firewall x antimalware). A pegadinha mais recorrente é a banca oferecer alternativas que **desabilitam** proteções nativas como se fossem boas práticas de segurança.
 
 ## Mapa mental
 
-# AC-18 — Mapa mental
-
 \`\`\`mermaid
 mindmap
-  root((Fundamentos de computação e Windows 11))
-    hardware  processamento, memória, armazenamento e periféricos
-      Conceito e finalidade
-      Condições de aplicação
-      Exemplo de prova
-      Contraste e exceção
-    software básico, utilitário e aplicativo
-      Conceito e finalidade
-      Condições de aplicação
-      Exemplo de prova
-      Contraste e exceção
-    processadores, núcleos, threads, clock e arquitetura
-      Conceito e finalidade
-      Condições de aplicação
-      Exemplo de prova
-      Contraste e exceção
-    sistema operacional e gerenciamento de recursos
-      Conceito e finalidade
-      Condições de aplicação
-      Exemplo de prova
-      Contraste e exceção
-    Windows 11  interface, configurações e ferramentas
-      Conceito e finalidade
-      Condições de aplicação
-      Exemplo de prova
-      Contraste e exceção
-    arquivos, pastas, extensões, atalhos e permissões
-      Conceito e finalidade
-      Condições de aplicação
-      Exemplo de prova
-      Contraste e exceção
-    backup, compactação e utilitários
-      Conceito e finalidade
-      Condições de aplicação
-      Exemplo de prova
-      Contraste e exceção
-    Estratégia Cesgranrio
-      Ler o comando
-      Eliminar extrapolações
-      Conferir o caso
+  root((Fundamentos de Computação — AC-18))
+    Hardware
+      CPU: executa instrucoes
+      RAM: volatil
+      Armazenamento: preserva sem energia
+      Nucleos, threads, clock
+    Sistema Operacional
+      Gerencia hardware, processos, memoria, arquivos
+    Arquivos
+      Extensao: nao garante seguranca
+      Caminho: localizacao hierarquica
+      Atalho: aponta, nao e o arquivo
+      Lixeira x Shift+Delete
+    Backup x Sincronizacao
+      Backup: copia recuperavel
+      Sincronizacao: nao substitui backup
+    Seguranca Windows 11
+      Secure Boot, Defender Firewall: habilitar
+      BitLocker, UAC: nao desabilitar
+    Firewall x Antimalware
+      Firewall: filtra trafego de rede
+      Antimalware: remove codigo ja presente
+      Phishing/SQL injection: ameacas, nao solucoes
 \`\`\``,
   mustMemorize: [
     `CPU executa instruções; RAM é memória volátil; armazenamento preserva dados sem energia.`,
-    `Núcleos são unidades de execução; threads são fluxos lógicos; clock sozinho não determina desempenho.`,
-    `Sistema operacional gerencia hardware, processos, memória, arquivos, usuários e interface.`,
-    `Extensão auxilia a identificar formato, mas não garante conteúdo seguro.`,
-    `Caminho localiza arquivo em hierarquia; atalho aponta para o item e não é o próprio arquivo.`,
-    `Excluir para a Lixeira pode permitir restauração; Shift+Delete tende a ignorá-la.`,
-    `Backup é cópia recuperável; sincronização não substitui backup por si só.`,
-    `**Hardware: processamento, memória, armazenamento e periféricos:** associe definição, finalidade, condição e contraste.`,
-    `**Software básico, utilitário e aplicativo:** associe definição, finalidade, condição e contraste.`,
-    `**Processadores, núcleos, threads, clock e arquitetura:** associe definição, finalidade, condição e contraste.`,
-    `**Sistema operacional e gerenciamento de recursos:** associe definição, finalidade, condição e contraste.`,
-    `**Windows 11: interface, configurações e ferramentas:** associe definição, finalidade, condição e contraste.`,
+    `Clock sozinho NÃO determina desempenho — núcleos, threads e arquitetura também importam.`,
+    `Arquivo (definição técnica) = coleção nomeada de informações relacionadas, gravada em memória secundária.`,
+    `Extensão indica formato, mas NÃO garante conteúdo seguro. Atalho aponta para o item — não é o arquivo original.`,
+    `Backup = cópia recuperável dedicada; sincronização NÃO substitui backup (propaga erros/exclusões entre cópias).`,
+    `Em cenário de segurança, HABILITAR Secure Boot e Windows Defender Firewall; NUNCA desabilitar BitLocker ou UAC.`,
+    `Firewall filtra tráfego de REDE; antimalware remove código malicioso JÁ PRESENTE; phishing e SQL injection são ameaças, não soluções.`,
   ],
   workedExamples: [
-    `A inicialização segura (Secure Boot) e o Windows Defender Firewall são funcionalidades nativas do Windows 11 que aumentam a segurança sem comprometer o desempenho, ao contrário das demais alternativas, que desabilitam mecanismos de proteção (Bit-Locker, UAC) ou soluções inadequadas ao cenário. Núcleo do código AC-18 (sistemas operacionais — utilitários do ambiente Windows 11), coincidindo com a versão exigida pelo edital Transpetro 2026. **Lição de prova:** identifique exatamente qual dado sustenta o gabarito e por que as demais opções extrapolam, invertem ou misturam conceitos.`,
-    `O firewall é uma solução de hardware e/ou software que filtra o tráfego de rede segundo regras predefinidas, distinguindo-se de antimalware (foco em código malicioso já presente) e das ameaças listadas (phishing, SQL injection). Núcleo do código AC-18 (componentes de hardware e software de um computador). **Lição de prova:** identifique exatamente qual dado sustenta o gabarito e por que as demais opções extrapolam, invertem ou misturam conceitos.`,
-    `Do ponto de vista técnico dos sistemas operacionais, um arquivo é definido como uma coleção nomeada de informações relacionadas, gravada em memória secundária (disco). Núcleo do código AC-18 (sistemas operacionais — manipulação de arquivos). **Lição de prova:** identifique exatamente qual dado sustenta o gabarito e por que as demais opções extrapolam, invertem ou misturam conceitos.`,
-    `O cálculo de memória necessária considera a quantidade de pixels (1920×1080) multiplicada pela profundidade de cor em bits, convertida para megabytes; o resultado mais próximo, considerando a prática de arredondamento para valores-padrão de memória de vídeo, é 4 MB. Núcleo do código AC-18 (fundamentos de computação — componentes de hardware). **Lição de prova:** identifique exatamente qual dado sustenta o gabarito e por que as demais opções extrapolam, invertem ou misturam conceitos.`,
+    `A inicialização segura (Secure Boot) e o Windows Defender Firewall são funcionalidades nativas do Windows 11 que aumentam a segurança sem comprometer o desempenho — diferente de desabilitar BitLocker/UAC ou usar soluções inadequadas ao cenário.`,
+    `O firewall é uma solução de hardware e/ou software que filtra o tráfego de rede segundo regras predefinidas, distinguindo-se de antimalware (foco em código malicioso já presente) e de ameaças como phishing e SQL injection.`,
+    `Do ponto de vista técnico dos sistemas operacionais, um arquivo é definido como uma coleção nomeada de informações relacionadas, gravada em memória secundária (disco).`,
+    `Ativar o Modo Desenvolvedor e desabilitar o UAC, ou desabilitar o BitLocker, são configurações que REDUZEM a segurança — nunca a resposta correta num cenário que pede reforço de proteção.`,
   ],
   commonMistakes: [
-    `Reconhecer palavra-chave e ignorar o contexto: **Por que engana:** a alternativa repete termos do enunciado, mas altera a relação entre eles. **Correto:** valide definição, condição e consequência no caso completo.`,
-    `Transformar regra condicionada em regra absoluta: **Por que engana:** expressões como “sempre”, “nunca” e “somente” parecem categóricas. **Correto:** procure exceções e requisitos antes de aceitar a afirmação.`,
-    `Confundir conceitos vizinhos: **Por que engana:** hardware: processamento, memória, armazenamento e periféricos e software básico, utilitário e aplicativo pertencem ao mesmo tema, mas não são sinônimos. **Correto:** compare finalidade, objeto e modo de aplicação.`,
-    `Padrão observado no acervo real (AC-18-2025-CESGRANRIO-28): A inicialização segura (Secure Boot) e o Windows Defender Firewall são funcionalidades nativas do Windows 11 que aumentam a segurança sem comprometer o desempenho, ao contrário das demais alternativas, que desabilitam mecanismos de proteção (Bit-Locker, UAC) ou soluções inadequadas ao cenário. Núcleo do código AC-18 (sistemas operacionais — utilitários do ambiente Windows 11), coincidindo com a versão exigida pelo edital Transpetro 2026. **Lição de prova:** identifique exatamente qual dado sustenta o gabarito e por que as demais opções extrapolam, invertem ou misturam conceitos.`,
-    `Padrão observado no acervo real (AC-18-2021-CESGRANRIO-41): O firewall é uma solução de hardware e/ou software que filtra o tráfego de rede segundo regras predefinidas, distinguindo-se de antimalware (foco em código malicioso já presente) e das ameaças listadas (phishing, SQL injection). Núcleo do código AC-18 (componentes de hardware e software de um computador). **Lição de prova:** identifique exatamente qual dado sustenta o gabarito e por que as demais opções extrapolam, invertem ou misturam conceitos.`,
-    `Padrão observado no acervo real (AC-18-2021-CESGRANRIO-42): Do ponto de vista técnico dos sistemas operacionais, um arquivo é definido como uma coleção nomeada de informações relacionadas, gravada em memória secundária (disco). Núcleo do código AC-18 (sistemas operacionais — manipulação de arquivos). **Lição de prova:** identifique exatamente qual dado sustenta o gabarito e por que as demais opções extrapolam, invertem ou misturam conceitos.`,
-    `Padrão observado no acervo real (AC-18-2018-CESGRANRIO-42): O cálculo de memória necessária considera a quantidade de pixels (1920×1080) multiplicada pela profundidade de cor em bits, convertida para megabytes; o resultado mais próximo, considerando a prática de arredondamento para valores-padrão de memória de vídeo, é 4 MB. Núcleo do código AC-18 (fundamentos de computação — componentes de hardware). **Lição de prova:** identifique exatamente qual dado sustenta o gabarito e por que as demais opções extrapolam, invertem ou misturam conceitos.`,
+    `Achar que clock alto sozinho garante melhor desempenho — número de núcleos, threads e arquitetura também são decisivos.`,
+    `Confundir atalho com o arquivo original — apagar o atalho não apaga o arquivo; mover o arquivo original pode quebrar o atalho.`,
+    `Achar que a extensão do arquivo garante que o conteúdo é seguro — um malware pode se disfarçar com extensão de aparência inofensiva.`,
+    `Tratar sincronização (OneDrive, Google Drive) como equivalente a backup — sincronização propaga exclusões/corrupções entre as cópias; backup preserva um ponto anterior no tempo.`,
+    `Escolher alternativas que desabilitam BitLocker, UAC ou ativam Modo Desenvolvedor como "boas práticas de segurança" — são exatamente o oposto: reduzem a proteção do sistema.`,
+    `Confundir firewall (filtra tráfego de rede) com antimalware (remove código já presente) — atuam em momentos e frentes diferentes.`,
+    `Tratar phishing ou SQL injection como soluções de segurança — são ameaças/ataques, nunca ferramentas de proteção.`,
+    `Padrão observado no acervo real (AC-18-2025-CESGRANRIO-28): identificar Secure Boot + Windows Defender Firewall como a configuração que aumenta segurança sem comprometer desempenho, descartando alternativas que desabilitam BitLocker/UAC.`,
+    `Padrão observado no acervo real (AC-18-2021-CESGRANRIO-41): reconhecer o firewall como a solução que filtra tráfego de rede por regras, diferenciando-o de antimalware, phishing e SQL injection.`,
+    `Padrão observado no acervo real (AC-18-2021-CESGRANRIO-42): aplicar a definição técnica de arquivo (coleção nomeada de informações, gravada em memória secundária).`,
   ],
   howBoardMightAsk: [
-    `Ver padrão real: AC-18-2025-CESGRANRIO-28 — A inicialização segura (Secure Boot) e o Windows Defender Firewall são funcionalidades nativas do Windows 11 que aumentam a segurança sem comprometer o desempen...`,
-    `Ver padrão real: AC-18-2021-CESGRANRIO-41 — O firewall é uma solução de hardware e/ou software que filtra o tráfego de rede segundo regras predefinidas, distinguindo-se de antimalware (foco em código mali...`,
-    `Ver padrão real: AC-18-2021-CESGRANRIO-42 — Do ponto de vista técnico dos sistemas operacionais, um arquivo é definido como uma coleção nomeada de informações relacionadas, gravada em memória secundária (...`,
-    `Ver padrão real: AC-18-2018-CESGRANRIO-42 — O cálculo de memória necessária considera a quantidade de pixels (1920×1080) multiplicada pela profundidade de cor em bits, convertida para megabytes; o resulta...`,
+    `Descreve um cenário que exige reforço de segurança sem perder desempenho e pede a configuração correta do Windows 11, com distratores que desabilitam proteções nativas.`,
+    `Pede para diferenciar firewall, antimalware e ameaças (phishing, SQL injection) a partir da descrição do que cada um faz.`,
+    `Pede a definição técnica formal de arquivo, extensão, caminho ou atalho.`,
+    `Pergunta se sincronização substitui backup, ou pede para diferenciar excluir para a Lixeira de Shift+Delete.`,
   ],
   legalReferences: [],
   reviewSummaryPoints: [
-    `CPU executa instruções; RAM é memória volátil; armazenamento preserva dados sem energia.`,
-    `Núcleos são unidades de execução; threads são fluxos lógicos; clock sozinho não determina desempenho.`,
-    `Sistema operacional gerencia hardware, processos, memória, arquivos, usuários e interface.`,
-    `Extensão auxilia a identificar formato, mas não garante conteúdo seguro.`,
-    `Caminho localiza arquivo em hierarquia; atalho aponta para o item e não é o próprio arquivo.`,
-    `Excluir para a Lixeira pode permitir restauração; Shift+Delete tende a ignorá-la.`,
-    `Backup é cópia recuperável; sincronização não substitui backup por si só.`,
-    `**Hardware: processamento, memória, armazenamento e periféricos:** associe definição, finalidade, condição e contraste.`,
-    `**Software básico, utilitário e aplicativo:** associe definição, finalidade, condição e contraste.`,
-    `**Processadores, núcleos, threads, clock e arquitetura:** associe definição, finalidade, condição e contraste.`,
-    `**Sistema operacional e gerenciamento de recursos:** associe definição, finalidade, condição e contraste.`,
-    `**Windows 11: interface, configurações e ferramentas:** associe definição, finalidade, condição e contraste.`,
+    `CPU executa; RAM é volátil; armazenamento preserva sem energia.`,
+    `Clock não determina desempenho sozinho.`,
+    `Extensão não garante segurança; atalho não é o arquivo.`,
+    `Backup ≠ sincronização.`,
+    `Habilitar Secure Boot/Firewall; nunca desabilitar BitLocker/UAC.`,
+    `Firewall filtra rede; antimalware remove código já presente; phishing/SQL injection são ameaças.`,
   ],
-  flashcards: [],
+  flashcards: [
+    { front: "Diferença entre RAM e armazenamento?", back: "RAM é memória volátil (perde dados sem energia). Armazenamento (HD/SSD) preserva os dados mesmo desligado." },
+    { front: "A extensão de um arquivo garante que o conteúdo é seguro?", back: "Não — a extensão só indica o formato esperado; malware pode se disfarçar com extensão de aparência inofensiva." },
+    { front: "Sincronização (OneDrive/Google Drive) substitui backup?", back: "Não — sincronização propaga exclusões/corrupções entre as cópias; backup preserva um ponto anterior recuperável." },
+    { front: "Diferença entre firewall e antimalware?", back: "Firewall filtra tráfego de rede por regras. Antimalware detecta/remove código malicioso já presente no sistema." },
+  ],
   miniQuiz: [
-      {
-        statement: `Um técnico bancário precisa garantir a segurança e a eficiência no uso de computadores com o sistema operacional Windows 11 em uma agência bancária. Durante a instalação e a configuração do sistema operacional, ele é solicitado a habilitar funcionalidades que aumentem a segurança, sem comprometer o desempenho da máquina, considerando-se que ela realiza grande número de operações bancárias diárias.
+    {
+      statement: `Um técnico bancário precisa garantir a segurança e a eficiência no uso de computadores com o sistema operacional Windows 11 em uma agência bancária. Durante a instalação e a configuração do sistema operacional, ele é solicitado a habilitar funcionalidades que aumentem a segurança, sem comprometer o desempenho da máquina, considerando-se que ela realiza grande número de operações bancárias diárias.
 
 Para atingir esse objetivo, na instalação do Windows 11 nesses computadores, o técnico deve configurá-lo de forma a`,
-        options: [
-        { key: "A", text: `ativar o Hyper-V e desabilitar o Bit-Locker.`, isCorrect: false, explanation: `Alternativa incorreta — compare com o gabarito e a justificativa da alternativa correta.` },
-        { key: "B", text: `ativar o Modo Desenvolvedor e desabilitar o Controle de Conta de Usuário (UAC).`, isCorrect: false, explanation: `Alternativa incorreta — compare com o gabarito e a justificativa da alternativa correta.` },
-        { key: "C", text: `habilitar a inicialização segura (Secure Boot) e o Windows Defender Firewall.`, isCorrect: true, explanation: `A inicialização segura (Secure Boot) e o Windows Defender Firewall são funcionalidades nativas do Windows 11 que aumentam a segurança sem comprometer o desempenho, ao contrário das demais alternativas, que desabilitam mecanismos de proteção (Bit-Locker, UAC) ou soluções inadequadas ao cenário. Núcleo do código AC-18 (sistemas operacionais — utilitários do ambiente Windows 11), coincidindo com a versão exigida pelo edital Transpetro 2026.` },
-        { key: "D", text: `desativar as atualizações automáticas e utilizar uma solução antivírus de terceiros.`, isCorrect: false, explanation: `Alternativa incorreta — compare com o gabarito e a justificativa da alternativa correta.` },
-        { key: "E", text: `iniciar diretamente no modo de segurança para todos os usuários.`, isCorrect: false, explanation: `Alternativa incorreta — compare com o gabarito e a justificativa da alternativa correta.` },
-        ],
-      },
-      {
-        statement: `Existem soluções de hardware e software que buscam minimizar as chances de um ataque a sistemas computacionais ser bem-sucedido. Dentre tais soluções de segurança, há uma que monitora o tráfego de entrada e saída de rede, funcionando como um filtro de pacotes, permitindo ou não a sua liberação a partir de um conjunto de regras específicas.
+      options: [
+        { key: "A", text: `ativar o Hyper-V e desabilitar o Bit-Locker.`, isCorrect: false, explanation: `Desabilitar o BitLocker REDUZ a segurança dos dados armazenados no disco — é o oposto do objetivo pedido no cenário.` },
+        { key: "B", text: `ativar o Modo Desenvolvedor e desabilitar o Controle de Conta de Usuário (UAC).`, isCorrect: false, explanation: `Desabilitar o UAC remove a confirmação de ações privilegiadas, reduzindo a segurança — não aumenta proteção.` },
+        { key: "C", text: `habilitar a inicialização segura (Secure Boot) e o Windows Defender Firewall.`, isCorrect: true, explanation: `Correto: Secure Boot e Windows Defender Firewall são funcionalidades nativas do Windows 11 que aumentam a segurança sem comprometer o desempenho, ao contrário das demais alternativas, que desabilitam mecanismos de proteção ou trazem soluções inadequadas ao cenário.` },
+        { key: "D", text: `desativar as atualizações automáticas e utilizar uma solução antivírus de terceiros.`, isCorrect: false, explanation: `Desativar atualizações automáticas deixa o sistema vulnerável a falhas já corrigidas pelo fabricante — reduz, não aumenta, a segurança.` },
+        { key: "E", text: `iniciar diretamente no modo de segurança para todos os usuários.`, isCorrect: false, explanation: `O modo de segurança é um ambiente de diagnóstico com recursos limitados — não é uma configuração viável para operação diária de uma agência bancária.` },
+      ],
+    },
+    {
+      statement: `Existem soluções de hardware e software que buscam minimizar as chances de um ataque a sistemas computacionais ser bem-sucedido. Dentre tais soluções de segurança, há uma que monitora o tráfego de entrada e saída de rede, funcionando como um filtro de pacotes, permitindo ou não a sua liberação a partir de um conjunto de regras específicas.
 
 Essa solução é o`,
-        options: [
-        { key: "A", text: `Antimalware`, isCorrect: false, explanation: `Alternativa incorreta — compare com o gabarito e a justificativa da alternativa correta.` },
-        { key: "B", text: `Dispositivo USB`, isCorrect: false, explanation: `Alternativa incorreta — compare com o gabarito e a justificativa da alternativa correta.` },
-        { key: "C", text: `Firewall`, isCorrect: true, explanation: `O firewall é uma solução de hardware e/ou software que filtra o tráfego de rede segundo regras predefinidas, distinguindo-se de antimalware (foco em código malicioso já presente) e das ameaças listadas (phishing, SQL injection). Núcleo do código AC-18 (componentes de hardware e software de um computador).` },
-        { key: "D", text: `Phishing`, isCorrect: false, explanation: `Alternativa incorreta — compare com o gabarito e a justificativa da alternativa correta.` },
-        { key: "E", text: `SQL injection`, isCorrect: false, explanation: `Alternativa incorreta — compare com o gabarito e a justificativa da alternativa correta.` },
-        ],
-      },
+      options: [
+        { key: "A", text: `Antimalware`, isCorrect: false, explanation: `O antimalware foca em detectar e remover código malicioso já presente no sistema — não atua como filtro de pacotes de rede.` },
+        { key: "B", text: `Dispositivo USB`, isCorrect: false, explanation: `Um dispositivo USB é um periférico de armazenamento/conexão — não tem relação com filtragem de tráfego de rede.` },
+        { key: "C", text: `Firewall`, isCorrect: true, explanation: `Correto: o firewall é a solução de hardware e/ou software que filtra o tráfego de rede segundo regras predefinidas, distinguindo-se de antimalware (foco em código já presente) e de ameaças como phishing e SQL injection.` },
+        { key: "D", text: `Phishing`, isCorrect: false, explanation: `Phishing é uma técnica de ataque (engenharia social para roubo de dados) — é uma ameaça, não uma solução de segurança.` },
+        { key: "E", text: `SQL injection`, isCorrect: false, explanation: `SQL injection é uma técnica de ataque que explora falhas de validação em aplicações com banco de dados — é uma ameaça, não uma ferramenta de proteção.` },
+      ],
+    },
   ],
 };
