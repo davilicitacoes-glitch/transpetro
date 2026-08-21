@@ -6,200 +6,172 @@ export const AC_07_REGISTROS_CONTABEIS: LessonContent = {
   subjectSlug: "especificas",
   moduleSlug: "especificas-financas-contabilidade",
   title: `Registros contábeis`,
-  learningObjective: `Este material cobre o conteúdo oficial de **Registros contábeis** com foco na prova objetiva da Cesgranrio. O tema deve ser estudado em três camadas: vocabulário técnico, relações entre os conceitos e aplicação em situações-problema. Questões da banca frequentemente exigem inferência controlada, comparação de alternativas próximas e atenção a exceções; por isso, a preparação deve combinar teoria, exemplos e revisão dos erros.`,
+  learningObjective: `Dominar a lógica das partidas dobradas (débito/crédito conforme a natureza da conta), a equação patrimonial, o regime de competência, e os livros/relatórios que organizam o registro contábil (Diário, Razão, Balancete) — é o código com mais questões no acervo desta ênfase, e a base para AC-08 (fluxo de caixa) e AC-09 (Balanço/DRE).`,
   syllabusCodes: ["AC-07"],
-  estimatedMinutes: 40,
+  estimatedMinutes: 50,
   expectedMastery: "intermediario",
-  bodyMdx: `# AC-07 — Registros contábeis
+  bodyMdx: `# AC-07 — Registros Contábeis
 
-## Visão geral
+Este é o código com mais questões no acervo real da ênfase — a Cesgranrio cobra muito lançamento contábil concreto (débito/crédito de contas específicas), não só teoria solta. Domine a lógica antes de decorar exemplos.
 
-Este material cobre o conteúdo oficial de **Registros contábeis** com foco na prova objetiva da Cesgranrio. O tema deve ser estudado em três camadas: vocabulário técnico, relações entre os conceitos e aplicação em situações-problema. Questões da banca frequentemente exigem inferência controlada, comparação de alternativas próximas e atenção a exceções; por isso, a preparação deve combinar teoria, exemplos e revisão dos erros.
+## 1. Patrimônio, contas e equação patrimonial
 
-## Núcleo conceitual e regras operacionais
+O patrimônio de uma empresa é representado por três grandes grupos de contas, ligados pela equação fundamental da contabilidade:
 
-1. Ativo, passivo e patrimônio líquido obedecem à equação Ativo=Passivo+PL.
-2. Partidas dobradas exigem soma dos débitos igual à soma dos créditos em cada lançamento.
-3. Débito não significa sempre aumento nem crédito sempre redução; depende da natureza da conta.
-4. Contas de ativo e despesa geralmente aumentam a débito; passivo, PL e receita, a crédito.
-5. Competência reconhece efeitos quando ocorrem, independentemente do caixa.
-6. Diário registra cronologicamente; Razão organiza por conta; balancete verifica saldos e igualdade contábil.
-7. Obrigações acessórias informam e documentam fatos fiscais, sem se confundirem com o tributo principal.
+**Ativo = Passivo + Patrimônio Líquido**
 
-### 1. Patrimônio, contas e equação patrimonial
+- **Ativo**: tudo que a empresa possui e que gera benefício futuro (caixa, estoque, equipamentos, contas a receber).
+- **Passivo**: as obrigações da empresa com terceiros (fornecedores, empréstimos, tributos a pagar).
+- **Patrimônio Líquido (PL)**: a diferença entre Ativo e Passivo — o que "sobra" para os sócios/acionistas (capital social, lucros acumulados).
 
-Patrimônio, contas e equação patrimonial integra o núcleo de **Registros contábeis**. Para a prova, não basta reconhecer o termo: é preciso distinguir conceito, finalidade, condições de aplicação e efeitos. A leitura correta começa pela pergunta “qual problema este conceito resolve?” e continua com “em que situação ele não se aplica?”. Essa dupla verificação evita respostas baseadas apenas em palavras familiares.
+Essa equação precisa estar **sempre em equilíbrio** — todo lançamento contábil, por menor que seja, não pode quebrá-la.
 
-Na prática administrativa ou linguística, identifique o contexto, os elementos envolvidos, o critério aplicável e a consequência antes de escolher a alternativa. A Cesgranrio costuma apresentar uma situação concreta e trocar um requisito, uma relação lógica ou a ordem de uma etapa. Por isso, compare cada alternativa com todos os dados do caso, não apenas com a primeira expressão que parece correta. Um bom resumo operacional é: definir, relacionar, aplicar e conferir.
+## 2. Método das partidas dobradas
 
-### 2. Método das partidas dobradas
+O princípio central da contabilidade: **todo lançamento tem, no mínimo, um débito e um crédito, e a soma dos débitos é sempre igual à soma dos créditos**. Não existe lançamento "de um lado só" — se uma conta aumenta (ou diminui), outra conta precisa se ajustar para manter a equação patrimonial em equilíbrio.
 
-Método das partidas dobradas integra o núcleo de **Registros contábeis**. Para a prova, não basta reconhecer o termo: é preciso distinguir conceito, finalidade, condições de aplicação e efeitos. A leitura correta começa pela pergunta “qual problema este conceito resolve?” e continua com “em que situação ele não se aplica?”. Essa dupla verificação evita respostas baseadas apenas em palavras familiares.
+Exemplo simples: a empresa compra um equipamento à vista. O Ativo "Equipamentos" aumenta (débito) e o Ativo "Caixa/Banco" diminui (crédito) no mesmo valor — dois ativos se movimentam, mas o total do Ativo não muda (só a composição interna).
 
-Na prática administrativa ou linguística, identifique o contexto, os elementos envolvidos, o critério aplicável e a consequência antes de escolher a alternativa. A Cesgranrio costuma apresentar uma situação concreta e trocar um requisito, uma relação lógica ou a ordem de uma etapa. Por isso, compare cada alternativa com todos os dados do caso, não apenas com a primeira expressão que parece correta. Um bom resumo operacional é: definir, relacionar, aplicar e conferir.
+## 3. Débito, crédito e natureza das contas — a armadilha mais comum do código
 
-### 3. Débito, crédito e natureza das contas
+**Débito NÃO significa sempre "aumento" e crédito NÃO significa sempre "diminuição"** — isso depende do grupo da conta:
 
-Débito, crédito e natureza das contas integra o núcleo de **Registros contábeis**. Para a prova, não basta reconhecer o termo: é preciso distinguir conceito, finalidade, condições de aplicação e efeitos. A leitura correta começa pela pergunta “qual problema este conceito resolve?” e continua com “em que situação ele não se aplica?”. Essa dupla verificação evita respostas baseadas apenas em palavras familiares.
+| Grupo | Débito | Crédito |
+|---|---|---|
+| Ativo | Aumenta | Diminui |
+| Despesa | Aumenta | Diminui |
+| Passivo | Diminui | Aumenta |
+| Patrimônio Líquido | Diminui | Aumenta |
+| Receita | Diminui | Aumenta |
 
-Na prática administrativa ou linguística, identifique o contexto, os elementos envolvidos, o critério aplicável e a consequência antes de escolher a alternativa. A Cesgranrio costuma apresentar uma situação concreta e trocar um requisito, uma relação lógica ou a ordem de uma etapa. Por isso, compare cada alternativa com todos os dados do caso, não apenas com a primeira expressão que parece correta. Um bom resumo operacional é: definir, relacionar, aplicar e conferir.
+Regra de memorização: **Ativo e Despesa se comportam igual** (débito aumenta); **Passivo, PL e Receita se comportam igual** (crédito aumenta) — são "grupos espelhados". A banca adora testar isso com uma conta de passivo ou receita, esperando que o candidato aplique automaticamente a regra do ativo (achando que débito sempre aumenta).
 
-### 4. Atos e fatos contábeis
+## 4. Atos e fatos contábeis
 
-Atos e fatos contábeis integra o núcleo de **Registros contábeis**. Para a prova, não basta reconhecer o termo: é preciso distinguir conceito, finalidade, condições de aplicação e efeitos. A leitura correta começa pela pergunta “qual problema este conceito resolve?” e continua com “em que situação ele não se aplica?”. Essa dupla verificação evita respostas baseadas apenas em palavras familiares.
+- **Ato contábil**: um evento que, sozinho, ainda não modifica o patrimônio (ex.: assinar um contrato, admitir um funcionário) — é um compromisso, não uma variação patrimonial já registrável.
+- **Fato contábil**: um evento que **efetivamente altera** o patrimônio (compra, venda, pagamento, recebimento) — é isso que gera o lançamento contábil.
 
-Na prática administrativa ou linguística, identifique o contexto, os elementos envolvidos, o critério aplicável e a consequência antes de escolher a alternativa. A Cesgranrio costuma apresentar uma situação concreta e trocar um requisito, uma relação lógica ou a ordem de uma etapa. Por isso, compare cada alternativa com todos os dados do caso, não apenas com a primeira expressão que parece correta. Um bom resumo operacional é: definir, relacionar, aplicar e conferir.
+A prova pode descrever uma situação e perguntar se aquilo já é um fato contábil (gera lançamento) ou ainda é só um ato preparatório (não gera).
 
-### 5. Livro Diário, Razão e balancete
+## 5. Livro Diário, Livro Razão e Balancete
 
-Livro Diário, Razão e balancete integra o núcleo de **Registros contábeis**. Para a prova, não basta reconhecer o termo: é preciso distinguir conceito, finalidade, condições de aplicação e efeitos. A leitura correta começa pela pergunta “qual problema este conceito resolve?” e continua com “em que situação ele não se aplica?”. Essa dupla verificação evita respostas baseadas apenas em palavras familiares.
+Três instrumentos com funções diferentes e complementares:
 
-Na prática administrativa ou linguística, identifique o contexto, os elementos envolvidos, o critério aplicável e a consequência antes de escolher a alternativa. A Cesgranrio costuma apresentar uma situação concreta e trocar um requisito, uma relação lógica ou a ordem de uma etapa. Por isso, compare cada alternativa com todos os dados do caso, não apenas com a primeira expressão que parece correta. Um bom resumo operacional é: definir, relacionar, aplicar e conferir.
+- **Livro Diário**: registra os lançamentos **em ordem cronológica**, um após o outro, conforme acontecem.
+- **Livro Razão**: reorganiza as mesmas informações do Diário **por conta** — mostra tudo que aconteceu numa conta específica (ex.: todos os lançamentos de "Banco"), facilitando ver o saldo de cada conta.
+- **Balancete de verificação**: lista todas as contas com seus saldos devedores e credores, servindo para **conferir se a soma dos débitos bate com a soma dos créditos** — é um instrumento de checagem, não de registro original.
 
-### 6. Regime de competência e regime de caixa
+## 6. Regime de competência x regime de caixa
 
-Regime de competência e regime de caixa integra o núcleo de **Registros contábeis**. Para a prova, não basta reconhecer o termo: é preciso distinguir conceito, finalidade, condições de aplicação e efeitos. A leitura correta começa pela pergunta “qual problema este conceito resolve?” e continua com “em que situação ele não se aplica?”. Essa dupla verificação evita respostas baseadas apenas em palavras familiares.
+- **Regime de competência** (usado pela contabilidade societária/oficial): reconhece receitas e despesas **quando ocorrem** (quando o fato gerador acontece), independentemente de quando o dinheiro efetivamente entra ou sai do caixa.
+- **Regime de caixa**: reconhece receitas e despesas **apenas quando o dinheiro** efetivamente entra ou sai.
 
-Na prática administrativa ou linguística, identifique o contexto, os elementos envolvidos, o critério aplicável e a consequência antes de escolher a alternativa. A Cesgranrio costuma apresentar uma situação concreta e trocar um requisito, uma relação lógica ou a ordem de uma etapa. Por isso, compare cada alternativa com todos os dados do caso, não apenas com a primeira expressão que parece correta. Um bom resumo operacional é: definir, relacionar, aplicar e conferir.
+Exemplo: uma venda a prazo é registrada como receita no regime de competência assim que a venda ocorre — mesmo que o dinheiro só entre 30 dias depois. No regime de caixa, só seria registrada quando o cliente efetivamente pagasse.
 
-### 7. Obrigações acessórias e controles fiscais
+## 7. Obrigações acessórias e controles fiscais
 
-Obrigações acessórias e controles fiscais integra o núcleo de **Registros contábeis**. Para a prova, não basta reconhecer o termo: é preciso distinguir conceito, finalidade, condições de aplicação e efeitos. A leitura correta começa pela pergunta “qual problema este conceito resolve?” e continua com “em que situação ele não se aplica?”. Essa dupla verificação evita respostas baseadas apenas em palavras familiares.
-
-Na prática administrativa ou linguística, identifique o contexto, os elementos envolvidos, o critério aplicável e a consequência antes de escolher a alternativa. A Cesgranrio costuma apresentar uma situação concreta e trocar um requisito, uma relação lógica ou a ordem de uma etapa. Por isso, compare cada alternativa com todos os dados do caso, não apenas com a primeira expressão que parece correta. Um bom resumo operacional é: definir, relacionar, aplicar e conferir.
-
-## Método de resolução
-
-1. Classifique o comando: definição, cálculo, aplicação, exceção ou interpretação.
-2. Sublinhe restrições, negações, unidades, prazos e qualificadores como “sempre”, “apenas” e “necessariamente”.
-3. Recupere a regra central antes de olhar as alternativas.
-4. Elimine opções que misturam conceitos verdadeiros em relação errada.
-5. Teste a resposta no caso concreto e faça uma conferência final.
+Obrigações acessórias são declarações e documentos que **informam** o Fisco sobre fatos geradores de tributos (ex.: notas fiscais, declarações eletrônicas) — elas **documentam e comunicam**, mas não se confundem com o tributo principal em si (o valor efetivamente devido). Uma empresa pode estar em dia com uma obrigação acessória (entregou a declaração) e ainda assim dever o tributo, ou vice-versa — são obrigações independentes uma da outra.
 
 ## Síntese
 
-O domínio de Registros contábeis resulta da conexão entre patrimônio, contas e equação patrimonial, método das partidas dobradas, débito, crédito e natureza das contas e os demais pontos do edital. Revise o mapa mental, explique cada ramo com suas próprias palavras e resolva questões reais. Se uma regra parecer absoluta, procure condições, limites e exceções: é nesse deslocamento que se concentram muitas pegadinhas.
+A base de AC-07 é entender que débito/crédito dependem da NATUREZA da conta (ativo/despesa vs. passivo/PL/receita), que todo lançamento preserva a equação patrimonial, e que Diário, Razão e Balancete são instrumentos com papéis diferentes no mesmo processo de registro. Essa base é o que sustenta AC-08 (fluxo de caixa) e AC-09 (Balanço/DRE) na sequência.
 
 ## Mapa mental
 
-# AC-07 — Mapa mental
-
 \`\`\`mermaid
 mindmap
-  root((Registros contábeis))
-    patrimônio, contas e equação patrimonial
-      Conceito e finalidade
-      Condições de aplicação
-      Exemplo de prova
-      Contraste e exceção
-    método das partidas dobradas
-      Conceito e finalidade
-      Condições de aplicação
-      Exemplo de prova
-      Contraste e exceção
-    débito, crédito e natureza das contas
-      Conceito e finalidade
-      Condições de aplicação
-      Exemplo de prova
-      Contraste e exceção
-    atos e fatos contábeis
-      Conceito e finalidade
-      Condições de aplicação
-      Exemplo de prova
-      Contraste e exceção
-    livro Diário, Razão e balancete
-      Conceito e finalidade
-      Condições de aplicação
-      Exemplo de prova
-      Contraste e exceção
-    regime de competência e regime de caixa
-      Conceito e finalidade
-      Condições de aplicação
-      Exemplo de prova
-      Contraste e exceção
-    obrigações acessórias e controles fiscais
-      Conceito e finalidade
-      Condições de aplicação
-      Exemplo de prova
-      Contraste e exceção
-    Estratégia Cesgranrio
-      Ler o comando
-      Eliminar extrapolações
-      Conferir o caso
+  root((Registros Contábeis — AC-07))
+    Equação patrimonial
+      Ativo = Passivo + PL
+    Partidas dobradas
+      Débito = Crédito sempre
+    Natureza das contas
+      Ativo/Despesa: débito aumenta
+      Passivo/PL/Receita: crédito aumenta
+    Atos x Fatos contábeis
+      Ato: ainda não altera patrimônio
+      Fato: altera o patrimônio, gera lançamento
+    Livros e relatórios
+      Diário: cronológico
+      Razão: por conta
+      Balancete: verificação de saldos
+    Regimes
+      Competência: quando ocorre
+      Caixa: quando o dinheiro se move
+    Obrigações acessórias
+      Informam o Fisco
+      Não se confundem com o tributo principal
 \`\`\``,
   mustMemorize: [
-    `Ativo, passivo e patrimônio líquido obedecem à equação Ativo=Passivo+PL.`,
-    `Partidas dobradas exigem soma dos débitos igual à soma dos créditos em cada lançamento.`,
-    `Débito não significa sempre aumento nem crédito sempre redução; depende da natureza da conta.`,
-    `Contas de ativo e despesa geralmente aumentam a débito; passivo, PL e receita, a crédito.`,
-    `Competência reconhece efeitos quando ocorrem, independentemente do caixa.`,
-    `Diário registra cronologicamente; Razão organiza por conta; balancete verifica saldos e igualdade contábil.`,
-    `Obrigações acessórias informam e documentam fatos fiscais, sem se confundirem com o tributo principal.`,
-    `**Patrimônio, contas e equação patrimonial:** associe definição, finalidade, condição e contraste.`,
-    `**Método das partidas dobradas:** associe definição, finalidade, condição e contraste.`,
-    `**Débito, crédito e natureza das contas:** associe definição, finalidade, condição e contraste.`,
-    `**Atos e fatos contábeis:** associe definição, finalidade, condição e contraste.`,
-    `**Livro Diário, Razão e balancete:** associe definição, finalidade, condição e contraste.`,
+    `Ativo = Passivo + Patrimônio Líquido — equação sempre em equilíbrio.`,
+    `Toda partida dobrada: soma dos débitos = soma dos créditos.`,
+    `Ativo e Despesa: débito AUMENTA. Passivo, PL e Receita: débito DIMINUI (crédito aumenta) — grupos "espelhados".`,
+    `Ato contábil: ainda não altera o patrimônio. Fato contábil: altera o patrimônio e gera lançamento.`,
+    `Diário = ordem cronológica. Razão = organizado por conta. Balancete = verifica se débitos batem com créditos.`,
+    `Regime de competência: reconhece quando o fato ocorre. Regime de caixa: reconhece quando o dinheiro se move.`,
+    `Obrigações acessórias informam o Fisco (declarações, notas fiscais) e são independentes do tributo principal em si.`,
   ],
   workedExamples: [
-    `Escrituração é a técnica contábil de registro cronológico dos fatos contábeis, com o objetivo de controlar o patrimônio e suas variações — conceito fundamental de registros contábeis, núcleo do código AC-07. **Lição de prova:** identifique exatamente qual dado sustenta o gabarito e por que as demais opções extrapolam, invertem ou misturam conceitos.`,
-    `O Estoque (ativo) aumenta em R$ 3.700,00 (débito). O pagamento com cheque (50% = R$ 1.850,00) reduz a conta Banco (crédito) e o saldo a prazo (50% = R$ 1.850,00) gera uma obrigação em Fornecedores (crédito) — partidas dobradas corretas na alternativa C. Núcleo do código AC-07 (princípios e práticas contábeis fundamentais). **Lição de prova:** identifique exatamente qual dado sustenta o gabarito e por que as demais opções extrapolam, invertem ou misturam conceitos.`,
-    `O objetivo final da contabilidade, ao fornecer informações úteis a usuários internos e externos, é subsidiar a tomada de decisões desses usuários — objetivo maior que engloba controle patrimonial, registro de fatos e atendimento a exigências legais, que são meios, não o fim último. Núcleo do código AC-07 (2.1 princípios e práticas contábeis fundamentais). **Lição de prova:** identifique exatamente qual dado sustenta o gabarito e por que as demais opções extrapolam, invertem ou misturam conceitos.`,
-    `O lançamento debita 'Vendas' (zerando seu saldo credor de R$ 125.000,00) e credita 'Apuração do Resultado' pelo mesmo valor — procedimento típico de encerramento de conta de resultado (receita de vendas) para apuração do resultado do exercício, ao final do período contábil. Núcleo do código AC-07 (2.1 princípios e práticas contábeis fundamentais — registros/razonetes). **Lição de prova:** identifique exatamente qual dado sustenta o gabarito e por que as demais opções extrapolam, invertem ou misturam conceitos.`,
+    `Escrituração é a técnica contábil de registro cronológico dos fatos contábeis, com o objetivo de controlar o patrimônio e suas variações — o termo técnico correto para "a atividade de registrar", não confundir com controladoria (área de gestão), consolidação (juntar demonstrações de grupos empresariais), combinação ou demonstração (relatórios finais).`,
+    `Compra de estoque por R$ 3.700,00, com 50% pago em cheque e 50% a prazo: debita Estoque (ativo, aumenta) R$ 3.700,00; credita Banco (ativo, diminui) R$ 1.850,00; credita Fornecedores (passivo, aumenta) R$ 1.850,00. A soma dos débitos (3.700) bate com a soma dos créditos (1.850+1.850=3.700) — partida dobrada correta.`,
+    `O objetivo final da contabilidade, ao fornecer informações úteis a usuários internos e externos, é subsidiar a tomada de decisões desses usuários — controle patrimonial, registro de fatos e atendimento a exigências legais são MEIOS para chegar nesse objetivo, não o fim último em si.`,
+    `Encerramento de conta de resultado: debita 'Vendas' (zerando seu saldo credor) e credita 'Apuração do Resultado' pelo mesmo valor — procedimento padrão ao final do período contábil para apurar o resultado do exercício, zerando as contas de receita/despesa para o próximo período começar do zero.`,
   ],
   commonMistakes: [
-    `Reconhecer palavra-chave e ignorar o contexto: **Por que engana:** a alternativa repete termos do enunciado, mas altera a relação entre eles. **Correto:** valide definição, condição e consequência no caso completo.`,
-    `Transformar regra condicionada em regra absoluta: **Por que engana:** expressões como “sempre”, “nunca” e “somente” parecem categóricas. **Correto:** procure exceções e requisitos antes de aceitar a afirmação.`,
-    `Confundir conceitos vizinhos: **Por que engana:** patrimônio, contas e equação patrimonial e método das partidas dobradas pertencem ao mesmo tema, mas não são sinônimos. **Correto:** compare finalidade, objeto e modo de aplicação.`,
-    `Padrão observado no acervo real (AC-07-2012-CESGRANRIO-41): Escrituração é a técnica contábil de registro cronológico dos fatos contábeis, com o objetivo de controlar o patrimônio e suas variações — conceito fundamental de registros contábeis, núcleo do código AC-07. **Lição de prova:** identifique exatamente qual dado sustenta o gabarito e por que as demais opções extrapolam, invertem ou misturam conceitos.`,
-    `Padrão observado no acervo real (AC-07-2012-CESGRANRIO-42): O Estoque (ativo) aumenta em R$ 3.700,00 (débito). O pagamento com cheque (50% = R$ 1.850,00) reduz a conta Banco (crédito) e o saldo a prazo (50% = R$ 1.850,00) gera uma obrigação em Fornecedores (crédito) — partidas dobradas corretas na alternativa C. Núcleo do código AC-07 (princípios e práticas contábeis fundamentais). **Lição de prova:** identifique exatamente qual dado sustenta o gabarito e por que as demais opções extrapolam, invertem ou misturam conceitos.`,
-    `Padrão observado no acervo real (AC-07-2006-CESGRANRIO-31): O objetivo final da contabilidade, ao fornecer informações úteis a usuários internos e externos, é subsidiar a tomada de decisões desses usuários — objetivo maior que engloba controle patrimonial, registro de fatos e atendimento a exigências legais, que são meios, não o fim último. Núcleo do código AC-07 (2.1 princípios e práticas contábeis fundamentais). **Lição de prova:** identifique exatamente qual dado sustenta o gabarito e por que as demais opções extrapolam, invertem ou misturam conceitos.`,
-    `Padrão observado no acervo real (AC-07-2006-CESGRANRIO-36): O lançamento debita 'Vendas' (zerando seu saldo credor de R$ 125.000,00) e credita 'Apuração do Resultado' pelo mesmo valor — procedimento típico de encerramento de conta de resultado (receita de vendas) para apuração do resultado do exercício, ao final do período contábil. Núcleo do código AC-07 (2.1 princípios e práticas contábeis fundamentais — registros/razonetes). **Lição de prova:** identifique exatamente qual dado sustenta o gabarito e por que as demais opções extrapolam, invertem ou misturam conceitos.`,
+    `Achar que débito sempre significa "aumento" — só é verdade para Ativo e Despesa; em Passivo, PL e Receita, débito DIMINUI.`,
+    `Confundir ato contábil (ainda não altera o patrimônio) com fato contábil (altera e gera lançamento).`,
+    `Tratar Diário, Razão e Balancete como a mesma coisa — cada um organiza a informação de um jeito e serve a um propósito diferente (cronológico, por conta, verificação).`,
+    `Confundir regime de competência (quando o fato ocorre) com regime de caixa (quando o dinheiro se move) — a contabilidade societária oficial usa competência.`,
+    `Achar que cumprir uma obrigação acessória (entregar a declaração) significa que o tributo principal já foi pago — são obrigações independentes.`,
+    `Padrão observado no acervo real (AC-07-2012-CESGRANRIO-41): escrituração é a técnica de registro cronológico com objetivo de controlar o patrimônio — termo técnico específico, não confundir com controladoria, consolidação, combinação ou demonstração.`,
+    `Padrão observado no acervo real (AC-07-2012-CESGRANRIO-42): num lançamento de compra parcelada, o estoque (ativo) é debitado pelo valor total, e as saídas de caixa/banco e o passivo em fornecedores são creditados nas proporções corretas — atenção a distribuir corretamente entre as contas de crédito.`,
+    `Padrão observado no acervo real (AC-07-2006-CESGRANRIO-31): o objetivo final da contabilidade é subsidiar decisões dos usuários — não confundir o objetivo final com os meios (controle patrimonial, registro, exigências legais).`,
+    `Padrão observado no acervo real (AC-07-2006-CESGRANRIO-36): encerramento de conta de resultado (ex.: Vendas) contra Apuração do Resultado é procedimento padrão de fim de período, não um lançamento "estranho" ou incomum.`,
   ],
   howBoardMightAsk: [
-    `Ver padrão real: AC-07-2012-CESGRANRIO-41 — Escrituração é a técnica contábil de registro cronológico dos fatos contábeis, com o objetivo de controlar o patrimônio e suas variações — conceito fundamental ...`,
-    `Ver padrão real: AC-07-2012-CESGRANRIO-42 — O Estoque (ativo) aumenta em R$ 3.700,00 (débito). O pagamento com cheque (50% = R$ 1.850,00) reduz a conta Banco (crédito) e o saldo a prazo (50% = R$ 1.850,00...`,
-    `Ver padrão real: AC-07-2006-CESGRANRIO-31 — O objetivo final da contabilidade, ao fornecer informações úteis a usuários internos e externos, é subsidiar a tomada de decisões desses usuários — objetivo mai...`,
-    `Ver padrão real: AC-07-2006-CESGRANRIO-36 — O lançamento debita 'Vendas' (zerando seu saldo credor de R$ 125.000,00) e credita 'Apuração do Resultado' pelo mesmo valor — procedimento típico de encerrament...`,
+    `Pede o nome técnico de um processo contábil (ex.: escrituração) a partir de uma definição, com distratores de termos parecidos (controladoria, consolidação).`,
+    `Apresenta uma transação concreta (compra parcelada, venda, pagamento) e pede o lançamento contábil correto (quais contas, débito ou crédito, valores).`,
+    `Testa se o candidato sabe que débito/crédito dependem da natureza da conta, geralmente usando uma conta de passivo ou receita para verificar se ele erra achando que débito sempre aumenta.`,
+    `Pede para diferenciar regime de competência de regime de caixa a partir de uma situação de venda a prazo.`,
   ],
   legalReferences: [],
   reviewSummaryPoints: [
-    `Ativo, passivo e patrimônio líquido obedecem à equação Ativo=Passivo+PL.`,
-    `Partidas dobradas exigem soma dos débitos igual à soma dos créditos em cada lançamento.`,
-    `Débito não significa sempre aumento nem crédito sempre redução; depende da natureza da conta.`,
-    `Contas de ativo e despesa geralmente aumentam a débito; passivo, PL e receita, a crédito.`,
-    `Competência reconhece efeitos quando ocorrem, independentemente do caixa.`,
-    `Diário registra cronologicamente; Razão organiza por conta; balancete verifica saldos e igualdade contábil.`,
-    `Obrigações acessórias informam e documentam fatos fiscais, sem se confundirem com o tributo principal.`,
-    `**Patrimônio, contas e equação patrimonial:** associe definição, finalidade, condição e contraste.`,
-    `**Método das partidas dobradas:** associe definição, finalidade, condição e contraste.`,
-    `**Débito, crédito e natureza das contas:** associe definição, finalidade, condição e contraste.`,
-    `**Atos e fatos contábeis:** associe definição, finalidade, condição e contraste.`,
-    `**Livro Diário, Razão e balancete:** associe definição, finalidade, condição e contraste.`,
+    `Ativo = Passivo + PL, sempre em equilíbrio.`,
+    `Toda partida dobrada: débitos = créditos.`,
+    `Ativo/Despesa: débito aumenta. Passivo/PL/Receita: crédito aumenta.`,
+    `Ato contábil ≠ fato contábil (só o fato gera lançamento).`,
+    `Diário (cronológico) x Razão (por conta) x Balancete (verificação).`,
+    `Competência (quando ocorre) x Caixa (quando o dinheiro se move).`,
+    `Obrigações acessórias informam o Fisco, independentes do tributo principal.`,
   ],
-  flashcards: [],
+  flashcards: [
+    { front: "Qual a equação patrimonial fundamental da contabilidade?", back: "Ativo = Passivo + Patrimônio Líquido." },
+    { front: "Débito sempre significa aumento?", back: "Não — só em Ativo e Despesa. Em Passivo, PL e Receita, débito DIMINUI (crédito aumenta)." },
+    { front: "Diferença entre Livro Diário e Livro Razão?", back: "Diário: registro em ordem cronológica. Razão: reorganiza os mesmos lançamentos por conta." },
+    { front: "Diferença entre regime de competência e regime de caixa?", back: "Competência: reconhece quando o fato ocorre. Caixa: reconhece só quando o dinheiro efetivamente se move." },
+  ],
   miniQuiz: [
-      {
-        statement: `A técnica empregada para o registro dos fatos contábeis e que tem como objetivo o controle do patrimônio e de suas variações é denominada`,
-        options: [
-        { key: "A", text: `controladoria`, isCorrect: false, explanation: `Alternativa incorreta — compare com o gabarito e a justificativa da alternativa correta.` },
-        { key: "B", text: `consolidação`, isCorrect: false, explanation: `Alternativa incorreta — compare com o gabarito e a justificativa da alternativa correta.` },
-        { key: "C", text: `combinação`, isCorrect: false, explanation: `Alternativa incorreta — compare com o gabarito e a justificativa da alternativa correta.` },
-        { key: "D", text: `demonstração`, isCorrect: false, explanation: `Alternativa incorreta — compare com o gabarito e a justificativa da alternativa correta.` },
-        { key: "E", text: `escrituração`, isCorrect: true, explanation: `Escrituração é a técnica contábil de registro cronológico dos fatos contábeis, com o objetivo de controlar o patrimônio e suas variações — conceito fundamental de registros contábeis, núcleo do código AC-07.` },
-        ],
-      },
-      {
-        statement: `A empresa Juventude Ltda. comercializa, entre outros produtos, desodorizadores para veículos. No dia 05 de abril de 2012, comprou 370 unidades pelo valor de R$ 3.700,00, sendo o pagamento feito com entrada de 50% em cheque, e o restante, com vencimento para trinta dias.
+    {
+      statement: `A técnica empregada para o registro dos fatos contábeis e que tem como objetivo o controle do patrimônio e de suas variações é denominada`,
+      options: [
+        { key: "A", text: `controladoria`, isCorrect: false, explanation: `Controladoria é a área/função de gestão que usa informações contábeis para decisão, não a técnica de registro em si.` },
+        { key: "B", text: `consolidação`, isCorrect: false, explanation: `Consolidação é o processo de juntar demonstrações contábeis de um grupo de empresas, não a técnica de registro cotidiano.` },
+        { key: "C", text: `combinação`, isCorrect: false, explanation: `Não é um termo técnico contábil padrão para a técnica de registro dos fatos.` },
+        { key: "D", text: `demonstração`, isCorrect: false, explanation: `Demonstração é o relatório final (ex.: Balanço, DRE), resultado do processo de registro — não o processo de registro em si.` },
+        { key: "E", text: `escrituração`, isCorrect: true, explanation: `Correto: escrituração é a técnica contábil de registro cronológico dos fatos contábeis, com o objetivo de controlar o patrimônio e suas variações.` },
+      ],
+    },
+    {
+      statement: `A empresa Juventude Ltda. comercializa, entre outros produtos, desodorizadores para veículos. No dia 05 de abril de 2012, comprou 370 unidades pelo valor de R$ 3.700,00, sendo o pagamento feito com entrada de 50% em cheque, e o restante, com vencimento para trinta dias.
 
 Qual é o registro contábil efetuado pela contabilidade no dia da aquisição do produto?`,
-        options: [
-        { key: "A", text: `Debita Banco R$ 1.850,00; Debita Fornecedores R$ 1.850,00; Credita Estoque R$ 3.700,00`, isCorrect: false, explanation: `Alternativa incorreta — compare com o gabarito e a justificativa da alternativa correta.` },
-        { key: "B", text: `Debita Estoque R$ 3.700,00; Credita Caixa R$ 1.850,00; Credita Banco R$ 1.850,00`, isCorrect: false, explanation: `Alternativa incorreta — compare com o gabarito e a justificativa da alternativa correta.` },
-        { key: "C", text: `Debita Estoque R$ 3.700,00; Credita Banco R$ 1.850,00; Credita Fornecedores R$ 1.850,00`, isCorrect: true, explanation: `O Estoque (ativo) aumenta em R$ 3.700,00 (débito). O pagamento com cheque (50% = R$ 1.850,00) reduz a conta Banco (crédito) e o saldo a prazo (50% = R$ 1.850,00) gera uma obrigação em Fornecedores (crédito) — partidas dobradas corretas na alternativa C. Núcleo do código AC-07 (princípios e práticas contábeis fundamentais).` },
-        { key: "D", text: `Debita Estoque R$ 1.850,00; Debita Caixa R$ 1.850,00; Credita Banco R$ 3.700,00`, isCorrect: false, explanation: `Alternativa incorreta — compare com o gabarito e a justificativa da alternativa correta.` },
-        { key: "E", text: `Debita Estoque R$ 1.850,00; Debita Banco R$ 1.850,00; Credita Banco R$ 3.700,00`, isCorrect: false, explanation: `Alternativa incorreta — compare com o gabarito e a justificativa da alternativa correta.` },
-        ],
-      },
+      options: [
+        { key: "A", text: `Debita Banco R$ 1.850,00; Debita Fornecedores R$ 1.850,00; Credita Estoque R$ 3.700,00`, isCorrect: false, explanation: `Inverte a lógica: o Estoque deveria ser debitado (entrou na empresa), e Banco/Fornecedores creditados (saída de recurso/geração de obrigação), não o contrário.` },
+        { key: "B", text: `Debita Estoque R$ 3.700,00; Credita Caixa R$ 1.850,00; Credita Banco R$ 1.850,00`, isCorrect: false, explanation: `O pagamento foi feito com CHEQUE (conta Banco), não com Caixa — usar Caixa duplica incorretamente o valor pago via cheque.` },
+        { key: "C", text: `Debita Estoque R$ 3.700,00; Credita Banco R$ 1.850,00; Credita Fornecedores R$ 1.850,00`, isCorrect: true, explanation: `Correto: o Estoque (ativo) aumenta R$ 3.700,00 (débito). O pagamento com cheque reduz Banco em R$ 1.850,00 (crédito) e o saldo a prazo gera obrigação em Fornecedores de R$ 1.850,00 (crédito) — soma dos créditos (3.700) bate com o débito.` },
+        { key: "D", text: `Debita Estoque R$ 1.850,00; Debita Caixa R$ 1.850,00; Credita Banco R$ 3.700,00`, isCorrect: false, explanation: `O Estoque deveria entrar pelo valor TOTAL (R$ 3.700,00), não pela metade — e Caixa não foi utilizado nesta transação (o pagamento foi em cheque).` },
+        { key: "E", text: `Debita Estoque R$ 1.850,00; Debita Banco R$ 1.850,00; Credita Banco R$ 3.700,00`, isCorrect: false, explanation: `O Estoque deveria entrar pelo valor total (R$ 3.700,00), e Banco não pode aparecer ao mesmo tempo como débito e crédito nessa transação.` },
+      ],
+    },
   ],
 };

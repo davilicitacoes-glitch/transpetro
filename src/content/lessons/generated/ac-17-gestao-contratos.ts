@@ -6,183 +6,139 @@ export const AC_17_GESTAO_CONTRATOS: LessonContent = {
   subjectSlug: "especificas",
   moduleSlug: "especificas-logistica-cadeia-suprimentos",
   title: `Gestão de Contratos`,
-  learningObjective: `Este material cobre o conteúdo oficial de **Gestão de contratos** com foco na prova objetiva da Cesgranrio. O tema deve ser estudado em três camadas: vocabulário técnico, relações entre os conceitos e aplicação em situações-problema. Questões da banca frequentemente exigem inferência controlada, comparação de alternativas próximas e atenção a exceções; por isso, a preparação deve combinar teoria, exemplos e revisão dos erros.`,
+  learningObjective: `Dominar o ciclo de vida do contrato administrativo (formalização → execução → fiscalização → alterações → encerramento), os papéis de gestor e fiscal, e como a Lei 14.133/2021 trata reajuste, repactuação, revisão e aditivos — continuação natural de AC-16, já que a licitação (AC-16) termina exatamente onde o contrato (AC-17) começa.`,
   syllabusCodes: ["AC-17"],
-  estimatedMinutes: 40,
+  estimatedMinutes: 45,
   expectedMastery: "intermediario",
-  bodyMdx: `# AC-17 — Gestão de contratos
+  bodyMdx: `# AC-17 — Gestão de Contratos
 
-## Visão geral
+Se AC-16 é "como se compra", AC-17 é "como se administra o que foi comprado depois de assinado o contrato". A banca gosta de testar tanto os PAPÉIS (quem faz o quê) quanto os CONCEITOS FINANCEIROS que soam parecidos mas são tecnicamente diferentes (reajuste x repactuação x revisão).
 
-Este material cobre o conteúdo oficial de **Gestão de contratos** com foco na prova objetiva da Cesgranrio. O tema deve ser estudado em três camadas: vocabulário técnico, relações entre os conceitos e aplicação em situações-problema. Questões da banca frequentemente exigem inferência controlada, comparação de alternativas próximas e atenção a exceções; por isso, a preparação deve combinar teoria, exemplos e revisão dos erros.
+## 1. Planejamento e formação do contrato
 
-## Núcleo conceitual e regras operacionais
+O contrato nasce do processo licitatório (AC-16) e formaliza obrigações recíprocas: o que será entregue, prazo, valor, penalidades, e as condições de execução. Um contrato mal formalizado — cláusulas vagas, ausência de critérios de aceite claros — é a origem da maioria dos problemas de execução e fiscalização que aparecem depois. O planejamento contratual inclui prever desde o início: como será medido o serviço, quem fiscaliza, e o que acontece em caso de descumprimento.
 
-1. Gestor coordena o contrato; fiscal acompanha a execução e registra evidências, conforme designação e regras internas.
-2. Medição e pagamento dependem da execução comprovada, aceite e documentos aplicáveis.
-3. Recebimento provisório e definitivo não eliminam automaticamente responsabilidades do contratado.
-4. Matriz de riscos aloca eventos e responsabilidades e orienta respostas.
-5. Reajuste recompõe inflação por índice; repactuação relaciona-se à variação demonstrada de custos em serviços aplicáveis; revisão trata equilíbrio econômico-financeiro diante de eventos jurídicos.
-6. Aditivo não serve para encobrir falta de planejamento nem pode ultrapassar limites legais.
-7. Sistemas digitais devem preservar autoria, integridade, trilha de auditoria e controle de prazos.
+## 2. Papéis do gestor e do fiscal do contrato
 
-### 1. Planejamento e formação do contrato
+Dois papéis frequentemente confundidos:
 
-Planejamento e formação do contrato integra o núcleo de **Gestão de contratos**. Para a prova, não basta reconhecer o termo: é preciso distinguir conceito, finalidade, condições de aplicação e efeitos. A leitura correta começa pela pergunta “qual problema este conceito resolve?” e continua com “em que situação ele não se aplica?”. Essa dupla verificação evita respostas baseadas apenas em palavras familiares.
+- **Gestor do contrato**: tem visão ampla e estratégica — coordena o contrato como um todo, toma decisões sobre alterações, prorrogações, e é o elo entre a área técnica e a administrativa/jurídica.
+- **Fiscal do contrato**: acompanha a execução **no dia a dia**, de perto — verifica se o que foi entregue/executado corresponde ao contratado, registra ocorrências (atrasos, não conformidades) e produz a documentação que sustenta a medição e o pagamento.
 
-Na prática administrativa ou linguística, identifique o contexto, os elementos envolvidos, o critério aplicável e a consequência antes de escolher a alternativa. A Cesgranrio costuma apresentar uma situação concreta e trocar um requisito, uma relação lógica ou a ordem de uma etapa. Por isso, compare cada alternativa com todos os dados do caso, não apenas com a primeira expressão que parece correta. Um bom resumo operacional é: definir, relacionar, aplicar e conferir.
+**Regra prática**: o fiscal está mais perto da operação; o gestor tem a visão de conjunto e responde pelas decisões formais. Um erro típico de prova é atribuir ao fiscal uma decisão que é do gestor (ex.: aplicar penalidade) ou vice-versa.
 
-### 2. Execução, medição, pagamento e encerramento
+## 3. Execução, medição, pagamento e recebimento
 
-Execução, medição, pagamento e encerramento integra o núcleo de **Gestão de contratos**. Para a prova, não basta reconhecer o termo: é preciso distinguir conceito, finalidade, condições de aplicação e efeitos. A leitura correta começa pela pergunta “qual problema este conceito resolve?” e continua com “em que situação ele não se aplica?”. Essa dupla verificação evita respostas baseadas apenas em palavras familiares.
+O pagamento **depende de execução comprovada** — não se paga por confiança, se paga contra evidência (medição, relatório, aceite formal). Dois momentos de recebimento do objeto:
 
-Na prática administrativa ou linguística, identifique o contexto, os elementos envolvidos, o critério aplicável e a consequência antes de escolher a alternativa. A Cesgranrio costuma apresentar uma situação concreta e trocar um requisito, uma relação lógica ou a ordem de uma etapa. Por isso, compare cada alternativa com todos os dados do caso, não apenas com a primeira expressão que parece correta. Um bom resumo operacional é: definir, relacionar, aplicar e conferir.
+- **Recebimento provisório**: confirma que o objeto foi entregue, mas ainda sujeito a verificação mais aprofundada.
+- **Recebimento definitivo**: confirma que o objeto atende integralmente ao contratado, após a verificação.
 
-### 3. Papéis do gestor e do fiscal
+**Armadilha importante**: nenhum dos dois recebimentos, provisório ou definitivo, **elimina automaticamente** a responsabilidade do contratado por vícios ocultos ou problemas que só aparecem depois (ex.: um defeito de fabricação descoberto meses depois do recebimento definitivo ainda pode gerar responsabilização).
 
-Papéis do gestor e do fiscal integra o núcleo de **Gestão de contratos**. Para a prova, não basta reconhecer o termo: é preciso distinguir conceito, finalidade, condições de aplicação e efeitos. A leitura correta começa pela pergunta “qual problema este conceito resolve?” e continua com “em que situação ele não se aplica?”. Essa dupla verificação evita respostas baseadas apenas em palavras familiares.
+## 4. Matriz de riscos e controles
 
-Na prática administrativa ou linguística, identifique o contexto, os elementos envolvidos, o critério aplicável e a consequência antes de escolher a alternativa. A Cesgranrio costuma apresentar uma situação concreta e trocar um requisito, uma relação lógica ou a ordem de uma etapa. Por isso, compare cada alternativa com todos os dados do caso, não apenas com a primeira expressão que parece correta. Um bom resumo operacional é: definir, relacionar, aplicar e conferir.
+Uma matriz de riscos contratual lista os eventos que podem dar errado durante a execução (atraso do fornecedor, mudança de escopo, problema de qualidade), quem é o responsável por cada risco (contratante ou contratada) e qual a resposta prevista. Isso orienta decisões durante a execução em vez de improvisar quando o problema já aconteceu.
 
-### 4. Registro de ocorrências e recebimento do objeto
+## 5. Alterações contratuais: reajuste, repactuação e revisão
 
-Registro de ocorrências e recebimento do objeto integra o núcleo de **Gestão de contratos**. Para a prova, não basta reconhecer o termo: é preciso distinguir conceito, finalidade, condições de aplicação e efeitos. A leitura correta começa pela pergunta “qual problema este conceito resolve?” e continua com “em que situação ele não se aplica?”. Essa dupla verificação evita respostas baseadas apenas em palavras familiares.
+Os três termos soam parecidos mas têm gatilhos técnicos diferentes — é a distinção mais cobrada deste código:
 
-Na prática administrativa ou linguística, identifique o contexto, os elementos envolvidos, o critério aplicável e a consequência antes de escolher a alternativa. A Cesgranrio costuma apresentar uma situação concreta e trocar um requisito, uma relação lógica ou a ordem de uma etapa. Por isso, compare cada alternativa com todos os dados do caso, não apenas com a primeira expressão que parece correta. Um bom resumo operacional é: definir, relacionar, aplicar e conferir.
+- **Reajuste**: recompõe o valor do contrato pela **inflação**, aplicando um **índice previamente definido** (ex.: IPCA, INCC), de forma automática após o período mínimo (normalmente 1 ano). Não exige demonstração individualizada de custos — é uma fórmula.
+- **Repactuação**: usada principalmente em contratos de **serviços contínuos com mão de obra** (ex.: terceirização). Exige a **demonstração analítica** da variação de custos (ex.: dissídio da categoria), não é automática por índice — precisa provar o quanto os custos realmente subiram.
+- **Revisão**: trata do **reequilíbrio econômico-financeiro** do contrato diante de um evento **imprevisível** ou de força maior que rompe a equação inicial (ex.: mudança tributária relevante, evento extraordinário). É a mais excepcional das três.
 
-### 5. Matriz de riscos e controles
+**Como diferenciar em prova**: pergunte "isso é inflação genérica (reajuste), custo de mão de obra específico que precisa ser provado (repactuação), ou eu preciso invocar um evento extraordinário e imprevisível (revisão)?".
 
-Matriz de riscos e controles integra o núcleo de **Gestão de contratos**. Para a prova, não basta reconhecer o termo: é preciso distinguir conceito, finalidade, condições de aplicação e efeitos. A leitura correta começa pela pergunta “qual problema este conceito resolve?” e continua com “em que situação ele não se aplica?”. Essa dupla verificação evita respostas baseadas apenas em palavras familiares.
+## 6. Aditivos contratuais
 
-Na prática administrativa ou linguística, identifique o contexto, os elementos envolvidos, o critério aplicável e a consequência antes de escolher a alternativa. A Cesgranrio costuma apresentar uma situação concreta e trocar um requisito, uma relação lógica ou a ordem de uma etapa. Por isso, compare cada alternativa com todos os dados do caso, não apenas com a primeira expressão que parece correta. Um bom resumo operacional é: definir, relacionar, aplicar e conferir.
+Um termo aditivo formaliza alterações no contrato (prazo, valor, escopo) dentro de **limites legais** (percentuais máximos de acréscimo/supressão). Ponto central de prova: **aditivo não é ferramenta para corrigir falha de planejamento** — se o objeto foi mal especificado desde o início, isso é um problema de gestão anterior, não algo que se resolve "só fazendo um aditivo". A lei limita os percentuais justamente para evitar que aditivos sucessivos desvirtuem a licitação original.
 
-### 6. Alterações, reajuste, repactuação e aditivos
+## 7. Contratos digitais e integração com sistemas
 
-Alterações, reajuste, repactuação e aditivos integra o núcleo de **Gestão de contratos**. Para a prova, não basta reconhecer o termo: é preciso distinguir conceito, finalidade, condições de aplicação e efeitos. A leitura correta começa pela pergunta “qual problema este conceito resolve?” e continua com “em que situação ele não se aplica?”. Essa dupla verificação evita respostas baseadas apenas em palavras familiares.
-
-Na prática administrativa ou linguística, identifique o contexto, os elementos envolvidos, o critério aplicável e a consequência antes de escolher a alternativa. A Cesgranrio costuma apresentar uma situação concreta e trocar um requisito, uma relação lógica ou a ordem de uma etapa. Por isso, compare cada alternativa com todos os dados do caso, não apenas com a primeira expressão que parece correta. Um bom resumo operacional é: definir, relacionar, aplicar e conferir.
-
-### 7. Contratos digitais e integração com sistemas
-
-Contratos digitais e integração com sistemas integra o núcleo de **Gestão de contratos**. Para a prova, não basta reconhecer o termo: é preciso distinguir conceito, finalidade, condições de aplicação e efeitos. A leitura correta começa pela pergunta “qual problema este conceito resolve?” e continua com “em que situação ele não se aplica?”. Essa dupla verificação evita respostas baseadas apenas em palavras familiares.
-
-Na prática administrativa ou linguística, identifique o contexto, os elementos envolvidos, o critério aplicável e a consequência antes de escolher a alternativa. A Cesgranrio costuma apresentar uma situação concreta e trocar um requisito, uma relação lógica ou a ordem de uma etapa. Por isso, compare cada alternativa com todos os dados do caso, não apenas com a primeira expressão que parece correta. Um bom resumo operacional é: definir, relacionar, aplicar e conferir.
-
-## Método de resolução
-
-1. Classifique o comando: definição, cálculo, aplicação, exceção ou interpretação.
-2. Sublinhe restrições, negações, unidades, prazos e qualificadores como “sempre”, “apenas” e “necessariamente”.
-3. Recupere a regra central antes de olhar as alternativas.
-4. Elimine opções que misturam conceitos verdadeiros em relação errada.
-5. Teste a resposta no caso concreto e faça uma conferência final.
+Sistemas eletrônicos de gestão contratual precisam preservar: **autoria** (quem fez o quê), **integridade** (o documento não foi alterado sem registro), **trilha de auditoria** (histórico completo de alterações) e **controle de prazos** (alertas de vencimento, renovação, reajuste). Isso conecta diretamente com AC-02 (Sistema de Gestão Integrado) e com a exigência de rastreabilidade que atravessa todo o ciclo de compras e contratos.
 
 ## Síntese
 
-O domínio de Gestão de contratos resulta da conexão entre planejamento e formação do contrato, execução, medição, pagamento e encerramento, papéis do gestor e do fiscal e os demais pontos do edital. Revise o mapa mental, explique cada ramo com suas próprias palavras e resolva questões reais. Se uma regra parecer absoluta, procure condições, limites e exceções: é nesse deslocamento que se concentram muitas pegadinhas.
+AC-17 continua exatamente onde AC-16 termina: da licitação para a execução. Os pontos mais cobrados são a diferença entre gestor e fiscal, a tríade reajuste/repactuação/revisão (cada uma com gatilho técnico diferente), e o fato de que recebimento (provisório ou definitivo) não apaga responsabilidade por vícios futuros.
 
 ## Mapa mental
 
-# AC-17 — Mapa mental
-
 \`\`\`mermaid
 mindmap
-  root((Gestão de contratos))
-    planejamento e formação do contrato
-      Conceito e finalidade
-      Condições de aplicação
-      Exemplo de prova
-      Contraste e exceção
-    execução, medição, pagamento e encerramento
-      Conceito e finalidade
-      Condições de aplicação
-      Exemplo de prova
-      Contraste e exceção
-    papéis do gestor e do fiscal
-      Conceito e finalidade
-      Condições de aplicação
-      Exemplo de prova
-      Contraste e exceção
-    registro de ocorrências e recebimento do objeto
-      Conceito e finalidade
-      Condições de aplicação
-      Exemplo de prova
-      Contraste e exceção
-    matriz de riscos e controles
-      Conceito e finalidade
-      Condições de aplicação
-      Exemplo de prova
-      Contraste e exceção
-    alterações, reajuste, repactuação e aditivos
-      Conceito e finalidade
-      Condições de aplicação
-      Exemplo de prova
-      Contraste e exceção
-    contratos digitais e integração com sistemas
-      Conceito e finalidade
-      Condições de aplicação
-      Exemplo de prova
-      Contraste e exceção
-    Estratégia Cesgranrio
-      Ler o comando
-      Eliminar extrapolações
-      Conferir o caso
+  root((Gestão de Contratos — AC-17))
+    Papéis
+      Gestor: visão ampla, decisões
+      Fiscal: acompanhamento diário, evidências
+    Execução
+      Medição contra evidência
+      Recebimento provisório
+      Recebimento definitivo
+    Alterações financeiras
+      Reajuste: índice, inflação
+      Repactuação: custo de mão de obra provado
+      Revisão: evento imprevisível
+    Aditivos
+      Limites legais
+      Nunca corrige falha de planejamento
+    Matriz de riscos
+      Evento, responsável, resposta
+    Sistemas digitais
+      Autoria, integridade, auditoria, prazos
 \`\`\``,
   mustMemorize: [
-    `Gestor coordena o contrato; fiscal acompanha a execução e registra evidências, conforme designação e regras internas.`,
-    `Medição e pagamento dependem da execução comprovada, aceite e documentos aplicáveis.`,
-    `Recebimento provisório e definitivo não eliminam automaticamente responsabilidades do contratado.`,
-    `Matriz de riscos aloca eventos e responsabilidades e orienta respostas.`,
-    `Reajuste recompõe inflação por índice; repactuação relaciona-se à variação demonstrada de custos em serviços aplicáveis; revisão trata equilíbrio econômico-financeiro diante de eventos jurídicos.`,
-    `Aditivo não serve para encobrir falta de planejamento nem pode ultrapassar limites legais.`,
-    `Sistemas digitais devem preservar autoria, integridade, trilha de auditoria e controle de prazos.`,
-    `**Planejamento e formação do contrato:** associe definição, finalidade, condição e contraste.`,
-    `**Execução, medição, pagamento e encerramento:** associe definição, finalidade, condição e contraste.`,
-    `**Papéis do gestor e do fiscal:** associe definição, finalidade, condição e contraste.`,
-    `**Registro de ocorrências e recebimento do objeto:** associe definição, finalidade, condição e contraste.`,
-    `**Matriz de riscos e controles:** associe definição, finalidade, condição e contraste.`,
+    `Gestor: visão ampla, decisões formais sobre o contrato. Fiscal: acompanhamento diário da execução, registra evidências.`,
+    `Pagamento depende de execução COMPROVADA (medição/aceite), nunca de confiança.`,
+    `Recebimento provisório e definitivo NÃO eliminam automaticamente a responsabilidade do contratado por vícios ocultos futuros.`,
+    `Reajuste = índice de inflação, automático. Repactuação = custo de mão de obra, precisa ser PROVADO. Revisão = evento imprevisível/força maior.`,
+    `Aditivo tem limites legais e NUNCA serve para corrigir falha de planejamento anterior.`,
+    `Matriz de riscos define: evento, responsável, resposta prevista — antecipa problemas em vez de improvisar.`,
+    `Sistemas digitais de contrato devem garantir autoria, integridade, trilha de auditoria e controle de prazos.`,
   ],
   workedExamples: [
-    `A resistência das áreas envolvidas em participar do processo de fiscalização caracteriza um problema de 'aceitação' do sistema de controle. Núcleo do código AC-17 (gestão de contratos — fiscalização e gestão de contratos). **Lição de prova:** identifique exatamente qual dado sustenta o gabarito e por que as demais opções extrapolam, invertem ou misturam conceitos.`,
+    `A resistência das áreas envolvidas em participar do processo de fiscalização caracteriza um problema de 'aceitação' do sistema de controle — quando os responsáveis por fiscalizar não veem valor no processo de registro, o controle falha não por falta de metodologia, mas por falta de adesão das pessoas envolvidas.`,
+    `Um contrato de serviço contínuo com mão de obra terceirizada, ao completar 12 meses, tem seu valor atualizado com base no dissídio coletivo da categoria, comprovado por planilha de custos — isso é repactuação, não reajuste, porque exige demonstração analítica de custo específico, não aplicação automática de índice.`,
   ],
   commonMistakes: [
-    `Reconhecer palavra-chave e ignorar o contexto: **Por que engana:** a alternativa repete termos do enunciado, mas altera a relação entre eles. **Correto:** valide definição, condição e consequência no caso completo.`,
-    `Transformar regra condicionada em regra absoluta: **Por que engana:** expressões como “sempre”, “nunca” e “somente” parecem categóricas. **Correto:** procure exceções e requisitos antes de aceitar a afirmação.`,
-    `Confundir conceitos vizinhos: **Por que engana:** planejamento e formação do contrato e execução, medição, pagamento e encerramento pertencem ao mesmo tema, mas não são sinônimos. **Correto:** compare finalidade, objeto e modo de aplicação.`,
-    `Padrão observado no acervo real (AC-17-2013-CESGRANRIO-48): A resistência das áreas envolvidas em participar do processo de fiscalização caracteriza um problema de 'aceitação' do sistema de controle. Núcleo do código AC-17 (gestão de contratos — fiscalização e gestão de contratos). **Lição de prova:** identifique exatamente qual dado sustenta o gabarito e por que as demais opções extrapolam, invertem ou misturam conceitos.`,
-    `Inverter causa, indicador e resultado: **Por que engana:** elementos verdadeiros aparecem em ordem causal incorreta. **Correto:** reconstrua a sequência lógica e teste-a com um exemplo simples.`,
-    `Inverter causa, indicador e resultado: **Por que engana:** elementos verdadeiros aparecem em ordem causal incorreta. **Correto:** reconstrua a sequência lógica e teste-a com um exemplo simples.`,
+    `Tratar reajuste, repactuação e revisão como sinônimos de "aumentar o valor do contrato" — cada um tem um gatilho técnico diferente (índice automático x custo comprovado x evento imprevisível).`,
+    `Atribuir ao fiscal uma decisão que é do gestor (ex.: aplicar sanção, decidir por aditivo) — o fiscal acompanha e registra; decisões formais são do gestor.`,
+    `Achar que o recebimento definitivo do objeto "encerra" toda e qualquer responsabilidade do contratado — vícios ocultos podem gerar responsabilização mesmo depois.`,
+    `Pensar que um aditivo pode "consertar" um objeto mal especificado desde o início — os limites legais de aditivo existem justamente para não permitir isso.`,
+    `Padrão observado no acervo real (AC-17-2013-CESGRANRIO-48): a resistência das áreas envolvidas em participar do processo de fiscalização caracteriza um problema de 'aceitação' do sistema de controle, não de economia, objetividade, precisão ou rapidez.`,
   ],
   howBoardMightAsk: [
-    `Ver padrão real: AC-17-2013-CESGRANRIO-48 — A resistência das áreas envolvidas em participar do processo de fiscalização caracteriza um problema de 'aceitação' do sistema de controle. Núcleo do código AC-...`,
+    `Descreve uma situação de reajuste de valor contratual e pede para identificar se é reajuste, repactuação ou revisão — testando o gatilho técnico correto de cada um.`,
+    `Apresenta uma falha no processo de fiscalização (resistência das equipes, falta de registro) e pede para identificar a que fator do controle isso se relaciona (aceitação, economia, objetividade, precisão, rapidez).`,
+    `Testa a diferença entre as responsabilidades do gestor e do fiscal a partir de uma situação concreta de execução contratual.`,
   ],
-  legalReferences: [],
+  legalReferences: [
+    { title: "Lei nº 14.133/2021 — Capítulo sobre execução e alterações contratuais", note: "Reajuste, repactuação, revisão, aditivos e seus limites." },
+  ],
   reviewSummaryPoints: [
-    `Gestor coordena o contrato; fiscal acompanha a execução e registra evidências, conforme designação e regras internas.`,
-    `Medição e pagamento dependem da execução comprovada, aceite e documentos aplicáveis.`,
-    `Recebimento provisório e definitivo não eliminam automaticamente responsabilidades do contratado.`,
-    `Matriz de riscos aloca eventos e responsabilidades e orienta respostas.`,
-    `Reajuste recompõe inflação por índice; repactuação relaciona-se à variação demonstrada de custos em serviços aplicáveis; revisão trata equilíbrio econômico-financeiro diante de eventos jurídicos.`,
-    `Aditivo não serve para encobrir falta de planejamento nem pode ultrapassar limites legais.`,
-    `Sistemas digitais devem preservar autoria, integridade, trilha de auditoria e controle de prazos.`,
-    `**Planejamento e formação do contrato:** associe definição, finalidade, condição e contraste.`,
-    `**Execução, medição, pagamento e encerramento:** associe definição, finalidade, condição e contraste.`,
-    `**Papéis do gestor e do fiscal:** associe definição, finalidade, condição e contraste.`,
-    `**Registro de ocorrências e recebimento do objeto:** associe definição, finalidade, condição e contraste.`,
-    `**Matriz de riscos e controles:** associe definição, finalidade, condição e contraste.`,
+    `Gestor decide e coordena; fiscal acompanha e registra evidências no dia a dia.`,
+    `Pagamento só contra execução comprovada.`,
+    `Recebimento (provisório/definitivo) não elimina responsabilidade futura por vícios ocultos.`,
+    `Reajuste = índice/inflação automática. Repactuação = custo de mão de obra provado. Revisão = evento imprevisível.`,
+    `Aditivo tem limite legal; não serve para corrigir planejamento malfeito.`,
+    `Sistemas digitais de contrato: autoria, integridade, auditoria, prazos.`,
   ],
-  flashcards: [],
+  flashcards: [
+    { front: "Diferença entre gestor e fiscal de contrato?", back: "Gestor: visão ampla, decisões formais (aditivo, sanção). Fiscal: acompanhamento diário da execução, registra evidências." },
+    { front: "Reajuste x repactuação x revisão — qual o gatilho de cada um?", back: "Reajuste: índice de inflação, automático. Repactuação: custo de mão de obra, precisa ser provado. Revisão: evento imprevisível/força maior." },
+    { front: "O recebimento definitivo do objeto elimina a responsabilidade do contratado?", back: "Não — vícios ocultos descobertos depois ainda podem gerar responsabilização, mesmo após recebimento definitivo." },
+  ],
   miniQuiz: [
-      {
-        statement: `Um sistema de fiscalização de contratos de serviços não vem atendendo plenamente ao seu papel de controlar a execução dos acordos no nível de serviço. Isto se deve ao fato de que as áreas atendidas pela empresa contratada, que deveriam fiscalizar a execução dos critérios contratuais, não percebem o preenchimento dos documentos de controle como um processo importante do seu trabalho e tornam-se resistentes à tal participação.
+    {
+      statement: `Um sistema de fiscalização de contratos de serviços não vem atendendo plenamente ao seu papel de controlar a execução dos acordos no nível de serviço. Isto se deve ao fato de que as áreas atendidas pela empresa contratada, que deveriam fiscalizar a execução dos critérios contratuais, não percebem o preenchimento dos documentos de controle como um processo importante do seu trabalho e tornam-se resistentes à tal participação.
 
 O problema no controle do serviço está relacionado a`,
-        options: [
-        { key: "A", text: `aceitação`, isCorrect: true, explanation: `A resistência das áreas envolvidas em participar do processo de fiscalização caracteriza um problema de 'aceitação' do sistema de controle. Núcleo do código AC-17 (gestão de contratos — fiscalização e gestão de contratos).` },
-        { key: "B", text: `economia`, isCorrect: false, explanation: `Alternativa incorreta — compare com o gabarito e a justificativa da alternativa correta.` },
-        { key: "C", text: `objetividade`, isCorrect: false, explanation: `Alternativa incorreta — compare com o gabarito e a justificativa da alternativa correta.` },
-        { key: "D", text: `precisão`, isCorrect: false, explanation: `Alternativa incorreta — compare com o gabarito e a justificativa da alternativa correta.` },
-        { key: "E", text: `rapidez`, isCorrect: false, explanation: `Alternativa incorreta — compare com o gabarito e a justificativa da alternativa correta.` },
-        ],
-      },
+      options: [
+        { key: "A", text: `aceitação`, isCorrect: true, explanation: `Correto: a resistência das áreas envolvidas em participar do processo de fiscalização caracteriza um problema de ACEITAÇÃO do sistema de controle — as pessoas não aderem ao processo, mesmo que ele exista formalmente.` },
+        { key: "B", text: `economia`, isCorrect: false, explanation: `O problema descrito não é de custo/economia do sistema de controle, é de adesão das pessoas ao processo.` },
+        { key: "C", text: `objetividade`, isCorrect: false, explanation: `Objetividade se refere a critérios claros de medição, não à resistência das pessoas em preencher os documentos.` },
+        { key: "D", text: `precisão`, isCorrect: false, explanation: `Precisão se refere à exatidão das medições, não à disposição das áreas em participar do processo.` },
+        { key: "E", text: `rapidez`, isCorrect: false, explanation: `Rapidez se refere ao tempo de resposta do controle, não à resistência à participação no processo.` },
+      ],
+    },
   ],
 };
