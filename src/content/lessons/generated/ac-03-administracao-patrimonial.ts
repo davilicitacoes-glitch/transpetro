@@ -6,197 +6,158 @@ export const AC_03_ADMINISTRACAO_PATRIMONIAL: LessonContent = {
   subjectSlug: "especificas",
   moduleSlug: "especificas-processos-legislacao",
   title: `Função Administração Patrimonial`,
-  learningObjective: `Este material cobre o conteúdo oficial de **Administração patrimonial** com foco na prova objetiva da Cesgranrio. O tema deve ser estudado em três camadas: vocabulário técnico, relações entre os conceitos e aplicação em situações-problema. Questões da banca frequentemente exigem inferência controlada, comparação de alternativas próximas e atenção a exceções; por isso, a preparação deve combinar teoria, exemplos e revisão dos erros.`,
+  learningObjective: `Dominar o controle de bens patrimoniais (tombamento, inventário, depreciação, baixa) e a base de Gestão Documental/Arquivologia (as três idades dos arquivos, arquivos setoriais x centrais, descarte) — o acervo real disponível para este código mistura os dois temas, então a preparação deve cobrir ambos.`,
   syllabusCodes: ["AC-03"],
   estimatedMinutes: 40,
   expectedMastery: "intermediario",
-  bodyMdx: `# AC-03 — Administração patrimonial
+  bodyMdx: `# AC-03 — Administração Patrimonial
 
-## Visão geral
+## 1. Patrimônio, bem e ativo — distinção de base
 
-Este material cobre o conteúdo oficial de **Administração patrimonial** com foco na prova objetiva da Cesgranrio. O tema deve ser estudado em três camadas: vocabulário técnico, relações entre os conceitos e aplicação em situações-problema. Questões da banca frequentemente exigem inferência controlada, comparação de alternativas próximas e atenção a exceções; por isso, a preparação deve combinar teoria, exemplos e revisão dos erros.
+- **Bem**: qualquer coisa com valor econômico que pode satisfazer uma necessidade (um móvel, um veículo, um imóvel).
+- **Ativo**: um bem ou direito controlado pela entidade, do qual se espera benefício econômico futuro — é o bem visto pela ótica contábil.
+- **Patrimônio**: o conjunto de bens, direitos e obrigações de uma entidade em determinado momento.
 
-## Núcleo conceitual e regras operacionais
+Na prática de administração patrimonial, o foco é controlar os **bens móveis e imóveis** da instituição ao longo de todo o seu ciclo de vida: aquisição, uso, manutenção e baixa.
 
-1. Inventário físico deve ser conciliado com cadastro e contabilidade.
-2. Tombamento identifica e responsabiliza o bem, mas não substitui controle de localização e estado.
-3. Depreciação aloca valor depreciável ao longo da vida útil; valor depreciável é custo menos valor residual.
-4. Vida útil e valor residual são estimativas revisáveis, não características eternas.
-5. Baixa exige motivo, autorização, atualização cadastral e tratamento contábil.
-6. Gestão de ativos considera custo, risco e desempenho durante todo o ciclo de vida.
+## 2. Tombamento e identificação patrimonial
 
-### 1. Distinção entre patrimônio, bem e ativo
+O **tombamento** é o ato de registrar formalmente um bem no patrimônio da instituição, atribuindo-lhe um **número de identificação único** (plaqueta patrimonial) e um responsável. O tombamento **identifica e responsabiliza** o bem, mas **não substitui** o controle contínuo de sua **localização física** e **estado de conservação** — tombar um bem uma vez não dispensa a instituição de continuar sabendo onde ele está e em que condição, ao longo do tempo.
 
-Distinção entre patrimônio, bem e ativo integra o núcleo de **Administração patrimonial**. Para a prova, não basta reconhecer o termo: é preciso distinguir conceito, finalidade, condições de aplicação e efeitos. A leitura correta começa pela pergunta “qual problema este conceito resolve?” e continua com “em que situação ele não se aplica?”. Essa dupla verificação evita respostas baseadas apenas em palavras familiares.
+## 3. Inventário físico e conciliação contábil
 
-Na prática administrativa ou linguística, identifique o contexto, os elementos envolvidos, o critério aplicável e a consequência antes de escolher a alternativa. A Cesgranrio costuma apresentar uma situação concreta e trocar um requisito, uma relação lógica ou a ordem de uma etapa. Por isso, compare cada alternativa com todos os dados do caso, não apenas com a primeira expressão que parece correta. Um bom resumo operacional é: definir, relacionar, aplicar e conferir.
+O **inventário físico** é a contagem/conferência real dos bens existentes no local. Seu valor só é pleno quando **conciliado** com o cadastro patrimonial e com os registros contábeis — divergências entre o que existe fisicamente e o que consta no sistema (bens "fantasmas" no cadastro, ou bens reais sem registro) indicam falhas de controle que precisam ser corrigidas, não apenas relatadas.
 
-### 2. Tombamento e identificação patrimonial
+## 4. Depreciação, vida útil e valor residual
 
-Tombamento e identificação patrimonial integra o núcleo de **Administração patrimonial**. Para a prova, não basta reconhecer o termo: é preciso distinguir conceito, finalidade, condições de aplicação e efeitos. A leitura correta começa pela pergunta “qual problema este conceito resolve?” e continua com “em que situação ele não se aplica?”. Essa dupla verificação evita respostas baseadas apenas em palavras familiares.
+- **Valor depreciável** = custo de aquisição do bem **menos** o valor residual estimado.
+- **Depreciação**: alocação sistemática do valor depreciável **ao longo da vida útil** do bem — reconhece contabilmente o desgaste/consumo do ativo período a período.
+- **Vida útil** e **valor residual** são **estimativas revisáveis**, não características fixas e eternas do bem — podem (e devem) ser reavaliadas se as condições de uso mudarem.
 
-Na prática administrativa ou linguística, identifique o contexto, os elementos envolvidos, o critério aplicável e a consequência antes de escolher a alternativa. A Cesgranrio costuma apresentar uma situação concreta e trocar um requisito, uma relação lógica ou a ordem de uma etapa. Por isso, compare cada alternativa com todos os dados do caso, não apenas com a primeira expressão que parece correta. Um bom resumo operacional é: definir, relacionar, aplicar e conferir.
+## 5. Movimentação, guarda e baixa patrimonial
 
-### 3. Inventário físico e conciliação contábil
+A **baixa** de um bem (retirada definitiva do patrimônio ativo) exige, formalmente: um **motivo** documentado (obsolescência, dano irreparável, perda, alienação), **autorização** da instância competente, **atualização cadastral** (remover/marcar o bem como baixado no sistema) e o correspondente **tratamento contábil** (baixa do valor residual, registro de perda/ganho). Pular qualquer uma dessas etapas gera inconsistência entre o controle físico e o contábil.
 
-Inventário físico e conciliação contábil integra o núcleo de **Administração patrimonial**. Para a prova, não basta reconhecer o termo: é preciso distinguir conceito, finalidade, condições de aplicação e efeitos. A leitura correta começa pela pergunta “qual problema este conceito resolve?” e continua com “em que situação ele não se aplica?”. Essa dupla verificação evita respostas baseadas apenas em palavras familiares.
+## 6. Gestão do ciclo de vida dos ativos
 
-Na prática administrativa ou linguística, identifique o contexto, os elementos envolvidos, o critério aplicável e a consequência antes de escolher a alternativa. A Cesgranrio costuma apresentar uma situação concreta e trocar um requisito, uma relação lógica ou a ordem de uma etapa. Por isso, compare cada alternativa com todos os dados do caso, não apenas com a primeira expressão que parece correta. Um bom resumo operacional é: definir, relacionar, aplicar e conferir.
+Uma gestão patrimonial madura olha o **ciclo de vida completo** do ativo — não só a aquisição, mas custo total de propriedade, risco (segurança, obsolescência) e desempenho durante todo o tempo de uso, até a baixa. Essa visão de ciclo de vida é a mesma lógica usada em gestão de manutenção (ver AC-04) e em gestão de estoques (AC-12): decisões de curto prazo (comprar mais barato) podem sair caras no ciclo de vida completo (manutenção cara, baixa produtividade).
 
-### 4. Classificação e avaliação de bens
+## 7. Gestão Documental / Arquivologia — as três idades dos arquivos
 
-Classificação e avaliação de bens integra o núcleo de **Administração patrimonial**. Para a prova, não basta reconhecer o termo: é preciso distinguir conceito, finalidade, condições de aplicação e efeitos. A leitura correta começa pela pergunta “qual problema este conceito resolve?” e continua com “em que situação ele não se aplica?”. Essa dupla verificação evita respostas baseadas apenas em palavras familiares.
+O acervo real de questões associadas a este código também cobre conceitos de **Arquivologia**, tratados como próximos ao controle patrimonial/documental institucional. O conceito mais cobrado é o das **três idades dos arquivos**, que classificam os documentos pela frequência de uso:
 
-Na prática administrativa ou linguística, identifique o contexto, os elementos envolvidos, o critério aplicável e a consequência antes de escolher a alternativa. A Cesgranrio costuma apresentar uma situação concreta e trocar um requisito, uma relação lógica ou a ordem de uma etapa. Por isso, compare cada alternativa com todos os dados do caso, não apenas com a primeira expressão que parece correta. Um bom resumo operacional é: definir, relacionar, aplicar e conferir.
+- **Corrente**: documentos em uso **frequente**, consultados no dia a dia da atividade que os originou.
+- **Intermediária**: documentos que já não são de uso corrente, mas ainda podem ser **necessários** por razões legais/administrativas — aguardam prazo de guarda antes da destinação final.
+- **Permanente**: documentos que, ao final do prazo de guarda, têm **valor histórico/probatório** e devem ser preservados definitivamente.
 
-### 5. Depreciação, vida útil e valor residual
+## 8. Arquivos setoriais x centrais
 
-Depreciação, vida útil e valor residual integra o núcleo de **Administração patrimonial**. Para a prova, não basta reconhecer o termo: é preciso distinguir conceito, finalidade, condições de aplicação e efeitos. A leitura correta começa pela pergunta “qual problema este conceito resolve?” e continua com “em que situação ele não se aplica?”. Essa dupla verificação evita respostas baseadas apenas em palavras familiares.
+Quanto à **abrangência de atuação**, os arquivos podem ser:
 
-Na prática administrativa ou linguística, identifique o contexto, os elementos envolvidos, o critério aplicável e a consequência antes de escolher a alternativa. A Cesgranrio costuma apresentar uma situação concreta e trocar um requisito, uma relação lógica ou a ordem de uma etapa. Por isso, compare cada alternativa com todos os dados do caso, não apenas com a primeira expressão que parece correta. Um bom resumo operacional é: definir, relacionar, aplicar e conferir.
+- **Setoriais**: ficam junto aos **órgãos operacionais** (descentralizados) — mais próximos de onde o documento é produzido e usado no dia a dia.
+- **Centrais/gerais**: concentram a guarda de documentos de toda a instituição, geralmente na fase intermediária/permanente, de forma centralizada.
 
-### 6. Movimentação, guarda e baixa
+## 9. Descarte e cópias
 
-Movimentação, guarda e baixa integra o núcleo de **Administração patrimonial**. Para a prova, não basta reconhecer o termo: é preciso distinguir conceito, finalidade, condições de aplicação e efeitos. A leitura correta começa pela pergunta “qual problema este conceito resolve?” e continua com “em que situação ele não se aplica?”. Essa dupla verificação evita respostas baseadas apenas em palavras familiares.
-
-Na prática administrativa ou linguística, identifique o contexto, os elementos envolvidos, o critério aplicável e a consequência antes de escolher a alternativa. A Cesgranrio costuma apresentar uma situação concreta e trocar um requisito, uma relação lógica ou a ordem de uma etapa. Por isso, compare cada alternativa com todos os dados do caso, não apenas com a primeira expressão que parece correta. Um bom resumo operacional é: definir, relacionar, aplicar e conferir.
-
-### 7. Gestão do ciclo de vida dos ativos
-
-Gestão do ciclo de vida dos ativos integra o núcleo de **Administração patrimonial**. Para a prova, não basta reconhecer o termo: é preciso distinguir conceito, finalidade, condições de aplicação e efeitos. A leitura correta começa pela pergunta “qual problema este conceito resolve?” e continua com “em que situação ele não se aplica?”. Essa dupla verificação evita respostas baseadas apenas em palavras familiares.
-
-Na prática administrativa ou linguística, identifique o contexto, os elementos envolvidos, o critério aplicável e a consequência antes de escolher a alternativa. A Cesgranrio costuma apresentar uma situação concreta e trocar um requisito, uma relação lógica ou a ordem de uma etapa. Por isso, compare cada alternativa com todos os dados do caso, não apenas com a primeira expressão que parece correta. Um bom resumo operacional é: definir, relacionar, aplicar e conferir.
-
-## Método de resolução
-
-1. Classifique o comando: definição, cálculo, aplicação, exceção ou interpretação.
-2. Sublinhe restrições, negações, unidades, prazos e qualificadores como “sempre”, “apenas” e “necessariamente”.
-3. Recupere a regra central antes de olhar as alternativas.
-4. Elimine opções que misturam conceitos verdadeiros em relação errada.
-5. Teste a resposta no caso concreto e faça uma conferência final.
+- **Descarte**: procedimento arquivístico de **eliminação (destruição)** de documentos sem valor para guarda permanente, realizado **após avaliação** formal — não é uma decisão informal, exige processo de análise documental prévio.
+- **Cópias**: reproduções de documentos obtidas a partir de **originais** — na terminologia arquivística, esse é o termo técnico específico para esse tipo de reprodução.
 
 ## Síntese
 
-O domínio de Administração patrimonial resulta da conexão entre distinção entre patrimônio, bem e ativo, tombamento e identificação patrimonial, inventário físico e conciliação contábil e os demais pontos do edital. Revise o mapa mental, explique cada ramo com suas próprias palavras e resolva questões reais. Se uma regra parecer absoluta, procure condições, limites e exceções: é nesse deslocamento que se concentram muitas pegadinhas.
+O AC-03 mistura administração patrimonial "clássica" (tombamento, depreciação, baixa) com Gestão Documental/Arquivologia (idades dos arquivos, setoriais x centrais, descarte). A pegadinha mais comum no bloco de arquivologia é confundir os nomes das três idades ou trocar "setorial" por "central".
 
 ## Mapa mental
 
-# AC-03 — Mapa mental
-
 \`\`\`mermaid
 mindmap
-  root((Administração patrimonial))
-    distinção entre patrimônio, bem e ativo
-      Conceito e finalidade
-      Condições de aplicação
-      Exemplo de prova
-      Contraste e exceção
-    tombamento e identificação patrimonial
-      Conceito e finalidade
-      Condições de aplicação
-      Exemplo de prova
-      Contraste e exceção
-    inventário físico e conciliação contábil
-      Conceito e finalidade
-      Condições de aplicação
-      Exemplo de prova
-      Contraste e exceção
-    classificação e avaliação de bens
-      Conceito e finalidade
-      Condições de aplicação
-      Exemplo de prova
-      Contraste e exceção
-    depreciação, vida útil e valor residual
-      Conceito e finalidade
-      Condições de aplicação
-      Exemplo de prova
-      Contraste e exceção
-    movimentação, guarda e baixa
-      Conceito e finalidade
-      Condições de aplicação
-      Exemplo de prova
-      Contraste e exceção
-    gestão do ciclo de vida dos ativos
-      Conceito e finalidade
-      Condições de aplicação
-      Exemplo de prova
-      Contraste e exceção
-    Estratégia Cesgranrio
-      Ler o comando
-      Eliminar extrapolações
-      Conferir o caso
+  root((Administração Patrimonial — AC-03))
+    Patrimonio, bem, ativo
+      Bem: valor economico
+      Ativo: controlado, beneficio futuro
+    Tombamento
+      Identifica e responsabiliza
+      Nao substitui controle de localizacao
+    Inventario
+      Fisico conciliado com cadastro e contabilidade
+    Depreciacao
+      Valor depreciavel = custo - valor residual
+      Vida util e valor residual sao estimativas revisaveis
+    Baixa
+      Motivo, autorizacao, cadastro, contabil
+    Arquivologia
+      Tres idades: corrente, intermediaria, permanente
+      Setorial (descentralizado) x Central
+      Descarte: eliminacao apos avaliacao
+      Copia: reproducao do original
 \`\`\``,
   mustMemorize: [
-    `Inventário físico deve ser conciliado com cadastro e contabilidade.`,
-    `Tombamento identifica e responsabiliza o bem, mas não substitui controle de localização e estado.`,
-    `Depreciação aloca valor depreciável ao longo da vida útil; valor depreciável é custo menos valor residual.`,
-    `Vida útil e valor residual são estimativas revisáveis, não características eternas.`,
-    `Baixa exige motivo, autorização, atualização cadastral e tratamento contábil.`,
-    `Gestão de ativos considera custo, risco e desempenho durante todo o ciclo de vida.`,
-    `**Distinção entre patrimônio, bem e ativo:** associe definição, finalidade, condição e contraste.`,
-    `**Tombamento e identificação patrimonial:** associe definição, finalidade, condição e contraste.`,
-    `**Inventário físico e conciliação contábil:** associe definição, finalidade, condição e contraste.`,
-    `**Classificação e avaliação de bens:** associe definição, finalidade, condição e contraste.`,
-    `**Depreciação, vida útil e valor residual:** associe definição, finalidade, condição e contraste.`,
-    `**Movimentação, guarda e baixa:** associe definição, finalidade, condição e contraste.`,
+    `Tombamento identifica e responsabiliza o bem, mas NÃO substitui controle de localização e estado de conservação.`,
+    `Inventário físico deve ser conciliado com cadastro patrimonial e contabilidade.`,
+    `Valor depreciável = custo de aquisição MENOS valor residual. Depreciação aloca esse valor ao longo da vida útil.`,
+    `Vida útil e valor residual são ESTIMATIVAS REVISÁVEIS, não características eternas do bem.`,
+    `Baixa exige motivo, autorização, atualização cadastral e tratamento contábil — as quatro etapas juntas.`,
+    `As três idades dos arquivos são: CORRENTE (uso frequente), INTERMEDIÁRIA (aguarda prazo) e PERMANENTE (valor histórico).`,
+    `Arquivos SETORIAIS ficam junto aos órgãos operacionais (descentralizados); arquivos CENTRAIS concentram a guarda institucional.`,
+    `Descarte = eliminação de documentos sem valor de guarda permanente, sempre APÓS avaliação formal.`,
   ],
   workedExamples: [
-    `As três idades dos arquivos (corrente, intermediária e permanente) são um conceito clássico de Arquivologia/Gestão Documental. A matriz oficial do edital 2026 não prevê um código específico para gestão de arquivos/documentos — o tema mais próximo disponível é AC-03 (Administração Patrimonial), que trata de controle, inventário e classificação de bens, com alguma proximidade conceitual (controle e organização de ativos/documentos institucionais). Mapeamento por analogia, com baixa confiança, pois arquivologia não é um subtema explícito do Anexo IV do edital 2026. **Lição de prova:** identifique exatamente qual dado sustenta o gabarito e por que as demais opções extrapolam, invertem ou misturam conceitos.`,
-    `Arquivos setoriais são os que funcionam junto aos órgãos operacionais (descentralizados), em oposição aos arquivos centrais/gerais. Tema de Arquivologia sem código explícito na matriz 2026; mapeado por analogia a AC-03 (Administração Patrimonial), com baixa confiança, pela ausência de correspondência direta. **Lição de prova:** identifique exatamente qual dado sustenta o gabarito e por que as demais opções extrapolam, invertem ou misturam conceitos.`,
-    `O 'descarte' é o procedimento arquivístico de eliminação (destruição) de documentos sem valor para guarda permanente, após avaliação. Tema de Arquivologia sem código explícito na matriz 2026; mapeado por analogia a AC-03 (Administração Patrimonial), com baixa confiança. **Lição de prova:** identifique exatamente qual dado sustenta o gabarito e por que as demais opções extrapolam, invertem ou misturam conceitos.`,
-    `Reproduções de documentos obtidas a partir de originais são denominadas 'cópias', na terminologia arquivística. Tema de Arquivologia sem código explícito na matriz 2026; mapeado por analogia a AC-03 (Administração Patrimonial), com baixa confiança. **Lição de prova:** identifique exatamente qual dado sustenta o gabarito e por que as demais opções extrapolam, invertem ou misturam conceitos.`,
+    `As três idades dos arquivos são corrente, intermediária e permanente — não "clássica/antiga/moderna", "funcional/orgânica/histórica" ou "ativa/inativa/morta", que são nomenclaturas incorretas ou de outras classificações.`,
+    `Arquivos setoriais são os que funcionam junto aos órgãos operacionais (descentralizados), em oposição aos arquivos centrais/gerais, que concentram a guarda de forma centralizada.`,
+    `O "descarte" é o procedimento arquivístico de eliminação (destruição) de documentos sem valor para guarda permanente, sempre realizado após avaliação — nunca uma decisão informal ou automática.`,
+    `Reproduções de documentos obtidas a partir de originais são denominadas "cópias" na terminologia arquivística — termo técnico específico, não sinônimo genérico de "duplicata" ou "via".`,
   ],
   commonMistakes: [
-    `Reconhecer palavra-chave e ignorar o contexto: **Por que engana:** a alternativa repete termos do enunciado, mas altera a relação entre eles. **Correto:** valide definição, condição e consequência no caso completo.`,
-    `Transformar regra condicionada em regra absoluta: **Por que engana:** expressões como “sempre”, “nunca” e “somente” parecem categóricas. **Correto:** procure exceções e requisitos antes de aceitar a afirmação.`,
-    `Confundir conceitos vizinhos: **Por que engana:** distinção entre patrimônio, bem e ativo e tombamento e identificação patrimonial pertencem ao mesmo tema, mas não são sinônimos. **Correto:** compare finalidade, objeto e modo de aplicação.`,
-    `Padrão observado no acervo real (AC-03-2013-CESGRANRIO-21): As três idades dos arquivos (corrente, intermediária e permanente) são um conceito clássico de Arquivologia/Gestão Documental. A matriz oficial do edital 2026 não prevê um código específico para gestão de arquivos/documentos — o tema mais próximo disponível é AC-03 (Administração Patrimonial), que trata de controle, inventário e classificação de bens, com alguma proximidade conceitual (controle e organização de ativos/documentos institucionais). Mapeamento por analogia, com baixa confiança, pois arquivologia não é um subtema explícito do Anexo IV do edital 2026. **Lição de prova:** identifique exatamente qual dado sustenta o gabarito e por que as demais opções extrapolam, invertem ou misturam conceitos.`,
-    `Padrão observado no acervo real (AC-03-2013-CESGRANRIO-22): Arquivos setoriais são os que funcionam junto aos órgãos operacionais (descentralizados), em oposição aos arquivos centrais/gerais. Tema de Arquivologia sem código explícito na matriz 2026; mapeado por analogia a AC-03 (Administração Patrimonial), com baixa confiança, pela ausência de correspondência direta. **Lição de prova:** identifique exatamente qual dado sustenta o gabarito e por que as demais opções extrapolam, invertem ou misturam conceitos.`,
-    `Padrão observado no acervo real (AC-03-2013-CESGRANRIO-23): O 'descarte' é o procedimento arquivístico de eliminação (destruição) de documentos sem valor para guarda permanente, após avaliação. Tema de Arquivologia sem código explícito na matriz 2026; mapeado por analogia a AC-03 (Administração Patrimonial), com baixa confiança. **Lição de prova:** identifique exatamente qual dado sustenta o gabarito e por que as demais opções extrapolam, invertem ou misturam conceitos.`,
-    `Padrão observado no acervo real (AC-03-2013-CESGRANRIO-24): Reproduções de documentos obtidas a partir de originais são denominadas 'cópias', na terminologia arquivística. Tema de Arquivologia sem código explícito na matriz 2026; mapeado por analogia a AC-03 (Administração Patrimonial), com baixa confiança. **Lição de prova:** identifique exatamente qual dado sustenta o gabarito e por que as demais opções extrapolam, invertem ou misturam conceitos.`,
+    `Achar que tombar um bem "resolve" o controle patrimonial de uma vez por todas — o tombamento identifica e responsabiliza, mas a localização e o estado do bem precisam de controle CONTÍNUO.`,
+    `Tratar vida útil e valor residual como valores fixos e definitivos — são estimativas que podem e devem ser revisadas conforme as condições reais de uso do bem mudam.`,
+    `Pular alguma das quatro etapas da baixa patrimonial (motivo, autorização, cadastro, contábil) — a ausência de qualquer uma gera inconsistência entre controle físico e contábil.`,
+    `Trocar as três idades dos arquivos por nomenclaturas inventadas ou de outras áreas ("ativa/inativa/morta", "funcional/orgânica/histórica") — os termos técnicos corretos são corrente, intermediária e permanente.`,
+    `Confundir arquivo setorial (descentralizado, junto ao órgão operacional) com arquivo central (concentra a guarda institucional).`,
+    `Padrão observado no acervo real (AC-03-2013-CESGRANRIO-21): identificar corrente/intermediária/permanente como as três idades dos arquivos, descartando nomenclaturas inventadas.`,
+    `Padrão observado no acervo real (AC-03-2013-CESGRANRIO-22): reconhecer arquivos setoriais como os que ficam junto aos órgãos operacionais, em oposição a centrais/gerais.`,
+    `Padrão observado no acervo real (AC-03-2013-CESGRANRIO-23): identificar descarte como eliminação de documentos sem valor de guarda permanente, sempre após avaliação.`,
+    `Padrão observado no acervo real (AC-03-2013-CESGRANRIO-24): reconhecer "cópias" como o termo técnico para reproduções obtidas a partir de originais.`,
   ],
   howBoardMightAsk: [
-    `Ver padrão real: AC-03-2013-CESGRANRIO-21 — As três idades dos arquivos (corrente, intermediária e permanente) são um conceito clássico de Arquivologia/Gestão Documental. A matriz oficial do edital 2026 n...`,
-    `Ver padrão real: AC-03-2013-CESGRANRIO-22 — Arquivos setoriais são os que funcionam junto aos órgãos operacionais (descentralizados), em oposição aos arquivos centrais/gerais. Tema de Arquivologia sem cód...`,
-    `Ver padrão real: AC-03-2013-CESGRANRIO-23 — O 'descarte' é o procedimento arquivístico de eliminação (destruição) de documentos sem valor para guarda permanente, após avaliação. Tema de Arquivologia sem c...`,
-    `Ver padrão real: AC-03-2013-CESGRANRIO-24 — Reproduções de documentos obtidas a partir de originais são denominadas 'cópias', na terminologia arquivística. Tema de Arquivologia sem código explícito na mat...`,
+    `Pede a nomenclatura correta das três idades dos arquivos, com distratores de classificações inventadas ou de outras áreas.`,
+    `Pede para diferenciar arquivo setorial de central a partir da descrição de onde o arquivo fica.`,
+    `Descreve uma situação de baixa de bem e pede qual etapa (motivo, autorização, cadastro, contábil) está faltando.`,
+    `Pergunta o que é depreciação/valor depreciável a partir de valores de custo e valor residual dados no enunciado.`,
   ],
   legalReferences: [],
   reviewSummaryPoints: [
+    `Tombamento identifica/responsabiliza, mas não substitui controle contínuo de localização/estado.`,
     `Inventário físico deve ser conciliado com cadastro e contabilidade.`,
-    `Tombamento identifica e responsabiliza o bem, mas não substitui controle de localização e estado.`,
-    `Depreciação aloca valor depreciável ao longo da vida útil; valor depreciável é custo menos valor residual.`,
-    `Vida útil e valor residual são estimativas revisáveis, não características eternas.`,
-    `Baixa exige motivo, autorização, atualização cadastral e tratamento contábil.`,
-    `Gestão de ativos considera custo, risco e desempenho durante todo o ciclo de vida.`,
-    `**Distinção entre patrimônio, bem e ativo:** associe definição, finalidade, condição e contraste.`,
-    `**Tombamento e identificação patrimonial:** associe definição, finalidade, condição e contraste.`,
-    `**Inventário físico e conciliação contábil:** associe definição, finalidade, condição e contraste.`,
-    `**Classificação e avaliação de bens:** associe definição, finalidade, condição e contraste.`,
-    `**Depreciação, vida útil e valor residual:** associe definição, finalidade, condição e contraste.`,
-    `**Movimentação, guarda e baixa:** associe definição, finalidade, condição e contraste.`,
+    `Valor depreciável = custo − valor residual. Vida útil e valor residual são estimativas revisáveis.`,
+    `Baixa = motivo + autorização + atualização cadastral + tratamento contábil.`,
+    `Três idades: corrente, intermediária, permanente.`,
+    `Setorial = descentralizado, junto ao órgão operacional. Central = concentra a guarda institucional.`,
   ],
-  flashcards: [],
+  flashcards: [
+    { front: "O tombamento substitui o controle de localização do bem?", back: "Não — o tombamento identifica e responsabiliza o bem, mas a localização e o estado de conservação exigem controle contínuo." },
+    { front: "Fórmula do valor depreciável?", back: "Valor depreciável = custo de aquisição − valor residual estimado." },
+    { front: "Quais são as três idades dos arquivos?", back: "Corrente (uso frequente), Intermediária (aguarda prazo de guarda) e Permanente (valor histórico/probatório)." },
+    { front: "Diferença entre arquivo setorial e central?", back: "Setorial fica junto ao órgão operacional (descentralizado). Central concentra a guarda institucional." },
+  ],
   miniQuiz: [
-      {
-        statement: `Em toda instituição, seja pública ou privada, para que os arquivos possam desempenhar suas funções, é necessário que os documentos estejam organizados e obedecendo às três idades dos arquivos, que são:`,
-        options: [
-        { key: "A", text: `clássica, antiga e moderna`, isCorrect: false, explanation: `Alternativa incorreta — compare com o gabarito e a justificativa da alternativa correta.` },
-        { key: "B", text: `infantil, juvenil e adulta`, isCorrect: false, explanation: `Alternativa incorreta — compare com o gabarito e a justificativa da alternativa correta.` },
-        { key: "C", text: `funcional, orgânica e histórica`, isCorrect: false, explanation: `Alternativa incorreta — compare com o gabarito e a justificativa da alternativa correta.` },
-        { key: "D", text: `corrente, intermediária e permanente`, isCorrect: true, explanation: `As três idades dos arquivos (corrente, intermediária e permanente) são um conceito clássico de Arquivologia/Gestão Documental. A matriz oficial do edital 2026 não prevê um código específico para gestão de arquivos/documentos — o tema mais próximo disponível é AC-03 (Administração Patrimonial), que trata de controle, inventário e classificação de bens, com alguma proximidade conceitual (controle e organização de ativos/documentos institucionais). Mapeamento por analogia, com baixa confiança, pois arquivologia não é um subtema explícito do Anexo IV do edital 2026.` },
-        { key: "E", text: `ativa, inativa e morta`, isCorrect: false, explanation: `Alternativa incorreta — compare com o gabarito e a justificativa da alternativa correta.` },
-        ],
-      },
-      {
-        statement: `Para cada fase do arquivo, existem formas de tratamento, organização e conservação específicas. Nesse sentido, conforme a abrangência de atuação, os arquivos que ficam junto aos órgãos operacionais são conhecidos como`,
-        options: [
-        { key: "A", text: `gerais`, isCorrect: false, explanation: `Alternativa incorreta — compare com o gabarito e a justificativa da alternativa correta.` },
-        { key: "B", text: `setoriais`, isCorrect: true, explanation: `Arquivos setoriais são os que funcionam junto aos órgãos operacionais (descentralizados), em oposição aos arquivos centrais/gerais. Tema de Arquivologia sem código explícito na matriz 2026; mapeado por analogia a AC-03 (Administração Patrimonial), com baixa confiança, pela ausência de correspondência direta.` },
-        { key: "C", text: `centrais`, isCorrect: false, explanation: `Alternativa incorreta — compare com o gabarito e a justificativa da alternativa correta.` },
-        { key: "D", text: `inativos`, isCorrect: false, explanation: `Alternativa incorreta — compare com o gabarito e a justificativa da alternativa correta.` },
-        { key: "E", text: `processuais`, isCorrect: false, explanation: `Alternativa incorreta — compare com o gabarito e a justificativa da alternativa correta.` },
-        ],
-      },
+    {
+      statement: `Em toda instituição, seja pública ou privada, para que os arquivos possam desempenhar suas funções, é necessário que os documentos estejam organizados e obedecendo às três idades dos arquivos, que são:`,
+      options: [
+        { key: "A", text: `clássica, antiga e moderna`, isCorrect: false, explanation: `Essa não é a classificação arquivística das idades dos arquivos — é uma nomenclatura inventada que não corresponde à teoria de Gestão Documental.` },
+        { key: "B", text: `infantil, juvenil e adulta`, isCorrect: false, explanation: `Termos usados para faixas etárias de pessoas, sem qualquer correspondência com a classificação técnica de arquivos.` },
+        { key: "C", text: `funcional, orgânica e histórica`, isCorrect: false, explanation: `Essa não é a nomenclatura padrão das três idades dos arquivos — mistura termos de outras classificações documentais.` },
+        { key: "D", text: `corrente, intermediária e permanente`, isCorrect: true, explanation: `Correto: as três idades dos arquivos são corrente (uso frequente), intermediária (aguarda prazo de guarda) e permanente (valor histórico/probatório definitivo).` },
+        { key: "E", text: `ativa, inativa e morta`, isCorrect: false, explanation: `"Morta" não é um termo técnico da Arquivologia para classificar a idade de um arquivo — a nomenclatura correta é permanente, não "morta".` },
+      ],
+    },
+    {
+      statement: `Para cada fase do arquivo, existem formas de tratamento, organização e conservação específicas. Nesse sentido, conforme a abrangência de atuação, os arquivos que ficam junto aos órgãos operacionais são conhecidos como`,
+      options: [
+        { key: "A", text: `gerais`, isCorrect: false, explanation: `Arquivos gerais tendem a ser sinônimo de centrais — concentram a guarda institucional, o oposto de ficarem junto aos órgãos operacionais.` },
+        { key: "B", text: `setoriais`, isCorrect: true, explanation: `Correto: arquivos setoriais são os que funcionam junto aos órgãos operacionais (descentralizados), em oposição aos arquivos centrais/gerais.` },
+        { key: "C", text: `centrais`, isCorrect: false, explanation: `Arquivos centrais concentram a guarda de documentos de forma centralizada — é o oposto do conceito descrito (junto aos órgãos operacionais).` },
+        { key: "D", text: `inativos`, isCorrect: false, explanation: `"Inativo" descreve o status de uso do documento, não a abrangência de atuação (centralizado x descentralizado) do arquivo.` },
+        { key: "E", text: `processuais`, isCorrect: false, explanation: `"Processuais" não é um termo da classificação por abrangência de atuação dos arquivos — não corresponde à pergunta feita.` },
+      ],
+    },
   ],
 };
