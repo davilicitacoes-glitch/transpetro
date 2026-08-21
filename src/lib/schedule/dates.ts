@@ -61,6 +61,13 @@ export function isWeekend(iso: IsoDate): boolean {
   return day === WEEKDAY_INDEX_SUNDAY_FIRST || day === WEEKDAY_INDEX_SATURDAY;
 }
 
+/** Dia de descanso assumido para o cronograma do "Meu Curso": só domingo é livre — sábado é dia
+ * de estudo (regime segunda a sábado). Diferente de `isWeekend` (que considera sábado E domingo).
+ * Ver docs/CONTINUIDADE_ENSIPETRO.md — decisão documentada, ajustável se o aluno tiver preferência. */
+export function isRestDay(iso: IsoDate): boolean {
+  return isoToUtcNoon(iso).getUTCDay() === WEEKDAY_INDEX_SUNDAY_FIRST;
+}
+
 export function formatDateBR(iso: IsoDate): string {
   const [y, m, d] = iso.split("-");
   return `${d}/${m}/${y}`;
