@@ -40,11 +40,20 @@ export const LAST_STUDY_DATE = "2026-11-28";
  * que ainda não foi construído a partir do conteúdo programático). Motor não deve assumir um valor
  * fixo aqui. */
 /**
- * Fase 2 em andamento — deve ser sempre igual a `COURSE_PLAN_V2.days.length` em
- * `src/content/coursePlan.ts` (o motor de calendário/dia-atual depende dessa igualdade). Hoje só
- * o Dia 1 está escrito; sobe conforme mais dias forem adicionados ao plano.
+ * Deve ser sempre igual a `COURSE_PLAN_V2.days.length` em `src/content/coursePlan.ts` (o motor de
+ * calendário/dia-atual depende dessa igualdade). 55 dias de Fase 1 (conteúdo geral, 39 códigos +
+ * 6 revisões de bloco) + 18 dias de Fase 2 (revisão geral, 11/11 a 28/11 — só estrutura por
+ * enquanto, ver docs/CONTINUIDADE_ENSIPETRO.md).
  */
-export const TOTAL_MISSIONS = 1;
+export const TOTAL_MISSIONS = 73;
+
+/** Data padrão assumida para o início do plano quando o aluno ainda não confirmou a própria data
+ * (nenhuma configuração de aluno existia no momento desta decisão — ver
+ * docs/CONTINUIDADE_ENSIPETRO.md). O aluno pode ajustar livremente na tela de matrícula. */
+export const DEFAULT_COURSE_START_DATE = "2026-09-01";
+
+/** Fim da Fase 1 (conteúdo geral) — início da Fase 2 (revisão) é o dia seguinte. */
+export const PHASE_1_END_DATE = "2026-11-10";
 
 /** Prova objetiva única, mesmo caderno, sem menção a turno específico (manhã/tarde) no edital. */
 export const EXAM_SHIFT = "unico"; // caderno único, sem divisão de turno documentada no edital

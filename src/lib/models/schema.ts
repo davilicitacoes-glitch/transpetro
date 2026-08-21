@@ -901,7 +901,7 @@ export const CourseDayProgressSchema = AuditFieldsSchema.extend({
   studentId: z.string().default(DEFAULT_STUDENT_ID),
   courseId: z.string().default(COURSE_ID),
   planVersion: z.string().default(COURSE_PLAN_VERSION),
-  day: z.number().int().min(1).max(34),
+  day: z.number().int().min(1),
   status: CourseDayStatusSchema.default("nao_iniciado"),
   currentStepId: z.string().nullable().default(null),
   completedStepIds: z.array(z.string()).default([]),
