@@ -179,7 +179,7 @@ export type FocusSession = z.infer<typeof FocusSessionSchema>;
 /* ---------------- Questões ---------------- */
 
 export const QuestionOptionSchema = z.object({
-  key: z.enum(["A", "B", "C", "D"]),
+  key: z.enum(["A", "B", "C", "D", "E"]),
   text: z.string(),
   isCorrect: z.boolean(),
   explanation: z.string(),
@@ -209,8 +209,8 @@ export const QuestionSchema = AuditFieldsSchema.extend({
   topicSlug: z.string(),
   syllabusCodes: z.array(z.string()),
   statement: z.string(),
-  /** Questões comuns têm 4 opções; a revisão de véspera usa 2 opções (V/F). */
-  options: z.array(QuestionOptionSchema).min(2).max(4),
+  /** Questões comuns têm 5 opções (A-E, formato real da banca Cesgranrio); a revisão de véspera usa 2 opções (V/F). */
+  options: z.array(QuestionOptionSchema).min(2).max(5),
   difficulty: z.enum(["facil", "medio", "dificil"]),
   source: QuestionSourceSchema,
   legislativeUpdateAlert: z.string().optional(),
@@ -240,8 +240,8 @@ export const AttemptSchema = AuditFieldsSchema.extend({
   subjectSlug: z.string().optional(),
   topicSlug: z.string().optional(),
   syllabusCodes: z.array(z.string()).default([]),
-  selectedKey: z.enum(["A", "B", "C", "D"]).nullable(),
-  correctKey: z.enum(["A", "B", "C", "D"]).optional(),
+  selectedKey: z.enum(["A", "B", "C", "D", "E"]).nullable(),
+  correctKey: z.enum(["A", "B", "C", "D", "E"]).optional(),
   isCorrect: z.boolean(),
   result: z.enum(["correta", "incorreta", "parcial", "nao_corrigivel"]).optional(),
   /** Nº sequencial desta tentativa para esta questão por este aluno (1ª, 2ª, 3ª vez respondendo). */
@@ -275,7 +275,7 @@ export type MockExam = z.infer<typeof MockExamSchema>;
 
 export const MockExamAnswerSchema = z.object({
   questionId: z.string(),
-  selectedKey: z.enum(["A", "B", "C", "D"]).nullable(),
+  selectedKey: z.enum(["A", "B", "C", "D", "E"]).nullable(),
   responseTimeMs: z.number().int(),
 });
 export type MockExamAnswer = z.infer<typeof MockExamAnswerSchema>;
@@ -833,7 +833,7 @@ export const CourseStepSchema = z.object({
 export type CourseStep = z.infer<typeof CourseStepSchema>;
 
 export const CourseDaySchema = z.object({
-  day: z.number().int().min(1).max(34),
+  day: z.number().int().min(1),
   phase: CoursePhaseSchema,
   title: z.string(),
   learningObjectives: z.array(z.string()).min(1),

@@ -54,7 +54,7 @@ export default function SimuladosPage() {
       const scoreBySubject = Object.fromEntries(scored.bySubject.map((s) => [s.subjectId, s.points]));
       const answerList = exam.questions.map((q) => ({
         questionId: q.id,
-        selectedKey: (answers[q.id] as "A" | "B" | "C" | "D" | undefined) ?? null,
+        selectedKey: (answers[q.id] as "A" | "B" | "C" | "D" | "E" | undefined) ?? null,
         correctKey: q.options.find((o) => o.isCorrect)!.key,
       }));
       await finishMockExamAttempt(mockExamAttemptId, answerList, scoreBySubject, scored.totalPoints, DEFAULT_STUDENT_ID);

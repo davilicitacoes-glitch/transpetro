@@ -14,8 +14,8 @@ const TEST_QUESTION_ID = miniQuizQuestionId(TEST_LESSON_SLUG, 0);
 const testQuestion = ALL_QUESTIONS.find((q) => q.id === TEST_QUESTION_ID);
 // PENDENTE — Fase 2: sem conteúdo real ainda (ver describe.skip abaixo), fallback seguro evita
 // crash no carregamento do módulo (testQuestion é undefined até a Fase 2 popular as questões).
-const CORRECT_KEY = (testQuestion?.options.find((o) => o.isCorrect)?.key ?? "A") as "A" | "B" | "C" | "D";
-const WRONG_KEY = (testQuestion?.options.find((o) => !o.isCorrect)?.key ?? "B") as "A" | "B" | "C" | "D";
+const CORRECT_KEY = (testQuestion?.options.find((o) => o.isCorrect)?.key ?? "A") as "A" | "B" | "C" | "D" | "E";
+const WRONG_KEY = (testQuestion?.options.find((o) => !o.isCorrect)?.key ?? "B") as "A" | "B" | "C" | "D" | "E";
 
 async function clearAllTables() {
   const db = getDB();

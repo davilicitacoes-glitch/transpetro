@@ -37,8 +37,8 @@ export default function QuestoesPage() {
     }
     void recordAttempt({
       questionId,
-      selectedKey: key as "A" | "B" | "C" | "D",
-      correctKey: correctKey as "A" | "B" | "C" | "D" | undefined,
+      selectedKey: key as "A" | "B" | "C" | "D" | "E",
+      correctKey: correctKey as "A" | "B" | "C" | "D" | "E" | undefined,
       isCorrect: key === correctKey,
       mode: "treino",
       sessionId: sessionId ?? undefined,

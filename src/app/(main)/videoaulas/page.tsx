@@ -53,7 +53,7 @@ export default function VideoaulasPage() {
       <PageHeader
         eyebrow="Videoaulas"
         title="Assista sem sair do Transpetro Estudos"
-        description={`${VIDEO_LESSONS.length} videoaulas públicas do YouTube tocam aqui dentro, cobrindo os 75 itens do edital, e as ${ALL_LESSONS.length} aulas do curso viram microaulas em slides narrados.`}
+        description={`${VIDEO_LESSONS.length} videoaulas públicas do YouTube tocam aqui dentro, cobrindo os 39 códigos do edital, e as ${ALL_LESSONS.length} aulas do curso viram microaulas em slides narrados.`}
       />
 
       <div className="flex gap-1.5 mb-5 p-1 bg-surface-muted rounded-lg w-fit">

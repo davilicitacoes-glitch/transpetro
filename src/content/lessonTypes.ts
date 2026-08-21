@@ -24,7 +24,7 @@ export interface LessonFlashcard {
 }
 
 export interface LessonQuizOption {
-  key: "A" | "B" | "C" | "D";
+  key: "A" | "B" | "C" | "D" | "E";
   text: string;
   isCorrect: boolean;
   explanation: string;

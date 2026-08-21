@@ -150,11 +150,8 @@ export async function seedDatabase(): Promise<{ seeded: boolean; reason?: string
     code,
     subjectId: subjectSlug as SyllabusItem["subjectId"],
     text: TOPICS.find((t) => t.syllabusCodes.includes(code))?.name ?? code,
-    origem: code === "CE-22a" ? "desdobramento" : "expresso",
-    origemJustificativa:
-      code === "CE-22a"
-        ? "Desdobramento normativo do item genérico 'noções de licitação' do Anexo IV, aplicando a lei vigente (14.133/2021)."
-        : undefined,
+    origem: "expresso",
+    origemJustificativa: undefined,
     lessonSlugs,
     sourceIds: sourceIds.length > 0 ? [sourceIds[0]] : [],
     createdAt: now,

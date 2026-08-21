@@ -427,11 +427,11 @@ function QuestoesStep({ step, day, onAnswered }: { step: CourseStep; day: number
 
 function QuestionBlock({ questionId, day, stepId, onAnswered }: { questionId: string; day: number; stepId: string; onAnswered: () => void }) {
   const question = questionById.get(questionId);
-  const [selected, setSelected] = useState<"A" | "B" | "C" | "D" | null>(null);
+  const [selected, setSelected] = useState<"A" | "B" | "C" | "D" | "E" | null>(null);
   const [answered, setAnswered] = useState(false);
   if (!question) return <p className="text-sm text-danger">Questão não encontrada ({questionId}).</p>;
 
-  async function answer(key: "A" | "B" | "C" | "D") {
+  async function answer(key: "A" | "B" | "C" | "D" | "E") {
     if (answered || !question) return;
     setSelected(key);
     setAnswered(true);

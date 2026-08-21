@@ -1,0 +1,45 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "QuestaoReal",
+  "description": "Questão real extraída de prova de concurso pública, para o acervo de treino Transpetro 2026.",
+  "type": "object",
+  "required": ["id", "codigo", "disciplina", "enunciado", "alternativas", "gabarito", "origin", "adaptado", "mappingConfidence", "comentario", "dataExtracao", "statusRevisao"],
+  "properties": {
+    "id": { "type": "string", "description": "Identificador único e estável, formato: {codigo}-{origin.ano}-{origin.board}-{sourceQuestionNumber}, ex.: AC-16-2012-CESGRANRIO-29" },
+    "codigo": { "type": "string", "enum": [
+      "PT-01","PT-02","PT-03","PT-04","PT-05","PT-06","PT-07","PT-08",
+      "MAT-01","MAT-02","MAT-03","MAT-04","MAT-05","MAT-06","MAT-07","MAT-08","MAT-09","MAT-10",
+      "AC-01","AC-02","AC-03","AC-04","AC-05","AC-06","AC-07","AC-08","AC-09","AC-10",
+      "AC-11","AC-12","AC-13","AC-14","AC-15","AC-16","AC-17","AC-18","AC-19","AC-20","AC-21"
+    ]},
+    "disciplina": { "type": "string", "enum": ["Português", "Matemática", "Administração e Controle"] },
+    "enunciado": { "type": "string", "description": "Texto completo do enunciado, fiel à fonte original (inclui texto-base/tabela/figura referenciada quando essencial à compreensão)." },
+    "alternativas": {
+      "type": "array",
+      "items": { "type": "object", "required": ["letra", "texto"], "properties": { "letra": { "type": "string", "enum": ["A","B","C","D","E"] }, "texto": { "type": "string" } } },
+      "minItems": 2,
+      "maxItems": 5
+    },
+    "gabarito": { "type": "string", "enum": ["A","B","C","D","E","ANULADA"], "description": "Alternativa correta conforme fonte oficial; ANULADA se a banca anulou a questão." },
+    "origin": {
+      "type": "object",
+      "required": ["sourceTier", "board", "orgao", "cargo", "ano", "sourceQuestionNumber"],
+      "properties": {
+        "sourceTier": { "type": "string", "enum": ["transpetro_anterior", "cesgranrio_outro_concurso", "outra_banca"] },
+        "board": { "type": "string", "description": "Banca organizadora da prova de origem, ex.: CESGRANRIO" },
+        "orgao": { "type": "string", "description": "Órgão/empresa que aplicou a prova de origem, ex.: TRANSPETRO" },
+        "cargo": { "type": "string", "description": "Cargo da prova de origem, ex.: Técnico(a) de Administração e Controle Júnior" },
+        "ano": { "type": "integer" },
+        "sourceQuestionNumber": { "type": "integer", "description": "Número da questão na prova original." },
+        "sourceUrl": { "type": "string", "description": "URL pública de onde a prova/gabarito foi extraído." },
+        "sourceDoc": { "type": "string", "description": "Nome do arquivo local em fontes/pdfs_originais/, se aplicável." }
+      }
+    },
+    "adaptado": { "type": "boolean" },
+    "descricaoAdaptacao": { "type": "string", "description": "Obrigatório se adaptado=true. Descreve exatamente o que foi alterado em relação ao original." },
+    "mappingConfidence": { "type": "string", "enum": ["alta", "média", "baixa"] },
+    "comentario": { "type": "string", "description": "Explicação da resposta correta, com base na fonte, citando dispositivo legal/regra quando aplicável. Também usado para justificar mappingConfidence baixa ou statusRevisao sob_conferencia." },
+    "dataExtracao": { "type": "string", "format": "date" },
+    "statusRevisao": { "type": "string", "enum": ["validada", "sob_conferencia"] }
+  }
+}

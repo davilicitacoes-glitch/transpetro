@@ -52,8 +52,8 @@ export default function DiagnosticoPage() {
 
   async function handleNext() {
     if (!current) return;
-    const selectedKey = selected[current.id] as "A" | "B" | "C" | "D";
-    const correctKey = current.options.find((o) => o.isCorrect)?.key as "A" | "B" | "C" | "D" | undefined;
+    const selectedKey = selected[current.id] as "A" | "B" | "C" | "D" | "E";
+    const correctKey = current.options.find((o) => o.isCorrect)?.key as "A" | "B" | "C" | "D" | "E" | undefined;
     const isCorrect = correctKey === selectedKey;
 
     await recordAttempt({

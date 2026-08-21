@@ -39,7 +39,12 @@ export const LAST_STUDY_DATE = "2026-11-28";
 /** Quantidade de missões/dias do plano — NÃO definido ainda (depende do cronograma real da Fase 2,
  * que ainda não foi construído a partir do conteúdo programático). Motor não deve assumir um valor
  * fixo aqui. */
-export const TOTAL_MISSIONS = 0; // PENDENTE — Fase 2 define o cronograma real
+/**
+ * Fase 2 em andamento — deve ser sempre igual a `COURSE_PLAN_V2.days.length` em
+ * `src/content/coursePlan.ts` (o motor de calendário/dia-atual depende dessa igualdade). Hoje só
+ * o Dia 1 está escrito; sobe conforme mais dias forem adicionados ao plano.
+ */
+export const TOTAL_MISSIONS = 1;
 
 /** Prova objetiva única, mesmo caderno, sem menção a turno específico (manhã/tarde) no edital. */
 export const EXAM_SHIFT = "unico"; // caderno único, sem divisão de turno documentada no edital

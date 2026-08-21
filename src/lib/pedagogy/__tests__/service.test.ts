@@ -43,8 +43,8 @@ beforeEach(async () => {
 describe.skip("serviço de pedagogia — PENDENTE Fase 2 (depende de aula/questão de conteúdo real)", () => {
 // Fallback seguro: describe.skip ainda executa este corpo para registrar os `it`s (só não os
 // roda), então não podemos usar `!` não-nulo aqui — testQuestion é undefined até a Fase 2.
-const CORRECT_KEY = (testQuestion?.options.find((o) => o.isCorrect)?.key ?? "A") as "A" | "B" | "C" | "D";
-const WRONG_KEY = (testQuestion?.options.find((o) => !o.isCorrect)?.key ?? "B") as "A" | "B" | "C" | "D";
+const CORRECT_KEY = (testQuestion?.options.find((o) => o.isCorrect)?.key ?? "A") as "A" | "B" | "C" | "D" | "E";
+const WRONG_KEY = (testQuestion?.options.find((o) => !o.isCorrect)?.key ?? "B") as "A" | "B" | "C" | "D" | "E";
 
 describe("pré-condição do banco de teste", () => {
   it("a questão de teste existe e tem uma alternativa correta", () => {
@@ -193,8 +193,8 @@ describe("7. erros de conteúdos distintos não são mesclados", () => {
     const otherQuestionId = miniQuizQuestionId(otherLessonSlug, 0);
     const otherQuestion = ALL_QUESTIONS.find((q) => q.id === otherQuestionId);
     expect(otherQuestion).toBeDefined();
-    const otherWrongKey = otherQuestion!.options.find((o) => !o.isCorrect)!.key as "A" | "B" | "C" | "D";
-    const otherCorrectKey = otherQuestion!.options.find((o) => o.isCorrect)!.key as "A" | "B" | "C" | "D";
+    const otherWrongKey = otherQuestion!.options.find((o) => !o.isCorrect)!.key as "A" | "B" | "C" | "D" | "E";
+    const otherCorrectKey = otherQuestion!.options.find((o) => o.isCorrect)!.key as "A" | "B" | "C" | "D" | "E";
 
     const a = await recordAttempt({ questionId: TEST_QUESTION_ID, selectedKey: WRONG_KEY, correctKey: CORRECT_KEY, isCorrect: false, mode: "treino" });
     const b = await recordAttempt({ questionId: otherQuestionId, selectedKey: otherWrongKey, correctKey: otherCorrectKey, isCorrect: false, mode: "treino" });

@@ -152,14 +152,14 @@ export default function LessonPage({ params }: { params: Promise<{ slug: string 
     setQuizAnswers((prev) => ({ ...prev, [qi]: key }));
     const questionId = miniQuizQuestionId(lesson.slug, qi);
     const question = lesson.miniQuiz[qi];
-    const correctKey = question.options.find((o) => o.isCorrect)?.key as "A" | "B" | "C" | "D" | undefined;
+    const correctKey = question.options.find((o) => o.isCorrect)?.key as "A" | "B" | "C" | "D" | "E" | undefined;
     const isCorrect = correctKey === key;
     if (!quizIdempotencyKeysRef.current.has(qi)) {
       quizIdempotencyKeysRef.current.set(qi, newIdempotencyKey());
     }
     void recordAttempt({
       questionId,
-      selectedKey: key as "A" | "B" | "C" | "D",
+      selectedKey: key as "A" | "B" | "C" | "D" | "E",
       correctKey,
       isCorrect,
       mode: "miniquiz",

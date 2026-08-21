@@ -182,8 +182,8 @@ export async function getLatestAttemptsForQuestions(questionIds: string[], stude
 
 export interface RecordAttemptInput {
   questionId: string;
-  selectedKey: "A" | "B" | "C" | "D" | null;
-  correctKey?: "A" | "B" | "C" | "D";
+  selectedKey: "A" | "B" | "C" | "D" | "E" | null;
+  correctKey?: "A" | "B" | "C" | "D" | "E";
   isCorrect: boolean;
   mode: AttemptMode;
   sessionId?: string;
@@ -832,7 +832,7 @@ export async function startMockExamAttempt(mockExamId: string, sessionId?: strin
  */
 export async function finishMockExamAttempt(
   mockExamAttemptId: string,
-  answers: Array<{ questionId: string; selectedKey: "A" | "B" | "C" | "D" | null; correctKey: "A" | "B" | "C" | "D"; responseTimeMs?: number }>,
+  answers: Array<{ questionId: string; selectedKey: "A" | "B" | "C" | "D" | "E" | null; correctKey: "A" | "B" | "C" | "D" | "E"; responseTimeMs?: number }>,
   scoreBySubject: Record<string, number>,
   totalScore: number,
   studentId = DEFAULT_STUDENT_ID,

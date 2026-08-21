@@ -2,12 +2,13 @@
 
 import { useEffect, useMemo, useState } from "react";
 import Link from "next/link";
-import { CalendarDays, ChevronLeft, ChevronRight, List, LayoutGrid } from "lucide-react";
+import { CalendarDays, ChevronLeft, ChevronRight, List, LayoutGrid, Download } from "lucide-react";
 import { PageHeader } from "@/components/ui/PageHeader";
 import { PHASE_LABEL, formatMinutes } from "@/lib/course/labels";
 import { formatDateBR, todayInExamTimezone } from "@/lib/schedule/dates";
 import { EXAM_DATE } from "@config/concurso";
 import { getEnrollment, getCourseOverview, type CourseDayOverviewEntry } from "@/lib/course/service";
+import { buildCourseIcs, downloadIcs } from "@/lib/calendar/exportIcs";
 import type { CourseEnrollment } from "@/lib/models/schema";
 
 type ViewMode = "mes" | "agenda";
@@ -108,12 +109,22 @@ export default function CalendarioPage() {
         title="Calendário"
         description="Todo o percurso até a véspera da prova. Toque em qualquer dia para ver o plano — inclusive os que ainda não chegaram."
         action={
-          <div className="flex gap-1 rounded-lg border border-border p-0.5">
-            <button type="button" onClick={() => setView("mes")} className={`tap-target px-2.5 py-1.5 rounded-md text-xs flex items-center gap-1 ${view === "mes" ? "bg-brand text-white" : "text-foreground-muted"}`}>
-              <LayoutGrid size={13} aria-hidden /> Mês
-            </button>
-            <button type="button" onClick={() => setView("agenda")} className={`tap-target px-2.5 py-1.5 rounded-md text-xs flex items-center gap-1 ${view === "agenda" ? "bg-brand text-white" : "text-foreground-muted"}`}>
-              <List size={13} aria-hidden /> Agenda
+          <div className="flex items-center gap-2">
+            <div className="flex gap-1 rounded-lg border border-border p-0.5">
+              <button type="button" onClick={() => setView("mes")} className={`tap-target px-2.5 py-1.5 rounded-md text-xs flex items-center gap-1 ${view === "mes" ? "bg-brand text-white" : "text-foreground-muted"}`}>
+                <LayoutGrid size={13} aria-hidden /> Mês
+              </button>
+              <button type="button" onClick={() => setView("agenda")} className={`tap-target px-2.5 py-1.5 rounded-md text-xs flex items-center gap-1 ${view === "agenda" ? "bg-brand text-white" : "text-foreground-muted"}`}>
+                <List size={13} aria-hidden /> Agenda
+              </button>
+            </div>
+            <button
+              type="button"
+              onClick={() => downloadIcs(buildCourseIcs(entries, EXAM_DATE))}
+              className="tap-target px-2.5 py-1.5 rounded-lg border border-border text-xs flex items-center gap-1 text-foreground-muted hover:bg-surface-muted"
+              title="Baixar cronograma completo (.ics) — importável no Google Calendar, Outlook, Apple Calendar"
+            >
+              <Download size={13} aria-hidden /> Baixar (.ics)
             </button>
           </div>
         }
@@ -122,9 +133,13 @@ export default function CalendarioPage() {
       <div className="card p-3.5 mb-4 flex items-center gap-2 border-brand/30 bg-brand-soft/30">
         <CalendarDays size={16} className="text-brand shrink-0" aria-hidden />
         <p className="text-[12.5px]">
-          <strong>Prova em {formatDateBR(EXAM_DATE)}</strong>, turno da tarde. 13/09 não é dia de aula — é o dia da prova.
+          <strong>Prova em {formatDateBR(EXAM_DATE)}</strong>. Esse dia não é dia de aula — é o dia da prova.
         </p>
       </div>
+
+      <p className="text-[11.5px] text-foreground-muted mb-4">
+        Perdeu um dia? Nenhum conteúdo é pulado — o dia perdido fica marcado como <strong>atrasado</strong> e continua disponível para ser cumprido depois, na ordem certa. Baixe o cronograma (.ics) para ver todas as datas planejadas no seu calendário pessoal.
+      </p>
 
       {view === "mes" ? (
         <>

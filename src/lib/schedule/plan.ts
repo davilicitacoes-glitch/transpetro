@@ -66,7 +66,7 @@ export function buildStudyPlan(startDate: IsoDate, referenceTotalMissions = TOTA
       availableDays: 0,
       missionCount: 0,
       compressed: false,
-      compressionNote: "Fora da janela de estudo: a data de início é posterior ao último dia de estudo (19/09/2026).",
+      compressionNote: `Fora da janela de estudo: a data de início é posterior ao último dia de estudo (${lastStudyDate}).`,
       simuladoCount: 0,
       essaySessionCount: 0,
       days: [],

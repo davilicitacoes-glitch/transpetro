@@ -302,8 +302,8 @@ export interface AnswerCourseQuestionInput {
   day: number;
   stepId: string;
   questionId: string;
-  selectedKey: "A" | "B" | "C" | "D";
-  correctKey?: "A" | "B" | "C" | "D";
+  selectedKey: "A" | "B" | "C" | "D" | "E";
+  correctKey?: "A" | "B" | "C" | "D" | "E";
   isCorrect: boolean;
 }
 
