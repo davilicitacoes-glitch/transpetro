@@ -6,199 +6,178 @@ export const AC_21_SEGURANCA_INFORMACAO_LGPD: LessonContent = {
   subjectSlug: "especificas",
   moduleSlug: "especificas-informatica",
   title: `Segurança da informação e LGPD`,
-  learningObjective: `Este material cobre o conteúdo oficial de **Segurança da informação e LGPD** com foco na prova objetiva da Cesgranrio. O tema deve ser estudado em três camadas: vocabulário técnico, relações entre os conceitos e aplicação em situações-problema. Questões da banca frequentemente exigem inferência controlada, comparação de alternativas próximas e atenção a exceções; por isso, a preparação deve combinar teoria, exemplos e revisão dos erros.`,
+  learningObjective: `Dominar a tríade CID (confidencialidade/integridade/disponibilidade), os conceitos de ameaça/vulnerabilidade/risco, vetores de infecção por malware (anexos de desconhecidos), firewall e VPN, e a estrutura da LGPD (dado pessoal x sensível, controlador x operador x encarregado, bases legais) — a Cesgranrio gosta de dar um cenário de segurança e pedir o mecanismo de proteção correto, e de testar a definição literal de conceitos da LGPD.`,
   syllabusCodes: ["AC-21"],
   estimatedMinutes: 40,
   expectedMastery: "intermediario",
-  bodyMdx: `# AC-21 — Segurança da informação e LGPD
+  bodyMdx: `# AC-21 — Segurança da Informação e LGPD
 
-## Visão geral
+## 1. A tríade CID (Confidencialidade, Integridade, Disponibilidade)
 
-Este material cobre o conteúdo oficial de **Segurança da informação e LGPD** com foco na prova objetiva da Cesgranrio. O tema deve ser estudado em três camadas: vocabulário técnico, relações entre os conceitos e aplicação em situações-problema. Questões da banca frequentemente exigem inferência controlada, comparação de alternativas próximas e atenção a exceções; por isso, a preparação deve combinar teoria, exemplos e revisão dos erros.
+- **Confidencialidade**: **limita o acesso** à informação apenas a quem é autorizado.
+- **Integridade**: evita **alteração indevida** da informação — garante que o dado não foi modificado sem autorização.
+- **Disponibilidade**: mantém o **acesso disponível** quando necessário — de nada adianta um dado confidencial e íntegro se ele não pode ser acessado quando preciso.
+- **Autenticidade** (frequentemente somada à tríade): garante que a informação/usuário é realmente quem afirma ser.
 
-## Núcleo conceitual e regras operacionais
+## 2. Ameaça, vulnerabilidade, risco e controle
 
-1. Confidencialidade limita acesso; integridade evita alteração indevida; disponibilidade mantém acesso quando necessário.
-2. Ameaça pode explorar vulnerabilidade e produzir impacto; risco considera essa combinação no contexto.
-3. Phishing usa engenharia social para obter ação ou informação; MFA reduz dano de senha comprometida.
-4. LGPD protege dados de pessoa natural identificada ou identificável; dado anonimizado pode sair do regime se a reversão não for razoável.
-5. Dado sensível inclui origem racial/étnica, convicção religiosa, opinião política, saúde, vida sexual, dado genético ou biométrico vinculado à pessoa.
-6. Controlador decide sobre tratamento; operador trata em nome do controlador; encarregado atua como canal previsto na lei.
-7. Consentimento é uma das bases legais, não a única; finalidade, adequação, necessidade, transparência, segurança e responsabilização orientam o tratamento.
+- **Ameaça**: um agente/evento que **pode explorar** uma vulnerabilidade e produzir impacto.
+- **Vulnerabilidade**: uma **fraqueza** que pode ser explorada.
+- **Risco**: considera a **combinação** de ameaça, vulnerabilidade e impacto **no contexto** específico — não é apenas "algo ruim pode acontecer", é a probabilidade e o impacto combinados de uma ameaça explorar uma vulnerabilidade real.
+- **Controle**: medida implementada para reduzir risco (técnico, administrativo ou físico).
 
-### 1. Confidencialidade, integridade, disponibilidade e autenticidade
+## 3. Vetores de ataque: engenharia social e anexos de e-mail
 
-Confidencialidade, integridade, disponibilidade e autenticidade integra o núcleo de **Segurança da informação e LGPD**. Para a prova, não basta reconhecer o termo: é preciso distinguir conceito, finalidade, condições de aplicação e efeitos. A leitura correta começa pela pergunta “qual problema este conceito resolve?” e continua com “em que situação ele não se aplica?”. Essa dupla verificação evita respostas baseadas apenas em palavras familiares.
+A **abertura de anexos de e-mails enviados por desconhecidos** é um dos **vetores clássicos** de infecção por malware/pragas eletrônicas (phishing, ransomware) — continua sendo o método de entrada mais comum, mesmo com toda a evolução de outras técnicas de ataque.
 
-Na prática administrativa ou linguística, identifique o contexto, os elementos envolvidos, o critério aplicável e a consequência antes de escolher a alternativa. A Cesgranrio costuma apresentar uma situação concreta e trocar um requisito, uma relação lógica ou a ordem de uma etapa. Por isso, compare cada alternativa com todos os dados do caso, não apenas com a primeira expressão que parece correta. Um bom resumo operacional é: definir, relacionar, aplicar e conferir.
+**Phishing** usa **engenharia social** — manipulação psicológica, não uma falha técnica — para obter uma ação do usuário (clicar em link, baixar anexo) ou informação sensível (senha, dados bancários) diretamente da vítima.
 
-### 2. Ameaça, vulnerabilidade, risco e controle
+**Pegadinha clássica**: numa lista com abertura de anexos de desconhecidos, uso de antivírus, restrição de acesso, bloqueio P2P e uso de proxy — apenas o primeiro é um vetor de ATAQUE; os demais são medidas de PROTEÇÃO.
 
-Ameaça, vulnerabilidade, risco e controle integra o núcleo de **Segurança da informação e LGPD**. Para a prova, não basta reconhecer o termo: é preciso distinguir conceito, finalidade, condições de aplicação e efeitos. A leitura correta começa pela pergunta “qual problema este conceito resolve?” e continua com “em que situação ele não se aplica?”. Essa dupla verificação evita respostas baseadas apenas em palavras familiares.
+## 4. Firewall — o que ele faz
 
-Na prática administrativa ou linguística, identifique o contexto, os elementos envolvidos, o critério aplicável e a consequência antes de escolher a alternativa. A Cesgranrio costuma apresentar uma situação concreta e trocar um requisito, uma relação lógica ou a ordem de uma etapa. Por isso, compare cada alternativa com todos os dados do caso, não apenas com a primeira expressão que parece correta. Um bom resumo operacional é: definir, relacionar, aplicar e conferir.
+O **firewall** é o programa/dispositivo que **controla o tráfego de rede** para **impedir invasões e acessos não autorizados** — filtra pacotes de entrada/saída conforme regras definidas. É um conceito atemporal, presente inclusive nas versões atuais do Windows (Windows Defender Firewall) e nas políticas de segurança corporativas.
 
-### 3. Malware, phishing e engenharia social
+## 5. VPN — conexão segura remota
 
-Malware, phishing e engenharia social integra o núcleo de **Segurança da informação e LGPD**. Para a prova, não basta reconhecer o termo: é preciso distinguir conceito, finalidade, condições de aplicação e efeitos. A leitura correta começa pela pergunta “qual problema este conceito resolve?” e continua com “em que situação ele não se aplica?”. Essa dupla verificação evita respostas baseadas apenas em palavras familiares.
+A **VPN** (Virtual Private Network) estabelece uma **conexão segura e criptografada** entre o computador remoto de um funcionário e a **intranet** da empresa, através da internet pública — **simula o acesso local** à rede corporativa, permitindo que o funcionário use recursos internos da empresa como se estivesse fisicamente no escritório, mesmo estando remoto.
 
-Na prática administrativa ou linguística, identifique o contexto, os elementos envolvidos, o critério aplicável e a consequência antes de escolher a alternativa. A Cesgranrio costuma apresentar uma situação concreta e trocar um requisito, uma relação lógica ou a ordem de uma etapa. Por isso, compare cada alternativa com todos os dados do caso, não apenas com a primeira expressão que parece correta. Um bom resumo operacional é: definir, relacionar, aplicar e conferir.
+## 6. Senhas, MFA, backup e atualização
 
-### 4. Senhas, autenticação multifator, backup e atualização
+- **MFA** (Multi-Factor Authentication/autenticação multifator): exige mais de um fator de verificação (senha + código, senha + biometria) — **reduz o dano** de uma senha comprometida, pois o atacante precisaria também do segundo fator para invadir.
+- **Backup** e **atualização de software** são controles básicos e contínuos: backup protege contra perda de dados; atualização corrige vulnerabilidades já conhecidas antes que sejam exploradas.
 
-Senhas, autenticação multifator, backup e atualização integra o núcleo de **Segurança da informação e LGPD**. Para a prova, não basta reconhecer o termo: é preciso distinguir conceito, finalidade, condições de aplicação e efeitos. A leitura correta começa pela pergunta “qual problema este conceito resolve?” e continua com “em que situação ele não se aplica?”. Essa dupla verificação evita respostas baseadas apenas em palavras familiares.
+## 7. LGPD: dado pessoal x dado sensível
 
-Na prática administrativa ou linguística, identifique o contexto, os elementos envolvidos, o critério aplicável e a consequência antes de escolher a alternativa. A Cesgranrio costuma apresentar uma situação concreta e trocar um requisito, uma relação lógica ou a ordem de uma etapa. Por isso, compare cada alternativa com todos os dados do caso, não apenas com a primeira expressão que parece correta. Um bom resumo operacional é: definir, relacionar, aplicar e conferir.
+A **LGPD** (Lei nº 13.709/2018) protege dados de **pessoa natural identificada ou identificável** — o dado pessoal é qualquer informação relacionada a uma pessoa física que possa identificá-la, direta ou indiretamente.
 
-### 5. LGPD: dado pessoal, dado sensível e tratamento
+**Dado anonimizado**: pode **sair do regime da LGPD** se a **reversão** (voltar a identificar a pessoa a partir do dado anonimizado) **não for razoável** — se for tecnicamente fácil reverter a anonimização, o dado continua protegido.
 
-LGPD: dado pessoal, dado sensível e tratamento integra o núcleo de **Segurança da informação e LGPD**. Para a prova, não basta reconhecer o termo: é preciso distinguir conceito, finalidade, condições de aplicação e efeitos. A leitura correta começa pela pergunta “qual problema este conceito resolve?” e continua com “em que situação ele não se aplica?”. Essa dupla verificação evita respostas baseadas apenas em palavras familiares.
+**Dado sensível** é uma categoria especial, com proteção reforçada, que inclui: **origem racial ou étnica**, **convicção religiosa**, **opinião política**, **filiação a sindicato ou organização religiosa/política/filosófica**, dado referente à **saúde** ou à **vida sexual**, **dado genético** ou **biométrico** quando vinculado a uma pessoa natural.
 
-Na prática administrativa ou linguística, identifique o contexto, os elementos envolvidos, o critério aplicável e a consequência antes de escolher a alternativa. A Cesgranrio costuma apresentar uma situação concreta e trocar um requisito, uma relação lógica ou a ordem de uma etapa. Por isso, compare cada alternativa com todos os dados do caso, não apenas com a primeira expressão que parece correta. Um bom resumo operacional é: definir, relacionar, aplicar e conferir.
+## 8. Agentes de tratamento: controlador, operador e encarregado
 
-### 6. Agentes de tratamento, encarregado e titulares
+- **Controlador**: **decide sobre o tratamento** dos dados pessoais — define finalidades e meios.
+- **Operador**: **trata os dados em nome do controlador**, seguindo suas instruções — não decide sozinho a finalidade do tratamento.
+- **Encarregado** (DPO — Data Protection Officer): atua como **canal de comunicação** entre controlador, titulares dos dados e a Autoridade Nacional de Proteção de Dados (ANPD), previsto na própria lei.
 
-Agentes de tratamento, encarregado e titulares integra o núcleo de **Segurança da informação e LGPD**. Para a prova, não basta reconhecer o termo: é preciso distinguir conceito, finalidade, condições de aplicação e efeitos. A leitura correta começa pela pergunta “qual problema este conceito resolve?” e continua com “em que situação ele não se aplica?”. Essa dupla verificação evita respostas baseadas apenas em palavras familiares.
+**Regra de decoreba**: controlador decide; operador executa por conta do controlador; encarregado é o canal de comunicação/conformidade.
 
-Na prática administrativa ou linguística, identifique o contexto, os elementos envolvidos, o critério aplicável e a consequência antes de escolher a alternativa. A Cesgranrio costuma apresentar uma situação concreta e trocar um requisito, uma relação lógica ou a ordem de uma etapa. Por isso, compare cada alternativa com todos os dados do caso, não apenas com a primeira expressão que parece correta. Um bom resumo operacional é: definir, relacionar, aplicar e conferir.
+## 9. Bases legais para tratamento de dados
 
-### 7. Princípios, bases legais, direitos e segurança de dados
+O **consentimento** é **uma das bases legais** para tratamento de dados pessoais previstas na LGPD, mas **não é a única** — existem outras bases (cumprimento de obrigação legal, execução de contrato, exercício regular de direitos, proteção da vida, entre outras). O tratamento de dados, independentemente da base legal usada, deve seguir princípios como **finalidade** (propósito específico e informado), **adequação**, **necessidade** (uso mínimo necessário), **transparência**, **segurança** e **responsabilização** (accountability).
 
-Princípios, bases legais, direitos e segurança de dados integra o núcleo de **Segurança da informação e LGPD**. Para a prova, não basta reconhecer o termo: é preciso distinguir conceito, finalidade, condições de aplicação e efeitos. A leitura correta começa pela pergunta “qual problema este conceito resolve?” e continua com “em que situação ele não se aplica?”. Essa dupla verificação evita respostas baseadas apenas em palavras familiares.
-
-Na prática administrativa ou linguística, identifique o contexto, os elementos envolvidos, o critério aplicável e a consequência antes de escolher a alternativa. A Cesgranrio costuma apresentar uma situação concreta e trocar um requisito, uma relação lógica ou a ordem de uma etapa. Por isso, compare cada alternativa com todos os dados do caso, não apenas com a primeira expressão que parece correta. Um bom resumo operacional é: definir, relacionar, aplicar e conferir.
-
-## Método de resolução
-
-1. Classifique o comando: definição, cálculo, aplicação, exceção ou interpretação.
-2. Sublinhe restrições, negações, unidades, prazos e qualificadores como “sempre”, “apenas” e “necessariamente”.
-3. Recupere a regra central antes de olhar as alternativas.
-4. Elimine opções que misturam conceitos verdadeiros em relação errada.
-5. Teste a resposta no caso concreto e faça uma conferência final.
+**Pegadinha clássica**: achar que toda coleta de dado pessoal exige consentimento explícito — a lei prevê múltiplas bases legais alternativas ao consentimento.
 
 ## Síntese
 
-O domínio de Segurança da informação e LGPD resulta da conexão entre confidencialidade, integridade, disponibilidade e autenticidade, ameaça, vulnerabilidade, risco e controle, malware, phishing e engenharia social e os demais pontos do edital. Revise o mapa mental, explique cada ramo com suas próprias palavras e resolva questões reais. Se uma regra parecer absoluta, procure condições, limites e exceções: é nesse deslocamento que se concentram muitas pegadinhas.
+O AC-21 combina fundamentos técnicos de segurança (CID, ameaça/vulnerabilidade/risco, firewall, VPN, MFA) com a estrutura legal da LGPD (dado pessoal x sensível, controlador x operador x encarregado, bases legais além do consentimento). A pegadinha mais recorrente mistura vetores de ataque com medidas de proteção, ou trata consentimento como a única base legal válida.
 
 ## Mapa mental
 
-# AC-21 — Mapa mental
-
 \`\`\`mermaid
 mindmap
-  root((Segurança da informação e LGPD))
-    confidencialidade, integridade, disponibilidade e autenticidade
-      Conceito e finalidade
-      Condições de aplicação
-      Exemplo de prova
-      Contraste e exceção
-    ameaça, vulnerabilidade, risco e controle
-      Conceito e finalidade
-      Condições de aplicação
-      Exemplo de prova
-      Contraste e exceção
-    malware, phishing e engenharia social
-      Conceito e finalidade
-      Condições de aplicação
-      Exemplo de prova
-      Contraste e exceção
-    senhas, autenticação multifator, backup e atualização
-      Conceito e finalidade
-      Condições de aplicação
-      Exemplo de prova
-      Contraste e exceção
-    LGPD  dado pessoal, dado sensível e tratamento
-      Conceito e finalidade
-      Condições de aplicação
-      Exemplo de prova
-      Contraste e exceção
-    agentes de tratamento, encarregado e titulares
-      Conceito e finalidade
-      Condições de aplicação
-      Exemplo de prova
-      Contraste e exceção
-    princípios, bases legais, direitos e segurança de dados
-      Conceito e finalidade
-      Condições de aplicação
-      Exemplo de prova
-      Contraste e exceção
-    Estratégia Cesgranrio
-      Ler o comando
-      Eliminar extrapolações
-      Conferir o caso
+  root((Segurança da Informação e LGPD — AC-21))
+    Triade CID
+      Confidencialidade: limita acesso
+      Integridade: evita alteracao indevida
+      Disponibilidade: mantem acesso quando necessario
+    Ameaca, vulnerabilidade, risco
+      Risco combina os tres no contexto
+    Vetores de ataque
+      Anexos de desconhecidos: vetor classico
+      Phishing: engenharia social
+    Protecoes
+      Firewall: controla trafego de rede
+      VPN: conexao segura remota
+      MFA: reduz dano de senha comprometida
+    LGPD
+      Dado pessoal: pessoa identificavel
+      Dado sensivel: raca, religiao, saude, biometria
+      Anonimizado: fora do regime se reversao nao razoavel
+    Agentes
+      Controlador: decide
+      Operador: executa por conta do controlador
+      Encarregado: canal de comunicacao
+    Bases legais
+      Consentimento e uma das varias bases
 \`\`\``,
   mustMemorize: [
     `Confidencialidade limita acesso; integridade evita alteração indevida; disponibilidade mantém acesso quando necessário.`,
-    `Ameaça pode explorar vulnerabilidade e produzir impacto; risco considera essa combinação no contexto.`,
-    `Phishing usa engenharia social para obter ação ou informação; MFA reduz dano de senha comprometida.`,
-    `LGPD protege dados de pessoa natural identificada ou identificável; dado anonimizado pode sair do regime se a reversão não for razoável.`,
-    `Dado sensível inclui origem racial/étnica, convicção religiosa, opinião política, saúde, vida sexual, dado genético ou biométrico vinculado à pessoa.`,
-    `Controlador decide sobre tratamento; operador trata em nome do controlador; encarregado atua como canal previsto na lei.`,
-    `Consentimento é uma das bases legais, não a única; finalidade, adequação, necessidade, transparência, segurança e responsabilização orientam o tratamento.`,
-    `**Confidencialidade, integridade, disponibilidade e autenticidade:** associe definição, finalidade, condição e contraste.`,
-    `**Ameaça, vulnerabilidade, risco e controle:** associe definição, finalidade, condição e contraste.`,
-    `**Malware, phishing e engenharia social:** associe definição, finalidade, condição e contraste.`,
-    `**Senhas, autenticação multifator, backup e atualização:** associe definição, finalidade, condição e contraste.`,
-    `**LGPD: dado pessoal, dado sensível e tratamento:** associe definição, finalidade, condição e contraste.`,
+    `Risco = combinação de ameaça + vulnerabilidade + impacto NO CONTEXTO — não é só "algo ruim pode acontecer".`,
+    `Abertura de anexos de desconhecidos é VETOR DE ATAQUE; antivírus, restrição de acesso, bloqueio P2P e proxy são MEDIDAS DE PROTEÇÃO.`,
+    `Firewall controla tráfego de rede para impedir invasões. VPN estabelece conexão segura/criptografada simulando acesso local à intranet.`,
+    `MFA reduz o dano de uma senha comprometida (exige segundo fator).`,
+    `LGPD protege dados de pessoa natural IDENTIFICADA ou IDENTIFICÁVEL. Dado anonimizado sai do regime SE a reversão não for razoável.`,
+    `Dado sensível: origem racial/étnica, religião, opinião política, saúde, vida sexual, dado genético/biométrico.`,
+    `Controlador DECIDE; operador EXECUTA em nome do controlador; encarregado é o CANAL de comunicação (DPO).`,
+    `Consentimento é UMA das bases legais da LGPD, não a única.`,
   ],
   workedExamples: [
-    `A abertura de anexos de e-mails de remetentes desconhecidos é um dos vetores clássicos de infecção por malware/pragas eletrônicas (phishing, ransomware), diferentemente das demais alternativas, que são medidas de proteção (antivírus, restrição de acesso, bloqueio P2P, proxy). Conceito atemporal, ainda válido. Núcleo do código AC-21 (segurança da informação). **Lição de prova:** identifique exatamente qual dado sustenta o gabarito e por que as demais opções extrapolam, invertem ou misturam conceitos.`,
-    `O firewall é o programa/dispositivo que controla o tráfego de rede para impedir invasões e acessos não autorizados; conceito atemporal, ainda presente no Windows atual (Windows Defender Firewall) e nas políticas de segurança corporativas. Núcleo do código AC-21 (segurança da informação). **Lição de prova:** identifique exatamente qual dado sustenta o gabarito e por que as demais opções extrapolam, invertem ou misturam conceitos.`,
-    `A VPN (Virtual Private Network) estabelece uma conexão segura e criptografada entre o computador remoto do funcionário e a intranet da empresa através da internet, simulando o acesso local à rede corporativa. Núcleo do código AC-21 (segurança da informação e LGPD — noções sobre segurança da informação). **Lição de prova:** identifique exatamente qual dado sustenta o gabarito e por que as demais opções extrapolam, invertem ou misturam conceitos.`,
+    `A abertura de anexos de e-mails de remetentes desconhecidos é um dos vetores clássicos de infecção por malware/pragas eletrônicas (phishing, ransomware), diferentemente das demais alternativas, que são medidas de proteção (antivírus, restrição de acesso, bloqueio P2P, proxy).`,
+    `O firewall é o programa/dispositivo que controla o tráfego de rede para impedir invasões e acessos não autorizados; conceito atemporal, ainda presente no Windows atual (Windows Defender Firewall) e nas políticas de segurança corporativas.`,
+    `A VPN (Virtual Private Network) estabelece uma conexão segura e criptografada entre o computador remoto do funcionário e a intranet da empresa através da internet, simulando o acesso local à rede corporativa.`,
+    `Dado sensível inclui origem racial/étnica, convicção religiosa, opinião política, dado referente à saúde ou vida sexual, dado genético ou biométrico vinculado à pessoa — categoria com proteção reforçada na LGPD.`,
   ],
   commonMistakes: [
-    `Reconhecer palavra-chave e ignorar o contexto: **Por que engana:** a alternativa repete termos do enunciado, mas altera a relação entre eles. **Correto:** valide definição, condição e consequência no caso completo.`,
-    `Transformar regra condicionada em regra absoluta: **Por que engana:** expressões como “sempre”, “nunca” e “somente” parecem categóricas. **Correto:** procure exceções e requisitos antes de aceitar a afirmação.`,
-    `Confundir conceitos vizinhos: **Por que engana:** confidencialidade, integridade, disponibilidade e autenticidade e ameaça, vulnerabilidade, risco e controle pertencem ao mesmo tema, mas não são sinônimos. **Correto:** compare finalidade, objeto e modo de aplicação.`,
-    `Padrão observado no acervo real (AC-21-2012-CESGRANRIO-58): A abertura de anexos de e-mails de remetentes desconhecidos é um dos vetores clássicos de infecção por malware/pragas eletrônicas (phishing, ransomware), diferentemente das demais alternativas, que são medidas de proteção (antivírus, restrição de acesso, bloqueio P2P, proxy). Conceito atemporal, ainda válido. Núcleo do código AC-21 (segurança da informação). **Lição de prova:** identifique exatamente qual dado sustenta o gabarito e por que as demais opções extrapolam, invertem ou misturam conceitos.`,
-    `Padrão observado no acervo real (AC-21-2012-CESGRANRIO-59): O firewall é o programa/dispositivo que controla o tráfego de rede para impedir invasões e acessos não autorizados; conceito atemporal, ainda presente no Windows atual (Windows Defender Firewall) e nas políticas de segurança corporativas. Núcleo do código AC-21 (segurança da informação). **Lição de prova:** identifique exatamente qual dado sustenta o gabarito e por que as demais opções extrapolam, invertem ou misturam conceitos.`,
-    `Padrão observado no acervo real (AC-21-2018-CESGRANRIO-58): A VPN (Virtual Private Network) estabelece uma conexão segura e criptografada entre o computador remoto do funcionário e a intranet da empresa através da internet, simulando o acesso local à rede corporativa. Núcleo do código AC-21 (segurança da informação e LGPD — noções sobre segurança da informação). **Lição de prova:** identifique exatamente qual dado sustenta o gabarito e por que as demais opções extrapolam, invertem ou misturam conceitos.`,
+    `Confundir vetor de ataque (abertura de anexo de desconhecido) com medida de proteção (antivírus, restrição de acesso) — são categorias opostas.`,
+    `Achar que risco é só "a ameaça existe" — risco combina ameaça, vulnerabilidade E impacto, avaliados no contexto específico.`,
+    `Confundir firewall (controla tráfego de rede) com antivírus (remove código malicioso já presente) — atuam em frentes diferentes.`,
+    `Achar que VPN só criptografa dados, sem simular acesso à rede interna — a VPN também dá acesso aos recursos da intranet como se o usuário estivesse fisicamente lá.`,
+    `Achar que a LGPD protege qualquer dado, inclusive anonimizado sem possibilidade de reversão — dados anonimizados de forma irreversível SAEM do regime da lei.`,
+    `Confundir controlador (decide) com operador (executa por conta do controlador) — são papéis com responsabilidades distintas na LGPD.`,
+    `Achar que consentimento é a ÚNICA base legal para tratamento de dados pessoais — a LGPD prevê múltiplas bases legais alternativas.`,
+    `Padrão observado no acervo real (AC-21-2012-CESGRANRIO-58): identificar a abertura de anexos de desconhecidos como vetor de ataque, entre distratores que são medidas de proteção.`,
+    `Padrão observado no acervo real (AC-21-2012-CESGRANRIO-59): reconhecer o firewall como o programa que controla tráfego de rede para impedir invasões, descartando administrador/decodificador/host/script como distratores.`,
+    `Padrão observado no acervo real (AC-21-2018-CESGRANRIO-58): identificar a VPN como a solução que estabelece conexão segura e criptografada simulando acesso local à intranet corporativa.`,
   ],
   howBoardMightAsk: [
-    `Ver padrão real: AC-21-2012-CESGRANRIO-58 — A abertura de anexos de e-mails de remetentes desconhecidos é um dos vetores clássicos de infecção por malware/pragas eletrônicas (phishing, ransomware), difere...`,
-    `Ver padrão real: AC-21-2012-CESGRANRIO-59 — O firewall é o programa/dispositivo que controla o tráfego de rede para impedir invasões e acessos não autorizados; conceito atemporal, ainda presente no Window...`,
-    `Ver padrão real: AC-21-2018-CESGRANRIO-58 — A VPN (Virtual Private Network) estabelece uma conexão segura e criptografada entre o computador remoto do funcionário e a intranet da empresa através da intern...`,
+    `Lista atividades/ferramentas e pede qual é vetor de ataque, entre distratores que são medidas de proteção.`,
+    `Descreve o propósito de uma ferramenta de segurança (controlar tráfego, criptografar acesso remoto) e pede seu nome, com termos genéricos como distratores.`,
+    `Pede a definição de dado pessoal, dado sensível, ou o papel de controlador/operador/encarregado na LGPD.`,
+    `Testa se consentimento é a única base legal de tratamento de dados pessoais.`,
   ],
-  legalReferences: [],
+  legalReferences: [
+    { title: "Lei nº 13.709/2018 (LGPD)", note: "Lei Geral de Proteção de Dados Pessoais — dado pessoal, dado sensível, agentes de tratamento, bases legais e princípios." },
+  ],
   reviewSummaryPoints: [
-    `Confidencialidade limita acesso; integridade evita alteração indevida; disponibilidade mantém acesso quando necessário.`,
-    `Ameaça pode explorar vulnerabilidade e produzir impacto; risco considera essa combinação no contexto.`,
-    `Phishing usa engenharia social para obter ação ou informação; MFA reduz dano de senha comprometida.`,
-    `LGPD protege dados de pessoa natural identificada ou identificável; dado anonimizado pode sair do regime se a reversão não for razoável.`,
-    `Dado sensível inclui origem racial/étnica, convicção religiosa, opinião política, saúde, vida sexual, dado genético ou biométrico vinculado à pessoa.`,
-    `Controlador decide sobre tratamento; operador trata em nome do controlador; encarregado atua como canal previsto na lei.`,
-    `Consentimento é uma das bases legais, não a única; finalidade, adequação, necessidade, transparência, segurança e responsabilização orientam o tratamento.`,
-    `**Confidencialidade, integridade, disponibilidade e autenticidade:** associe definição, finalidade, condição e contraste.`,
-    `**Ameaça, vulnerabilidade, risco e controle:** associe definição, finalidade, condição e contraste.`,
-    `**Malware, phishing e engenharia social:** associe definição, finalidade, condição e contraste.`,
-    `**Senhas, autenticação multifator, backup e atualização:** associe definição, finalidade, condição e contraste.`,
-    `**LGPD: dado pessoal, dado sensível e tratamento:** associe definição, finalidade, condição e contraste.`,
+    `CID: confidencialidade limita, integridade evita alteração, disponibilidade mantém acesso.`,
+    `Risco = ameaça + vulnerabilidade + impacto no contexto.`,
+    `Anexo de desconhecido = vetor de ataque. Antivírus/firewall/proxy = proteção.`,
+    `Firewall controla tráfego de rede. VPN simula acesso local à intranet via conexão criptografada.`,
+    `LGPD: pessoa identificável; dado sensível tem lista específica; controlador decide, operador executa, encarregado é o canal.`,
+    `Consentimento é uma base legal entre várias, não a única.`,
   ],
-  flashcards: [],
+  flashcards: [
+    { front: "O que garante cada pilar da tríade CID?", back: "Confidencialidade: limita acesso. Integridade: evita alteração indevida. Disponibilidade: mantém acesso quando necessário." },
+    { front: "O que faz uma VPN?", back: "Estabelece conexão segura e criptografada entre um computador remoto e a intranet da empresa, simulando acesso local à rede corporativa." },
+    { front: "Diferença entre controlador e operador na LGPD?", back: "Controlador decide sobre o tratamento (finalidades e meios). Operador trata os dados em nome do controlador, seguindo suas instruções." },
+    { front: "Consentimento é a única base legal da LGPD para tratamento de dados?", back: "Não — é uma das várias bases legais previstas (também há cumprimento de obrigação legal, execução de contrato, entre outras)." },
+  ],
   miniQuiz: [
-      {
-        statement: `As informações em mídia digital de empresas que, entre outras atividades, possuem acesso à internet em suas intranets, são alvos constantes de ataques por meio de pragas eletrônicas.
+    {
+      statement: `As informações em mídia digital de empresas que, entre outras atividades, possuem acesso à internet em suas intranets, são alvos constantes de ataques por meio de pragas eletrônicas.
 
 Dentre as atividades que podem ser agentes facilitadores desses ataques, inclui-se a(o)`,
-        options: [
-        { key: "A", text: `abertura de anexos de e-mails enviados por desconhecidos`, isCorrect: true, explanation: `A abertura de anexos de e-mails de remetentes desconhecidos é um dos vetores clássicos de infecção por malware/pragas eletrônicas (phishing, ransomware), diferentemente das demais alternativas, que são medidas de proteção (antivírus, restrição de acesso, bloqueio P2P, proxy). Conceito atemporal, ainda válido. Núcleo do código AC-21 (segurança da informação).` },
-        { key: "B", text: `execução programada de softwares de antivírus`, isCorrect: false, explanation: `Alternativa incorreta — compare com o gabarito e a justificativa da alternativa correta.` },
-        { key: "C", text: `limitação de acesso a sites fornecedores de downloads`, isCorrect: false, explanation: `Alternativa incorreta — compare com o gabarito e a justificativa da alternativa correta.` },
-        { key: "D", text: `bloqueio de programas P2P(peer-to-peer)`, isCorrect: false, explanation: `Alternativa incorreta — compare com o gabarito e a justificativa da alternativa correta.` },
-        { key: "E", text: `uso de proxy servers`, isCorrect: false, explanation: `Alternativa incorreta — compare com o gabarito e a justificativa da alternativa correta.` },
-        ],
-      },
-      {
-        statement: `Sistemas operacionais, como o Windows, trazem, em suas versões atuais, um programa no qual um dos objetivos é ajudar a impedir a invasão por harckers ou softwares mal-intencionados aos computadores dos usuários, podendo pôr em risco as informações neles contidas.
+      options: [
+        { key: "A", text: `abertura de anexos de e-mails enviados por desconhecidos`, isCorrect: true, explanation: `Correto: a abertura de anexos de e-mails de remetentes desconhecidos é um dos vetores clássicos de infecção por malware/pragas eletrônicas — diferentemente das demais alternativas, que são medidas de proteção.` },
+        { key: "B", text: `execução programada de softwares de antivírus`, isCorrect: false, explanation: `A execução programada de antivírus é uma MEDIDA DE PROTEÇÃO contra pragas eletrônicas, não um facilitador de ataque.` },
+        { key: "C", text: `limitação de acesso a sites fornecedores de downloads`, isCorrect: false, explanation: `Limitar o acesso a sites de download é uma medida de PREVENÇÃO contra infecção, não um facilitador de ataque.` },
+        { key: "D", text: `bloqueio de programas P2P(peer-to-peer)`, isCorrect: false, explanation: `Bloquear programas P2P é uma medida de PROTEÇÃO, já que esses programas são um vetor conhecido de propagação de malware — bloqueá-los reduz o risco, não o aumenta.` },
+        { key: "E", text: `uso de proxy servers`, isCorrect: false, explanation: `O uso de servidores proxy é frequentemente uma medida de CONTROLE/filtragem de tráfego, associada a proteção, não a facilitação de ataques.` },
+      ],
+    },
+    {
+      statement: `Sistemas operacionais, como o Windows, trazem, em suas versões atuais, um programa no qual um dos objetivos é ajudar a impedir a invasão por hackers ou softwares mal-intencionados aos computadores dos usuários, podendo pôr em risco as informações neles contidas.
 
 Esse tipo de programa consta, normalmente, nas políticas de proteção e segurança das empresas e é conhecido como`,
-        options: [
-        { key: "A", text: `administrador`, isCorrect: false, explanation: `Alternativa incorreta — compare com o gabarito e a justificativa da alternativa correta.` },
-        { key: "B", text: `decodificador`, isCorrect: false, explanation: `Alternativa incorreta — compare com o gabarito e a justificativa da alternativa correta.` },
-        { key: "C", text: `firewall`, isCorrect: true, explanation: `O firewall é o programa/dispositivo que controla o tráfego de rede para impedir invasões e acessos não autorizados; conceito atemporal, ainda presente no Windows atual (Windows Defender Firewall) e nas políticas de segurança corporativas. Núcleo do código AC-21 (segurança da informação).` },
-        { key: "D", text: `host`, isCorrect: false, explanation: `Alternativa incorreta — compare com o gabarito e a justificativa da alternativa correta.` },
-        { key: "E", text: `script`, isCorrect: false, explanation: `Alternativa incorreta — compare com o gabarito e a justificativa da alternativa correta.` },
-        ],
-      },
+      options: [
+        { key: "A", text: `administrador`, isCorrect: false, explanation: `"Administrador" é um tipo de conta/perfil de usuário com privilégios elevados — não é um programa de proteção contra invasões.` },
+        { key: "B", text: `decodificador`, isCorrect: false, explanation: `"Decodificador" não é um termo técnico de segurança para essa função de controle de tráfego e prevenção de invasões.` },
+        { key: "C", text: `firewall`, isCorrect: true, explanation: `Correto: o firewall é o programa/dispositivo que controla o tráfego de rede para impedir invasões e acessos não autorizados, presente nas versões atuais do Windows (Windows Defender Firewall).` },
+        { key: "D", text: `host`, isCorrect: false, explanation: `"Host" é o termo genérico para um computador/dispositivo conectado a uma rede — não é um programa de proteção contra invasões.` },
+        { key: "E", text: `script`, isCorrect: false, explanation: `"Script" é um conjunto de instruções automatizadas — não é, por si só, um programa de proteção contra invasões de hackers.` },
+      ],
+    },
   ],
 };
