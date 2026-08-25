@@ -6,204 +6,158 @@ export const MAT_07_ESTATISTICA: LessonContent = {
   subjectSlug: "matematica",
   moduleSlug: "matematica-geral",
   title: `Estatística básica: tabelas, gráficos e medidas de tendência/dispersão`,
-  learningObjective: `Este material cobre o conteúdo oficial de **Estatística básica** com foco na prova objetiva da Cesgranrio. O tema deve ser estudado em três camadas: vocabulário técnico, relações entre os conceitos e aplicação em situações-problema. Questões da banca frequentemente exigem inferência controlada, comparação de alternativas próximas e atenção a exceções; por isso, a preparação deve combinar teoria, exemplos e revisão dos erros.`,
+  learningObjective: `Calcular média a partir de subgrupos com médias parciais conhecidas (sistema de equações), mediana e moda em tabelas de frequência, variância a partir de dados binários, e média ponderada de dados agrupados por classe — a Cesgranrio gosta de dar uma tabela de frequência completa e pedir múltiplas medidas ao mesmo tempo (moda e mediana juntas, por exemplo).`,
   syllabusCodes: ["MAT-07"],
   estimatedMinutes: 40,
   expectedMastery: "intermediario",
-  bodyMdx: `# MAT-07 — Estatística básica
+  bodyMdx: `# MAT-07 — Estatística Básica
 
-## Visão geral
+## 1. Média a partir de médias de subgrupos (sistema de equações)
 
-Este material cobre o conteúdo oficial de **Estatística básica** com foco na prova objetiva da Cesgranrio. O tema deve ser estudado em três camadas: vocabulário técnico, relações entre os conceitos e aplicação em situações-problema. Questões da banca frequentemente exigem inferência controlada, comparação de alternativas próximas e atenção a exceções; por isso, a preparação deve combinar teoria, exemplos e revisão dos erros.
+Quando o problema dá a média **geral** e as médias de **dois subgrupos** (mas não a quantidade de cada subgrupo), a solução exige montar uma equação com uma incógnita:
 
-## Núcleo conceitual e regras operacionais
+**Exemplo real**: a média das notas de 110 aprovados foi 6,08; a média dos homens foi 6,6 e a das mulheres foi 5,5. Quantos homens foram aprovados?
 
-1. Média simples é soma dividida pela quantidade; média ponderada usa soma dos produtos dividida pela soma dos pesos.
-2. Mediana é o valor central após ordenar; com quantidade par, é a média dos dois centrais.
-3. Moda é o valor mais frequente e pode não existir ou haver mais de uma.
-4. Amplitude é máximo menos mínimo.
-5. Variância mede média dos desvios quadráticos; desvio padrão é sua raiz e volta à unidade original.
-6. Média é sensível a extremos; mediana é mais resistente.
-7. Escalas truncadas e áreas desproporcionais podem tornar gráficos visualmente enganosos.
+Sejam **h** homens e **m = 110 − h** mulheres. A soma total das notas é:
 
-### 1. População, amostra e variável
+6,6h + 5,5(110 − h) = 6,08 × 110
 
-População, amostra e variável integra o núcleo de **Estatística básica**. Para a prova, não basta reconhecer o termo: é preciso distinguir conceito, finalidade, condições de aplicação e efeitos. A leitura correta começa pela pergunta “qual problema este conceito resolve?” e continua com “em que situação ele não se aplica?”. Essa dupla verificação evita respostas baseadas apenas em palavras familiares.
+6,6h + 605 − 5,5h = 668,8
 
-Em exercícios, escreva os dados, escolha a relação adequada, mantenha as unidades compatíveis e confira se o resultado satisfaz as condições do enunciado. A Cesgranrio costuma apresentar uma situação concreta e trocar um requisito, uma relação lógica ou a ordem de uma etapa. Por isso, compare cada alternativa com todos os dados do caso, não apenas com a primeira expressão que parece correta. Um bom resumo operacional é: definir, relacionar, aplicar e conferir.
+1,1h = 63,8
 
-### 2. Tabelas de frequência
+**h = 58** homens.
 
-Tabelas de frequência integra o núcleo de **Estatística básica**. Para a prova, não basta reconhecer o termo: é preciso distinguir conceito, finalidade, condições de aplicação e efeitos. A leitura correta começa pela pergunta “qual problema este conceito resolve?” e continua com “em que situação ele não se aplica?”. Essa dupla verificação evita respostas baseadas apenas em palavras familiares.
+**Método geral**: sempre que houver médias de subgrupos e uma média geral, monte a equação "soma dos subgrupos = média geral × total", substituindo a quantidade do segundo subgrupo por (total − primeira incógnita).
 
-Em exercícios, escreva os dados, escolha a relação adequada, mantenha as unidades compatíveis e confira se o resultado satisfaz as condições do enunciado. A Cesgranrio costuma apresentar uma situação concreta e trocar um requisito, uma relação lógica ou a ordem de uma etapa. Por isso, compare cada alternativa com todos os dados do caso, não apenas com a primeira expressão que parece correta. Um bom resumo operacional é: definir, relacionar, aplicar e conferir.
+## 2. Moda e mediana a partir de tabela de frequência
 
-### 3. Gráficos e leitura crítica de escalas
+- **Moda**: o valor com **maior frequência** — direto da tabela, sem cálculo.
+- **Mediana**: exige primeiro construir a **posição** dos dados ordenados. Com **n** dados, se n é ímpar, a mediana é o valor central; se n é **par**, é a **média dos dois valores centrais** (posições n/2 e n/2+1).
 
-Gráficos e leitura crítica de escalas integra o núcleo de **Estatística básica**. Para a prova, não basta reconhecer o termo: é preciso distinguir conceito, finalidade, condições de aplicação e efeitos. A leitura correta começa pela pergunta “qual problema este conceito resolve?” e continua com “em que situação ele não se aplica?”. Essa dupla verificação evita respostas baseadas apenas em palavras familiares.
+**Exemplo real**: numa pesquisa de preços com 30 postos, frequências: R$2,18 (9 postos), R$2,20 (6), R$2,28 (3), R$2,31 (7), R$2,36 (5).
 
-Em exercícios, escreva os dados, escolha a relação adequada, mantenha as unidades compatíveis e confira se o resultado satisfaz as condições do enunciado. A Cesgranrio costuma apresentar uma situação concreta e trocar um requisito, uma relação lógica ou a ordem de uma etapa. Por isso, compare cada alternativa com todos os dados do caso, não apenas com a primeira expressão que parece correta. Um bom resumo operacional é: definir, relacionar, aplicar e conferir.
+- **Moda** = R$2,18 (maior frequência, 9).
+- **Mediana**: com 30 dados (par), é a média entre o 15º e o 16º valor ordenados. Somando as frequências acumuladas: até R$2,18 chegam 9 valores; até R$2,20 chegam 9+6=15 valores. Logo o 15º valor é R$2,20, e o 16º valor (primeiro da próxima faixa) é R$2,28. Mediana = (2,20+2,28)/2 = **R$2,24**.
 
-### 4. Média aritmética simples e ponderada
+**Erro comum**: esquecer de acumular as frequências para localizar exatamente qual posição cai em qual valor — contar direto sem organizar a frequência acumulada é a fonte mais comum de erro nesse tipo de questão.
 
-Média aritmética simples e ponderada integra o núcleo de **Estatística básica**. Para a prova, não basta reconhecer o termo: é preciso distinguir conceito, finalidade, condições de aplicação e efeitos. A leitura correta começa pela pergunta “qual problema este conceito resolve?” e continua com “em que situação ele não se aplica?”. Essa dupla verificação evita respostas baseadas apenas em palavras familiares.
+## 3. Variância com dados binários (proporção)
 
-Em exercícios, escreva os dados, escolha a relação adequada, mantenha as unidades compatíveis e confira se o resultado satisfaz as condições do enunciado. A Cesgranrio costuma apresentar uma situação concreta e trocar um requisito, uma relação lógica ou a ordem de uma etapa. Por isso, compare cada alternativa com todos os dados do caso, não apenas com a primeira expressão que parece correta. Um bom resumo operacional é: definir, relacionar, aplicar e conferir.
+Quando os dados são binários (só dois valores possíveis, ex.: 1 e 0, representando presença/ausência de uma característica), a variância pode ser calculada diretamente a partir das frequências relativas:
 
-### 5. Mediana e moda
+**Exemplo real**: 80 em cada 100 elementos têm valor 1, e 20 têm valor 0. Média = 80×1/100 = **0,8**.
 
-Mediana e moda integra o núcleo de **Estatística básica**. Para a prova, não basta reconhecer o termo: é preciso distinguir conceito, finalidade, condições de aplicação e efeitos. A leitura correta começa pela pergunta “qual problema este conceito resolve?” e continua com “em que situação ele não se aplica?”. Essa dupla verificação evita respostas baseadas apenas em palavras familiares.
+Variância = Σ(xi − média)² / n = [80×(1−0,8)² + 20×(0−0,8)²] / 100 = [80×0,04 + 20×0,64] / 100 = [3,2+12,8]/100 = 16/100 = **0,16**.
 
-Em exercícios, escreva os dados, escolha a relação adequada, mantenha as unidades compatíveis e confira se o resultado satisfaz as condições do enunciado. A Cesgranrio costuma apresentar uma situação concreta e trocar um requisito, uma relação lógica ou a ordem de uma etapa. Por isso, compare cada alternativa com todos os dados do caso, não apenas com a primeira expressão que parece correta. Um bom resumo operacional é: definir, relacionar, aplicar e conferir.
+## 4. Média ponderada de dados agrupados por classe
 
-### 6. Amplitude
+Quando os dados vêm agrupados em **classes** (faixas de valores), usa-se o **ponto médio** de cada classe como representante, ponderado pela frequência da classe:
 
-Amplitude integra o núcleo de **Estatística básica**. Para a prova, não basta reconhecer o termo: é preciso distinguir conceito, finalidade, condições de aplicação e efeitos. A leitura correta começa pela pergunta “qual problema este conceito resolve?” e continua com “em que situação ele não se aplica?”. Essa dupla verificação evita respostas baseadas apenas em palavras familiares.
+**Exemplo real**: classes com pontos médios 400, 650, 1.000 e 1.350, com frequências 100, 60, 50 e 40 (total 250):
 
-Em exercícios, escreva os dados, escolha a relação adequada, mantenha as unidades compatíveis e confira se o resultado satisfaz as condições do enunciado. A Cesgranrio costuma apresentar uma situação concreta e trocar um requisito, uma relação lógica ou a ordem de uma etapa. Por isso, compare cada alternativa com todos os dados do caso, não apenas com a primeira expressão que parece correta. Um bom resumo operacional é: definir, relacionar, aplicar e conferir.
+Média = (100×400 + 60×650 + 50×1.000 + 40×1.350) / 250 = (40.000+39.000+50.000+54.000)/250 = 183.000/250 = **R$732,00**.
 
-### 7. Variância e desvio padrão
+## 5. Medidas de dispersão: amplitude, variância e desvio padrão
 
-Variância e desvio padrão integra o núcleo de **Estatística básica**. Para a prova, não basta reconhecer o termo: é preciso distinguir conceito, finalidade, condições de aplicação e efeitos. A leitura correta começa pela pergunta “qual problema este conceito resolve?” e continua com “em que situação ele não se aplica?”. Essa dupla verificação evita respostas baseadas apenas em palavras familiares.
+- **Amplitude**: máximo − mínimo — a medida mais simples, mas muito sensível a um único valor extremo.
+- **Variância**: média dos **desvios quadráticos** em relação à média — mede dispersão, mas fica em unidade "ao quadrado".
+- **Desvio padrão**: a **raiz quadrada** da variância — volta à unidade original dos dados, por isso é mais interpretável na prática.
 
-Em exercícios, escreva os dados, escolha a relação adequada, mantenha as unidades compatíveis e confira se o resultado satisfaz as condições do enunciado. A Cesgranrio costuma apresentar uma situação concreta e trocar um requisito, uma relação lógica ou a ordem de uma etapa. Por isso, compare cada alternativa com todos os dados do caso, não apenas com a primeira expressão que parece correta. Um bom resumo operacional é: definir, relacionar, aplicar e conferir.
+## 6. Sensibilidade a valores extremos
 
-### 8. Efeito de valores extremos
+A **média** é **sensível a extremos** — um único valor muito alto ou muito baixo puxa a média na sua direção. A **mediana** é **mais resistente** a esse efeito, pois depende apenas da posição central dos dados ordenados, não do valor exato dos extremos.
 
-Efeito de valores extremos integra o núcleo de **Estatística básica**. Para a prova, não basta reconhecer o termo: é preciso distinguir conceito, finalidade, condições de aplicação e efeitos. A leitura correta começa pela pergunta “qual problema este conceito resolve?” e continua com “em que situação ele não se aplica?”. Essa dupla verificação evita respostas baseadas apenas em palavras familiares.
+## 7. Gráficos enganosos
 
-Em exercícios, escreva os dados, escolha a relação adequada, mantenha as unidades compatíveis e confira se o resultado satisfaz as condições do enunciado. A Cesgranrio costuma apresentar uma situação concreta e trocar um requisito, uma relação lógica ou a ordem de uma etapa. Por isso, compare cada alternativa com todos os dados do caso, não apenas com a primeira expressão que parece correta. Um bom resumo operacional é: definir, relacionar, aplicar e conferir.
-
-## Método de resolução
-
-1. Classifique o comando: definição, cálculo, aplicação, exceção ou interpretação.
-2. Sublinhe restrições, negações, unidades, prazos e qualificadores como “sempre”, “apenas” e “necessariamente”.
-3. Recupere a regra central antes de olhar as alternativas.
-4. Elimine opções que misturam conceitos verdadeiros em relação errada.
-5. Teste a resposta no caso concreto e faça uma conferência final.
+**Escalas truncadas** (eixo que não começa em zero) e **áreas desproporcionais** em gráficos podem tornar visualmente uma diferença pequena parecer muito maior do que realmente é — um cuidado de leitura crítica exigido em interpretação de gráficos.
 
 ## Síntese
 
-O domínio de Estatística básica resulta da conexão entre população, amostra e variável, tabelas de frequência, gráficos e leitura crítica de escalas e os demais pontos do edital. Revise o mapa mental, explique cada ramo com suas próprias palavras e resolva questões reais. Se uma regra parecer absoluta, procure condições, limites e exceções: é nesse deslocamento que se concentram muitas pegadinhas.
+O MAT-07 exige, acima de tudo, organização: montar equações corretas para médias de subgrupos, acumular frequências corretamente para achar mediana, e usar pontos médios de classe ponderados pela frequência em dados agrupados.
 
 ## Mapa mental
 
-# MAT-07 — Mapa mental
-
 \`\`\`mermaid
 mindmap
-  root((Estatística básica))
-    população, amostra e variável
-      Conceito e finalidade
-      Condições de aplicação
-      Exemplo de prova
-      Contraste e exceção
-    tabelas de frequência
-      Conceito e finalidade
-      Condições de aplicação
-      Exemplo de prova
-      Contraste e exceção
-    gráficos e leitura crítica de escalas
-      Conceito e finalidade
-      Condições de aplicação
-      Exemplo de prova
-      Contraste e exceção
-    média aritmética simples e ponderada
-      Conceito e finalidade
-      Condições de aplicação
-      Exemplo de prova
-      Contraste e exceção
-    mediana e moda
-      Conceito e finalidade
-      Condições de aplicação
-      Exemplo de prova
-      Contraste e exceção
-    amplitude
-      Conceito e finalidade
-      Condições de aplicação
-      Exemplo de prova
-      Contraste e exceção
-    variância e desvio padrão
-      Conceito e finalidade
-      Condições de aplicação
-      Exemplo de prova
-      Contraste e exceção
-    efeito de valores extremos
-      Conceito e finalidade
-      Condições de aplicação
-      Exemplo de prova
-      Contraste e exceção
-    Estratégia Cesgranrio
-      Ler o comando
-      Eliminar extrapolações
-      Conferir o caso
+  root((Estatística Básica — MAT-07))
+    Media de subgrupos
+      Equacao: soma dos subgrupos = media geral x total
+    Moda e Mediana
+      Moda: maior frequencia
+      Mediana: acumular frequencia ate achar a posicao
+    Variancia dados binarios
+      Media = proporcao
+      Variancia = soma dos desvios quadraticos / n
+    Dados agrupados
+      Media ponderada pelo ponto medio de cada classe
+    Dispersao
+      Amplitude: max - min
+      Desvio padrao: raiz da variancia
+    Sensibilidade
+      Media sensivel a extremos
+      Mediana mais resistente
 \`\`\``,
   mustMemorize: [
-    `Média simples é soma dividida pela quantidade; média ponderada usa soma dos produtos dividida pela soma dos pesos.`,
-    `Mediana é o valor central após ordenar; com quantidade par, é a média dos dois centrais.`,
-    `Moda é o valor mais frequente e pode não existir ou haver mais de uma.`,
-    `Amplitude é máximo menos mínimo.`,
-    `Variância mede média dos desvios quadráticos; desvio padrão é sua raiz e volta à unidade original.`,
+    `Média de subgrupos: monte "soma dos subgrupos = média geral × total" com uma incógnita.`,
+    `Moda = maior frequência. Mediana com n par = média dos dois valores centrais (use frequência ACUMULADA para localizar a posição).`,
+    `Variância de dados binários: Σ(xi−média)²/n, usando as frequências relativas de cada valor.`,
+    `Dados agrupados: média ponderada usando o PONTO MÉDIO de cada classe.`,
+    `Amplitude = máximo − mínimo. Desvio padrão = raiz quadrada da variância.`,
     `Média é sensível a extremos; mediana é mais resistente.`,
-    `Escalas truncadas e áreas desproporcionais podem tornar gráficos visualmente enganosos.`,
-    `**População, amostra e variável:** associe definição, finalidade, condição e contraste.`,
-    `**Tabelas de frequência:** associe definição, finalidade, condição e contraste.`,
-    `**Gráficos e leitura crítica de escalas:** associe definição, finalidade, condição e contraste.`,
-    `**Média aritmética simples e ponderada:** associe definição, finalidade, condição e contraste.`,
-    `**Mediana e moda:** associe definição, finalidade, condição e contraste.`,
   ],
   workedExamples: [
-    `[CORRIGIDO 2026-08-20: gabarito ajustado de C para D após reconferência do gabarito oficial nível médio (a extração inicial havia usado por engano a tabela de gabarito de nível SUPERIOR do mesmo edital); o cálculo já indicava D como resposta correta.] Sejam h homens e m=110−h mulheres. 6,6h + 5,5(110−h) = 6,08×110 → 6,6h + 605 − 5,5h = 668,8 → 1,1h = 63,8 → h = 58, alternativa D — resultado exato, sem divergência. Núcleo do código MAT-07 (médias/estatística). **Lição de prova:** identifique exatamente qual dado sustenta o gabarito e por que as demais opções extrapolam, invertem ou misturam conceitos.`,
-    `A lista já está ordenada e tem 5 elementos (ímpar); a mediana é o elemento central, ou seja, o 3º valor: 3,0. Núcleo do código MAT-07 (estatística básica — medidas de tendência central). **Lição de prova:** identifique exatamente qual dado sustenta o gabarito e por que as demais opções extrapolam, invertem ou misturam conceitos.`,
-    `Média = 80×1/100 = 0,8. Variância = Σ(xi−média)²/n = [80×(1−0,8)² + 20×(0−0,8)²]/100 = [80×0,04 + 20×0,64]/100 = [3,2+12,8]/100 = 16/100 = 0,16. Núcleo do código MAT-07 (estatística básica — medidas de dispersão/variância). **Lição de prova:** identifique exatamente qual dado sustenta o gabarito e por que as demais opções extrapolam, invertem ou misturam conceitos.`,
-    `Usando os pontos médios de cada classe (400, 650, 1000, 1350) ponderados pela frequência: (100×400+60×650+50×1000+40×1350)/250 = (40.000+39.000+50.000+54.000)/250 = 183.000/250 = 732,00. Núcleo do código MAT-07 (estatística básica — média a partir de dados agrupados). **Lição de prova:** identifique exatamente qual dado sustenta o gabarito e por que as demais opções extrapolam, invertem ou misturam conceitos.`,
+    `Média geral de 6,08 (110 aprovados), média dos homens 6,6, das mulheres 5,5: 6,6h+5,5(110-h)=6,08×110 → 1,1h=63,8 → h=58 homens.`,
+    `Tabela com 30 dados: moda = valor de maior frequência (2,18, freq. 9); mediana = média do 15º e 16º valor ordenados, usando frequência acumulada (2,20 e 2,28) = 2,24.`,
+    `Dados binários com 80% de valor 1: média=0,8; variância = [80×(0,2)²+20×(0,8)²]/100 = [3,2+12,8]/100 = 0,16.`,
+    `Dados agrupados com pontos médios 400/650/1000/1350 e frequências 100/60/50/40: média ponderada = 183.000/250 = 732,00.`,
   ],
   commonMistakes: [
-    `Reconhecer palavra-chave e ignorar o contexto: **Por que engana:** a alternativa repete termos do enunciado, mas altera a relação entre eles. **Correto:** valide definição, condição e consequência no caso completo.`,
-    `Transformar regra condicionada em regra absoluta: **Por que engana:** expressões como “sempre”, “nunca” e “somente” parecem categóricas. **Correto:** procure exceções e requisitos antes de aceitar a afirmação.`,
-    `Confundir conceitos vizinhos: **Por que engana:** população, amostra e variável e tabelas de frequência pertencem ao mesmo tema, mas não são sinônimos. **Correto:** compare finalidade, objeto e modo de aplicação.`,
-    `Padrão observado no acervo real (MAT-07-2012-CESGRANRIO-19): [CORRIGIDO 2026-08-20: gabarito ajustado de C para D após reconferência do gabarito oficial nível médio (a extração inicial havia usado por engano a tabela de gabarito de nível SUPERIOR do mesmo edital); o cálculo já indicava D como resposta correta.] Sejam h homens e m=110−h mulheres. 6,6h + 5,5(110−h) = 6,08×110 → 6,6h + 605 − 5,5h = 668,8 → 1,1h = 63,8 → h = 58, alternativa D — resultado exato, sem divergência. Núcleo do código MAT-07 (médias/estatística). **Lição de prova:** identifique exatamente qual dado sustenta o gabarito e por que as demais opções extrapolam, invertem ou misturam conceitos.`,
-    `Padrão observado no acervo real (MAT-07-2006-CESGRANRIO-27): A lista já está ordenada e tem 5 elementos (ímpar); a mediana é o elemento central, ou seja, o 3º valor: 3,0. Núcleo do código MAT-07 (estatística básica — medidas de tendência central). **Lição de prova:** identifique exatamente qual dado sustenta o gabarito e por que as demais opções extrapolam, invertem ou misturam conceitos.`,
-    `Padrão observado no acervo real (MAT-07-2006-CESGRANRIO-28): Média = 80×1/100 = 0,8. Variância = Σ(xi−média)²/n = [80×(1−0,8)² + 20×(0−0,8)²]/100 = [80×0,04 + 20×0,64]/100 = [3,2+12,8]/100 = 16/100 = 0,16. Núcleo do código MAT-07 (estatística básica — medidas de dispersão/variância). **Lição de prova:** identifique exatamente qual dado sustenta o gabarito e por que as demais opções extrapolam, invertem ou misturam conceitos.`,
-    `Padrão observado no acervo real (MAT-07-2006-CESGRANRIO-30): Usando os pontos médios de cada classe (400, 650, 1000, 1350) ponderados pela frequência: (100×400+60×650+50×1000+40×1350)/250 = (40.000+39.000+50.000+54.000)/250 = 183.000/250 = 732,00. Núcleo do código MAT-07 (estatística básica — média a partir de dados agrupados). **Lição de prova:** identifique exatamente qual dado sustenta o gabarito e por que as demais opções extrapolam, invertem ou misturam conceitos.`,
+    `Tentar achar a quantidade de cada subgrupo sem montar a equação com uma incógnita — sem isso, não há como isolar "h" a partir das médias parciais.`,
+    `Contar a posição da mediana sem acumular as frequências corretamente — é fácil errar qual valor cai em qual posição sem esse passo organizado.`,
+    `Esquecer que, com n par, a mediana é a MÉDIA dos dois valores centrais, não um deles isoladamente.`,
+    `Usar o valor da classe (limite inferior/superior) em vez do PONTO MÉDIO ao calcular média de dados agrupados.`,
+    `Confundir variância (unidade ao quadrado) com desvio padrão (mesma unidade dos dados originais) — são medidas relacionadas, mas não intercambiáveis.`,
+    `Padrão observado no acervo real (MAT-07-2012-CESGRANRIO-19): montar a equação de médias de subgrupos corretamente para achar o número de homens aprovados (h=58).`,
+    `Padrão observado no acervo real (MAT-07-2006-CESGRANRIO-27): identificar a mediana como o elemento central de uma lista já ordenada com número ímpar de elementos.`,
+    `Padrão observado no acervo real (MAT-07-2006-CESGRANRIO-28): calcular a variância de dados binários a partir da proporção (0,16).`,
+    `Padrão observado no acervo real (MAT-07-2006-CESGRANRIO-30): calcular a média ponderada de dados agrupados usando pontos médios de classe (732,00).`,
   ],
   howBoardMightAsk: [
-    `Ver padrão real: MAT-07-2012-CESGRANRIO-19 — [CORRIGIDO 2026-08-20: gabarito ajustado de C para D após reconferência do gabarito oficial nível médio (a extração inicial havia usado por engano a tabela de g...`,
-    `Ver padrão real: MAT-07-2006-CESGRANRIO-27 — A lista já está ordenada e tem 5 elementos (ímpar); a mediana é o elemento central, ou seja, o 3º valor: 3,0. Núcleo do código MAT-07 (estatística básica — medi...`,
-    `Ver padrão real: MAT-07-2006-CESGRANRIO-28 — Média = 80×1/100 = 0,8. Variância = Σ(xi−média)²/n = [80×(1−0,8)² + 20×(0−0,8)²]/100 = [80×0,04 + 20×0,64]/100 = [3,2+12,8]/100 = 16/100 = 0,16. Núcleo do códig...`,
-    `Ver padrão real: MAT-07-2006-CESGRANRIO-30 — Usando os pontos médios de cada classe (400, 650, 1000, 1350) ponderados pela frequência: (100×400+60×650+50×1000+40×1350)/250 = (40.000+39.000+50.000+54.000)/2...`,
+    `Dá a média geral e as médias de dois subgrupos, pedindo a quantidade de um dos subgrupos.`,
+    `Dá uma tabela de frequência completa e pede moda e mediana simultaneamente.`,
+    `Dá dados binários (proporção de sucesso/fracasso) e pede a variância ou o desvio padrão.`,
+    `Dá dados agrupados em classes com frequências e pede a média ponderada pelos pontos médios.`,
   ],
   legalReferences: [],
   reviewSummaryPoints: [
-    `Média simples é soma dividida pela quantidade; média ponderada usa soma dos produtos dividida pela soma dos pesos.`,
-    `Mediana é o valor central após ordenar; com quantidade par, é a média dos dois centrais.`,
-    `Moda é o valor mais frequente e pode não existir ou haver mais de uma.`,
-    `Amplitude é máximo menos mínimo.`,
-    `Variância mede média dos desvios quadráticos; desvio padrão é sua raiz e volta à unidade original.`,
-    `Média é sensível a extremos; mediana é mais resistente.`,
-    `Escalas truncadas e áreas desproporcionais podem tornar gráficos visualmente enganosos.`,
-    `**População, amostra e variável:** associe definição, finalidade, condição e contraste.`,
-    `**Tabelas de frequência:** associe definição, finalidade, condição e contraste.`,
-    `**Gráficos e leitura crítica de escalas:** associe definição, finalidade, condição e contraste.`,
-    `**Média aritmética simples e ponderada:** associe definição, finalidade, condição e contraste.`,
-    `**Mediana e moda:** associe definição, finalidade, condição e contraste.`,
+    `Média de subgrupos: monte equação com uma incógnita.`,
+    `Moda = maior frequência. Mediana: use frequência acumulada.`,
+    `n par → mediana = média dos dois centrais.`,
+    `Dados agrupados: use ponto médio de cada classe.`,
+    `Desvio padrão = raiz da variância, volta à unidade original.`,
   ],
-  flashcards: [],
+  flashcards: [
+    { front: "Como achar a quantidade de um subgrupo quando se conhece a média geral e as médias parciais?", back: "Monte a equação: soma ponderada dos subgrupos = média geral × total, com uma incógnita para o subgrupo desconhecido." },
+    { front: "Como calcular a mediana com número par de dados numa tabela de frequência?", back: "Acumule as frequências para localizar o valor nas posições n/2 e n/2+1, e calcule a média entre esses dois valores." },
+    { front: "O que representa cada classe ao calcular média de dados agrupados?", back: "O ponto médio da classe, ponderado pela frequência daquela classe." },
+    { front: "Qual medida é mais sensível a valores extremos: média ou mediana?", back: "A média — a mediana é mais resistente por depender apenas da posição central dos dados ordenados." },
+  ],
   miniQuiz: [
-      {
-        statement: `A média aritmética das notas dos 110 aprovados em um concurso foi 6,08. Mas os candidatos do sexo masculino saíram-se melhor: a média aritmética das notas obtidas pelos homens foi 6,6, enquanto a média das mulheres foi 5,5.
+    {
+      statement: `A média aritmética das notas dos 110 aprovados em um concurso foi 6,08. Mas os candidatos do sexo masculino saíram-se melhor: a média aritmética das notas obtidas pelos homens foi 6,6, enquanto a média das mulheres foi 5,5.
 
 Quantos homens foram aprovados nesse concurso?`,
-        options: [
-        { key: "A", text: `52`, isCorrect: false, explanation: `Alternativa incorreta — compare com o gabarito e a justificativa da alternativa correta.` },
-        { key: "B", text: `54`, isCorrect: false, explanation: `Alternativa incorreta — compare com o gabarito e a justificativa da alternativa correta.` },
-        { key: "C", text: `56`, isCorrect: false, explanation: `Alternativa incorreta — compare com o gabarito e a justificativa da alternativa correta.` },
-        { key: "D", text: `58`, isCorrect: true, explanation: `[CORRIGIDO 2026-08-20: gabarito ajustado de C para D após reconferência do gabarito oficial nível médio (a extração inicial havia usado por engano a tabela de gabarito de nível SUPERIOR do mesmo edital); o cálculo já indicava D como resposta correta.] Sejam h homens e m=110−h mulheres. 6,6h + 5,5(110−h) = 6,08×110 → 6,6h + 605 − 5,5h = 668,8 → 1,1h = 63,8 → h = 58, alternativa D — resultado exato, sem divergência. Núcleo do código MAT-07 (médias/estatística).` },
-        { key: "E", text: `62`, isCorrect: false, explanation: `Alternativa incorreta — compare com o gabarito e a justificativa da alternativa correta.` },
-        ],
-      },
-      {
-        statement: `A tabela abaixo apresenta o resultado de uma pesquisa sobre o preço de venda do etanol em 30 postos de abastecimento de São Paulo, em abril de 2011.
+      options: [
+        { key: "A", text: `52`, isCorrect: false, explanation: `Esse valor não satisfaz a equação 6,6h + 5,5(110-h) = 6,08×110.` },
+        { key: "B", text: `54`, isCorrect: false, explanation: `Esse valor não satisfaz a equação de médias ponderadas do problema.` },
+        { key: "C", text: `56`, isCorrect: false, explanation: `Esse valor está próximo mas não satisfaz exatamente a equação — o valor correto de h é 58.` },
+        { key: "D", text: `58`, isCorrect: true, explanation: `Correto: montando h homens e (110-h) mulheres, 6,6h + 5,5(110-h) = 6,08×110 → 1,1h = 63,8 → h = 58.` },
+        { key: "E", text: `62`, isCorrect: false, explanation: `Esse valor não satisfaz a equação — resultaria numa média geral diferente de 6,08 dado as médias parciais informadas.` },
+      ],
+    },
+    {
+      statement: `A tabela abaixo apresenta o resultado de uma pesquisa sobre o preço de venda do etanol em 30 postos de abastecimento de São Paulo, em abril de 2011.
 
 Preço (R$) | Frequência
 2,18 | 9
@@ -214,13 +168,13 @@ Preço (R$) | Frequência
 Total | 30
 
 Os valores, em reais, da moda e da mediana dos preços pesquisados são, respectivamente,`,
-        options: [
-        { key: "A", text: `2,18 e 2,24`, isCorrect: true, explanation: `A moda é o valor de maior frequência: 2,18 (frequência 9). Com 30 dados, a mediana é a média entre o 15º e o 16º valor ordenados; contando as frequências acumuladas (9, depois 15 até 2,20), o 15º valor é 2,20 e o 16º é 2,28, cuja média é (2,20+2,28)/2 = 2,24. Núcleo do código MAT-07 (estatística básica — medidas de tendência central).` },
-        { key: "B", text: `2,18 e 2,28`, isCorrect: false, explanation: `Alternativa incorreta — compare com o gabarito e a justificativa da alternativa correta.` },
-        { key: "C", text: `2,24 e 2,28`, isCorrect: false, explanation: `Alternativa incorreta — compare com o gabarito e a justificativa da alternativa correta.` },
-        { key: "D", text: `2,28 e 2,18`, isCorrect: false, explanation: `Alternativa incorreta — compare com o gabarito e a justificativa da alternativa correta.` },
-        { key: "E", text: `2,36 e 2,26`, isCorrect: false, explanation: `Alternativa incorreta — compare com o gabarito e a justificativa da alternativa correta.` },
-        ],
-      },
+      options: [
+        { key: "A", text: `2,18 e 2,24`, isCorrect: true, explanation: `Correto: a moda é o valor de maior frequência (2,18, freq. 9). Com 30 dados, a mediana é a média entre o 15º e o 16º valor ordenados; a frequência acumulada mostra que o 15º valor é 2,20 e o 16º é 2,28, cuja média é (2,20+2,28)/2 = 2,24.` },
+        { key: "B", text: `2,18 e 2,28`, isCorrect: false, explanation: `A moda (2,18) está correta, mas a mediana não é 2,28 isoladamente — é a MÉDIA entre o 15º valor (2,20) e o 16º (2,28), resultando em 2,24.` },
+        { key: "C", text: `2,24 e 2,28`, isCorrect: false, explanation: `2,24 não é um valor da tabela, logo não pode ser a moda (que exige um valor observado com maior frequência) — a moda correta é 2,18.` },
+        { key: "D", text: `2,28 e 2,18`, isCorrect: false, explanation: `Inverte moda e mediana: 2,28 não é o valor de maior frequência (a moda é 2,18), e 2,18 não é a mediana calculada corretamente (2,24).` },
+        { key: "E", text: `2,36 e 2,26`, isCorrect: false, explanation: `2,36 tem frequência 5, menor que a de 2,18 (9) — não é a moda. E 2,26 não corresponde ao cálculo correto da mediana (2,24).` },
+      ],
+    },
   ],
 };
