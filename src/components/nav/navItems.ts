@@ -4,7 +4,6 @@ import {
   CalendarDays,
   ClipboardList,
   GraduationCap,
-  Home,
   Library,
   ListChecks,
   MessageCircle,
@@ -26,8 +25,9 @@ export interface NavItem {
   icon: LucideIcon;
 }
 
+/** "Meu Curso" é o único ponto de entrada para a rotina diária — não existe mais uma aba "Hoje"
+ * separada mostrando um plano diferente; /hoje agora só redireciona pra cá (ver src/app/(main)/hoje/page.tsx). */
 export const PRIMARY_NAV: NavItem[] = [
-  { href: "/hoje", label: "Hoje", icon: Home },
   { href: "/meu-curso", label: "Meu Curso", icon: GraduationCap },
   { href: "/professor", label: "Professor", icon: MessageCircle },
   { href: "/curso", label: "Biblioteca de Aulas", icon: BookOpen },

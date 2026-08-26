@@ -81,7 +81,7 @@ export default function DiagnosticoPage() {
       await db.learnerProfiles.put({ ...profiles[0], diagnosticCompletedAt: now, updatedAt: now });
     }
     if (sessionId) await endSession(sessionId, { status: "concluida" });
-    router.push("/hoje");
+    router.push("/meu-curso");
   }
 
   if (questions.length === 0) {

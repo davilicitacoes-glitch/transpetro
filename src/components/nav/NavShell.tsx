@@ -47,7 +47,7 @@ export function NavShell({ children }: { children: React.ReactNode }) {
         className="hidden md:flex md:flex-col w-60 shrink-0 text-navy-foreground px-3 py-5 gap-1"
         style={{ background: "linear-gradient(180deg, var(--navy), var(--navy-soft))" }}
       >
-        <Link href="/hoje" className="px-3 mb-6 flex items-center gap-2.5">
+        <Link href="/meu-curso" className="px-3 mb-6 flex items-center gap-2.5">
           <span
             className="flex items-center justify-center w-8 h-8 rounded-lg text-brand-foreground font-display font-bold text-sm shrink-0 shadow-brand"
             style={{ background: "linear-gradient(135deg, var(--brand), var(--accent))", boxShadow: "var(--shadow-brand)" }}
