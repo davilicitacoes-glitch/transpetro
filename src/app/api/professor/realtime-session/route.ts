@@ -1,4 +1,5 @@
 import { NextResponse } from "next/server";
+import { hasProfessorAccess } from "@/lib/professor/access";
 
 /**
  * Cria um token efêmero (client secret de curta duração) para o navegador abrir uma sessão de voz
@@ -10,6 +11,10 @@ import { NextResponse } from "next/server";
 const REALTIME_MODEL = "gpt-realtime-mini";
 
 export async function POST(request: Request): Promise<Response> {
+  if (!(await hasProfessorAccess())) {
+    return NextResponse.json({ error: "Acesso ao Professor não liberado para esta conta." }, { status: 403 });
+  }
+
   const apiKey = process.env.OPENAI_API_KEY;
   if (!apiKey) {
     return NextResponse.json({ error: "OPENAI_API_KEY não configurada no servidor." }, { status: 503 });

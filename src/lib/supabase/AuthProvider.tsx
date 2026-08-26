@@ -10,7 +10,11 @@ interface AuthContextValue {
   session: Session | null;
   loading: boolean;
   configured: boolean;
-  signUp: (email: string, password: string) => Promise<{ error: string | null }>;
+  signUp: (
+    email: string,
+    password: string,
+    profileAnswers?: Record<string, string>,
+  ) => Promise<{ error: string | null; userId: string | null }>;
   signIn: (email: string, password: string) => Promise<{ error: string | null }>;
   signOut: () => Promise<void>;
   resetPassword: (email: string) => Promise<{ error: string | null }>;
@@ -65,15 +69,20 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     return () => listener.subscription.unsubscribe();
   }, [configured]);
 
-  async function signUp(email: string, password: string) {
-    if (!configured) return { error: "Supabase não configurado neste ambiente." };
+  async function signUp(email: string, password: string, profileAnswers?: Record<string, string>) {
+    if (!configured) return { error: "Supabase não configurado neste ambiente.", userId: null };
     const supabase = getSupabaseBrowserClient();
-    const { error } = await supabase.auth.signUp({
+    const { data, error } = await supabase.auth.signUp({
       email,
       password,
-      options: { emailRedirectTo: `${window.location.origin}/login` },
+      options: {
+        emailRedirectTo: `${window.location.origin}/login`,
+        // Lido pelo trigger handle_new_user() no Postgres para já preencher profiles com as
+        // respostas do formulário de cadastro (ver supabase/migrations/0001_init.sql).
+        data: profileAnswers,
+      },
     });
-    return { error: error ? translateAuthError(error.message) : null };
+    return { error: error ? translateAuthError(error.message) : null, userId: data.user?.id ?? null };
   }
 
   async function signIn(email: string, password: string) {

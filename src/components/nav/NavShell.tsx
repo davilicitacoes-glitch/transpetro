@@ -5,6 +5,7 @@ import { usePathname } from "next/navigation";
 import { useState } from "react";
 import { Moon, Sun, X } from "lucide-react";
 import { PRIMARY_NAV, SECONDARY_NAV, MOBILE_MORE_ITEM } from "@/components/nav/navItems";
+import { useProfessorAccess } from "@/lib/professor/useProfessorAccess";
 
 function useTheme() {
   const [, setTheme] = useState<"light" | "dark" | null>(null);
@@ -37,6 +38,8 @@ export function NavShell({ children }: { children: React.ReactNode }) {
   const [moreOpen, setMoreOpen] = useState(false);
   const { toggle } = useTheme();
   const immersive = isImmersiveRoute(pathname ?? "");
+  const professorAllowed = useProfessorAccess();
+  const primaryNav = PRIMARY_NAV.filter((item) => item.href !== "/professor" || professorAllowed);
 
   return (
     <div className="flex flex-1 min-h-screen">
@@ -57,7 +60,7 @@ export function NavShell({ children }: { children: React.ReactNode }) {
           </span>
         </Link>
         <nav className="flex flex-col gap-0.5" aria-label="Navegação principal">
-          {PRIMARY_NAV.map((item) => {
+          {primaryNav.map((item) => {
             const active = pathname?.startsWith(item.href);
             const Icon = item.icon;
             return (
@@ -116,7 +119,7 @@ export function NavShell({ children }: { children: React.ReactNode }) {
           className="md:hidden fixed bottom-0 left-0 right-0 bg-surface border-t border-border flex items-stretch z-40 shadow-lg"
           aria-label="Navegação principal"
         >
-          {PRIMARY_NAV.map((item) => {
+          {primaryNav.map((item) => {
             const active = pathname?.startsWith(item.href);
             const Icon = item.icon;
             return (

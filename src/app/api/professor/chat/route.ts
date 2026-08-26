@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import OpenAI from "openai";
 import { PROFESSOR_TOOLS } from "@/lib/professor/toolSchemas";
 import { buildSystemPrompt } from "@/lib/professor/systemPrompt";
+import { hasProfessorAccess } from "@/lib/professor/access";
 import type { ProfessorChatMessage, ProfessorFunction, ProfessorTurnResult } from "@/lib/professor/types";
 import type { ProfessorContext } from "@/lib/models/schema";
 
@@ -22,6 +23,10 @@ interface ChatRequestBody {
 }
 
 export async function POST(request: Request): Promise<Response> {
+  if (!(await hasProfessorAccess())) {
+    return NextResponse.json({ error: "Acesso ao Professor não liberado para esta conta." }, { status: 403 });
+  }
+
   const apiKey = process.env.OPENAI_API_KEY;
   if (!apiKey) {
     return NextResponse.json(
