@@ -27,11 +27,11 @@ end;
 $$;
 
 -- ---------------------------------------------------------------------------------------------
--- profiles — uma linha por usuário autenticado. Criada automaticamente no cadastro (trigger no
--- final do arquivo); as perguntas extras do formulário de cadastro são preenchidas por um UPDATE
--- logo depois do signUp (ver src/app/cadastro/page.tsx). `professor_access` é o botão de liberação
--- manual do Professor: por padrão false para todo mundo, true só para o dono (ver comentário no
--- final do arquivo) ou para quem o dono liberar manualmente aqui no painel.
+-- profiles — uma linha por usuário autenticado. Criada e já preenchida automaticamente no
+-- cadastro pelo trigger handle_new_user() (mais abaixo), a partir das respostas do formulário
+-- (ver src/app/cadastro/page.tsx). `professor_access` é o botão de liberação manual do Professor:
+-- por padrão false para todo mundo, true só para o dono (ver comentário no final do arquivo) ou
+-- para quem o dono liberar manualmente aqui no painel.
 -- ---------------------------------------------------------------------------------------------
 create table if not exists public.profiles (
   id uuid primary key references auth.users (id) on delete cascade,
