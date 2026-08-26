@@ -897,6 +897,12 @@ export const ProfessorConversationSchema = AuditFieldsSchema.extend({
 });
 export type ProfessorConversation = z.infer<typeof ProfessorConversationSchema>;
 
+/** Decisão do aluno ao ser convidado, no fechamento do dia, a consumir o conteúdo complementar
+ * (vídeos extras e questões extras) na hora ou depois. "adiado" faz o dia aparecer em
+ * /revisao-conteudos-estudados; "feito" marca como já resolvido e some de lá. */
+export const ComplementaryReviewChoiceSchema = z.enum(["feito", "adiado"]);
+export type ComplementaryReviewChoice = z.infer<typeof ComplementaryReviewChoiceSchema>;
+
 export const CourseDayProgressSchema = AuditFieldsSchema.extend({
   studentId: z.string().default(DEFAULT_STUDENT_ID),
   courseId: z.string().default(COURSE_ID),
@@ -908,6 +914,7 @@ export const CourseDayProgressSchema = AuditFieldsSchema.extend({
   sessionId: z.string().optional(),
   startedAt: z.string().datetime().optional(),
   completedAt: z.string().datetime().optional(),
+  complementaryReviewChoice: ComplementaryReviewChoiceSchema.optional(),
   schemaVersion: z.number().int().default(1),
 });
 export type CourseDayProgress = z.infer<typeof CourseDayProgressSchema>;

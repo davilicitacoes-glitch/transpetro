@@ -11,7 +11,7 @@ import { VIDEO_LESSONS, type VideoLesson } from "@/content/videos";
 import { ESSAY_PROMPTS } from "@/content/essays/prompts";
 import { YouTubePlayer } from "@/components/video/YouTubePlayer";
 import { STEP_TYPE_LABEL, formatMinutes } from "@/lib/course/labels";
-import { DEFAULT_STUDENT_ID, type CourseDay, type CourseDayProgress, type CourseStep } from "@/lib/models/schema";
+import { DEFAULT_STUDENT_ID, type CourseDay, type CourseDayProgress, type CourseStep, type Question } from "@/lib/models/schema";
 import {
   getCourseDay,
   getDayProgress,
@@ -24,8 +24,10 @@ import {
   getDueReviewsToday,
   hasEssaySubmission,
   hasFinishedMockExamToday,
+  setComplementaryReviewChoice,
   type CourseDaySummary,
 } from "@/lib/course/service";
+import { getComplementaryVideosForDay, getComplementaryQuestionsForDay } from "@/lib/course/complementary";
 import type { ReviewSchedule } from "@/lib/models/schema";
 
 const lessonBySlug = new Map(ALL_LESSONS.map((l) => [l.slug, l]));
@@ -156,7 +158,16 @@ export default function MeuCursoDiaPage({ params }: { params: Promise<{ day: str
       {currentStep ? (
         <StepCard key={currentStep.id} step={currentStep} day={dayNumber} onCompleted={() => handleCompleteStep(currentStep.id)} onAnswered={refreshProgress} />
       ) : (
-        <FechamentoCard summary={summary} error={finishError} onFinish={handleFinishDay} onBack={() => router.push("/meu-curso")} />
+        <FechamentoCard
+          planDay={planDay}
+          dayNumber={dayNumber}
+          progress={progress}
+          summary={summary}
+          error={finishError}
+          onFinish={handleFinishDay}
+          onBack={() => router.push("/meu-curso")}
+          onChoiceMade={refreshProgress}
+        />
       )}
       {currentStep && (
         <nav aria-label="Controles da aula" className="fixed inset-x-0 bottom-0 z-40 border-t border-border bg-surface/95 px-3 pb-[max(.75rem,env(safe-area-inset-bottom))] pt-2 backdrop-blur">
@@ -338,47 +349,6 @@ function LessonStep({ step }: { step: CourseStep }) {
           </ul>
         </div>
       )}
-
-      <ComplementaryVideos syllabusCodes={lesson.syllabusCodes} />
-    </div>
-  );
-}
-
-/** Vídeos curados adicionais sobre o mesmo assunto, além do vídeo já mostrado como obrigatório
- * do tópico (excluído por id — o mesmo critério determinístico usado em coursePlan.ts). */
-function ComplementaryVideos({ syllabusCodes, excludeId }: { syllabusCodes: string[]; excludeId?: string }) {
-  const [openId, setOpenId] = useState<string | null>(null);
-  const videos: VideoLesson[] = VIDEO_LESSONS
-    .filter((v) => v.id !== excludeId && v.syllabusCodes.some((c) => syllabusCodes.includes(c)))
-    .slice(0, 3);
-  if (videos.length === 0) return null;
-  return (
-    <div className="rounded-lg border border-border p-3.5 mb-4">
-      <p className="flex items-center gap-1.5 text-xs font-semibold mb-2">
-        <PlayCircle size={13} aria-hidden /> Vídeos complementares
-      </p>
-      <ul className="space-y-2">
-        {videos.map((v) => {
-          const open = openId === v.id;
-          return (
-            <li key={v.id}>
-              <button
-                type="button"
-                onClick={() => setOpenId(open ? null : v.id)}
-                className="w-full flex items-center justify-between gap-2 text-left text-xs text-brand hover:underline"
-              >
-                <span>{v.title}</span>
-                <span className="shrink-0 text-foreground-muted">{open ? "Ocultar" : "Assistir"}</span>
-              </button>
-              {open && (
-                <div className="mt-2">
-                  <YouTubePlayer youtubeId={v.youtubeId} title={v.title} channel={v.channel} />
-                </div>
-              )}
-            </li>
-          );
-        })}
-      </ul>
     </div>
   );
 }
@@ -404,9 +374,6 @@ function VideoStep({ step }: { step: CourseStep }) {
           {watched ? "✓ Vídeo assistido — pode concluir e avançar." : `${percent}% assistido`}
         </p>
       )}
-      <div className={percent > 0 ? "" : "mt-4"}>
-        <ComplementaryVideos syllabusCodes={video.syllabusCodes} excludeId={video.id} />
-      </div>
     </div>
   );
 }
@@ -547,46 +514,163 @@ function StepActions({ step, day, onCompleted, disabled = false }: { step: Cours
 }
 
 function FechamentoCard({
+  planDay,
+  dayNumber,
+  progress,
   summary,
   error,
   onFinish,
   onBack,
+  onChoiceMade,
 }: {
+  planDay: CourseDay;
+  dayNumber: number;
+  progress: CourseDayProgress;
   summary: CourseDaySummary | null;
   error: string | null;
   onFinish: () => void;
   onBack: () => void;
+  onChoiceMade: () => void;
 }) {
+  const videos = getComplementaryVideosForDay(planDay);
+  const questions = getComplementaryQuestionsForDay(planDay);
+  const hasComplementary = videos.length > 0 || questions.length > 0;
+  const choice = progress.complementaryReviewChoice;
+
+  async function handleChoice(next: "feito" | "adiado") {
+    await setComplementaryReviewChoice(DEFAULT_STUDENT_ID, dayNumber, next);
+    onChoiceMade();
+  }
+
   return (
-    <div className="card p-5">
-      <h2 className="text-[17px] font-semibold mb-4">Resumo do dia</h2>
-      {summary ? (
-        <ul className="space-y-2 text-sm mb-5">
-          <li className="flex items-center gap-2">
-            <CheckCircle2 size={15} className="text-success" aria-hidden />
-            {summary.completedSteps} de {summary.totalSteps} etapas concluídas
-          </li>
-          <li className="flex items-center gap-2">
-            <Circle size={15} className="text-foreground-muted" aria-hidden />
-            {summary.questionsAnswered} questão(ões) respondida(s), {summary.questionsCorrect} certa(s)
-          </li>
-          <li className="flex items-center gap-2">
-            <Circle size={15} className="text-foreground-muted" aria-hidden />
-            {summary.reviewsScheduledDuringSession} revisão(ões) nova(s) agendada(s)
-          </li>
-        </ul>
-      ) : (
-        <p className="text-sm text-foreground-muted mb-5">Carregando resumo…</p>
-      )}
-      {error && <p className="text-sm text-danger mb-3">{error}</p>}
-      <div className="flex gap-2">
-        <button type="button" onClick={onBack} className="btn btn-secondary flex-1">
-          Voltar
-        </button>
-        <button type="button" onClick={onFinish} className="btn btn-primary flex-1">
-          Concluir o dia
-        </button>
+    <div className="space-y-4">
+      <div className="card p-5">
+        <h2 className="text-[17px] font-display font-semibold mb-4">Resumo do dia</h2>
+        {summary ? (
+          <ul className="space-y-2 text-sm mb-5">
+            <li className="flex items-center gap-2">
+              <CheckCircle2 size={15} className="text-success" aria-hidden />
+              {summary.completedSteps} de {summary.totalSteps} etapas concluídas
+            </li>
+            <li className="flex items-center gap-2">
+              <Circle size={15} className="text-foreground-muted" aria-hidden />
+              {summary.questionsAnswered} questão(ões) respondida(s), {summary.questionsCorrect} certa(s)
+            </li>
+            <li className="flex items-center gap-2">
+              <Circle size={15} className="text-foreground-muted" aria-hidden />
+              {summary.reviewsScheduledDuringSession} revisão(ões) nova(s) agendada(s)
+            </li>
+          </ul>
+        ) : (
+          <p className="text-sm text-foreground-muted mb-5">Carregando resumo…</p>
+        )}
+        {error && <p className="text-sm text-danger mb-3">{error}</p>}
+        <div className="flex gap-2">
+          <button type="button" onClick={onBack} className="btn btn-secondary flex-1">
+            Voltar
+          </button>
+          <button type="button" onClick={onFinish} className="btn btn-primary flex-1">
+            Concluir o dia
+          </button>
+        </div>
       </div>
+
+      {hasComplementary && !choice && (
+        <div className="card p-5 border-brand/30 bg-brand-soft/30">
+          <p className="flex items-center gap-1.5 text-[15px] font-display font-semibold mb-1.5">
+            <Sparkles size={16} className="text-brand" aria-hidden />
+            Vamos continuar estudando e revisando?
+          </p>
+          <p className="text-sm text-foreground-muted mb-4">
+            Separamos {videos.length > 0 ? `${videos.length} vídeo(s) complementar(es)` : ""}
+            {videos.length > 0 && questions.length > 0 ? " e " : ""}
+            {questions.length > 0 ? `${questions.length} questão(ões) extra(s)` : ""} sobre o que você estudou hoje.
+          </p>
+          <div className="flex gap-2">
+            <button type="button" onClick={() => handleChoice("feito")} className="btn btn-primary flex-1">
+              Sim, vamos!
+            </button>
+            <button type="button" onClick={() => handleChoice("adiado")} className="btn btn-secondary flex-1">
+              Prefiro depois
+            </button>
+          </div>
+        </div>
+      )}
+
+      {hasComplementary && choice === "adiado" && (
+        <div className="card p-4 text-sm">
+          <p className="text-foreground-muted">
+            Sem problema — esse conteúdo ficou guardado em{" "}
+            <Link href="/revisao-conteudos-estudados" className="text-brand font-medium hover:underline">
+              Revisão de Conteúdos Estudados
+            </Link>
+            , organizado por dia, para quando você tiver um tempo.
+          </p>
+        </div>
+      )}
+
+      {hasComplementary && choice === "feito" && (
+        <ComplementaryReviewBlock dayNumber={dayNumber} videos={videos} questions={questions} />
+      )}
+    </div>
+  );
+}
+
+/** Conteúdo complementar do dia (vídeos extras + questões extras), oferecido só no fechamento —
+ * antes ficava escondido dentro de cada etapa atrás de um link discreto; agora fica reunido aqui,
+ * de forma visível, depois que o aluno já cobriu o obrigatório. */
+function ComplementaryReviewBlock({
+  dayNumber,
+  videos,
+  questions,
+}: {
+  dayNumber: number;
+  videos: VideoLesson[];
+  questions: Question[];
+}) {
+  const [openId, setOpenId] = useState<string | null>(null);
+  return (
+    <div className="card p-5 space-y-5">
+      {videos.length > 0 && (
+        <div>
+          <p className="flex items-center gap-1.5 text-sm font-semibold mb-2.5">
+            <PlayCircle size={15} className="text-brand" aria-hidden /> Vídeos complementares
+          </p>
+          <ul className="space-y-2">
+            {videos.map((v) => {
+              const open = openId === v.id;
+              return (
+                <li key={v.id} className="rounded-lg border border-border p-2.5">
+                  <button
+                    type="button"
+                    onClick={() => setOpenId(open ? null : v.id)}
+                    className="w-full flex items-center justify-between gap-2 text-left text-sm font-medium"
+                  >
+                    <span>{v.title}</span>
+                    <span className="shrink-0 text-xs text-brand">{open ? "Ocultar" : "Assistir"}</span>
+                  </button>
+                  {open && (
+                    <div className="mt-2">
+                      <YouTubePlayer youtubeId={v.youtubeId} title={v.title} channel={v.channel} />
+                    </div>
+                  )}
+                </li>
+              );
+            })}
+          </ul>
+        </div>
+      )}
+
+      {questions.length > 0 && (
+        <div>
+          <p className="text-sm font-semibold mb-2.5">Questões extras sobre hoje</p>
+          <div className="space-y-3">
+            {questions.map((q) => (
+              <QuestionBlock key={q.id} questionId={q.id} day={dayNumber} stepId="complementar" onAnswered={() => {}} />
+            ))}
+          </div>
+        </div>
+      )}
     </div>
   );
 }

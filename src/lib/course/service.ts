@@ -369,6 +369,27 @@ export async function completeCourseDay(studentId = DEFAULT_STUDENT_ID, day: num
   return upsertDayProgress(studentId, day, (p) => ({ ...p, status: "concluido", completedAt: nowIso() }));
 }
 
+/** Registra a escolha do aluno ao ser convidado a consumir o conteúdo complementar do dia (vídeos e
+ * questões extras) no fechamento: "feito" resolve na hora, "adiado" manda o dia para
+ * /revisao-conteudos-estudados até o aluno voltar lá e assistir. */
+export async function setComplementaryReviewChoice(
+  studentId: string,
+  day: number,
+  choice: "feito" | "adiado",
+): Promise<CourseDayProgress> {
+  return upsertDayProgress(studentId, day, (p) => ({ ...p, complementaryReviewChoice: choice }));
+}
+
+/** Dias (em ordem crescente) cujo conteúdo complementar o aluno adiou — fonte da tela
+ * /revisao-conteudos-estudados. */
+export async function getDeferredComplementaryDays(studentId = DEFAULT_STUDENT_ID): Promise<number[]> {
+  const all = await getAllDayProgress(studentId);
+  return all
+    .filter((p) => p.complementaryReviewChoice === "adiado")
+    .map((p) => p.day)
+    .sort((a, b) => a - b);
+}
+
 /** Existe pelo menos uma versão salva desta proposta de redação para o aluno? Usado pela etapa
  * `pratica_redacao` do player para só liberar "Concluir e avançar" depois de uma escrita real
  * (a tela /redacao é reaproveitada tal como está — não duplicamos o editor aqui). */
