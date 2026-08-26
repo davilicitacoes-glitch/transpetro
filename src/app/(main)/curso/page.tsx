@@ -6,6 +6,7 @@ import { ArrowRight, BookOpen } from "lucide-react";
 import { SUBJECTS, MODULES, TOPICS } from "@/content/curriculum";
 import { ALL_LESSONS } from "@/content/lessons";
 import { useCompletedLessons } from "@/lib/progress/useCompletedLessons";
+import { PageHeader } from "@/components/ui/PageHeader";
 
 export default function CursoPage() {
   const { completed } = useCompletedLessons();
@@ -25,16 +26,18 @@ export default function CursoPage() {
 
   return (
     <main className="flex-1 px-4 py-6 md:px-8 md:py-8 max-w-5xl mx-auto w-full animate-fade-in">
-      <header className="mb-8">
-        <p className="text-xs font-semibold uppercase tracking-wide text-brand mb-1">Curso completo</p>
-        <h1 className="text-[26px] font-bold tracking-tight mb-2">Profissional Transpetro Júnior — Administração e Controle</h1>
-        <p className="text-foreground-muted text-sm max-w-2xl">
-          {totalLessons} aulas organizadas por disciplina, módulo e tópico do Anexo IV do edital — teoria, exemplos
-          resolvidos, pegadinhas, flashcards e miniquestionário em cada uma.
-        </p>
+      <div className="mb-2">
+        <PageHeader
+          eyebrow="Curso completo"
+          title="Profissional Transpetro Júnior — Administração e Controle"
+          description={`${totalLessons} aulas organizadas por disciplina, módulo e tópico do Anexo IV do edital — teoria, exemplos resolvidos, pegadinhas, flashcards e miniquestionário em cada uma.`}
+        />
 
         <div className="mt-5 card p-4 flex items-center gap-4">
-          <div className="w-12 h-12 rounded-full bg-brand-soft text-brand flex items-center justify-center font-bold text-sm shrink-0">
+          <div
+            className="w-12 h-12 rounded-full text-brand-foreground flex items-center justify-center font-display font-bold text-sm shrink-0"
+            style={{ background: "linear-gradient(135deg, var(--brand), var(--accent))" }}
+          >
             {totalLessons > 0 ? Math.round((totalDone / totalLessons) * 100) : 0}%
           </div>
           <div className="flex-1">
@@ -42,15 +45,15 @@ export default function CursoPage() {
             <p className="text-xs text-foreground-muted">
               {totalDone} de {totalLessons} aulas concluídas
             </p>
-            <div className="w-full h-1.5 bg-surface-muted rounded-full overflow-hidden mt-1.5">
+            <div className="progress-track mt-1.5">
               <div
-                className="h-full bg-brand transition-all"
+                className="progress-fill"
                 style={{ width: `${totalLessons > 0 ? (totalDone / totalLessons) * 100 : 0}%` }}
               />
             </div>
           </div>
         </div>
-      </header>
+      </div>
 
       <div className="grid sm:grid-cols-2 gap-4">
         {subjectStats.map(({ subject, total, doneCount, firstLesson }) => {

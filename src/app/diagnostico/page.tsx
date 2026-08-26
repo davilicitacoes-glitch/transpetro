@@ -101,9 +101,9 @@ export default function DiagnosticoPage() {
             {index + 1} de {questions.length} · até 30 min
           </p>
         </div>
-        <div className="w-full h-1.5 bg-surface-muted rounded-full mb-6 overflow-hidden">
+        <div className="progress-track mb-6">
           <div
-            className="h-full bg-brand transition-all"
+            className="progress-fill"
             style={{ width: `${((index + 1) / questions.length) * 100}%` }}
           />
         </div>

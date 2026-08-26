@@ -3,6 +3,7 @@
 import { useState } from "react";
 import Link from "next/link";
 import { useAuth } from "@/lib/supabase/AuthProvider";
+import { AuthHeader } from "@/components/ui/AuthHeader";
 
 export default function RecuperarSenhaPage() {
   const { resetPassword, configured } = useAuth();
@@ -26,19 +27,15 @@ export default function RecuperarSenhaPage() {
 
   return (
     <main className="flex-1 flex items-center justify-center px-4 py-10">
-      <div className="w-full max-w-sm">
-        <p className="text-sm font-medium text-brand mb-1">Transpetro Estudos</p>
-        <h1 className="text-2xl font-semibold mb-2">Recuperar senha</h1>
-        <p className="text-foreground-muted text-sm mb-6">
-          Informe o e-mail da sua conta. Enviaremos um link para você escolher uma nova senha.
-        </p>
+      <div className="w-full max-w-sm animate-fade-in">
+        <AuthHeader title="Recuperar senha" description="Informe o e-mail da sua conta. Enviaremos um link para você escolher uma nova senha." />
 
         {sent ? (
           <div className="rounded-lg border border-success bg-success-soft p-4 text-sm">
             Se existir uma conta com esse e-mail, enviamos um link de redefinição. Confira sua caixa de entrada.
           </div>
         ) : (
-          <form onSubmit={handleSubmit} className="space-y-4 bg-surface border border-border rounded-xl p-6">
+          <form onSubmit={handleSubmit} className="space-y-4 card-raised p-6">
             <div>
               <label htmlFor="email" className="block text-sm font-medium mb-1">
                 E-mail

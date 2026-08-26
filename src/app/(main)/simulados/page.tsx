@@ -185,8 +185,8 @@ export default function SimuladosPage() {
                       {s.correct}/{s.total} · {s.points}/{s.maxPoints} pts
                     </span>
                   </div>
-                  <div className="w-full h-1.5 bg-surface-muted rounded-full overflow-hidden">
-                    <div className="h-full bg-brand transition-all" style={{ width: `${pct}%` }} />
+                  <div className="progress-track">
+                    <div className="progress-fill" style={{ width: `${pct}%` }} />
                   </div>
                 </div>
               );

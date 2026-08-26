@@ -40,13 +40,19 @@ export function NavShell({ children }: { children: React.ReactNode }) {
 
   return (
     <div className="flex flex-1 min-h-screen">
-      <aside className="hidden md:flex md:flex-col w-60 shrink-0 bg-navy text-navy-foreground px-3 py-5 gap-1">
+      <aside
+        className="hidden md:flex md:flex-col w-60 shrink-0 text-navy-foreground px-3 py-5 gap-1"
+        style={{ background: "linear-gradient(180deg, var(--navy), var(--navy-soft))" }}
+      >
         <Link href="/hoje" className="px-3 mb-6 flex items-center gap-2.5">
-          <span className="flex items-center justify-center w-8 h-8 rounded-lg bg-brand text-brand-foreground font-bold text-sm shrink-0">
+          <span
+            className="flex items-center justify-center w-8 h-8 rounded-lg text-brand-foreground font-display font-bold text-sm shrink-0 shadow-brand"
+            style={{ background: "linear-gradient(135deg, var(--brand), var(--accent))", boxShadow: "var(--shadow-brand)" }}
+          >
             T
           </span>
           <span>
-            <span className="block text-[15px] font-semibold leading-tight text-white">Transpetro Estudos</span>
+            <span className="block text-[15px] font-display font-semibold leading-tight text-white">Transpetro Estudos</span>
             <span className="block text-[11px] leading-tight text-navy-foreground/60">Nível Médio — Administração e Controle</span>
           </span>
         </Link>
@@ -58,11 +64,12 @@ export function NavShell({ children }: { children: React.ReactNode }) {
               <Link
                 key={item.href}
                 href={item.href}
-                className={`flex items-center gap-3 rounded-lg px-3 py-2 text-[13.5px] font-medium transition-colors ${
+                className={`flex items-center gap-3 rounded-lg px-3 py-2 text-[13.5px] font-medium transition-all ${
                   active
-                    ? "bg-brand text-brand-foreground shadow-sm"
+                    ? "text-brand-foreground shadow-brand"
                     : "text-navy-foreground/75 hover:bg-white/5 hover:text-white"
                 }`}
+                style={active ? { background: "linear-gradient(135deg, var(--brand), color-mix(in srgb, var(--brand) 75%, var(--accent)))" } : undefined}
               >
                 <Icon size={17} aria-hidden />
                 {item.label}

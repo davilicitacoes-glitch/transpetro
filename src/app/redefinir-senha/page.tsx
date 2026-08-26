@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { getSupabaseBrowserClient, isSupabaseConfigured } from "@/lib/supabase/client";
+import { AuthHeader } from "@/components/ui/AuthHeader";
 
 /**
  * Acessada a partir do link enviado por e-mail (redirectTo em resetPasswordForEmail). O Supabase já
@@ -41,11 +42,10 @@ export default function RedefinirSenhaPage() {
 
   return (
     <main className="flex-1 flex items-center justify-center px-4 py-10">
-      <div className="w-full max-w-sm">
-        <p className="text-sm font-medium text-brand mb-1">Transpetro Estudos</p>
-        <h1 className="text-2xl font-semibold mb-2">Escolher nova senha</h1>
+      <div className="w-full max-w-sm animate-fade-in">
+        <AuthHeader title="Escolher nova senha" />
 
-        <form onSubmit={handleSubmit} className="space-y-4 bg-surface border border-border rounded-xl p-6">
+        <form onSubmit={handleSubmit} className="space-y-4 card-raised p-6">
           <div>
             <label htmlFor="password" className="block text-sm font-medium mb-1">
               Nova senha

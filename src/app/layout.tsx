@@ -1,15 +1,21 @@
 import type { Metadata, Viewport } from "next";
-import { Inter } from "next/font/google";
+import { Manrope, Space_Grotesk } from "next/font/google";
 import "./globals.css";
 import { AppInit } from "@/components/app/AppInit";
 import { AuthProvider } from "@/lib/supabase/AuthProvider";
 import { SyncStatusIndicator } from "@/components/app/SyncStatusIndicator";
 import { UpdatePrompt } from "@/components/app/UpdatePrompt";
 
-const inter = Inter({
+const manrope = Manrope({
   subsets: ["latin"],
   display: "swap",
-  variable: "--font-inter",
+  variable: "--font-manrope",
+});
+
+const spaceGrotesk = Space_Grotesk({
+  subsets: ["latin"],
+  display: "swap",
+  variable: "--font-space-grotesk",
 });
 
 export const metadata: Metadata = {
@@ -35,14 +41,18 @@ export const viewport: Viewport = {
   initialScale: 1,
   viewportFit: "cover",
   themeColor: [
-    { media: "(prefers-color-scheme: light)", color: "#f7f8fa" },
-    { media: "(prefers-color-scheme: dark)", color: "#0b0f14" },
+    { media: "(prefers-color-scheme: light)", color: "#f5f7f4" },
+    { media: "(prefers-color-scheme: dark)", color: "#08120f" },
   ],
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="pt-BR" className={`h-full antialiased ${inter.variable}`} suppressHydrationWarning>
+    <html
+      lang="pt-BR"
+      className={`h-full antialiased ${manrope.variable} ${spaceGrotesk.variable}`}
+      suppressHydrationWarning
+    >
       <body className="min-h-full flex flex-col bg-background text-foreground">
         <AuthProvider>
           <AppInit />

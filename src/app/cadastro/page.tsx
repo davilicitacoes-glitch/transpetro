@@ -3,6 +3,7 @@
 import { useState } from "react";
 import Link from "next/link";
 import { useAuth } from "@/lib/supabase/AuthProvider";
+import { AuthHeader } from "@/components/ui/AuthHeader";
 
 export default function CadastroPage() {
   const { signUp, configured } = useAuth();
@@ -38,8 +39,7 @@ export default function CadastroPage() {
     return (
       <main className="flex-1 flex items-center justify-center px-4 py-10">
         <div className="w-full max-w-sm text-center">
-          <p className="text-sm font-medium text-brand mb-1">Transpetro Estudos</p>
-          <h1 className="text-2xl font-semibold mb-3">Quase lá</h1>
+          <AuthHeader title="Quase lá" />
           <p className="text-foreground-muted text-sm mb-6">
             Enviamos um e-mail de confirmação para <strong>{email}</strong>. Abra-o e clique no link para ativar sua
             conta — depois é só entrar normalmente.
@@ -54,12 +54,8 @@ export default function CadastroPage() {
 
   return (
     <main className="flex-1 flex items-center justify-center px-4 py-10">
-      <div className="w-full max-w-sm">
-        <p className="text-sm font-medium text-brand mb-1">Transpetro Estudos</p>
-        <h1 className="text-2xl font-semibold mb-2">Criar conta</h1>
-        <p className="text-foreground-muted text-sm mb-6">
-          Sua conta guarda o progresso do Meu Curso e sincroniza entre o celular e o notebook.
-        </p>
+      <div className="w-full max-w-sm animate-fade-in">
+        <AuthHeader title="Criar conta" description="Sua conta guarda o progresso do Meu Curso e sincroniza entre o celular e o notebook." />
 
         {!configured && (
           <div className="mb-4 rounded-lg border border-warning bg-warning-soft p-3 text-[13px]">
@@ -67,7 +63,7 @@ export default function CadastroPage() {
           </div>
         )}
 
-        <form onSubmit={handleSubmit} className="space-y-4 bg-surface border border-border rounded-xl p-6">
+        <form onSubmit={handleSubmit} className="space-y-4 card-raised p-6">
           <div>
             <label htmlFor="email" className="block text-sm font-medium mb-1">
               E-mail

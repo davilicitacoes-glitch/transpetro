@@ -4,6 +4,7 @@ import { useState, Suspense } from "react";
 import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useAuth } from "@/lib/supabase/AuthProvider";
+import { AuthHeader } from "@/components/ui/AuthHeader";
 
 function LoginForm() {
   const router = useRouter();
@@ -29,12 +30,8 @@ function LoginForm() {
 
   return (
     <main className="flex-1 flex items-center justify-center px-4 py-10">
-      <div className="w-full max-w-sm">
-        <p className="text-sm font-medium text-brand mb-1">Transpetro Estudos</p>
-        <h1 className="text-2xl font-semibold mb-2">Entrar</h1>
-        <p className="text-foreground-muted text-sm mb-6">
-          Use a mesma conta no celular e no notebook para ver o mesmo progresso nos dois.
-        </p>
+      <div className="w-full max-w-sm animate-fade-in">
+        <AuthHeader title="Entrar" description="Use a mesma conta no celular e no notebook para ver o mesmo progresso nos dois." />
 
         {!configured && (
           <div className="mb-4 rounded-lg border border-warning bg-warning-soft p-3 text-[13px]">
@@ -42,7 +39,7 @@ function LoginForm() {
           </div>
         )}
 
-        <form onSubmit={handleSubmit} className="space-y-4 bg-surface border border-border rounded-xl p-6">
+        <form onSubmit={handleSubmit} className="space-y-4 card-raised p-6">
           <div>
             <label htmlFor="email" className="block text-sm font-medium mb-1">
               E-mail

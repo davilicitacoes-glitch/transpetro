@@ -40,8 +40,11 @@ export default function HojePage() {
   return (
     <main className="flex-1 px-4 py-6 md:px-8 md:py-8 max-w-3xl mx-auto w-full animate-fade-in">
       <header className="mb-6">
-        <p className="text-xs font-semibold uppercase tracking-wide text-brand mb-1">Hoje · {formatDateBR(today)}</p>
-        <h1 className="text-[26px] font-bold tracking-tight">
+        <p className="inline-flex items-center gap-1.5 text-xs font-bold uppercase tracking-wide text-brand mb-1.5">
+          <span className="inline-block w-4 h-[3px] rounded-full" style={{ background: "linear-gradient(90deg, var(--brand), var(--accent))" }} aria-hidden />
+          Hoje · {formatDateBR(today)}
+        </p>
+        <h1 className="text-[27px] font-display font-bold tracking-tight">
           {isPastLastStudyDay ? "Ciclo de estudo encerrado" : `Faltam ${daysToExam} dias para a prova`}
         </h1>
         <p className="text-foreground-muted text-sm mt-1">
@@ -52,7 +55,10 @@ export default function HojePage() {
       <div className="grid sm:grid-cols-2 gap-3 mb-6">
         <section className="card p-4">
           <div className="flex items-center gap-2 mb-2">
-            <span className="w-7 h-7 rounded-md bg-brand-soft text-brand flex items-center justify-center shrink-0">
+            <span
+              className="w-7 h-7 rounded-md text-brand-foreground flex items-center justify-center shrink-0"
+              style={{ background: "linear-gradient(135deg, var(--brand), var(--accent))" }}
+            >
               <Flame size={15} aria-hidden />
             </span>
             <p className="text-[13px] font-semibold">Ciclo de missões</p>
@@ -60,15 +66,18 @@ export default function HojePage() {
               {missionsDone}/{studyPlan?.missionCount ?? TOTAL_MISSIONS}
             </span>
           </div>
-          <div className="w-full h-2 bg-surface-muted rounded-full overflow-hidden">
-            <div className="h-full bg-brand transition-all" style={{ width: `${missionPct}%` }} />
+          <div className="progress-track">
+            <div className="progress-fill" style={{ width: `${missionPct}%` }} />
           </div>
           {studyPlan?.compressionNote && <p className="text-[11px] text-warning mt-2">{studyPlan.compressionNote}</p>}
         </section>
 
         <section className="card p-4">
           <div className="flex items-center gap-2 mb-2">
-            <span className="w-7 h-7 rounded-md bg-brand-soft text-brand flex items-center justify-center shrink-0">
+            <span
+              className="w-7 h-7 rounded-md text-brand-foreground flex items-center justify-center shrink-0"
+              style={{ background: "linear-gradient(135deg, var(--brand), var(--accent))" }}
+            >
               <TrendingUp size={15} aria-hidden />
             </span>
             <p className="text-[13px] font-semibold">Pontuação projetada</p>
@@ -90,16 +99,17 @@ export default function HojePage() {
       {!isPastLastStudyDay && (
         <section className="mb-6">
           <div className="flex items-center justify-between mb-3">
-            <h2 className="font-semibold text-[15px] flex items-center gap-2">
+            <h2 className="font-display font-semibold text-[15px] flex items-center gap-2">
               <Target size={16} className="text-brand" aria-hidden />
               {day?.dayType === "missao" ? `Missão ${day.missionIndex}` : "Sem missão nova hoje"}
             </h2>
             <button
               type="button"
               onClick={() => setEssentialMode((v) => !v)}
-              className={`flex items-center gap-1.5 rounded-full border px-3 py-1 text-xs font-medium transition-colors ${
-                essentialMode ? "border-brand bg-brand text-brand-foreground" : "border-border text-foreground-muted hover:bg-surface-muted"
+              className={`flex items-center gap-1.5 rounded-full border px-3 py-1 text-xs font-semibold transition-all ${
+                essentialMode ? "border-transparent text-brand-foreground shadow-brand" : "border-border text-foreground-muted hover:bg-surface-muted"
               }`}
+              style={essentialMode ? { background: "linear-gradient(135deg, var(--brand), var(--accent))" } : undefined}
             >
               <Zap size={13} aria-hidden />
               Modo Essencial
@@ -121,7 +131,7 @@ export default function HojePage() {
               {visibleTasks.map((task) => {
                 const done = completedKinds.has(task.kind);
                 return (
-                  <li key={task.kind} className="card p-3.5 flex items-start gap-3">
+                  <li key={task.kind} className="card card-interactive p-3.5 flex items-start gap-3">
                     <button
                       type="button"
                       onClick={() => toggleTask(task.kind)}
@@ -148,11 +158,7 @@ export default function HojePage() {
           )}
 
           {tasks.length > 0 && (
-            <button
-              type="button"
-              disabled={!missionComplete}
-              className="mt-4 w-full rounded-lg bg-brand text-brand-foreground font-medium py-2.5 text-sm hover:opacity-90 disabled:opacity-40 shadow-sm"
-            >
+            <button type="button" disabled={!missionComplete} className="btn btn-primary w-full mt-4">
               {missionComplete ? "Concluir missão" : "Complete as tarefas principais para concluir"}
             </button>
           )}

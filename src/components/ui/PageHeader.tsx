@@ -12,8 +12,11 @@ export function PageHeader({
   return (
     <header className="mb-6 flex items-start justify-between gap-4 flex-wrap">
       <div className="min-w-0">
-        <p className="text-xs font-semibold uppercase tracking-wide text-brand mb-1">{eyebrow}</p>
-        <h1 className="text-[26px] font-bold tracking-tight leading-tight">{title}</h1>
+        <p className="inline-flex items-center gap-1.5 text-xs font-bold uppercase tracking-wide text-brand mb-1.5">
+          <span className="inline-block w-4 h-[3px] rounded-full" style={{ background: "linear-gradient(90deg, var(--brand), var(--accent))" }} aria-hidden />
+          {eyebrow}
+        </p>
+        <h1 className="text-[27px] font-display font-bold tracking-tight leading-tight">{title}</h1>
         {description && <p className="text-foreground-muted text-sm mt-1.5 max-w-2xl">{description}</p>}
       </div>
       {action}
