@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState, useCallback } from "react";
+import { useEffect, useState, useCallback, useMemo } from "react";
 import { use as usePromise } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
@@ -10,6 +10,8 @@ import { ALL_QUESTIONS } from "@/content/questions";
 import { VIDEO_LESSONS, type VideoLesson } from "@/content/videos";
 import { ESSAY_PROMPTS } from "@/content/essays/prompts";
 import { YouTubePlayer } from "@/components/video/YouTubePlayer";
+import { SlidePlayer } from "@/components/video/SlidePlayer";
+import { buildSlides } from "@/lib/slides/buildSlides";
 import { STEP_TYPE_LABEL, formatMinutes } from "@/lib/course/labels";
 import { DEFAULT_STUDENT_ID, type CourseDay, type CourseDayProgress, type CourseStep, type Question } from "@/lib/models/schema";
 import {
@@ -313,16 +315,18 @@ function RevisaoStep() {
 function LessonStep({ step }: { step: CourseStep }) {
   const lesson = step.contentRef?.kind === "lesson" ? lessonBySlug.get(step.contentRef.id) : undefined;
   if (!lesson) return <p className="text-sm text-danger">Aula não encontrada ({step.contentRef?.id}).</p>;
+  const slides = useMemo(() => buildSlides(lesson), [lesson]);
   return (
     <div>
       <h2 className="text-[17px] font-semibold mb-1">{lesson.title}</h2>
       <p className="text-sm text-foreground-muted mb-4">{lesson.learningObjective}</p>
 
-      <Link
-        href={`/curso/${lesson.slug}`}
-        className="tap-target w-full justify-center gap-1.5 text-sm font-semibold btn btn-primary mb-4"
-      >
-        Abrir aula completa (slides narrados) <ExternalLink size={14} aria-hidden />
+      <div className="mb-4">
+        <SlidePlayer slides={slides} title={lesson.title} />
+      </div>
+
+      <Link href={`/curso/${lesson.slug}`} className="tap-target gap-1.5 text-xs text-brand hover:underline mb-4 inline-flex">
+        Ver aula completa em texto (com flashcards e mini-quiz) <ExternalLink size={12} aria-hidden />
       </Link>
 
       {lesson.mustMemorize.length > 0 && (

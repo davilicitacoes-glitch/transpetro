@@ -31,13 +31,28 @@ export const useTranspetroStore = create<TranspetroState>((set, get) => ({
 
   init: async () => {
     if (typeof window === "undefined") return;
-    await seedDatabase();
-    const db = getDB();
-    const profiles = await db.learnerProfiles.toArray();
-    const profile = profiles[0] ?? null;
-    set({ ready: true, profile });
-    if (profile) {
-      get().refreshPlan();
+    // Nunca deixa a tela travada em "Carregando..." para sempre: se o IndexedDB falhar ou
+    // demorar demais para abrir (bug real observado no Safari/iOS — Storage Access API mais
+    // restritiva, sobretudo em PWA instalado ou pouco espaço livre), o app ainda precisa liberar
+    // a tela (indo para o onboarding) em vez de ficar preso numa Promise que nunca resolve.
+    const TIMEOUT_MS = 6000;
+    try {
+      await Promise.race([
+        (async () => {
+          await seedDatabase();
+          const db = getDB();
+          const profiles = await db.learnerProfiles.toArray();
+          const profile = profiles[0] ?? null;
+          set({ ready: true, profile });
+          if (profile) {
+            get().refreshPlan();
+          }
+        })(),
+        new Promise((_, reject) => setTimeout(() => reject(new Error("timeout ao abrir o banco local")), TIMEOUT_MS)),
+      ]);
+    } catch (err) {
+      console.error("[init] falha ao inicializar o banco local — seguindo sem progresso salvo:", err);
+      set({ ready: true, profile: null });
     }
   },
 
