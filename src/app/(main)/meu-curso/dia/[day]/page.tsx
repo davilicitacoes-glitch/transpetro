@@ -31,6 +31,7 @@ import {
 } from "@/lib/course/service";
 import { getComplementaryVideosForDay, getComplementaryQuestionsForDay } from "@/lib/course/complementary";
 import type { ReviewSchedule } from "@/lib/models/schema";
+import { TOTAL_MISSIONS } from "@config/concurso";
 
 const lessonBySlug = new Map(ALL_LESSONS.map((l) => [l.slug, l]));
 const questionById = new Map(ALL_QUESTIONS.map((q) => [q.id, q]));
@@ -51,7 +52,7 @@ export default function MeuCursoDiaPage({ params }: { params: Promise<{ day: str
   const [navigating, setNavigating] = useState(false);
 
   const load = useCallback(async () => {
-    if (!Number.isInteger(dayNumber) || dayNumber < 1 || dayNumber > 34) return;
+    if (!Number.isInteger(dayNumber) || dayNumber < 1 || dayNumber > TOTAL_MISSIONS) return;
     setLoading(true);
     const d = getCourseDay(dayNumber);
     const started = await startCourseDay(DEFAULT_STUDENT_ID, dayNumber);

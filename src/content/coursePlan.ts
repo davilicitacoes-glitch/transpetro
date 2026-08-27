@@ -1,29 +1,34 @@
 import { COURSE_ID, COURSE_PLAN_VERSION, type CourseDay, type CoursePlan } from "@/lib/models/schema";
 
 /**
- * Cronograma "Meu Curso" — Fase 1 (conteúdo geral, dias 1-55) + Fase 2 (revisão, dias
- * 56-73, só estrutura/casca — ver docs/CONTINUIDADE_ENSIPETRO.md).
+ * Cronograma "Meu Curso" — Fase 1 (conteúdo geral, dias 1-30) + Fase 2 (revisão, dias
+ * 31-48, só estrutura/casca — ver docs/CONTINUIDADE_ENSIPETRO.md).
  *
- * Fase 1 cobre os 39 códigos do Anexo IV (PT-01..08, MAT-01..10, AC-01..21), com 1-2 dias por
- * código conforme peso (subtemas + questões do acervo), intercalada com 6 dias de revisão de
- * bloco. Distribuída pelo motor entre a data de início do aluno e 10/11/2026 (ver
- * src/lib/course/schedule.ts). Fase 2 (11/11 a 28/11/2026, véspera da prova) tem só a casca —
- * fase "reta_final", sem conteúdo específico ainda, aguardando prompt futuro de detalhamento.
+ * Fase 1 cobre os 39 códigos do Anexo IV (PT-01..08, MAT-01..10, AC-01..21) combinados em 24 dias
+ * de 2-3 códigos cada (nunca 1 código isolado por dia), intercalando disciplinas por round-robin
+ * ponderado de "maior resto" — cada dia tem aula em slide narrado + videoaula obrigatória (quando
+ * há vídeo curado para o código) + checagem de compreensão para cada tópico do dia — intercalada
+ * com 6 dias de revisão de bloco. Distribuída pelo motor entre a data de início do aluno e o começo
+ * da Fase 2 (ver src/lib/course/schedule.ts, que espalha esses dias sobre os dias úteis
+ * disponíveis). Fase 2 (últimas semanas antes da prova) tem só a casca — fase "reta_final", sem
+ * conteúdo específico ainda, aguardando prompt futuro de detalhamento.
  *
- * TOTAL_MISSIONS em config/concurso.ts deve ser sempre igual a days.length aqui.
+ * TOTAL_MISSIONS em config/concurso.ts deve ser sempre igual a days.length aqui. Gerado por
+ * scripts/merge-course-days.js a partir da versão anterior (1 código por dia) — ver esse script
+ * para o algoritmo exato caso o conteúdo precise ser regenerado no futuro.
  */
 const DAYS: CourseDay[] = [
   {
     day: 1,
-    phase: "desenvolvimento",
-    title: "Conjuntos numéricos (MAT-01)",
-    learningObjectives: ["Dominar Conjuntos numéricos, código MAT-01 do Anexo IV."],
-    subjects: ["matematica"],
-    syllabusCodes: ["MAT-01"],
+    phase: "consolidacao",
+    title: "Dia 1 — Conjuntos numéricos (MAT-01) + Logística e Gestão da Cadeia de Suprimentos (AC-10)",
+    learningObjectives: ["Dominar Conjuntos numéricos, código MAT-01 do Anexo IV.", "Dominar Logística e Gestão da Cadeia de Suprimentos, código AC-10 do Anexo IV."],
+    subjects: ["matematica", "especificas"],
+    syllabusCodes: ["MAT-01", "AC-10"],
     prerequisites: [],
     steps: [
       {
-        id: "dia-1-abertura",
+        id: "dia-1-s01",
         type: "abertura",
         title: "Abertura do dia",
         estimatedMinutes: 2,
@@ -32,7 +37,7 @@ const DAYS: CourseDay[] = [
         completionCriteria: "Ler a apresentação do dia."
       },
       {
-        id: "dia-1-aula",
+        id: "dia-1-s02",
         type: "aula_textual",
         title: "Aula: Conjuntos numéricos (MAT-01)",
         estimatedMinutes: 40,
@@ -48,7 +53,7 @@ const DAYS: CourseDay[] = [
         completionCriteria: "Ler a aula completa até o fim."
       },
       {
-        id: "dia-1-checagem",
+        id: "dia-1-s03",
         type: "checagem_compreensao",
         title: "Checagem de compreensão — MAT-01",
         estimatedMinutes: 3,
@@ -64,47 +69,7 @@ const DAYS: CourseDay[] = [
         completionCriteria: "Responder a questão de checagem."
       },
       {
-        id: "dia-1-revisao-programada",
-        type: "revisao_programada",
-        title: "Revisão programada do dia",
-        estimatedMinutes: 10,
-        extraContentRefs: [],
-        optional: true,
-        completionCriteria: "Revisar os flashcards e revisões vencidos hoje (se houver)."
-      },
-      {
-        id: "dia-1-fechamento",
-        type: "fechamento_dia",
-        title: "Fechamento do dia",
-        estimatedMinutes: 5,
-        extraContentRefs: [],
-        optional: false,
-        completionCriteria: "Registrar confiança e dificuldades percebidas no dia."
-      }
-    ],
-    estimatedMinutesTotal: 60,
-    expectedOutcome: "Consegue responder corretamente questões objetivas sobre Conjuntos numéricos."
-  },
-  {
-    day: 2,
-    phase: "consolidacao",
-    title: "Logística e Gestão da Cadeia de Suprimentos (AC-10)",
-    learningObjectives: ["Dominar Logística e Gestão da Cadeia de Suprimentos, código AC-10 do Anexo IV."],
-    subjects: ["especificas"],
-    syllabusCodes: ["AC-10"],
-    prerequisites: [],
-    steps: [
-      {
-        id: "dia-2-abertura",
-        type: "abertura",
-        title: "Abertura do dia",
-        estimatedMinutes: 2,
-        extraContentRefs: [],
-        optional: false,
-        completionCriteria: "Ler a apresentação do dia."
-      },
-      {
-        id: "dia-2-aula",
+        id: "dia-1-s04",
         type: "aula_textual",
         title: "Aula: Logística e Gestão da Cadeia de Suprimentos (AC-10)",
         estimatedMinutes: 40,
@@ -120,7 +85,22 @@ const DAYS: CourseDay[] = [
         completionCriteria: "Ler a aula completa até o fim."
       },
       {
-        id: "dia-2-checagem",
+        id: "dia-1-s05",
+        type: "videoaula_obrigatoria",
+        title: "Videoaula — Logística e Gestão da Cadeia de Suprimentos (AC-10)",
+        estimatedMinutes: 12,
+        contentRef: {
+          kind: "video",
+          id: "video-ac-10-79",
+          subjectSlug: "especificas",
+          syllabusCodes: ["AC-10"]
+        },
+        extraContentRefs: [],
+        optional: false,
+        completionCriteria: "Assistir (ou abrir e marcar como assistido) a videoaula obrigatória do tópico."
+      },
+      {
+        id: "dia-1-s06",
         type: "checagem_compreensao",
         title: "Checagem de compreensão — AC-10",
         estimatedMinutes: 3,
@@ -136,7 +116,7 @@ const DAYS: CourseDay[] = [
         completionCriteria: "Responder a questão de checagem."
       },
       {
-        id: "dia-2-revisao-programada",
+        id: "dia-1-s07",
         type: "revisao_programada",
         title: "Revisão programada do dia",
         estimatedMinutes: 10,
@@ -145,7 +125,7 @@ const DAYS: CourseDay[] = [
         completionCriteria: "Revisar os flashcards e revisões vencidos hoje (se houver)."
       },
       {
-        id: "dia-2-fechamento",
+        id: "dia-1-s08",
         type: "fechamento_dia",
         title: "Fechamento do dia",
         estimatedMinutes: 5,
@@ -154,20 +134,20 @@ const DAYS: CourseDay[] = [
         completionCriteria: "Registrar confiança e dificuldades percebidas no dia."
       }
     ],
-    estimatedMinutesTotal: 60,
-    expectedOutcome: "Consegue responder corretamente questões objetivas sobre Logística e Gestão da Cadeia de Suprimentos."
+    estimatedMinutesTotal: 115,
+    expectedOutcome: "Consegue responder corretamente questões objetivas sobre Conjuntos numéricos. Consegue responder corretamente questões objetivas sobre Logística e Gestão da Cadeia de Suprimentos."
   },
   {
-    day: 3,
-    phase: "fundamentos",
-    title: "Compreensão de textos de gêneros variados (PT-01)",
-    learningObjectives: ["Dominar Compreensão de textos de gêneros variados, código PT-01 do Anexo IV."],
-    subjects: ["portugues"],
-    syllabusCodes: ["PT-01"],
+    day: 2,
+    phase: "desenvolvimento",
+    title: "Dia 2 — Compreensão de textos de gêneros variados (PT-01) + Recursos Humanos (AC-01)",
+    learningObjectives: ["Dominar Compreensão de textos de gêneros variados, código PT-01 do Anexo IV.", "Dominar Recursos Humanos, código AC-01 do Anexo IV."],
+    subjects: ["portugues", "especificas"],
+    syllabusCodes: ["PT-01", "AC-01"],
     prerequisites: [],
     steps: [
       {
-        id: "dia-3-abertura",
+        id: "dia-2-s09",
         type: "abertura",
         title: "Abertura do dia",
         estimatedMinutes: 2,
@@ -176,7 +156,7 @@ const DAYS: CourseDay[] = [
         completionCriteria: "Ler a apresentação do dia."
       },
       {
-        id: "dia-3-aula",
+        id: "dia-2-s10",
         type: "aula_textual",
         title: "Aula: Compreensão de textos de gêneros variados (PT-01)",
         estimatedMinutes: 40,
@@ -192,7 +172,22 @@ const DAYS: CourseDay[] = [
         completionCriteria: "Ler a aula completa até o fim."
       },
       {
-        id: "dia-3-checagem",
+        id: "dia-2-s11",
+        type: "videoaula_obrigatoria",
+        title: "Videoaula — Compreensão de textos de gêneros variados (PT-01)",
+        estimatedMinutes: 12,
+        contentRef: {
+          kind: "video",
+          id: "video-pt-01-1",
+          subjectSlug: "portugues",
+          syllabusCodes: ["PT-01"]
+        },
+        extraContentRefs: [],
+        optional: false,
+        completionCriteria: "Assistir (ou abrir e marcar como assistido) a videoaula obrigatória do tópico."
+      },
+      {
+        id: "dia-2-s12",
         type: "checagem_compreensao",
         title: "Checagem de compreensão — PT-01",
         estimatedMinutes: 3,
@@ -208,47 +203,7 @@ const DAYS: CourseDay[] = [
         completionCriteria: "Responder a questão de checagem."
       },
       {
-        id: "dia-3-revisao-programada",
-        type: "revisao_programada",
-        title: "Revisão programada do dia",
-        estimatedMinutes: 10,
-        extraContentRefs: [],
-        optional: true,
-        completionCriteria: "Revisar os flashcards e revisões vencidos hoje (se houver)."
-      },
-      {
-        id: "dia-3-fechamento",
-        type: "fechamento_dia",
-        title: "Fechamento do dia",
-        estimatedMinutes: 5,
-        extraContentRefs: [],
-        optional: false,
-        completionCriteria: "Registrar confiança e dificuldades percebidas no dia."
-      }
-    ],
-    estimatedMinutesTotal: 60,
-    expectedOutcome: "Consegue responder corretamente questões objetivas sobre Compreensão de textos de gêneros variados."
-  },
-  {
-    day: 4,
-    phase: "desenvolvimento",
-    title: "Recursos Humanos (AC-01) — Parte 1",
-    learningObjectives: ["Dominar Recursos Humanos, código AC-01 do Anexo IV."],
-    subjects: ["especificas"],
-    syllabusCodes: ["AC-01"],
-    prerequisites: [],
-    steps: [
-      {
-        id: "dia-4-abertura",
-        type: "abertura",
-        title: "Abertura do dia",
-        estimatedMinutes: 2,
-        extraContentRefs: [],
-        optional: false,
-        completionCriteria: "Ler a apresentação do dia."
-      },
-      {
-        id: "dia-4-aula",
+        id: "dia-2-s13",
         type: "aula_textual",
         title: "Aula: Recursos Humanos (AC-01)",
         estimatedMinutes: 40,
@@ -264,7 +219,22 @@ const DAYS: CourseDay[] = [
         completionCriteria: "Ler a aula completa até o fim."
       },
       {
-        id: "dia-4-checagem",
+        id: "dia-2-s14",
+        type: "videoaula_obrigatoria",
+        title: "Videoaula — Recursos Humanos (AC-01)",
+        estimatedMinutes: 12,
+        contentRef: {
+          kind: "video",
+          id: "video-ac-01-52",
+          subjectSlug: "especificas",
+          syllabusCodes: ["AC-01"]
+        },
+        extraContentRefs: [],
+        optional: false,
+        completionCriteria: "Assistir (ou abrir e marcar como assistido) a videoaula obrigatória do tópico."
+      },
+      {
+        id: "dia-2-s15",
         type: "checagem_compreensao",
         title: "Checagem de compreensão — AC-01",
         estimatedMinutes: 3,
@@ -280,7 +250,7 @@ const DAYS: CourseDay[] = [
         completionCriteria: "Responder a questão de checagem."
       },
       {
-        id: "dia-4-revisao-programada",
+        id: "dia-2-s16",
         type: "revisao_programada",
         title: "Revisão programada do dia",
         estimatedMinutes: 10,
@@ -289,7 +259,7 @@ const DAYS: CourseDay[] = [
         completionCriteria: "Revisar os flashcards e revisões vencidos hoje (se houver)."
       },
       {
-        id: "dia-4-fechamento",
+        id: "dia-2-s17",
         type: "fechamento_dia",
         title: "Fechamento do dia",
         estimatedMinutes: 5,
@@ -298,20 +268,20 @@ const DAYS: CourseDay[] = [
         completionCriteria: "Registrar confiança e dificuldades percebidas no dia."
       }
     ],
-    estimatedMinutesTotal: 60,
-    expectedOutcome: "Consegue responder corretamente questões objetivas sobre Recursos Humanos."
+    estimatedMinutesTotal: 127,
+    expectedOutcome: "Consegue responder corretamente questões objetivas sobre Compreensão de textos de gêneros variados. Consegue responder corretamente questões objetivas sobre Recursos Humanos."
   },
   {
-    day: 5,
+    day: 3,
     phase: "desenvolvimento",
-    title: "Razão e proporção (MAT-02)",
-    learningObjectives: ["Dominar Razão e proporção, código MAT-02 do Anexo IV."],
-    subjects: ["matematica"],
-    syllabusCodes: ["MAT-02"],
+    title: "Dia 3 — Razão e proporção (MAT-02) + Matemática Financeira (AC-06)",
+    learningObjectives: ["Dominar Razão e proporção, código MAT-02 do Anexo IV.", "Dominar Matemática Financeira, código AC-06 do Anexo IV."],
+    subjects: ["matematica", "especificas"],
+    syllabusCodes: ["MAT-02", "AC-06"],
     prerequisites: [],
     steps: [
       {
-        id: "dia-5-abertura",
+        id: "dia-3-s18",
         type: "abertura",
         title: "Abertura do dia",
         estimatedMinutes: 2,
@@ -320,7 +290,7 @@ const DAYS: CourseDay[] = [
         completionCriteria: "Ler a apresentação do dia."
       },
       {
-        id: "dia-5-aula",
+        id: "dia-3-s19",
         type: "aula_textual",
         title: "Aula: Razão e proporção (MAT-02)",
         estimatedMinutes: 40,
@@ -336,7 +306,22 @@ const DAYS: CourseDay[] = [
         completionCriteria: "Ler a aula completa até o fim."
       },
       {
-        id: "dia-5-checagem",
+        id: "dia-3-s20",
+        type: "videoaula_obrigatoria",
+        title: "Videoaula — Razão e proporção (MAT-02)",
+        estimatedMinutes: 12,
+        contentRef: {
+          kind: "video",
+          id: "video-mat-02-25",
+          subjectSlug: "matematica",
+          syllabusCodes: ["MAT-02"]
+        },
+        extraContentRefs: [],
+        optional: false,
+        completionCriteria: "Assistir (ou abrir e marcar como assistido) a videoaula obrigatória do tópico."
+      },
+      {
+        id: "dia-3-s21",
         type: "checagem_compreensao",
         title: "Checagem de compreensão — MAT-02",
         estimatedMinutes: 3,
@@ -352,47 +337,7 @@ const DAYS: CourseDay[] = [
         completionCriteria: "Responder a questão de checagem."
       },
       {
-        id: "dia-5-revisao-programada",
-        type: "revisao_programada",
-        title: "Revisão programada do dia",
-        estimatedMinutes: 10,
-        extraContentRefs: [],
-        optional: true,
-        completionCriteria: "Revisar os flashcards e revisões vencidos hoje (se houver)."
-      },
-      {
-        id: "dia-5-fechamento",
-        type: "fechamento_dia",
-        title: "Fechamento do dia",
-        estimatedMinutes: 5,
-        extraContentRefs: [],
-        optional: false,
-        completionCriteria: "Registrar confiança e dificuldades percebidas no dia."
-      }
-    ],
-    estimatedMinutesTotal: 60,
-    expectedOutcome: "Consegue responder corretamente questões objetivas sobre Razão e proporção."
-  },
-  {
-    day: 6,
-    phase: "desenvolvimento",
-    title: "Matemática Financeira (AC-06)",
-    learningObjectives: ["Dominar Matemática Financeira, código AC-06 do Anexo IV."],
-    subjects: ["especificas"],
-    syllabusCodes: ["AC-06"],
-    prerequisites: [],
-    steps: [
-      {
-        id: "dia-6-abertura",
-        type: "abertura",
-        title: "Abertura do dia",
-        estimatedMinutes: 2,
-        extraContentRefs: [],
-        optional: false,
-        completionCriteria: "Ler a apresentação do dia."
-      },
-      {
-        id: "dia-6-aula",
+        id: "dia-3-s22",
         type: "aula_textual",
         title: "Aula: Matemática Financeira (AC-06)",
         estimatedMinutes: 40,
@@ -408,7 +353,22 @@ const DAYS: CourseDay[] = [
         completionCriteria: "Ler a aula completa até o fim."
       },
       {
-        id: "dia-6-checagem",
+        id: "dia-3-s23",
+        type: "videoaula_obrigatoria",
+        title: "Videoaula — Matemática Financeira (AC-06)",
+        estimatedMinutes: 12,
+        contentRef: {
+          kind: "video",
+          id: "video-ac-06-67",
+          subjectSlug: "especificas",
+          syllabusCodes: ["AC-06"]
+        },
+        extraContentRefs: [],
+        optional: false,
+        completionCriteria: "Assistir (ou abrir e marcar como assistido) a videoaula obrigatória do tópico."
+      },
+      {
+        id: "dia-3-s24",
         type: "checagem_compreensao",
         title: "Checagem de compreensão — AC-06",
         estimatedMinutes: 3,
@@ -424,7 +384,7 @@ const DAYS: CourseDay[] = [
         completionCriteria: "Responder a questão de checagem."
       },
       {
-        id: "dia-6-revisao-programada",
+        id: "dia-3-s25",
         type: "revisao_programada",
         title: "Revisão programada do dia",
         estimatedMinutes: 10,
@@ -433,7 +393,7 @@ const DAYS: CourseDay[] = [
         completionCriteria: "Revisar os flashcards e revisões vencidos hoje (se houver)."
       },
       {
-        id: "dia-6-fechamento",
+        id: "dia-3-s26",
         type: "fechamento_dia",
         title: "Fechamento do dia",
         estimatedMinutes: 5,
@@ -442,20 +402,20 @@ const DAYS: CourseDay[] = [
         completionCriteria: "Registrar confiança e dificuldades percebidas no dia."
       }
     ],
-    estimatedMinutesTotal: 60,
-    expectedOutcome: "Consegue responder corretamente questões objetivas sobre Matemática Financeira."
+    estimatedMinutesTotal: 127,
+    expectedOutcome: "Consegue responder corretamente questões objetivas sobre Razão e proporção. Consegue responder corretamente questões objetivas sobre Matemática Financeira."
   },
   {
-    day: 7,
-    phase: "consolidacao",
-    title: "Modalidades de transporte (AC-11)",
-    learningObjectives: ["Dominar Modalidades de transporte, código AC-11 do Anexo IV."],
+    day: 4,
+    phase: "fechamento_edital",
+    title: "Dia 4 — Modalidades de transporte (AC-11) + Fundamentos de computação (AC-18)",
+    learningObjectives: ["Dominar Modalidades de transporte, código AC-11 do Anexo IV.", "Dominar Fundamentos de computação, código AC-18 do Anexo IV."],
     subjects: ["especificas"],
-    syllabusCodes: ["AC-11"],
+    syllabusCodes: ["AC-11", "AC-18"],
     prerequisites: [],
     steps: [
       {
-        id: "dia-7-abertura",
+        id: "dia-4-s27",
         type: "abertura",
         title: "Abertura do dia",
         estimatedMinutes: 2,
@@ -464,7 +424,7 @@ const DAYS: CourseDay[] = [
         completionCriteria: "Ler a apresentação do dia."
       },
       {
-        id: "dia-7-aula",
+        id: "dia-4-s28",
         type: "aula_textual",
         title: "Aula: Modalidades de transporte (AC-11)",
         estimatedMinutes: 40,
@@ -480,7 +440,22 @@ const DAYS: CourseDay[] = [
         completionCriteria: "Ler a aula completa até o fim."
       },
       {
-        id: "dia-7-checagem",
+        id: "dia-4-s29",
+        type: "videoaula_obrigatoria",
+        title: "Videoaula — Modalidades de transporte (AC-11)",
+        estimatedMinutes: 12,
+        contentRef: {
+          kind: "video",
+          id: "video-ac-11-82",
+          subjectSlug: "especificas",
+          syllabusCodes: ["AC-11"]
+        },
+        extraContentRefs: [],
+        optional: false,
+        completionCriteria: "Assistir (ou abrir e marcar como assistido) a videoaula obrigatória do tópico."
+      },
+      {
+        id: "dia-4-s30",
         type: "checagem_compreensao",
         title: "Checagem de compreensão — AC-11",
         estimatedMinutes: 3,
@@ -496,47 +471,7 @@ const DAYS: CourseDay[] = [
         completionCriteria: "Responder a questão de checagem."
       },
       {
-        id: "dia-7-revisao-programada",
-        type: "revisao_programada",
-        title: "Revisão programada do dia",
-        estimatedMinutes: 10,
-        extraContentRefs: [],
-        optional: true,
-        completionCriteria: "Revisar os flashcards e revisões vencidos hoje (se houver)."
-      },
-      {
-        id: "dia-7-fechamento",
-        type: "fechamento_dia",
-        title: "Fechamento do dia",
-        estimatedMinutes: 5,
-        extraContentRefs: [],
-        optional: false,
-        completionCriteria: "Registrar confiança e dificuldades percebidas no dia."
-      }
-    ],
-    estimatedMinutesTotal: 60,
-    expectedOutcome: "Consegue responder corretamente questões objetivas sobre Modalidades de transporte."
-  },
-  {
-    day: 8,
-    phase: "fechamento_edital",
-    title: "Fundamentos de computação (AC-18)",
-    learningObjectives: ["Dominar Fundamentos de computação, código AC-18 do Anexo IV."],
-    subjects: ["especificas"],
-    syllabusCodes: ["AC-18"],
-    prerequisites: [],
-    steps: [
-      {
-        id: "dia-8-abertura",
-        type: "abertura",
-        title: "Abertura do dia",
-        estimatedMinutes: 2,
-        extraContentRefs: [],
-        optional: false,
-        completionCriteria: "Ler a apresentação do dia."
-      },
-      {
-        id: "dia-8-aula",
+        id: "dia-4-s31",
         type: "aula_textual",
         title: "Aula: Fundamentos de computação (AC-18)",
         estimatedMinutes: 40,
@@ -552,7 +487,22 @@ const DAYS: CourseDay[] = [
         completionCriteria: "Ler a aula completa até o fim."
       },
       {
-        id: "dia-8-checagem",
+        id: "dia-4-s32",
+        type: "videoaula_obrigatoria",
+        title: "Videoaula — Fundamentos de computação (AC-18)",
+        estimatedMinutes: 12,
+        contentRef: {
+          kind: "video",
+          id: "video-ac-18-101",
+          subjectSlug: "especificas",
+          syllabusCodes: ["AC-18"]
+        },
+        extraContentRefs: [],
+        optional: false,
+        completionCriteria: "Assistir (ou abrir e marcar como assistido) a videoaula obrigatória do tópico."
+      },
+      {
+        id: "dia-4-s33",
         type: "checagem_compreensao",
         title: "Checagem de compreensão — AC-18",
         estimatedMinutes: 3,
@@ -568,7 +518,7 @@ const DAYS: CourseDay[] = [
         completionCriteria: "Responder a questão de checagem."
       },
       {
-        id: "dia-8-revisao-programada",
+        id: "dia-4-s34",
         type: "revisao_programada",
         title: "Revisão programada do dia",
         estimatedMinutes: 10,
@@ -577,7 +527,7 @@ const DAYS: CourseDay[] = [
         completionCriteria: "Revisar os flashcards e revisões vencidos hoje (se houver)."
       },
       {
-        id: "dia-8-fechamento",
+        id: "dia-4-s35",
         type: "fechamento_dia",
         title: "Fechamento do dia",
         estimatedMinutes: 5,
@@ -586,20 +536,20 @@ const DAYS: CourseDay[] = [
         completionCriteria: "Registrar confiança e dificuldades percebidas no dia."
       }
     ],
-    estimatedMinutesTotal: 60,
-    expectedOutcome: "Consegue responder corretamente questões objetivas sobre Fundamentos de computação."
+    estimatedMinutesTotal: 127,
+    expectedOutcome: "Consegue responder corretamente questões objetivas sobre Modalidades de transporte. Consegue responder corretamente questões objetivas sobre Fundamentos de computação."
   },
   {
-    day: 9,
-    phase: "desenvolvimento",
-    title: "Relações e funções (MAT-03) — Parte 1",
-    learningObjectives: ["Dominar Relações e funções, código MAT-03 do Anexo IV."],
-    subjects: ["matematica"],
-    syllabusCodes: ["MAT-03"],
+    day: 5,
+    phase: "fundamentos",
+    title: "Dia 5 — Relações e funções (MAT-03) + Ortografia oficial (PT-02)",
+    learningObjectives: ["Dominar Relações e funções, código MAT-03 do Anexo IV.", "Dominar Ortografia oficial, código PT-02 do Anexo IV."],
+    subjects: ["matematica", "portugues"],
+    syllabusCodes: ["MAT-03", "PT-02"],
     prerequisites: [],
     steps: [
       {
-        id: "dia-9-abertura",
+        id: "dia-5-s36",
         type: "abertura",
         title: "Abertura do dia",
         estimatedMinutes: 2,
@@ -608,7 +558,7 @@ const DAYS: CourseDay[] = [
         completionCriteria: "Ler a apresentação do dia."
       },
       {
-        id: "dia-9-aula",
+        id: "dia-5-s37",
         type: "aula_textual",
         title: "Aula: Relações e funções (MAT-03)",
         estimatedMinutes: 40,
@@ -624,7 +574,22 @@ const DAYS: CourseDay[] = [
         completionCriteria: "Ler a aula completa até o fim."
       },
       {
-        id: "dia-9-checagem",
+        id: "dia-5-s38",
+        type: "videoaula_obrigatoria",
+        title: "Videoaula — Relações e funções (MAT-03)",
+        estimatedMinutes: 12,
+        contentRef: {
+          kind: "video",
+          id: "video-mat-03-28",
+          subjectSlug: "matematica",
+          syllabusCodes: ["MAT-03"]
+        },
+        extraContentRefs: [],
+        optional: false,
+        completionCriteria: "Assistir (ou abrir e marcar como assistido) a videoaula obrigatória do tópico."
+      },
+      {
+        id: "dia-5-s39",
         type: "checagem_compreensao",
         title: "Checagem de compreensão — MAT-03",
         estimatedMinutes: 3,
@@ -640,47 +605,7 @@ const DAYS: CourseDay[] = [
         completionCriteria: "Responder a questão de checagem."
       },
       {
-        id: "dia-9-revisao-programada",
-        type: "revisao_programada",
-        title: "Revisão programada do dia",
-        estimatedMinutes: 10,
-        extraContentRefs: [],
-        optional: true,
-        completionCriteria: "Revisar os flashcards e revisões vencidos hoje (se houver)."
-      },
-      {
-        id: "dia-9-fechamento",
-        type: "fechamento_dia",
-        title: "Fechamento do dia",
-        estimatedMinutes: 5,
-        extraContentRefs: [],
-        optional: false,
-        completionCriteria: "Registrar confiança e dificuldades percebidas no dia."
-      }
-    ],
-    estimatedMinutesTotal: 60,
-    expectedOutcome: "Consegue responder corretamente questões objetivas sobre Relações e funções."
-  },
-  {
-    day: 10,
-    phase: "fundamentos",
-    title: "Ortografia oficial (PT-02)",
-    learningObjectives: ["Dominar Ortografia oficial, código PT-02 do Anexo IV."],
-    subjects: ["portugues"],
-    syllabusCodes: ["PT-02"],
-    prerequisites: [],
-    steps: [
-      {
-        id: "dia-10-abertura",
-        type: "abertura",
-        title: "Abertura do dia",
-        estimatedMinutes: 2,
-        extraContentRefs: [],
-        optional: false,
-        completionCriteria: "Ler a apresentação do dia."
-      },
-      {
-        id: "dia-10-aula",
+        id: "dia-5-s40",
         type: "aula_textual",
         title: "Aula: Ortografia oficial (PT-02)",
         estimatedMinutes: 40,
@@ -696,7 +621,22 @@ const DAYS: CourseDay[] = [
         completionCriteria: "Ler a aula completa até o fim."
       },
       {
-        id: "dia-10-checagem",
+        id: "dia-5-s41",
+        type: "videoaula_obrigatoria",
+        title: "Videoaula — Ortografia oficial (PT-02)",
+        estimatedMinutes: 12,
+        contentRef: {
+          kind: "video",
+          id: "video-pt-02-4",
+          subjectSlug: "portugues",
+          syllabusCodes: ["PT-02"]
+        },
+        extraContentRefs: [],
+        optional: false,
+        completionCriteria: "Assistir (ou abrir e marcar como assistido) a videoaula obrigatória do tópico."
+      },
+      {
+        id: "dia-5-s42",
         type: "checagem_compreensao",
         title: "Checagem de compreensão — PT-02",
         estimatedMinutes: 3,
@@ -712,7 +652,7 @@ const DAYS: CourseDay[] = [
         completionCriteria: "Responder a questão de checagem."
       },
       {
-        id: "dia-10-revisao-programada",
+        id: "dia-5-s43",
         type: "revisao_programada",
         title: "Revisão programada do dia",
         estimatedMinutes: 10,
@@ -721,7 +661,7 @@ const DAYS: CourseDay[] = [
         completionCriteria: "Revisar os flashcards e revisões vencidos hoje (se houver)."
       },
       {
-        id: "dia-10-fechamento",
+        id: "dia-5-s44",
         type: "fechamento_dia",
         title: "Fechamento do dia",
         estimatedMinutes: 5,
@@ -730,20 +670,20 @@ const DAYS: CourseDay[] = [
         completionCriteria: "Registrar confiança e dificuldades percebidas no dia."
       }
     ],
-    estimatedMinutesTotal: 60,
-    expectedOutcome: "Consegue responder corretamente questões objetivas sobre Ortografia oficial."
+    estimatedMinutesTotal: 127,
+    expectedOutcome: "Consegue responder corretamente questões objetivas sobre Relações e funções. Consegue responder corretamente questões objetivas sobre Ortografia oficial."
   },
   {
-    day: 11,
-    phase: "consolidacao",
-    title: "Gestão de Estoques (AC-12) — Parte 1",
-    learningObjectives: ["Dominar Gestão de Estoques, código AC-12 do Anexo IV."],
-    subjects: ["especificas"],
-    syllabusCodes: ["AC-12"],
+    day: 6,
+    phase: "desenvolvimento",
+    title: "Dia 6 — Gestão de Estoques (AC-12) + Relações e funções (MAT-03)",
+    learningObjectives: ["Dominar Gestão de Estoques, código AC-12 do Anexo IV.", "Dominar Relações e funções, código MAT-03 do Anexo IV."],
+    subjects: ["especificas", "matematica"],
+    syllabusCodes: ["AC-12", "MAT-03"],
     prerequisites: [],
     steps: [
       {
-        id: "dia-11-abertura",
+        id: "dia-6-s45",
         type: "abertura",
         title: "Abertura do dia",
         estimatedMinutes: 2,
@@ -752,7 +692,7 @@ const DAYS: CourseDay[] = [
         completionCriteria: "Ler a apresentação do dia."
       },
       {
-        id: "dia-11-aula",
+        id: "dia-6-s46",
         type: "aula_textual",
         title: "Aula: Gestão de Estoques (AC-12)",
         estimatedMinutes: 40,
@@ -768,7 +708,22 @@ const DAYS: CourseDay[] = [
         completionCriteria: "Ler a aula completa até o fim."
       },
       {
-        id: "dia-11-checagem",
+        id: "dia-6-s47",
+        type: "videoaula_obrigatoria",
+        title: "Videoaula — Gestão de Estoques (AC-12)",
+        estimatedMinutes: 12,
+        contentRef: {
+          kind: "video",
+          id: "video-ac-12-85",
+          subjectSlug: "especificas",
+          syllabusCodes: ["AC-12"]
+        },
+        extraContentRefs: [],
+        optional: false,
+        completionCriteria: "Assistir (ou abrir e marcar como assistido) a videoaula obrigatória do tópico."
+      },
+      {
+        id: "dia-6-s48",
         type: "checagem_compreensao",
         title: "Checagem de compreensão — AC-12",
         estimatedMinutes: 3,
@@ -784,47 +739,7 @@ const DAYS: CourseDay[] = [
         completionCriteria: "Responder a questão de checagem."
       },
       {
-        id: "dia-11-revisao-programada",
-        type: "revisao_programada",
-        title: "Revisão programada do dia",
-        estimatedMinutes: 10,
-        extraContentRefs: [],
-        optional: true,
-        completionCriteria: "Revisar os flashcards e revisões vencidos hoje (se houver)."
-      },
-      {
-        id: "dia-11-fechamento",
-        type: "fechamento_dia",
-        title: "Fechamento do dia",
-        estimatedMinutes: 5,
-        extraContentRefs: [],
-        optional: false,
-        completionCriteria: "Registrar confiança e dificuldades percebidas no dia."
-      }
-    ],
-    estimatedMinutesTotal: 60,
-    expectedOutcome: "Consegue responder corretamente questões objetivas sobre Gestão de Estoques."
-  },
-  {
-    day: 12,
-    phase: "desenvolvimento",
-    title: "Relações e funções (MAT-03) — Parte 2",
-    learningObjectives: ["Dominar Relações e funções, código MAT-03 do Anexo IV."],
-    subjects: ["matematica"],
-    syllabusCodes: ["MAT-03"],
-    prerequisites: [],
-    steps: [
-      {
-        id: "dia-12-abertura",
-        type: "abertura",
-        title: "Abertura do dia",
-        estimatedMinutes: 2,
-        extraContentRefs: [],
-        optional: false,
-        completionCriteria: "Ler a apresentação do dia."
-      },
-      {
-        id: "dia-12-pratica",
+        id: "dia-6-s49",
         type: "questoes",
         title: "Prática adicional — MAT-03 (Relações e funções)",
         estimatedMinutes: 25,
@@ -840,7 +755,7 @@ const DAYS: CourseDay[] = [
         completionCriteria: "Responder ao bloco de questões adicionais."
       },
       {
-        id: "dia-12-revisao-programada",
+        id: "dia-6-s50",
         type: "revisao_programada",
         title: "Revisão programada do dia",
         estimatedMinutes: 10,
@@ -849,7 +764,7 @@ const DAYS: CourseDay[] = [
         completionCriteria: "Revisar os flashcards e revisões vencidos hoje (se houver)."
       },
       {
-        id: "dia-12-fechamento",
+        id: "dia-6-s51",
         type: "fechamento_dia",
         title: "Fechamento do dia",
         estimatedMinutes: 5,
@@ -858,20 +773,20 @@ const DAYS: CourseDay[] = [
         completionCriteria: "Registrar confiança e dificuldades percebidas no dia."
       }
     ],
-    estimatedMinutesTotal: 42,
-    expectedOutcome: "Consegue responder corretamente questões objetivas sobre Relações e funções."
+    estimatedMinutesTotal: 97,
+    expectedOutcome: "Consegue responder corretamente questões objetivas sobre Gestão de Estoques. Consegue responder corretamente questões objetivas sobre Relações e funções."
   },
   {
-    day: 13,
+    day: 7,
     phase: "desenvolvimento",
-    title: "Recursos Humanos (AC-01) — Parte 2",
-    learningObjectives: ["Dominar Recursos Humanos, código AC-01 do Anexo IV."],
+    title: "Dia 7 — Recursos Humanos (AC-01) + Registros contábeis (AC-07)",
+    learningObjectives: ["Dominar Recursos Humanos, código AC-01 do Anexo IV.", "Dominar Registros contábeis, código AC-07 do Anexo IV."],
     subjects: ["especificas"],
-    syllabusCodes: ["AC-01"],
+    syllabusCodes: ["AC-01", "AC-07"],
     prerequisites: [],
     steps: [
       {
-        id: "dia-13-abertura",
+        id: "dia-7-s52",
         type: "abertura",
         title: "Abertura do dia",
         estimatedMinutes: 2,
@@ -880,7 +795,7 @@ const DAYS: CourseDay[] = [
         completionCriteria: "Ler a apresentação do dia."
       },
       {
-        id: "dia-13-pratica",
+        id: "dia-7-s53",
         type: "questoes",
         title: "Prática adicional — AC-01 (Recursos Humanos)",
         estimatedMinutes: 25,
@@ -911,47 +826,7 @@ const DAYS: CourseDay[] = [
         completionCriteria: "Responder ao bloco de questões adicionais."
       },
       {
-        id: "dia-13-revisao-programada",
-        type: "revisao_programada",
-        title: "Revisão programada do dia",
-        estimatedMinutes: 10,
-        extraContentRefs: [],
-        optional: true,
-        completionCriteria: "Revisar os flashcards e revisões vencidos hoje (se houver)."
-      },
-      {
-        id: "dia-13-fechamento",
-        type: "fechamento_dia",
-        title: "Fechamento do dia",
-        estimatedMinutes: 5,
-        extraContentRefs: [],
-        optional: false,
-        completionCriteria: "Registrar confiança e dificuldades percebidas no dia."
-      }
-    ],
-    estimatedMinutesTotal: 42,
-    expectedOutcome: "Consegue responder corretamente questões objetivas sobre Recursos Humanos."
-  },
-  {
-    day: 14,
-    phase: "desenvolvimento",
-    title: "Registros contábeis (AC-07) — Parte 1",
-    learningObjectives: ["Dominar Registros contábeis, código AC-07 do Anexo IV."],
-    subjects: ["especificas"],
-    syllabusCodes: ["AC-07"],
-    prerequisites: [],
-    steps: [
-      {
-        id: "dia-14-abertura",
-        type: "abertura",
-        title: "Abertura do dia",
-        estimatedMinutes: 2,
-        extraContentRefs: [],
-        optional: false,
-        completionCriteria: "Ler a apresentação do dia."
-      },
-      {
-        id: "dia-14-aula",
+        id: "dia-7-s54",
         type: "aula_textual",
         title: "Aula: Registros contábeis (AC-07)",
         estimatedMinutes: 40,
@@ -967,7 +842,22 @@ const DAYS: CourseDay[] = [
         completionCriteria: "Ler a aula completa até o fim."
       },
       {
-        id: "dia-14-checagem",
+        id: "dia-7-s55",
+        type: "videoaula_obrigatoria",
+        title: "Videoaula — Registros contábeis (AC-07)",
+        estimatedMinutes: 12,
+        contentRef: {
+          kind: "video",
+          id: "video-ac-07-70",
+          subjectSlug: "especificas",
+          syllabusCodes: ["AC-07"]
+        },
+        extraContentRefs: [],
+        optional: false,
+        completionCriteria: "Assistir (ou abrir e marcar como assistido) a videoaula obrigatória do tópico."
+      },
+      {
+        id: "dia-7-s56",
         type: "checagem_compreensao",
         title: "Checagem de compreensão — AC-07",
         estimatedMinutes: 3,
@@ -983,7 +873,7 @@ const DAYS: CourseDay[] = [
         completionCriteria: "Responder a questão de checagem."
       },
       {
-        id: "dia-14-revisao-programada",
+        id: "dia-7-s57",
         type: "revisao_programada",
         title: "Revisão programada do dia",
         estimatedMinutes: 10,
@@ -992,7 +882,7 @@ const DAYS: CourseDay[] = [
         completionCriteria: "Revisar os flashcards e revisões vencidos hoje (se houver)."
       },
       {
-        id: "dia-14-fechamento",
+        id: "dia-7-s58",
         type: "fechamento_dia",
         title: "Fechamento do dia",
         estimatedMinutes: 5,
@@ -1001,20 +891,20 @@ const DAYS: CourseDay[] = [
         completionCriteria: "Registrar confiança e dificuldades percebidas no dia."
       }
     ],
-    estimatedMinutesTotal: 60,
-    expectedOutcome: "Consegue responder corretamente questões objetivas sobre Registros contábeis."
+    estimatedMinutesTotal: 97,
+    expectedOutcome: "Consegue responder corretamente questões objetivas sobre Recursos Humanos. Consegue responder corretamente questões objetivas sobre Registros contábeis."
   },
   {
-    day: 15,
-    phase: "desenvolvimento",
-    title: "Equações e sistemas lineares (MAT-04) — Parte 1",
-    learningObjectives: ["Dominar Equações e sistemas lineares, código MAT-04 do Anexo IV."],
-    subjects: ["matematica"],
-    syllabusCodes: ["MAT-04"],
+    day: 8,
+    phase: "fundamentos",
+    title: "Dia 8 — Equações e sistemas lineares (MAT-04) + Mecanismos de coesão textual (PT-03)",
+    learningObjectives: ["Dominar Equações e sistemas lineares, código MAT-04 do Anexo IV.", "Dominar Mecanismos de coesão textual, código PT-03 do Anexo IV."],
+    subjects: ["matematica", "portugues"],
+    syllabusCodes: ["MAT-04", "PT-03"],
     prerequisites: [],
     steps: [
       {
-        id: "dia-15-abertura",
+        id: "dia-8-s59",
         type: "abertura",
         title: "Abertura do dia",
         estimatedMinutes: 2,
@@ -1023,7 +913,7 @@ const DAYS: CourseDay[] = [
         completionCriteria: "Ler a apresentação do dia."
       },
       {
-        id: "dia-15-aula",
+        id: "dia-8-s60",
         type: "aula_textual",
         title: "Aula: Equações e sistemas lineares (MAT-04)",
         estimatedMinutes: 40,
@@ -1039,7 +929,22 @@ const DAYS: CourseDay[] = [
         completionCriteria: "Ler a aula completa até o fim."
       },
       {
-        id: "dia-15-checagem",
+        id: "dia-8-s61",
+        type: "videoaula_obrigatoria",
+        title: "Videoaula — Equações e sistemas lineares (MAT-04)",
+        estimatedMinutes: 12,
+        contentRef: {
+          kind: "video",
+          id: "video-mat-04-31",
+          subjectSlug: "matematica",
+          syllabusCodes: ["MAT-04"]
+        },
+        extraContentRefs: [],
+        optional: false,
+        completionCriteria: "Assistir (ou abrir e marcar como assistido) a videoaula obrigatória do tópico."
+      },
+      {
+        id: "dia-8-s62",
         type: "checagem_compreensao",
         title: "Checagem de compreensão — MAT-04",
         estimatedMinutes: 3,
@@ -1055,47 +960,7 @@ const DAYS: CourseDay[] = [
         completionCriteria: "Responder a questão de checagem."
       },
       {
-        id: "dia-15-revisao-programada",
-        type: "revisao_programada",
-        title: "Revisão programada do dia",
-        estimatedMinutes: 10,
-        extraContentRefs: [],
-        optional: true,
-        completionCriteria: "Revisar os flashcards e revisões vencidos hoje (se houver)."
-      },
-      {
-        id: "dia-15-fechamento",
-        type: "fechamento_dia",
-        title: "Fechamento do dia",
-        estimatedMinutes: 5,
-        extraContentRefs: [],
-        optional: false,
-        completionCriteria: "Registrar confiança e dificuldades percebidas no dia."
-      }
-    ],
-    estimatedMinutesTotal: 60,
-    expectedOutcome: "Consegue responder corretamente questões objetivas sobre Equações e sistemas lineares."
-  },
-  {
-    day: 16,
-    phase: "fundamentos",
-    title: "Mecanismos de coesão textual (PT-03)",
-    learningObjectives: ["Dominar Mecanismos de coesão textual, código PT-03 do Anexo IV."],
-    subjects: ["portugues"],
-    syllabusCodes: ["PT-03"],
-    prerequisites: [],
-    steps: [
-      {
-        id: "dia-16-abertura",
-        type: "abertura",
-        title: "Abertura do dia",
-        estimatedMinutes: 2,
-        extraContentRefs: [],
-        optional: false,
-        completionCriteria: "Ler a apresentação do dia."
-      },
-      {
-        id: "dia-16-aula",
+        id: "dia-8-s63",
         type: "aula_textual",
         title: "Aula: Mecanismos de coesão textual (PT-03)",
         estimatedMinutes: 40,
@@ -1111,7 +976,22 @@ const DAYS: CourseDay[] = [
         completionCriteria: "Ler a aula completa até o fim."
       },
       {
-        id: "dia-16-checagem",
+        id: "dia-8-s64",
+        type: "videoaula_obrigatoria",
+        title: "Videoaula — Mecanismos de coesão textual (PT-03)",
+        estimatedMinutes: 12,
+        contentRef: {
+          kind: "video",
+          id: "video-pt-03-7",
+          subjectSlug: "portugues",
+          syllabusCodes: ["PT-03"]
+        },
+        extraContentRefs: [],
+        optional: false,
+        completionCriteria: "Assistir (ou abrir e marcar como assistido) a videoaula obrigatória do tópico."
+      },
+      {
+        id: "dia-8-s65",
         type: "checagem_compreensao",
         title: "Checagem de compreensão — PT-03",
         estimatedMinutes: 3,
@@ -1127,7 +1007,7 @@ const DAYS: CourseDay[] = [
         completionCriteria: "Responder a questão de checagem."
       },
       {
-        id: "dia-16-revisao-programada",
+        id: "dia-8-s66",
         type: "revisao_programada",
         title: "Revisão programada do dia",
         estimatedMinutes: 10,
@@ -1136,7 +1016,7 @@ const DAYS: CourseDay[] = [
         completionCriteria: "Revisar os flashcards e revisões vencidos hoje (se houver)."
       },
       {
-        id: "dia-16-fechamento",
+        id: "dia-8-s67",
         type: "fechamento_dia",
         title: "Fechamento do dia",
         estimatedMinutes: 5,
@@ -1145,20 +1025,20 @@ const DAYS: CourseDay[] = [
         completionCriteria: "Registrar confiança e dificuldades percebidas no dia."
       }
     ],
-    estimatedMinutesTotal: 60,
-    expectedOutcome: "Consegue responder corretamente questões objetivas sobre Mecanismos de coesão textual."
+    estimatedMinutesTotal: 127,
+    expectedOutcome: "Consegue responder corretamente questões objetivas sobre Equações e sistemas lineares. Consegue responder corretamente questões objetivas sobre Mecanismos de coesão textual."
   },
   {
-    day: 17,
-    phase: "consolidacao",
-    title: "Gestão de Estoques (AC-12) — Parte 2",
-    learningObjectives: ["Dominar Gestão de Estoques, código AC-12 do Anexo IV."],
-    subjects: ["especificas"],
-    syllabusCodes: ["AC-12"],
+    day: 9,
+    phase: "desenvolvimento",
+    title: "Dia 9 — Gestão de Estoques (AC-12) + Equações e sistemas lineares (MAT-04)",
+    learningObjectives: ["Dominar Gestão de Estoques, código AC-12 do Anexo IV.", "Dominar Equações e sistemas lineares, código MAT-04 do Anexo IV."],
+    subjects: ["especificas", "matematica"],
+    syllabusCodes: ["AC-12", "MAT-04"],
     prerequisites: [],
     steps: [
       {
-        id: "dia-17-abertura",
+        id: "dia-9-s68",
         type: "abertura",
         title: "Abertura do dia",
         estimatedMinutes: 2,
@@ -1167,7 +1047,7 @@ const DAYS: CourseDay[] = [
         completionCriteria: "Ler a apresentação do dia."
       },
       {
-        id: "dia-17-pratica",
+        id: "dia-9-s69",
         type: "questoes",
         title: "Prática adicional — AC-12 (Gestão de Estoques)",
         estimatedMinutes: 25,
@@ -1198,47 +1078,7 @@ const DAYS: CourseDay[] = [
         completionCriteria: "Responder ao bloco de questões adicionais."
       },
       {
-        id: "dia-17-revisao-programada",
-        type: "revisao_programada",
-        title: "Revisão programada do dia",
-        estimatedMinutes: 10,
-        extraContentRefs: [],
-        optional: true,
-        completionCriteria: "Revisar os flashcards e revisões vencidos hoje (se houver)."
-      },
-      {
-        id: "dia-17-fechamento",
-        type: "fechamento_dia",
-        title: "Fechamento do dia",
-        estimatedMinutes: 5,
-        extraContentRefs: [],
-        optional: false,
-        completionCriteria: "Registrar confiança e dificuldades percebidas no dia."
-      }
-    ],
-    estimatedMinutesTotal: 42,
-    expectedOutcome: "Consegue responder corretamente questões objetivas sobre Gestão de Estoques."
-  },
-  {
-    day: 18,
-    phase: "desenvolvimento",
-    title: "Equações e sistemas lineares (MAT-04) — Parte 2",
-    learningObjectives: ["Dominar Equações e sistemas lineares, código MAT-04 do Anexo IV."],
-    subjects: ["matematica"],
-    syllabusCodes: ["MAT-04"],
-    prerequisites: [],
-    steps: [
-      {
-        id: "dia-18-abertura",
-        type: "abertura",
-        title: "Abertura do dia",
-        estimatedMinutes: 2,
-        extraContentRefs: [],
-        optional: false,
-        completionCriteria: "Ler a apresentação do dia."
-      },
-      {
-        id: "dia-18-pratica",
+        id: "dia-9-s70",
         type: "questoes",
         title: "Prática adicional — MAT-04 (Equações e sistemas lineares)",
         estimatedMinutes: 25,
@@ -1269,7 +1109,7 @@ const DAYS: CourseDay[] = [
         completionCriteria: "Responder ao bloco de questões adicionais."
       },
       {
-        id: "dia-18-revisao-programada",
+        id: "dia-9-s71",
         type: "revisao_programada",
         title: "Revisão programada do dia",
         estimatedMinutes: 10,
@@ -1278,7 +1118,7 @@ const DAYS: CourseDay[] = [
         completionCriteria: "Revisar os flashcards e revisões vencidos hoje (se houver)."
       },
       {
-        id: "dia-18-fechamento",
+        id: "dia-9-s72",
         type: "fechamento_dia",
         title: "Fechamento do dia",
         estimatedMinutes: 5,
@@ -1287,20 +1127,20 @@ const DAYS: CourseDay[] = [
         completionCriteria: "Registrar confiança e dificuldades percebidas no dia."
       }
     ],
-    estimatedMinutesTotal: 42,
-    expectedOutcome: "Consegue responder corretamente questões objetivas sobre Equações e sistemas lineares."
+    estimatedMinutesTotal: 67,
+    expectedOutcome: "Consegue responder corretamente questões objetivas sobre Gestão de Estoques. Consegue responder corretamente questões objetivas sobre Equações e sistemas lineares."
   },
   {
-    day: 19,
-    phase: "fechamento_edital",
-    title: "Aplicativos comerciais (AC-19)",
-    learningObjectives: ["Dominar Aplicativos comerciais, código AC-19 do Anexo IV."],
+    day: 10,
+    phase: "consolidacao",
+    title: "Dia 10 — Aplicativos comerciais (AC-19) + Armazenagem (AC-13)",
+    learningObjectives: ["Dominar Aplicativos comerciais, código AC-19 do Anexo IV.", "Dominar Armazenagem, código AC-13 do Anexo IV."],
     subjects: ["especificas"],
-    syllabusCodes: ["AC-19"],
+    syllabusCodes: ["AC-19", "AC-13"],
     prerequisites: [],
     steps: [
       {
-        id: "dia-19-abertura",
+        id: "dia-10-s73",
         type: "abertura",
         title: "Abertura do dia",
         estimatedMinutes: 2,
@@ -1309,7 +1149,7 @@ const DAYS: CourseDay[] = [
         completionCriteria: "Ler a apresentação do dia."
       },
       {
-        id: "dia-19-aula",
+        id: "dia-10-s74",
         type: "aula_textual",
         title: "Aula: Aplicativos comerciais (AC-19)",
         estimatedMinutes: 40,
@@ -1325,7 +1165,22 @@ const DAYS: CourseDay[] = [
         completionCriteria: "Ler a aula completa até o fim."
       },
       {
-        id: "dia-19-checagem",
+        id: "dia-10-s75",
+        type: "videoaula_obrigatoria",
+        title: "Videoaula — Aplicativos comerciais (AC-19)",
+        estimatedMinutes: 12,
+        contentRef: {
+          kind: "video",
+          id: "video-ac-19-104",
+          subjectSlug: "especificas",
+          syllabusCodes: ["AC-19"]
+        },
+        extraContentRefs: [],
+        optional: false,
+        completionCriteria: "Assistir (ou abrir e marcar como assistido) a videoaula obrigatória do tópico."
+      },
+      {
+        id: "dia-10-s76",
         type: "checagem_compreensao",
         title: "Checagem de compreensão — AC-19",
         estimatedMinutes: 3,
@@ -1341,47 +1196,7 @@ const DAYS: CourseDay[] = [
         completionCriteria: "Responder a questão de checagem."
       },
       {
-        id: "dia-19-revisao-programada",
-        type: "revisao_programada",
-        title: "Revisão programada do dia",
-        estimatedMinutes: 10,
-        extraContentRefs: [],
-        optional: true,
-        completionCriteria: "Revisar os flashcards e revisões vencidos hoje (se houver)."
-      },
-      {
-        id: "dia-19-fechamento",
-        type: "fechamento_dia",
-        title: "Fechamento do dia",
-        estimatedMinutes: 5,
-        extraContentRefs: [],
-        optional: false,
-        completionCriteria: "Registrar confiança e dificuldades percebidas no dia."
-      }
-    ],
-    estimatedMinutesTotal: 60,
-    expectedOutcome: "Consegue responder corretamente questões objetivas sobre Aplicativos comerciais."
-  },
-  {
-    day: 20,
-    phase: "consolidacao",
-    title: "Armazenagem (AC-13)",
-    learningObjectives: ["Dominar Armazenagem, código AC-13 do Anexo IV."],
-    subjects: ["especificas"],
-    syllabusCodes: ["AC-13"],
-    prerequisites: [],
-    steps: [
-      {
-        id: "dia-20-abertura",
-        type: "abertura",
-        title: "Abertura do dia",
-        estimatedMinutes: 2,
-        extraContentRefs: [],
-        optional: false,
-        completionCriteria: "Ler a apresentação do dia."
-      },
-      {
-        id: "dia-20-aula",
+        id: "dia-10-s77",
         type: "aula_textual",
         title: "Aula: Armazenagem (AC-13)",
         estimatedMinutes: 40,
@@ -1397,7 +1212,22 @@ const DAYS: CourseDay[] = [
         completionCriteria: "Ler a aula completa até o fim."
       },
       {
-        id: "dia-20-checagem",
+        id: "dia-10-s78",
+        type: "videoaula_obrigatoria",
+        title: "Videoaula — Armazenagem (AC-13)",
+        estimatedMinutes: 12,
+        contentRef: {
+          kind: "video",
+          id: "video-ac-13-88",
+          subjectSlug: "especificas",
+          syllabusCodes: ["AC-13"]
+        },
+        extraContentRefs: [],
+        optional: false,
+        completionCriteria: "Assistir (ou abrir e marcar como assistido) a videoaula obrigatória do tópico."
+      },
+      {
+        id: "dia-10-s79",
         type: "checagem_compreensao",
         title: "Checagem de compreensão — AC-13",
         estimatedMinutes: 3,
@@ -1413,7 +1243,7 @@ const DAYS: CourseDay[] = [
         completionCriteria: "Responder a questão de checagem."
       },
       {
-        id: "dia-20-revisao-programada",
+        id: "dia-10-s80",
         type: "revisao_programada",
         title: "Revisão programada do dia",
         estimatedMinutes: 10,
@@ -1422,7 +1252,7 @@ const DAYS: CourseDay[] = [
         completionCriteria: "Revisar os flashcards e revisões vencidos hoje (se houver)."
       },
       {
-        id: "dia-20-fechamento",
+        id: "dia-10-s81",
         type: "fechamento_dia",
         title: "Fechamento do dia",
         estimatedMinutes: 5,
@@ -1431,20 +1261,20 @@ const DAYS: CourseDay[] = [
         completionCriteria: "Registrar confiança e dificuldades percebidas no dia."
       }
     ],
-    estimatedMinutesTotal: 60,
-    expectedOutcome: "Consegue responder corretamente questões objetivas sobre Armazenagem."
+    estimatedMinutesTotal: 127,
+    expectedOutcome: "Consegue responder corretamente questões objetivas sobre Aplicativos comerciais. Consegue responder corretamente questões objetivas sobre Armazenagem."
   },
   {
-    day: 21,
+    day: 11,
     phase: "desenvolvimento",
-    title: "Sistema de Gestão Integrado (AC-02)",
-    learningObjectives: ["Dominar Sistema de Gestão Integrado, código AC-02 do Anexo IV."],
-    subjects: ["especificas"],
-    syllabusCodes: ["AC-02"],
+    title: "Dia 11 — Sistema de Gestão Integrado (AC-02) + Análise combinatória (MAT-05)",
+    learningObjectives: ["Dominar Sistema de Gestão Integrado, código AC-02 do Anexo IV.", "Dominar Análise combinatória, código MAT-05 do Anexo IV."],
+    subjects: ["especificas", "matematica"],
+    syllabusCodes: ["AC-02", "MAT-05"],
     prerequisites: [],
     steps: [
       {
-        id: "dia-21-abertura",
+        id: "dia-11-s82",
         type: "abertura",
         title: "Abertura do dia",
         estimatedMinutes: 2,
@@ -1453,7 +1283,7 @@ const DAYS: CourseDay[] = [
         completionCriteria: "Ler a apresentação do dia."
       },
       {
-        id: "dia-21-aula",
+        id: "dia-11-s83",
         type: "aula_textual",
         title: "Aula: Sistema de Gestão Integrado (AC-02)",
         estimatedMinutes: 40,
@@ -1469,7 +1299,22 @@ const DAYS: CourseDay[] = [
         completionCriteria: "Ler a aula completa até o fim."
       },
       {
-        id: "dia-21-checagem",
+        id: "dia-11-s84",
+        type: "videoaula_obrigatoria",
+        title: "Videoaula — Sistema de Gestão Integrado (AC-02)",
+        estimatedMinutes: 12,
+        contentRef: {
+          kind: "video",
+          id: "video-ac-02-55",
+          subjectSlug: "especificas",
+          syllabusCodes: ["AC-02"]
+        },
+        extraContentRefs: [],
+        optional: false,
+        completionCriteria: "Assistir (ou abrir e marcar como assistido) a videoaula obrigatória do tópico."
+      },
+      {
+        id: "dia-11-s85",
         type: "checagem_compreensao",
         title: "Checagem de compreensão — AC-02",
         estimatedMinutes: 3,
@@ -1485,47 +1330,7 @@ const DAYS: CourseDay[] = [
         completionCriteria: "Responder a questão de checagem."
       },
       {
-        id: "dia-21-revisao-programada",
-        type: "revisao_programada",
-        title: "Revisão programada do dia",
-        estimatedMinutes: 10,
-        extraContentRefs: [],
-        optional: true,
-        completionCriteria: "Revisar os flashcards e revisões vencidos hoje (se houver)."
-      },
-      {
-        id: "dia-21-fechamento",
-        type: "fechamento_dia",
-        title: "Fechamento do dia",
-        estimatedMinutes: 5,
-        extraContentRefs: [],
-        optional: false,
-        completionCriteria: "Registrar confiança e dificuldades percebidas no dia."
-      }
-    ],
-    estimatedMinutesTotal: 60,
-    expectedOutcome: "Consegue responder corretamente questões objetivas sobre Sistema de Gestão Integrado."
-  },
-  {
-    day: 22,
-    phase: "desenvolvimento",
-    title: "Análise combinatória (MAT-05)",
-    learningObjectives: ["Dominar Análise combinatória, código MAT-05 do Anexo IV."],
-    subjects: ["matematica"],
-    syllabusCodes: ["MAT-05"],
-    prerequisites: [],
-    steps: [
-      {
-        id: "dia-22-abertura",
-        type: "abertura",
-        title: "Abertura do dia",
-        estimatedMinutes: 2,
-        extraContentRefs: [],
-        optional: false,
-        completionCriteria: "Ler a apresentação do dia."
-      },
-      {
-        id: "dia-22-aula",
+        id: "dia-11-s86",
         type: "aula_textual",
         title: "Aula: Análise combinatória (MAT-05)",
         estimatedMinutes: 40,
@@ -1541,7 +1346,22 @@ const DAYS: CourseDay[] = [
         completionCriteria: "Ler a aula completa até o fim."
       },
       {
-        id: "dia-22-checagem",
+        id: "dia-11-s87",
+        type: "videoaula_obrigatoria",
+        title: "Videoaula — Análise combinatória (MAT-05)",
+        estimatedMinutes: 12,
+        contentRef: {
+          kind: "video",
+          id: "video-mat-05-34",
+          subjectSlug: "matematica",
+          syllabusCodes: ["MAT-05"]
+        },
+        extraContentRefs: [],
+        optional: false,
+        completionCriteria: "Assistir (ou abrir e marcar como assistido) a videoaula obrigatória do tópico."
+      },
+      {
+        id: "dia-11-s88",
         type: "checagem_compreensao",
         title: "Checagem de compreensão — MAT-05",
         estimatedMinutes: 3,
@@ -1557,7 +1377,7 @@ const DAYS: CourseDay[] = [
         completionCriteria: "Responder a questão de checagem."
       },
       {
-        id: "dia-22-revisao-programada",
+        id: "dia-11-s89",
         type: "revisao_programada",
         title: "Revisão programada do dia",
         estimatedMinutes: 10,
@@ -1566,7 +1386,7 @@ const DAYS: CourseDay[] = [
         completionCriteria: "Revisar os flashcards e revisões vencidos hoje (se houver)."
       },
       {
-        id: "dia-22-fechamento",
+        id: "dia-11-s90",
         type: "fechamento_dia",
         title: "Fechamento do dia",
         estimatedMinutes: 5,
@@ -1575,20 +1395,20 @@ const DAYS: CourseDay[] = [
         completionCriteria: "Registrar confiança e dificuldades percebidas no dia."
       }
     ],
-    estimatedMinutesTotal: 60,
-    expectedOutcome: "Consegue responder corretamente questões objetivas sobre Análise combinatória."
+    estimatedMinutesTotal: 127,
+    expectedOutcome: "Consegue responder corretamente questões objetivas sobre Sistema de Gestão Integrado. Consegue responder corretamente questões objetivas sobre Análise combinatória."
   },
   {
-    day: 23,
-    phase: "fundamentos",
-    title: "Emprego das classes de palavras (PT-04)",
-    learningObjectives: ["Dominar Emprego das classes de palavras, código PT-04 do Anexo IV."],
-    subjects: ["portugues"],
-    syllabusCodes: ["PT-04"],
+    day: 12,
+    phase: "desenvolvimento",
+    title: "Dia 12 — Emprego das classes de palavras (PT-04) + Registros contábeis (AC-07)",
+    learningObjectives: ["Dominar Emprego das classes de palavras, código PT-04 do Anexo IV.", "Dominar Registros contábeis, código AC-07 do Anexo IV."],
+    subjects: ["portugues", "especificas"],
+    syllabusCodes: ["PT-04", "AC-07"],
     prerequisites: [],
     steps: [
       {
-        id: "dia-23-abertura",
+        id: "dia-12-s91",
         type: "abertura",
         title: "Abertura do dia",
         estimatedMinutes: 2,
@@ -1597,7 +1417,7 @@ const DAYS: CourseDay[] = [
         completionCriteria: "Ler a apresentação do dia."
       },
       {
-        id: "dia-23-aula",
+        id: "dia-12-s92",
         type: "aula_textual",
         title: "Aula: Emprego das classes de palavras (PT-04)",
         estimatedMinutes: 40,
@@ -1613,7 +1433,22 @@ const DAYS: CourseDay[] = [
         completionCriteria: "Ler a aula completa até o fim."
       },
       {
-        id: "dia-23-checagem",
+        id: "dia-12-s93",
+        type: "videoaula_obrigatoria",
+        title: "Videoaula — Emprego das classes de palavras (PT-04)",
+        estimatedMinutes: 12,
+        contentRef: {
+          kind: "video",
+          id: "video-pt-04-10",
+          subjectSlug: "portugues",
+          syllabusCodes: ["PT-04"]
+        },
+        extraContentRefs: [],
+        optional: false,
+        completionCriteria: "Assistir (ou abrir e marcar como assistido) a videoaula obrigatória do tópico."
+      },
+      {
+        id: "dia-12-s94",
         type: "checagem_compreensao",
         title: "Checagem de compreensão — PT-04",
         estimatedMinutes: 3,
@@ -1629,47 +1464,7 @@ const DAYS: CourseDay[] = [
         completionCriteria: "Responder a questão de checagem."
       },
       {
-        id: "dia-23-revisao-programada",
-        type: "revisao_programada",
-        title: "Revisão programada do dia",
-        estimatedMinutes: 10,
-        extraContentRefs: [],
-        optional: true,
-        completionCriteria: "Revisar os flashcards e revisões vencidos hoje (se houver)."
-      },
-      {
-        id: "dia-23-fechamento",
-        type: "fechamento_dia",
-        title: "Fechamento do dia",
-        estimatedMinutes: 5,
-        extraContentRefs: [],
-        optional: false,
-        completionCriteria: "Registrar confiança e dificuldades percebidas no dia."
-      }
-    ],
-    estimatedMinutesTotal: 60,
-    expectedOutcome: "Consegue responder corretamente questões objetivas sobre Emprego das classes de palavras."
-  },
-  {
-    day: 24,
-    phase: "desenvolvimento",
-    title: "Registros contábeis (AC-07) — Parte 2",
-    learningObjectives: ["Dominar Registros contábeis, código AC-07 do Anexo IV."],
-    subjects: ["especificas"],
-    syllabusCodes: ["AC-07"],
-    prerequisites: [],
-    steps: [
-      {
-        id: "dia-24-abertura",
-        type: "abertura",
-        title: "Abertura do dia",
-        estimatedMinutes: 2,
-        extraContentRefs: [],
-        optional: false,
-        completionCriteria: "Ler a apresentação do dia."
-      },
-      {
-        id: "dia-24-pratica",
+        id: "dia-12-s95",
         type: "questoes",
         title: "Prática adicional — AC-07 (Registros contábeis)",
         estimatedMinutes: 25,
@@ -1700,7 +1495,7 @@ const DAYS: CourseDay[] = [
         completionCriteria: "Responder ao bloco de questões adicionais."
       },
       {
-        id: "dia-24-revisao-programada",
+        id: "dia-12-s96",
         type: "revisao_programada",
         title: "Revisão programada do dia",
         estimatedMinutes: 10,
@@ -1709,7 +1504,7 @@ const DAYS: CourseDay[] = [
         completionCriteria: "Revisar os flashcards e revisões vencidos hoje (se houver)."
       },
       {
-        id: "dia-24-fechamento",
+        id: "dia-12-s97",
         type: "fechamento_dia",
         title: "Fechamento do dia",
         estimatedMinutes: 5,
@@ -1718,20 +1513,20 @@ const DAYS: CourseDay[] = [
         completionCriteria: "Registrar confiança e dificuldades percebidas no dia."
       }
     ],
-    estimatedMinutesTotal: 42,
-    expectedOutcome: "Consegue responder corretamente questões objetivas sobre Registros contábeis."
+    estimatedMinutesTotal: 97,
+    expectedOutcome: "Consegue responder corretamente questões objetivas sobre Emprego das classes de palavras. Consegue responder corretamente questões objetivas sobre Registros contábeis."
   },
   {
-    day: 25,
-    phase: "desenvolvimento",
-    title: "Probabilidade básica (MAT-06)",
-    learningObjectives: ["Dominar Probabilidade básica, código MAT-06 do Anexo IV."],
-    subjects: ["matematica"],
-    syllabusCodes: ["MAT-06"],
+    day: 13,
+    phase: "consolidacao",
+    title: "Dia 13 — Probabilidade básica (MAT-06) + Manuseio de Materiais (AC-14)",
+    learningObjectives: ["Dominar Probabilidade básica, código MAT-06 do Anexo IV.", "Dominar Manuseio de Materiais, código AC-14 do Anexo IV."],
+    subjects: ["matematica", "especificas"],
+    syllabusCodes: ["MAT-06", "AC-14"],
     prerequisites: [],
     steps: [
       {
-        id: "dia-25-abertura",
+        id: "dia-13-s98",
         type: "abertura",
         title: "Abertura do dia",
         estimatedMinutes: 2,
@@ -1740,7 +1535,7 @@ const DAYS: CourseDay[] = [
         completionCriteria: "Ler a apresentação do dia."
       },
       {
-        id: "dia-25-aula",
+        id: "dia-13-s99",
         type: "aula_textual",
         title: "Aula: Probabilidade básica (MAT-06)",
         estimatedMinutes: 40,
@@ -1756,7 +1551,22 @@ const DAYS: CourseDay[] = [
         completionCriteria: "Ler a aula completa até o fim."
       },
       {
-        id: "dia-25-checagem",
+        id: "dia-13-s100",
+        type: "videoaula_obrigatoria",
+        title: "Videoaula — Probabilidade básica (MAT-06)",
+        estimatedMinutes: 12,
+        contentRef: {
+          kind: "video",
+          id: "video-mat-06-37",
+          subjectSlug: "matematica",
+          syllabusCodes: ["MAT-06"]
+        },
+        extraContentRefs: [],
+        optional: false,
+        completionCriteria: "Assistir (ou abrir e marcar como assistido) a videoaula obrigatória do tópico."
+      },
+      {
+        id: "dia-13-s101",
         type: "checagem_compreensao",
         title: "Checagem de compreensão — MAT-06",
         estimatedMinutes: 3,
@@ -1772,47 +1582,7 @@ const DAYS: CourseDay[] = [
         completionCriteria: "Responder a questão de checagem."
       },
       {
-        id: "dia-25-revisao-programada",
-        type: "revisao_programada",
-        title: "Revisão programada do dia",
-        estimatedMinutes: 10,
-        extraContentRefs: [],
-        optional: true,
-        completionCriteria: "Revisar os flashcards e revisões vencidos hoje (se houver)."
-      },
-      {
-        id: "dia-25-fechamento",
-        type: "fechamento_dia",
-        title: "Fechamento do dia",
-        estimatedMinutes: 5,
-        extraContentRefs: [],
-        optional: false,
-        completionCriteria: "Registrar confiança e dificuldades percebidas no dia."
-      }
-    ],
-    estimatedMinutesTotal: 60,
-    expectedOutcome: "Consegue responder corretamente questões objetivas sobre Probabilidade básica."
-  },
-  {
-    day: 26,
-    phase: "consolidacao",
-    title: "Manuseio de Materiais (AC-14)",
-    learningObjectives: ["Dominar Manuseio de Materiais, código AC-14 do Anexo IV."],
-    subjects: ["especificas"],
-    syllabusCodes: ["AC-14"],
-    prerequisites: [],
-    steps: [
-      {
-        id: "dia-26-abertura",
-        type: "abertura",
-        title: "Abertura do dia",
-        estimatedMinutes: 2,
-        extraContentRefs: [],
-        optional: false,
-        completionCriteria: "Ler a apresentação do dia."
-      },
-      {
-        id: "dia-26-aula",
+        id: "dia-13-s102",
         type: "aula_textual",
         title: "Aula: Manuseio de Materiais (AC-14)",
         estimatedMinutes: 40,
@@ -1828,7 +1598,22 @@ const DAYS: CourseDay[] = [
         completionCriteria: "Ler a aula completa até o fim."
       },
       {
-        id: "dia-26-checagem",
+        id: "dia-13-s103",
+        type: "videoaula_obrigatoria",
+        title: "Videoaula — Manuseio de Materiais (AC-14)",
+        estimatedMinutes: 12,
+        contentRef: {
+          kind: "video",
+          id: "video-ac-14-91",
+          subjectSlug: "especificas",
+          syllabusCodes: ["AC-14"]
+        },
+        extraContentRefs: [],
+        optional: false,
+        completionCriteria: "Assistir (ou abrir e marcar como assistido) a videoaula obrigatória do tópico."
+      },
+      {
+        id: "dia-13-s104",
         type: "checagem_compreensao",
         title: "Checagem de compreensão — AC-14",
         estimatedMinutes: 3,
@@ -1844,7 +1629,7 @@ const DAYS: CourseDay[] = [
         completionCriteria: "Responder a questão de checagem."
       },
       {
-        id: "dia-26-revisao-programada",
+        id: "dia-13-s105",
         type: "revisao_programada",
         title: "Revisão programada do dia",
         estimatedMinutes: 10,
@@ -1853,7 +1638,7 @@ const DAYS: CourseDay[] = [
         completionCriteria: "Revisar os flashcards e revisões vencidos hoje (se houver)."
       },
       {
-        id: "dia-26-fechamento",
+        id: "dia-13-s106",
         type: "fechamento_dia",
         title: "Fechamento do dia",
         estimatedMinutes: 5,
@@ -1862,20 +1647,20 @@ const DAYS: CourseDay[] = [
         completionCriteria: "Registrar confiança e dificuldades percebidas no dia."
       }
     ],
-    estimatedMinutesTotal: 60,
-    expectedOutcome: "Consegue responder corretamente questões objetivas sobre Manuseio de Materiais."
+    estimatedMinutesTotal: 127,
+    expectedOutcome: "Consegue responder corretamente questões objetivas sobre Probabilidade básica. Consegue responder corretamente questões objetivas sobre Manuseio de Materiais."
   },
   {
-    day: 27,
-    phase: "fundamentos",
-    title: "Concordância nominal e verbal (PT-05)",
-    learningObjectives: ["Dominar Concordância nominal e verbal, código PT-05 do Anexo IV."],
-    subjects: ["portugues"],
-    syllabusCodes: ["PT-05"],
+    day: 14,
+    phase: "desenvolvimento",
+    title: "Dia 14 — Concordância nominal e verbal (PT-05) + Estatística básica (MAT-07)",
+    learningObjectives: ["Dominar Concordância nominal e verbal, código PT-05 do Anexo IV.", "Dominar Estatística básica, código MAT-07 do Anexo IV."],
+    subjects: ["portugues", "matematica"],
+    syllabusCodes: ["PT-05", "MAT-07"],
     prerequisites: [],
     steps: [
       {
-        id: "dia-27-abertura",
+        id: "dia-14-s107",
         type: "abertura",
         title: "Abertura do dia",
         estimatedMinutes: 2,
@@ -1884,7 +1669,7 @@ const DAYS: CourseDay[] = [
         completionCriteria: "Ler a apresentação do dia."
       },
       {
-        id: "dia-27-aula",
+        id: "dia-14-s108",
         type: "aula_textual",
         title: "Aula: Concordância nominal e verbal (PT-05)",
         estimatedMinutes: 40,
@@ -1900,7 +1685,22 @@ const DAYS: CourseDay[] = [
         completionCriteria: "Ler a aula completa até o fim."
       },
       {
-        id: "dia-27-checagem",
+        id: "dia-14-s109",
+        type: "videoaula_obrigatoria",
+        title: "Videoaula — Concordância nominal e verbal (PT-05)",
+        estimatedMinutes: 12,
+        contentRef: {
+          kind: "video",
+          id: "video-pt-05-13",
+          subjectSlug: "portugues",
+          syllabusCodes: ["PT-05"]
+        },
+        extraContentRefs: [],
+        optional: false,
+        completionCriteria: "Assistir (ou abrir e marcar como assistido) a videoaula obrigatória do tópico."
+      },
+      {
+        id: "dia-14-s110",
         type: "checagem_compreensao",
         title: "Checagem de compreensão — PT-05",
         estimatedMinutes: 3,
@@ -1916,47 +1716,7 @@ const DAYS: CourseDay[] = [
         completionCriteria: "Responder a questão de checagem."
       },
       {
-        id: "dia-27-revisao-programada",
-        type: "revisao_programada",
-        title: "Revisão programada do dia",
-        estimatedMinutes: 10,
-        extraContentRefs: [],
-        optional: true,
-        completionCriteria: "Revisar os flashcards e revisões vencidos hoje (se houver)."
-      },
-      {
-        id: "dia-27-fechamento",
-        type: "fechamento_dia",
-        title: "Fechamento do dia",
-        estimatedMinutes: 5,
-        extraContentRefs: [],
-        optional: false,
-        completionCriteria: "Registrar confiança e dificuldades percebidas no dia."
-      }
-    ],
-    estimatedMinutesTotal: 60,
-    expectedOutcome: "Consegue responder corretamente questões objetivas sobre Concordância nominal e verbal."
-  },
-  {
-    day: 28,
-    phase: "desenvolvimento",
-    title: "Estatística básica (MAT-07) — Parte 1",
-    learningObjectives: ["Dominar Estatística básica, código MAT-07 do Anexo IV."],
-    subjects: ["matematica"],
-    syllabusCodes: ["MAT-07"],
-    prerequisites: [],
-    steps: [
-      {
-        id: "dia-28-abertura",
-        type: "abertura",
-        title: "Abertura do dia",
-        estimatedMinutes: 2,
-        extraContentRefs: [],
-        optional: false,
-        completionCriteria: "Ler a apresentação do dia."
-      },
-      {
-        id: "dia-28-aula",
+        id: "dia-14-s111",
         type: "aula_textual",
         title: "Aula: Estatística básica (MAT-07)",
         estimatedMinutes: 40,
@@ -1972,7 +1732,22 @@ const DAYS: CourseDay[] = [
         completionCriteria: "Ler a aula completa até o fim."
       },
       {
-        id: "dia-28-checagem",
+        id: "dia-14-s112",
+        type: "videoaula_obrigatoria",
+        title: "Videoaula — Estatística básica (MAT-07)",
+        estimatedMinutes: 12,
+        contentRef: {
+          kind: "video",
+          id: "video-mat-07-40",
+          subjectSlug: "matematica",
+          syllabusCodes: ["MAT-07"]
+        },
+        extraContentRefs: [],
+        optional: false,
+        completionCriteria: "Assistir (ou abrir e marcar como assistido) a videoaula obrigatória do tópico."
+      },
+      {
+        id: "dia-14-s113",
         type: "checagem_compreensao",
         title: "Checagem de compreensão — MAT-07",
         estimatedMinutes: 3,
@@ -1988,7 +1763,7 @@ const DAYS: CourseDay[] = [
         completionCriteria: "Responder a questão de checagem."
       },
       {
-        id: "dia-28-revisao-programada",
+        id: "dia-14-s114",
         type: "revisao_programada",
         title: "Revisão programada do dia",
         estimatedMinutes: 10,
@@ -1997,7 +1772,7 @@ const DAYS: CourseDay[] = [
         completionCriteria: "Revisar os flashcards e revisões vencidos hoje (se houver)."
       },
       {
-        id: "dia-28-fechamento",
+        id: "dia-14-s115",
         type: "fechamento_dia",
         title: "Fechamento do dia",
         estimatedMinutes: 5,
@@ -2006,20 +1781,20 @@ const DAYS: CourseDay[] = [
         completionCriteria: "Registrar confiança e dificuldades percebidas no dia."
       }
     ],
-    estimatedMinutesTotal: 60,
-    expectedOutcome: "Consegue responder corretamente questões objetivas sobre Estatística básica."
+    estimatedMinutesTotal: 127,
+    expectedOutcome: "Consegue responder corretamente questões objetivas sobre Concordância nominal e verbal. Consegue responder corretamente questões objetivas sobre Estatística básica."
   },
   {
-    day: 29,
-    phase: "desenvolvimento",
-    title: "Função Administração Patrimonial (AC-03)",
-    learningObjectives: ["Dominar Função Administração Patrimonial, código AC-03 do Anexo IV."],
+    day: 15,
+    phase: "consolidacao",
+    title: "Dia 15 — Função Administração Patrimonial (AC-03) + Embalagem (AC-15)",
+    learningObjectives: ["Dominar Função Administração Patrimonial, código AC-03 do Anexo IV.", "Dominar Embalagem, código AC-15 do Anexo IV."],
     subjects: ["especificas"],
-    syllabusCodes: ["AC-03"],
+    syllabusCodes: ["AC-03", "AC-15"],
     prerequisites: [],
     steps: [
       {
-        id: "dia-29-abertura",
+        id: "dia-15-s116",
         type: "abertura",
         title: "Abertura do dia",
         estimatedMinutes: 2,
@@ -2028,7 +1803,7 @@ const DAYS: CourseDay[] = [
         completionCriteria: "Ler a apresentação do dia."
       },
       {
-        id: "dia-29-aula",
+        id: "dia-15-s117",
         type: "aula_textual",
         title: "Aula: Função Administração Patrimonial (AC-03)",
         estimatedMinutes: 40,
@@ -2044,7 +1819,22 @@ const DAYS: CourseDay[] = [
         completionCriteria: "Ler a aula completa até o fim."
       },
       {
-        id: "dia-29-checagem",
+        id: "dia-15-s118",
+        type: "videoaula_obrigatoria",
+        title: "Videoaula — Função Administração Patrimonial (AC-03)",
+        estimatedMinutes: 12,
+        contentRef: {
+          kind: "video",
+          id: "video-ac-03-58",
+          subjectSlug: "especificas",
+          syllabusCodes: ["AC-03"]
+        },
+        extraContentRefs: [],
+        optional: false,
+        completionCriteria: "Assistir (ou abrir e marcar como assistido) a videoaula obrigatória do tópico."
+      },
+      {
+        id: "dia-15-s119",
         type: "checagem_compreensao",
         title: "Checagem de compreensão — AC-03",
         estimatedMinutes: 3,
@@ -2060,47 +1850,7 @@ const DAYS: CourseDay[] = [
         completionCriteria: "Responder a questão de checagem."
       },
       {
-        id: "dia-29-revisao-programada",
-        type: "revisao_programada",
-        title: "Revisão programada do dia",
-        estimatedMinutes: 10,
-        extraContentRefs: [],
-        optional: true,
-        completionCriteria: "Revisar os flashcards e revisões vencidos hoje (se houver)."
-      },
-      {
-        id: "dia-29-fechamento",
-        type: "fechamento_dia",
-        title: "Fechamento do dia",
-        estimatedMinutes: 5,
-        extraContentRefs: [],
-        optional: false,
-        completionCriteria: "Registrar confiança e dificuldades percebidas no dia."
-      }
-    ],
-    estimatedMinutesTotal: 60,
-    expectedOutcome: "Consegue responder corretamente questões objetivas sobre Função Administração Patrimonial."
-  },
-  {
-    day: 30,
-    phase: "consolidacao",
-    title: "Embalagem (AC-15)",
-    learningObjectives: ["Dominar Embalagem, código AC-15 do Anexo IV."],
-    subjects: ["especificas"],
-    syllabusCodes: ["AC-15"],
-    prerequisites: [],
-    steps: [
-      {
-        id: "dia-30-abertura",
-        type: "abertura",
-        title: "Abertura do dia",
-        estimatedMinutes: 2,
-        extraContentRefs: [],
-        optional: false,
-        completionCriteria: "Ler a apresentação do dia."
-      },
-      {
-        id: "dia-30-aula",
+        id: "dia-15-s120",
         type: "aula_textual",
         title: "Aula: Embalagem (AC-15)",
         estimatedMinutes: 40,
@@ -2116,7 +1866,22 @@ const DAYS: CourseDay[] = [
         completionCriteria: "Ler a aula completa até o fim."
       },
       {
-        id: "dia-30-checagem",
+        id: "dia-15-s121",
+        type: "videoaula_obrigatoria",
+        title: "Videoaula — Embalagem (AC-15)",
+        estimatedMinutes: 12,
+        contentRef: {
+          kind: "video",
+          id: "video-ac-15-93",
+          subjectSlug: "especificas",
+          syllabusCodes: ["AC-15"]
+        },
+        extraContentRefs: [],
+        optional: false,
+        completionCriteria: "Assistir (ou abrir e marcar como assistido) a videoaula obrigatória do tópico."
+      },
+      {
+        id: "dia-15-s122",
         type: "checagem_compreensao",
         title: "Checagem de compreensão — AC-15",
         estimatedMinutes: 3,
@@ -2132,7 +1897,7 @@ const DAYS: CourseDay[] = [
         completionCriteria: "Responder a questão de checagem."
       },
       {
-        id: "dia-30-revisao-programada",
+        id: "dia-15-s123",
         type: "revisao_programada",
         title: "Revisão programada do dia",
         estimatedMinutes: 10,
@@ -2141,7 +1906,7 @@ const DAYS: CourseDay[] = [
         completionCriteria: "Revisar os flashcards e revisões vencidos hoje (se houver)."
       },
       {
-        id: "dia-30-fechamento",
+        id: "dia-15-s124",
         type: "fechamento_dia",
         title: "Fechamento do dia",
         estimatedMinutes: 5,
@@ -2150,20 +1915,20 @@ const DAYS: CourseDay[] = [
         completionCriteria: "Registrar confiança e dificuldades percebidas no dia."
       }
     ],
-    estimatedMinutesTotal: 60,
-    expectedOutcome: "Consegue responder corretamente questões objetivas sobre Embalagem."
+    estimatedMinutesTotal: 127,
+    expectedOutcome: "Consegue responder corretamente questões objetivas sobre Função Administração Patrimonial. Consegue responder corretamente questões objetivas sobre Embalagem."
   },
   {
-    day: 31,
-    phase: "fechamento_edital",
-    title: "Internet e intranet (AC-20)",
-    learningObjectives: ["Dominar Internet e intranet, código AC-20 do Anexo IV."],
-    subjects: ["especificas"],
-    syllabusCodes: ["AC-20"],
+    day: 16,
+    phase: "desenvolvimento",
+    title: "Dia 16 — Internet e intranet (AC-20) + Estatística básica (MAT-07)",
+    learningObjectives: ["Dominar Internet e intranet, código AC-20 do Anexo IV.", "Dominar Estatística básica, código MAT-07 do Anexo IV."],
+    subjects: ["especificas", "matematica"],
+    syllabusCodes: ["AC-20", "MAT-07"],
     prerequisites: [],
     steps: [
       {
-        id: "dia-31-abertura",
+        id: "dia-16-s125",
         type: "abertura",
         title: "Abertura do dia",
         estimatedMinutes: 2,
@@ -2172,7 +1937,7 @@ const DAYS: CourseDay[] = [
         completionCriteria: "Ler a apresentação do dia."
       },
       {
-        id: "dia-31-aula",
+        id: "dia-16-s126",
         type: "aula_textual",
         title: "Aula: Internet e intranet (AC-20)",
         estimatedMinutes: 40,
@@ -2188,7 +1953,22 @@ const DAYS: CourseDay[] = [
         completionCriteria: "Ler a aula completa até o fim."
       },
       {
-        id: "dia-31-checagem",
+        id: "dia-16-s127",
+        type: "videoaula_obrigatoria",
+        title: "Videoaula — Internet e intranet (AC-20)",
+        estimatedMinutes: 12,
+        contentRef: {
+          kind: "video",
+          id: "video-ac-20-107",
+          subjectSlug: "especificas",
+          syllabusCodes: ["AC-20"]
+        },
+        extraContentRefs: [],
+        optional: false,
+        completionCriteria: "Assistir (ou abrir e marcar como assistido) a videoaula obrigatória do tópico."
+      },
+      {
+        id: "dia-16-s128",
         type: "checagem_compreensao",
         title: "Checagem de compreensão — AC-20",
         estimatedMinutes: 3,
@@ -2204,47 +1984,7 @@ const DAYS: CourseDay[] = [
         completionCriteria: "Responder a questão de checagem."
       },
       {
-        id: "dia-31-revisao-programada",
-        type: "revisao_programada",
-        title: "Revisão programada do dia",
-        estimatedMinutes: 10,
-        extraContentRefs: [],
-        optional: true,
-        completionCriteria: "Revisar os flashcards e revisões vencidos hoje (se houver)."
-      },
-      {
-        id: "dia-31-fechamento",
-        type: "fechamento_dia",
-        title: "Fechamento do dia",
-        estimatedMinutes: 5,
-        extraContentRefs: [],
-        optional: false,
-        completionCriteria: "Registrar confiança e dificuldades percebidas no dia."
-      }
-    ],
-    estimatedMinutesTotal: 60,
-    expectedOutcome: "Consegue responder corretamente questões objetivas sobre Internet e intranet."
-  },
-  {
-    day: 32,
-    phase: "desenvolvimento",
-    title: "Estatística básica (MAT-07) — Parte 2",
-    learningObjectives: ["Dominar Estatística básica, código MAT-07 do Anexo IV."],
-    subjects: ["matematica"],
-    syllabusCodes: ["MAT-07"],
-    prerequisites: [],
-    steps: [
-      {
-        id: "dia-32-abertura",
-        type: "abertura",
-        title: "Abertura do dia",
-        estimatedMinutes: 2,
-        extraContentRefs: [],
-        optional: false,
-        completionCriteria: "Ler a apresentação do dia."
-      },
-      {
-        id: "dia-32-pratica",
+        id: "dia-16-s129",
         type: "questoes",
         title: "Prática adicional — MAT-07 (Estatística básica)",
         estimatedMinutes: 25,
@@ -2275,7 +2015,7 @@ const DAYS: CourseDay[] = [
         completionCriteria: "Responder ao bloco de questões adicionais."
       },
       {
-        id: "dia-32-revisao-programada",
+        id: "dia-16-s130",
         type: "revisao_programada",
         title: "Revisão programada do dia",
         estimatedMinutes: 10,
@@ -2284,7 +2024,7 @@ const DAYS: CourseDay[] = [
         completionCriteria: "Revisar os flashcards e revisões vencidos hoje (se houver)."
       },
       {
-        id: "dia-32-fechamento",
+        id: "dia-16-s131",
         type: "fechamento_dia",
         title: "Fechamento do dia",
         estimatedMinutes: 5,
@@ -2293,20 +2033,20 @@ const DAYS: CourseDay[] = [
         completionCriteria: "Registrar confiança e dificuldades percebidas no dia."
       }
     ],
-    estimatedMinutesTotal: 42,
-    expectedOutcome: "Consegue responder corretamente questões objetivas sobre Estatística básica."
+    estimatedMinutesTotal: 97,
+    expectedOutcome: "Consegue responder corretamente questões objetivas sobre Internet e intranet. Consegue responder corretamente questões objetivas sobre Estatística básica."
   },
   {
-    day: 33,
-    phase: "consolidacao",
-    title: "Gestão de Compras (AC-16) — Parte 1",
-    learningObjectives: ["Dominar Gestão de Compras, código AC-16 do Anexo IV."],
-    subjects: ["especificas"],
-    syllabusCodes: ["AC-16"],
+    day: 17,
+    phase: "fundamentos",
+    title: "Dia 17 — Gestão de Compras (AC-16) + Emprego do sinal indicativo de crase (PT-06)",
+    learningObjectives: ["Dominar Gestão de Compras, código AC-16 do Anexo IV.", "Dominar Emprego do sinal indicativo de crase, código PT-06 do Anexo IV."],
+    subjects: ["especificas", "portugues"],
+    syllabusCodes: ["AC-16", "PT-06"],
     prerequisites: [],
     steps: [
       {
-        id: "dia-33-abertura",
+        id: "dia-17-s132",
         type: "abertura",
         title: "Abertura do dia",
         estimatedMinutes: 2,
@@ -2315,7 +2055,7 @@ const DAYS: CourseDay[] = [
         completionCriteria: "Ler a apresentação do dia."
       },
       {
-        id: "dia-33-aula",
+        id: "dia-17-s133",
         type: "aula_textual",
         title: "Aula: Gestão de Compras (AC-16)",
         estimatedMinutes: 40,
@@ -2331,7 +2071,22 @@ const DAYS: CourseDay[] = [
         completionCriteria: "Ler a aula completa até o fim."
       },
       {
-        id: "dia-33-checagem",
+        id: "dia-17-s134",
+        type: "videoaula_obrigatoria",
+        title: "Videoaula — Gestão de Compras (AC-16)",
+        estimatedMinutes: 12,
+        contentRef: {
+          kind: "video",
+          id: "video-ac-16-95",
+          subjectSlug: "especificas",
+          syllabusCodes: ["AC-16"]
+        },
+        extraContentRefs: [],
+        optional: false,
+        completionCriteria: "Assistir (ou abrir e marcar como assistido) a videoaula obrigatória do tópico."
+      },
+      {
+        id: "dia-17-s135",
         type: "checagem_compreensao",
         title: "Checagem de compreensão — AC-16",
         estimatedMinutes: 3,
@@ -2347,47 +2102,7 @@ const DAYS: CourseDay[] = [
         completionCriteria: "Responder a questão de checagem."
       },
       {
-        id: "dia-33-revisao-programada",
-        type: "revisao_programada",
-        title: "Revisão programada do dia",
-        estimatedMinutes: 10,
-        extraContentRefs: [],
-        optional: true,
-        completionCriteria: "Revisar os flashcards e revisões vencidos hoje (se houver)."
-      },
-      {
-        id: "dia-33-fechamento",
-        type: "fechamento_dia",
-        title: "Fechamento do dia",
-        estimatedMinutes: 5,
-        extraContentRefs: [],
-        optional: false,
-        completionCriteria: "Registrar confiança e dificuldades percebidas no dia."
-      }
-    ],
-    estimatedMinutesTotal: 60,
-    expectedOutcome: "Consegue responder corretamente questões objetivas sobre Gestão de Compras."
-  },
-  {
-    day: 34,
-    phase: "fundamentos",
-    title: "Emprego do sinal indicativo de crase (PT-06)",
-    learningObjectives: ["Dominar Emprego do sinal indicativo de crase, código PT-06 do Anexo IV."],
-    subjects: ["portugues"],
-    syllabusCodes: ["PT-06"],
-    prerequisites: [],
-    steps: [
-      {
-        id: "dia-34-abertura",
-        type: "abertura",
-        title: "Abertura do dia",
-        estimatedMinutes: 2,
-        extraContentRefs: [],
-        optional: false,
-        completionCriteria: "Ler a apresentação do dia."
-      },
-      {
-        id: "dia-34-aula",
+        id: "dia-17-s136",
         type: "aula_textual",
         title: "Aula: Emprego do sinal indicativo de crase (PT-06)",
         estimatedMinutes: 40,
@@ -2403,7 +2118,22 @@ const DAYS: CourseDay[] = [
         completionCriteria: "Ler a aula completa até o fim."
       },
       {
-        id: "dia-34-checagem",
+        id: "dia-17-s137",
+        type: "videoaula_obrigatoria",
+        title: "Videoaula — Emprego do sinal indicativo de crase (PT-06)",
+        estimatedMinutes: 12,
+        contentRef: {
+          kind: "video",
+          id: "video-pt-06-16",
+          subjectSlug: "portugues",
+          syllabusCodes: ["PT-06"]
+        },
+        extraContentRefs: [],
+        optional: false,
+        completionCriteria: "Assistir (ou abrir e marcar como assistido) a videoaula obrigatória do tópico."
+      },
+      {
+        id: "dia-17-s138",
         type: "checagem_compreensao",
         title: "Checagem de compreensão — PT-06",
         estimatedMinutes: 3,
@@ -2419,7 +2149,7 @@ const DAYS: CourseDay[] = [
         completionCriteria: "Responder a questão de checagem."
       },
       {
-        id: "dia-34-revisao-programada",
+        id: "dia-17-s139",
         type: "revisao_programada",
         title: "Revisão programada do dia",
         estimatedMinutes: 10,
@@ -2428,7 +2158,7 @@ const DAYS: CourseDay[] = [
         completionCriteria: "Revisar os flashcards e revisões vencidos hoje (se houver)."
       },
       {
-        id: "dia-34-fechamento",
+        id: "dia-17-s140",
         type: "fechamento_dia",
         title: "Fechamento do dia",
         estimatedMinutes: 5,
@@ -2437,20 +2167,20 @@ const DAYS: CourseDay[] = [
         completionCriteria: "Registrar confiança e dificuldades percebidas no dia."
       }
     ],
-    estimatedMinutesTotal: 60,
-    expectedOutcome: "Consegue responder corretamente questões objetivas sobre Emprego do sinal indicativo de crase."
+    estimatedMinutesTotal: 127,
+    expectedOutcome: "Consegue responder corretamente questões objetivas sobre Gestão de Compras. Consegue responder corretamente questões objetivas sobre Emprego do sinal indicativo de crase."
   },
   {
-    day: 35,
+    day: 18,
     phase: "desenvolvimento",
-    title: "Matemática financeira (MAT-08)",
-    learningObjectives: ["Dominar Matemática financeira, código MAT-08 do Anexo IV."],
-    subjects: ["matematica"],
-    syllabusCodes: ["MAT-08"],
+    title: "Dia 18 — Matemática financeira (MAT-08) + Fluxo de caixa (AC-08)",
+    learningObjectives: ["Dominar Matemática financeira, código MAT-08 do Anexo IV.", "Dominar Fluxo de caixa, código AC-08 do Anexo IV."],
+    subjects: ["matematica", "especificas"],
+    syllabusCodes: ["MAT-08", "AC-08"],
     prerequisites: [],
     steps: [
       {
-        id: "dia-35-abertura",
+        id: "dia-18-s141",
         type: "abertura",
         title: "Abertura do dia",
         estimatedMinutes: 2,
@@ -2459,7 +2189,7 @@ const DAYS: CourseDay[] = [
         completionCriteria: "Ler a apresentação do dia."
       },
       {
-        id: "dia-35-aula",
+        id: "dia-18-s142",
         type: "aula_textual",
         title: "Aula: Matemática financeira (MAT-08)",
         estimatedMinutes: 40,
@@ -2475,7 +2205,22 @@ const DAYS: CourseDay[] = [
         completionCriteria: "Ler a aula completa até o fim."
       },
       {
-        id: "dia-35-checagem",
+        id: "dia-18-s143",
+        type: "videoaula_obrigatoria",
+        title: "Videoaula — Matemática financeira (MAT-08)",
+        estimatedMinutes: 12,
+        contentRef: {
+          kind: "video",
+          id: "video-mat-08-43",
+          subjectSlug: "matematica",
+          syllabusCodes: ["MAT-08"]
+        },
+        extraContentRefs: [],
+        optional: false,
+        completionCriteria: "Assistir (ou abrir e marcar como assistido) a videoaula obrigatória do tópico."
+      },
+      {
+        id: "dia-18-s144",
         type: "checagem_compreensao",
         title: "Checagem de compreensão — MAT-08",
         estimatedMinutes: 3,
@@ -2491,47 +2236,7 @@ const DAYS: CourseDay[] = [
         completionCriteria: "Responder a questão de checagem."
       },
       {
-        id: "dia-35-revisao-programada",
-        type: "revisao_programada",
-        title: "Revisão programada do dia",
-        estimatedMinutes: 10,
-        extraContentRefs: [],
-        optional: true,
-        completionCriteria: "Revisar os flashcards e revisões vencidos hoje (se houver)."
-      },
-      {
-        id: "dia-35-fechamento",
-        type: "fechamento_dia",
-        title: "Fechamento do dia",
-        estimatedMinutes: 5,
-        extraContentRefs: [],
-        optional: false,
-        completionCriteria: "Registrar confiança e dificuldades percebidas no dia."
-      }
-    ],
-    estimatedMinutesTotal: 60,
-    expectedOutcome: "Consegue responder corretamente questões objetivas sobre Matemática financeira."
-  },
-  {
-    day: 36,
-    phase: "desenvolvimento",
-    title: "Fluxo de caixa (AC-08)",
-    learningObjectives: ["Dominar Fluxo de caixa, código AC-08 do Anexo IV."],
-    subjects: ["especificas"],
-    syllabusCodes: ["AC-08"],
-    prerequisites: [],
-    steps: [
-      {
-        id: "dia-36-abertura",
-        type: "abertura",
-        title: "Abertura do dia",
-        estimatedMinutes: 2,
-        extraContentRefs: [],
-        optional: false,
-        completionCriteria: "Ler a apresentação do dia."
-      },
-      {
-        id: "dia-36-aula",
+        id: "dia-18-s145",
         type: "aula_textual",
         title: "Aula: Fluxo de caixa (AC-08)",
         estimatedMinutes: 40,
@@ -2547,7 +2252,22 @@ const DAYS: CourseDay[] = [
         completionCriteria: "Ler a aula completa até o fim."
       },
       {
-        id: "dia-36-checagem",
+        id: "dia-18-s146",
+        type: "videoaula_obrigatoria",
+        title: "Videoaula — Fluxo de caixa (AC-08)",
+        estimatedMinutes: 12,
+        contentRef: {
+          kind: "video",
+          id: "video-ac-08-73",
+          subjectSlug: "especificas",
+          syllabusCodes: ["AC-08"]
+        },
+        extraContentRefs: [],
+        optional: false,
+        completionCriteria: "Assistir (ou abrir e marcar como assistido) a videoaula obrigatória do tópico."
+      },
+      {
+        id: "dia-18-s147",
         type: "checagem_compreensao",
         title: "Checagem de compreensão — AC-08",
         estimatedMinutes: 3,
@@ -2563,7 +2283,7 @@ const DAYS: CourseDay[] = [
         completionCriteria: "Responder a questão de checagem."
       },
       {
-        id: "dia-36-revisao-programada",
+        id: "dia-18-s148",
         type: "revisao_programada",
         title: "Revisão programada do dia",
         estimatedMinutes: 10,
@@ -2572,7 +2292,7 @@ const DAYS: CourseDay[] = [
         completionCriteria: "Revisar os flashcards e revisões vencidos hoje (se houver)."
       },
       {
-        id: "dia-36-fechamento",
+        id: "dia-18-s149",
         type: "fechamento_dia",
         title: "Fechamento do dia",
         estimatedMinutes: 5,
@@ -2581,20 +2301,20 @@ const DAYS: CourseDay[] = [
         completionCriteria: "Registrar confiança e dificuldades percebidas no dia."
       }
     ],
-    estimatedMinutesTotal: 60,
-    expectedOutcome: "Consegue responder corretamente questões objetivas sobre Fluxo de caixa."
+    estimatedMinutesTotal: 127,
+    expectedOutcome: "Consegue responder corretamente questões objetivas sobre Matemática financeira. Consegue responder corretamente questões objetivas sobre Fluxo de caixa."
   },
   {
-    day: 37,
+    day: 19,
     phase: "desenvolvimento",
-    title: "Gestão da manutenção (AC-04)",
-    learningObjectives: ["Dominar Gestão da manutenção, código AC-04 do Anexo IV."],
-    subjects: ["especificas"],
-    syllabusCodes: ["AC-04"],
+    title: "Dia 19 — Gestão da manutenção (AC-04) + Geometria plana (MAT-09)",
+    learningObjectives: ["Dominar Gestão da manutenção, código AC-04 do Anexo IV.", "Dominar Geometria plana, código MAT-09 do Anexo IV."],
+    subjects: ["especificas", "matematica"],
+    syllabusCodes: ["AC-04", "MAT-09"],
     prerequisites: [],
     steps: [
       {
-        id: "dia-37-abertura",
+        id: "dia-19-s150",
         type: "abertura",
         title: "Abertura do dia",
         estimatedMinutes: 2,
@@ -2603,7 +2323,7 @@ const DAYS: CourseDay[] = [
         completionCriteria: "Ler a apresentação do dia."
       },
       {
-        id: "dia-37-aula",
+        id: "dia-19-s151",
         type: "aula_textual",
         title: "Aula: Gestão da manutenção (AC-04)",
         estimatedMinutes: 40,
@@ -2619,7 +2339,22 @@ const DAYS: CourseDay[] = [
         completionCriteria: "Ler a aula completa até o fim."
       },
       {
-        id: "dia-37-checagem",
+        id: "dia-19-s152",
+        type: "videoaula_obrigatoria",
+        title: "Videoaula — Gestão da manutenção (AC-04)",
+        estimatedMinutes: 12,
+        contentRef: {
+          kind: "video",
+          id: "video-ac-04-61",
+          subjectSlug: "especificas",
+          syllabusCodes: ["AC-04"]
+        },
+        extraContentRefs: [],
+        optional: false,
+        completionCriteria: "Assistir (ou abrir e marcar como assistido) a videoaula obrigatória do tópico."
+      },
+      {
+        id: "dia-19-s153",
         type: "checagem_compreensao",
         title: "Checagem de compreensão — AC-04",
         estimatedMinutes: 3,
@@ -2635,47 +2370,7 @@ const DAYS: CourseDay[] = [
         completionCriteria: "Responder a questão de checagem."
       },
       {
-        id: "dia-37-revisao-programada",
-        type: "revisao_programada",
-        title: "Revisão programada do dia",
-        estimatedMinutes: 10,
-        extraContentRefs: [],
-        optional: true,
-        completionCriteria: "Revisar os flashcards e revisões vencidos hoje (se houver)."
-      },
-      {
-        id: "dia-37-fechamento",
-        type: "fechamento_dia",
-        title: "Fechamento do dia",
-        estimatedMinutes: 5,
-        extraContentRefs: [],
-        optional: false,
-        completionCriteria: "Registrar confiança e dificuldades percebidas no dia."
-      }
-    ],
-    estimatedMinutesTotal: 60,
-    expectedOutcome: "Consegue responder corretamente questões objetivas sobre Gestão da manutenção."
-  },
-  {
-    day: 38,
-    phase: "desenvolvimento",
-    title: "Geometria plana (MAT-09) — Parte 1",
-    learningObjectives: ["Dominar Geometria plana, código MAT-09 do Anexo IV."],
-    subjects: ["matematica"],
-    syllabusCodes: ["MAT-09"],
-    prerequisites: [],
-    steps: [
-      {
-        id: "dia-38-abertura",
-        type: "abertura",
-        title: "Abertura do dia",
-        estimatedMinutes: 2,
-        extraContentRefs: [],
-        optional: false,
-        completionCriteria: "Ler a apresentação do dia."
-      },
-      {
-        id: "dia-38-aula",
+        id: "dia-19-s154",
         type: "aula_textual",
         title: "Aula: Geometria plana (MAT-09)",
         estimatedMinutes: 40,
@@ -2691,7 +2386,22 @@ const DAYS: CourseDay[] = [
         completionCriteria: "Ler a aula completa até o fim."
       },
       {
-        id: "dia-38-checagem",
+        id: "dia-19-s155",
+        type: "videoaula_obrigatoria",
+        title: "Videoaula — Geometria plana (MAT-09)",
+        estimatedMinutes: 12,
+        contentRef: {
+          kind: "video",
+          id: "video-mat-09-46",
+          subjectSlug: "matematica",
+          syllabusCodes: ["MAT-09"]
+        },
+        extraContentRefs: [],
+        optional: false,
+        completionCriteria: "Assistir (ou abrir e marcar como assistido) a videoaula obrigatória do tópico."
+      },
+      {
+        id: "dia-19-s156",
         type: "checagem_compreensao",
         title: "Checagem de compreensão — MAT-09",
         estimatedMinutes: 3,
@@ -2707,7 +2417,7 @@ const DAYS: CourseDay[] = [
         completionCriteria: "Responder a questão de checagem."
       },
       {
-        id: "dia-38-revisao-programada",
+        id: "dia-19-s157",
         type: "revisao_programada",
         title: "Revisão programada do dia",
         estimatedMinutes: 10,
@@ -2716,7 +2426,7 @@ const DAYS: CourseDay[] = [
         completionCriteria: "Revisar os flashcards e revisões vencidos hoje (se houver)."
       },
       {
-        id: "dia-38-fechamento",
+        id: "dia-19-s158",
         type: "fechamento_dia",
         title: "Fechamento do dia",
         estimatedMinutes: 5,
@@ -2725,20 +2435,20 @@ const DAYS: CourseDay[] = [
         completionCriteria: "Registrar confiança e dificuldades percebidas no dia."
       }
     ],
-    estimatedMinutesTotal: 60,
-    expectedOutcome: "Consegue responder corretamente questões objetivas sobre Geometria plana."
+    estimatedMinutesTotal: 127,
+    expectedOutcome: "Consegue responder corretamente questões objetivas sobre Gestão da manutenção. Consegue responder corretamente questões objetivas sobre Geometria plana."
   },
   {
-    day: 39,
-    phase: "consolidacao",
-    title: "Gestão de Compras (AC-16) — Parte 2",
-    learningObjectives: ["Dominar Gestão de Compras, código AC-16 do Anexo IV."],
-    subjects: ["especificas"],
-    syllabusCodes: ["AC-16"],
+    day: 20,
+    phase: "fundamentos",
+    title: "Dia 20 — Gestão de Compras (AC-16) + Sinais de pontuação (PT-07)",
+    learningObjectives: ["Dominar Gestão de Compras, código AC-16 do Anexo IV.", "Dominar Sinais de pontuação, código PT-07 do Anexo IV."],
+    subjects: ["especificas", "portugues"],
+    syllabusCodes: ["AC-16", "PT-07"],
     prerequisites: [],
     steps: [
       {
-        id: "dia-39-abertura",
+        id: "dia-20-s159",
         type: "abertura",
         title: "Abertura do dia",
         estimatedMinutes: 2,
@@ -2747,7 +2457,7 @@ const DAYS: CourseDay[] = [
         completionCriteria: "Ler a apresentação do dia."
       },
       {
-        id: "dia-39-pratica",
+        id: "dia-20-s160",
         type: "questoes",
         title: "Prática adicional — AC-16 (Gestão de Compras)",
         estimatedMinutes: 25,
@@ -2778,47 +2488,7 @@ const DAYS: CourseDay[] = [
         completionCriteria: "Responder ao bloco de questões adicionais."
       },
       {
-        id: "dia-39-revisao-programada",
-        type: "revisao_programada",
-        title: "Revisão programada do dia",
-        estimatedMinutes: 10,
-        extraContentRefs: [],
-        optional: true,
-        completionCriteria: "Revisar os flashcards e revisões vencidos hoje (se houver)."
-      },
-      {
-        id: "dia-39-fechamento",
-        type: "fechamento_dia",
-        title: "Fechamento do dia",
-        estimatedMinutes: 5,
-        extraContentRefs: [],
-        optional: false,
-        completionCriteria: "Registrar confiança e dificuldades percebidas no dia."
-      }
-    ],
-    estimatedMinutesTotal: 42,
-    expectedOutcome: "Consegue responder corretamente questões objetivas sobre Gestão de Compras."
-  },
-  {
-    day: 40,
-    phase: "fundamentos",
-    title: "Sinais de pontuação (PT-07)",
-    learningObjectives: ["Dominar Sinais de pontuação, código PT-07 do Anexo IV."],
-    subjects: ["portugues"],
-    syllabusCodes: ["PT-07"],
-    prerequisites: [],
-    steps: [
-      {
-        id: "dia-40-abertura",
-        type: "abertura",
-        title: "Abertura do dia",
-        estimatedMinutes: 2,
-        extraContentRefs: [],
-        optional: false,
-        completionCriteria: "Ler a apresentação do dia."
-      },
-      {
-        id: "dia-40-aula",
+        id: "dia-20-s161",
         type: "aula_textual",
         title: "Aula: Sinais de pontuação (PT-07)",
         estimatedMinutes: 40,
@@ -2834,7 +2504,22 @@ const DAYS: CourseDay[] = [
         completionCriteria: "Ler a aula completa até o fim."
       },
       {
-        id: "dia-40-checagem",
+        id: "dia-20-s162",
+        type: "videoaula_obrigatoria",
+        title: "Videoaula — Sinais de pontuação (PT-07)",
+        estimatedMinutes: 12,
+        contentRef: {
+          kind: "video",
+          id: "video-pt-07-19",
+          subjectSlug: "portugues",
+          syllabusCodes: ["PT-07"]
+        },
+        extraContentRefs: [],
+        optional: false,
+        completionCriteria: "Assistir (ou abrir e marcar como assistido) a videoaula obrigatória do tópico."
+      },
+      {
+        id: "dia-20-s163",
         type: "checagem_compreensao",
         title: "Checagem de compreensão — PT-07",
         estimatedMinutes: 3,
@@ -2850,7 +2535,7 @@ const DAYS: CourseDay[] = [
         completionCriteria: "Responder a questão de checagem."
       },
       {
-        id: "dia-40-revisao-programada",
+        id: "dia-20-s164",
         type: "revisao_programada",
         title: "Revisão programada do dia",
         estimatedMinutes: 10,
@@ -2859,7 +2544,7 @@ const DAYS: CourseDay[] = [
         completionCriteria: "Revisar os flashcards e revisões vencidos hoje (se houver)."
       },
       {
-        id: "dia-40-fechamento",
+        id: "dia-20-s165",
         type: "fechamento_dia",
         title: "Fechamento do dia",
         estimatedMinutes: 5,
@@ -2868,20 +2553,20 @@ const DAYS: CourseDay[] = [
         completionCriteria: "Registrar confiança e dificuldades percebidas no dia."
       }
     ],
-    estimatedMinutesTotal: 60,
-    expectedOutcome: "Consegue responder corretamente questões objetivas sobre Sinais de pontuação."
+    estimatedMinutesTotal: 97,
+    expectedOutcome: "Consegue responder corretamente questões objetivas sobre Gestão de Compras. Consegue responder corretamente questões objetivas sobre Sinais de pontuação."
   },
   {
-    day: 41,
-    phase: "desenvolvimento",
-    title: "Geometria plana (MAT-09) — Parte 2",
-    learningObjectives: ["Dominar Geometria plana, código MAT-09 do Anexo IV."],
-    subjects: ["matematica"],
-    syllabusCodes: ["MAT-09"],
+    day: 21,
+    phase: "consolidacao",
+    title: "Dia 21 — Geometria plana (MAT-09) + Gestão de Contratos (AC-17)",
+    learningObjectives: ["Dominar Geometria plana, código MAT-09 do Anexo IV.", "Dominar Gestão de Contratos, código AC-17 do Anexo IV."],
+    subjects: ["matematica", "especificas"],
+    syllabusCodes: ["MAT-09", "AC-17"],
     prerequisites: [],
     steps: [
       {
-        id: "dia-41-abertura",
+        id: "dia-21-s166",
         type: "abertura",
         title: "Abertura do dia",
         estimatedMinutes: 2,
@@ -2890,7 +2575,7 @@ const DAYS: CourseDay[] = [
         completionCriteria: "Ler a apresentação do dia."
       },
       {
-        id: "dia-41-pratica",
+        id: "dia-21-s167",
         type: "questoes",
         title: "Prática adicional — MAT-09 (Geometria plana)",
         estimatedMinutes: 25,
@@ -2921,47 +2606,7 @@ const DAYS: CourseDay[] = [
         completionCriteria: "Responder ao bloco de questões adicionais."
       },
       {
-        id: "dia-41-revisao-programada",
-        type: "revisao_programada",
-        title: "Revisão programada do dia",
-        estimatedMinutes: 10,
-        extraContentRefs: [],
-        optional: true,
-        completionCriteria: "Revisar os flashcards e revisões vencidos hoje (se houver)."
-      },
-      {
-        id: "dia-41-fechamento",
-        type: "fechamento_dia",
-        title: "Fechamento do dia",
-        estimatedMinutes: 5,
-        extraContentRefs: [],
-        optional: false,
-        completionCriteria: "Registrar confiança e dificuldades percebidas no dia."
-      }
-    ],
-    estimatedMinutesTotal: 42,
-    expectedOutcome: "Consegue responder corretamente questões objetivas sobre Geometria plana."
-  },
-  {
-    day: 42,
-    phase: "consolidacao",
-    title: "Gestão de Contratos (AC-17) — Parte 1",
-    learningObjectives: ["Dominar Gestão de Contratos, código AC-17 do Anexo IV."],
-    subjects: ["especificas"],
-    syllabusCodes: ["AC-17"],
-    prerequisites: [],
-    steps: [
-      {
-        id: "dia-42-abertura",
-        type: "abertura",
-        title: "Abertura do dia",
-        estimatedMinutes: 2,
-        extraContentRefs: [],
-        optional: false,
-        completionCriteria: "Ler a apresentação do dia."
-      },
-      {
-        id: "dia-42-aula",
+        id: "dia-21-s168",
         type: "aula_textual",
         title: "Aula: Gestão de Contratos (AC-17)",
         estimatedMinutes: 40,
@@ -2977,7 +2622,22 @@ const DAYS: CourseDay[] = [
         completionCriteria: "Ler a aula completa até o fim."
       },
       {
-        id: "dia-42-checagem",
+        id: "dia-21-s169",
+        type: "videoaula_obrigatoria",
+        title: "Videoaula — Gestão de Contratos (AC-17)",
+        estimatedMinutes: 12,
+        contentRef: {
+          kind: "video",
+          id: "video-ac-17-98",
+          subjectSlug: "especificas",
+          syllabusCodes: ["AC-17"]
+        },
+        extraContentRefs: [],
+        optional: false,
+        completionCriteria: "Assistir (ou abrir e marcar como assistido) a videoaula obrigatória do tópico."
+      },
+      {
+        id: "dia-21-s170",
         type: "checagem_compreensao",
         title: "Checagem de compreensão — AC-17",
         estimatedMinutes: 3,
@@ -2993,7 +2653,7 @@ const DAYS: CourseDay[] = [
         completionCriteria: "Responder a questão de checagem."
       },
       {
-        id: "dia-42-revisao-programada",
+        id: "dia-21-s171",
         type: "revisao_programada",
         title: "Revisão programada do dia",
         estimatedMinutes: 10,
@@ -3002,7 +2662,7 @@ const DAYS: CourseDay[] = [
         completionCriteria: "Revisar os flashcards e revisões vencidos hoje (se houver)."
       },
       {
-        id: "dia-42-fechamento",
+        id: "dia-21-s172",
         type: "fechamento_dia",
         title: "Fechamento do dia",
         estimatedMinutes: 5,
@@ -3011,20 +2671,20 @@ const DAYS: CourseDay[] = [
         completionCriteria: "Registrar confiança e dificuldades percebidas no dia."
       }
     ],
-    estimatedMinutesTotal: 60,
-    expectedOutcome: "Consegue responder corretamente questões objetivas sobre Gestão de Contratos."
+    estimatedMinutesTotal: 97,
+    expectedOutcome: "Consegue responder corretamente questões objetivas sobre Geometria plana. Consegue responder corretamente questões objetivas sobre Gestão de Contratos."
   },
   {
-    day: 43,
-    phase: "fechamento_edital",
-    title: "Segurança da informação e LGPD (AC-21)",
-    learningObjectives: ["Dominar Segurança da informação e LGPD, código AC-21 do Anexo IV."],
+    day: 22,
+    phase: "desenvolvimento",
+    title: "Dia 22 — Segurança da informação e LGPD (AC-21) + Balanço Patrimonial e DRE (AC-09)",
+    learningObjectives: ["Dominar Segurança da informação e LGPD, código AC-21 do Anexo IV.", "Dominar Balanço Patrimonial e DRE, código AC-09 do Anexo IV."],
     subjects: ["especificas"],
-    syllabusCodes: ["AC-21"],
+    syllabusCodes: ["AC-21", "AC-09"],
     prerequisites: [],
     steps: [
       {
-        id: "dia-43-abertura",
+        id: "dia-22-s173",
         type: "abertura",
         title: "Abertura do dia",
         estimatedMinutes: 2,
@@ -3033,7 +2693,7 @@ const DAYS: CourseDay[] = [
         completionCriteria: "Ler a apresentação do dia."
       },
       {
-        id: "dia-43-aula",
+        id: "dia-22-s174",
         type: "aula_textual",
         title: "Aula: Segurança da informação e LGPD (AC-21)",
         estimatedMinutes: 40,
@@ -3049,7 +2709,22 @@ const DAYS: CourseDay[] = [
         completionCriteria: "Ler a aula completa até o fim."
       },
       {
-        id: "dia-43-checagem",
+        id: "dia-22-s175",
+        type: "videoaula_obrigatoria",
+        title: "Videoaula — Segurança da informação e LGPD (AC-21)",
+        estimatedMinutes: 12,
+        contentRef: {
+          kind: "video",
+          id: "video-ac-21-110",
+          subjectSlug: "especificas",
+          syllabusCodes: ["AC-21"]
+        },
+        extraContentRefs: [],
+        optional: false,
+        completionCriteria: "Assistir (ou abrir e marcar como assistido) a videoaula obrigatória do tópico."
+      },
+      {
+        id: "dia-22-s176",
         type: "checagem_compreensao",
         title: "Checagem de compreensão — AC-21",
         estimatedMinutes: 3,
@@ -3065,87 +2740,7 @@ const DAYS: CourseDay[] = [
         completionCriteria: "Responder a questão de checagem."
       },
       {
-        id: "dia-43-revisao-programada",
-        type: "revisao_programada",
-        title: "Revisão programada do dia",
-        estimatedMinutes: 10,
-        extraContentRefs: [],
-        optional: true,
-        completionCriteria: "Revisar os flashcards e revisões vencidos hoje (se houver)."
-      },
-      {
-        id: "dia-43-fechamento",
-        type: "fechamento_dia",
-        title: "Fechamento do dia",
-        estimatedMinutes: 5,
-        extraContentRefs: [],
-        optional: false,
-        completionCriteria: "Registrar confiança e dificuldades percebidas no dia."
-      }
-    ],
-    estimatedMinutesTotal: 60,
-    expectedOutcome: "Consegue responder corretamente questões objetivas sobre Segurança da informação e LGPD."
-  },
-  {
-    day: 44,
-    phase: "fechamento_edital",
-    title: "Revisão intercalada — Noções de Informática (AC-18 a AC-21)",
-    learningObjectives: ["Consolidar todo o bloco de Noções de Informática (AC-18 a AC-21) antes de seguir para a próxima disciplina."],
-    subjects: ["especificas"],
-    syllabusCodes: [],
-    prerequisites: [],
-    steps: [
-      {
-        id: "dia-44-abertura",
-        type: "abertura",
-        title: "Abertura da revisão",
-        estimatedMinutes: 2,
-        extraContentRefs: [],
-        optional: false,
-        completionCriteria: "Ler a apresentação da revisão."
-      },
-      {
-        id: "dia-44-revisao-programada",
-        type: "revisao_programada",
-        title: "Revisão de tudo que foi visto em Noções de Informática (AC-18 a AC-21)",
-        estimatedMinutes: 30,
-        extraContentRefs: [],
-        optional: false,
-        completionCriteria: "Revisar flashcards, pontos de memorização e mapas mentais do bloco recém-concluído."
-      },
-      {
-        id: "dia-44-fechamento",
-        type: "fechamento_dia",
-        title: "Fechamento da revisão",
-        estimatedMinutes: 5,
-        extraContentRefs: [],
-        optional: false,
-        completionCriteria: "Registrar confiança e dificuldades percebidas na revisão."
-      }
-    ],
-    estimatedMinutesTotal: 37,
-    expectedOutcome: "Revisão consolidada de Noções de Informática (AC-18 a AC-21), pronto para avançar sem lacunas do bloco anterior."
-  },
-  {
-    day: 45,
-    phase: "desenvolvimento",
-    title: "Balanço Patrimonial e DRE (AC-09)",
-    learningObjectives: ["Dominar Balanço Patrimonial e DRE, código AC-09 do Anexo IV."],
-    subjects: ["especificas"],
-    syllabusCodes: ["AC-09"],
-    prerequisites: [],
-    steps: [
-      {
-        id: "dia-45-abertura",
-        type: "abertura",
-        title: "Abertura do dia",
-        estimatedMinutes: 2,
-        extraContentRefs: [],
-        optional: false,
-        completionCriteria: "Ler a apresentação do dia."
-      },
-      {
-        id: "dia-45-aula",
+        id: "dia-22-s177",
         type: "aula_textual",
         title: "Aula: Balanço Patrimonial e DRE (AC-09)",
         estimatedMinutes: 40,
@@ -3161,7 +2756,22 @@ const DAYS: CourseDay[] = [
         completionCriteria: "Ler a aula completa até o fim."
       },
       {
-        id: "dia-45-checagem",
+        id: "dia-22-s178",
+        type: "videoaula_obrigatoria",
+        title: "Videoaula — Balanço Patrimonial e DRE (AC-09)",
+        estimatedMinutes: 12,
+        contentRef: {
+          kind: "video",
+          id: "video-ac-09-76",
+          subjectSlug: "especificas",
+          syllabusCodes: ["AC-09"]
+        },
+        extraContentRefs: [],
+        optional: false,
+        completionCriteria: "Assistir (ou abrir e marcar como assistido) a videoaula obrigatória do tópico."
+      },
+      {
+        id: "dia-22-s179",
         type: "checagem_compreensao",
         title: "Checagem de compreensão — AC-09",
         estimatedMinutes: 3,
@@ -3177,7 +2787,7 @@ const DAYS: CourseDay[] = [
         completionCriteria: "Responder a questão de checagem."
       },
       {
-        id: "dia-45-revisao-programada",
+        id: "dia-22-s180",
         type: "revisao_programada",
         title: "Revisão programada do dia",
         estimatedMinutes: 10,
@@ -3186,7 +2796,7 @@ const DAYS: CourseDay[] = [
         completionCriteria: "Revisar os flashcards e revisões vencidos hoje (se houver)."
       },
       {
-        id: "dia-45-fechamento",
+        id: "dia-22-s181",
         type: "fechamento_dia",
         title: "Fechamento do dia",
         estimatedMinutes: 5,
@@ -3195,20 +2805,20 @@ const DAYS: CourseDay[] = [
         completionCriteria: "Registrar confiança e dificuldades percebidas no dia."
       }
     ],
-    estimatedMinutesTotal: 60,
-    expectedOutcome: "Consegue responder corretamente questões objetivas sobre Balanço Patrimonial e DRE."
+    estimatedMinutesTotal: 127,
+    expectedOutcome: "Consegue responder corretamente questões objetivas sobre Segurança da informação e LGPD. Consegue responder corretamente questões objetivas sobre Balanço Patrimonial e DRE."
   },
   {
-    day: 46,
-    phase: "desenvolvimento",
-    title: "Revisão intercalada — Finanças e Contabilidade (AC-06 a AC-09)",
-    learningObjectives: ["Consolidar todo o bloco de Finanças e Contabilidade (AC-06 a AC-09) antes de seguir para a próxima disciplina."],
+    day: 23,
+    phase: "fechamento_edital",
+    title: "Revisão intercalada — Noções de Informática (AC-18 a AC-21)",
+    learningObjectives: ["Consolidar todo o bloco de Noções de Informática (AC-18 a AC-21) antes de seguir para a próxima disciplina."],
     subjects: ["especificas"],
     syllabusCodes: [],
     prerequisites: [],
     steps: [
       {
-        id: "dia-46-abertura",
+        id: "dia-23-s182",
         type: "abertura",
         title: "Abertura da revisão",
         estimatedMinutes: 2,
@@ -3217,7 +2827,47 @@ const DAYS: CourseDay[] = [
         completionCriteria: "Ler a apresentação da revisão."
       },
       {
-        id: "dia-46-revisao-programada",
+        id: "dia-23-s183",
+        type: "revisao_programada",
+        title: "Revisão de tudo que foi visto em Noções de Informática (AC-18 a AC-21)",
+        estimatedMinutes: 30,
+        extraContentRefs: [],
+        optional: false,
+        completionCriteria: "Revisar flashcards, pontos de memorização e mapas mentais do bloco recém-concluído."
+      },
+      {
+        id: "dia-23-s184",
+        type: "fechamento_dia",
+        title: "Fechamento da revisão",
+        estimatedMinutes: 5,
+        extraContentRefs: [],
+        optional: false,
+        completionCriteria: "Registrar confiança e dificuldades percebidas na revisão."
+      }
+    ],
+    estimatedMinutesTotal: 37,
+    expectedOutcome: "Revisão consolidada de Noções de Informática (AC-18 a AC-21), pronto para avançar sem lacunas do bloco anterior."
+  },
+  {
+    day: 24,
+    phase: "desenvolvimento",
+    title: "Revisão intercalada — Finanças e Contabilidade (AC-06 a AC-09)",
+    learningObjectives: ["Consolidar todo o bloco de Finanças e Contabilidade (AC-06 a AC-09) antes de seguir para a próxima disciplina."],
+    subjects: ["especificas"],
+    syllabusCodes: [],
+    prerequisites: [],
+    steps: [
+      {
+        id: "dia-24-s185",
+        type: "abertura",
+        title: "Abertura da revisão",
+        estimatedMinutes: 2,
+        extraContentRefs: [],
+        optional: false,
+        completionCriteria: "Ler a apresentação da revisão."
+      },
+      {
+        id: "dia-24-s186",
         type: "revisao_programada",
         title: "Revisão de tudo que foi visto em Finanças e Contabilidade (AC-06 a AC-09)",
         estimatedMinutes: 30,
@@ -3226,7 +2876,7 @@ const DAYS: CourseDay[] = [
         completionCriteria: "Revisar flashcards, pontos de memorização e mapas mentais do bloco recém-concluído."
       },
       {
-        id: "dia-46-fechamento",
+        id: "dia-24-s187",
         type: "fechamento_dia",
         title: "Fechamento da revisão",
         estimatedMinutes: 5,
@@ -3239,16 +2889,16 @@ const DAYS: CourseDay[] = [
     expectedOutcome: "Revisão consolidada de Finanças e Contabilidade (AC-06 a AC-09), pronto para avançar sem lacunas do bloco anterior."
   },
   {
-    day: 47,
+    day: 25,
     phase: "desenvolvimento",
-    title: "Geometria espacial (MAT-10) — Parte 1",
-    learningObjectives: ["Dominar Geometria espacial, código MAT-10 do Anexo IV."],
-    subjects: ["matematica"],
-    syllabusCodes: ["MAT-10"],
+    title: "Dia 25 — Geometria espacial (MAT-10) + Gestão de Indicadores (AC-05)",
+    learningObjectives: ["Dominar Geometria espacial, código MAT-10 do Anexo IV.", "Dominar Gestão de Indicadores, código AC-05 do Anexo IV."],
+    subjects: ["matematica", "especificas"],
+    syllabusCodes: ["MAT-10", "AC-05"],
     prerequisites: [],
     steps: [
       {
-        id: "dia-47-abertura",
+        id: "dia-25-s188",
         type: "abertura",
         title: "Abertura do dia",
         estimatedMinutes: 2,
@@ -3257,7 +2907,7 @@ const DAYS: CourseDay[] = [
         completionCriteria: "Ler a apresentação do dia."
       },
       {
-        id: "dia-47-aula",
+        id: "dia-25-s189",
         type: "aula_textual",
         title: "Aula: Geometria espacial (MAT-10)",
         estimatedMinutes: 40,
@@ -3273,7 +2923,22 @@ const DAYS: CourseDay[] = [
         completionCriteria: "Ler a aula completa até o fim."
       },
       {
-        id: "dia-47-checagem",
+        id: "dia-25-s190",
+        type: "videoaula_obrigatoria",
+        title: "Videoaula — Geometria espacial (MAT-10)",
+        estimatedMinutes: 12,
+        contentRef: {
+          kind: "video",
+          id: "video-mat-10-49",
+          subjectSlug: "matematica",
+          syllabusCodes: ["MAT-10"]
+        },
+        extraContentRefs: [],
+        optional: false,
+        completionCriteria: "Assistir (ou abrir e marcar como assistido) a videoaula obrigatória do tópico."
+      },
+      {
+        id: "dia-25-s191",
         type: "checagem_compreensao",
         title: "Checagem de compreensão — MAT-10",
         estimatedMinutes: 3,
@@ -3289,47 +2954,7 @@ const DAYS: CourseDay[] = [
         completionCriteria: "Responder a questão de checagem."
       },
       {
-        id: "dia-47-revisao-programada",
-        type: "revisao_programada",
-        title: "Revisão programada do dia",
-        estimatedMinutes: 10,
-        extraContentRefs: [],
-        optional: true,
-        completionCriteria: "Revisar os flashcards e revisões vencidos hoje (se houver)."
-      },
-      {
-        id: "dia-47-fechamento",
-        type: "fechamento_dia",
-        title: "Fechamento do dia",
-        estimatedMinutes: 5,
-        extraContentRefs: [],
-        optional: false,
-        completionCriteria: "Registrar confiança e dificuldades percebidas no dia."
-      }
-    ],
-    estimatedMinutesTotal: 60,
-    expectedOutcome: "Consegue responder corretamente questões objetivas sobre Geometria espacial."
-  },
-  {
-    day: 48,
-    phase: "desenvolvimento",
-    title: "Gestão de Indicadores (AC-05)",
-    learningObjectives: ["Dominar Gestão de Indicadores, código AC-05 do Anexo IV."],
-    subjects: ["especificas"],
-    syllabusCodes: ["AC-05"],
-    prerequisites: [],
-    steps: [
-      {
-        id: "dia-48-abertura",
-        type: "abertura",
-        title: "Abertura do dia",
-        estimatedMinutes: 2,
-        extraContentRefs: [],
-        optional: false,
-        completionCriteria: "Ler a apresentação do dia."
-      },
-      {
-        id: "dia-48-aula",
+        id: "dia-25-s192",
         type: "aula_textual",
         title: "Aula: Gestão de Indicadores (AC-05)",
         estimatedMinutes: 40,
@@ -3345,7 +2970,22 @@ const DAYS: CourseDay[] = [
         completionCriteria: "Ler a aula completa até o fim."
       },
       {
-        id: "dia-48-checagem",
+        id: "dia-25-s193",
+        type: "videoaula_obrigatoria",
+        title: "Videoaula — Gestão de Indicadores (AC-05)",
+        estimatedMinutes: 12,
+        contentRef: {
+          kind: "video",
+          id: "video-ac-05-64",
+          subjectSlug: "especificas",
+          syllabusCodes: ["AC-05"]
+        },
+        extraContentRefs: [],
+        optional: false,
+        completionCriteria: "Assistir (ou abrir e marcar como assistido) a videoaula obrigatória do tópico."
+      },
+      {
+        id: "dia-25-s194",
         type: "checagem_compreensao",
         title: "Checagem de compreensão — AC-05",
         estimatedMinutes: 3,
@@ -3361,7 +3001,7 @@ const DAYS: CourseDay[] = [
         completionCriteria: "Responder a questão de checagem."
       },
       {
-        id: "dia-48-revisao-programada",
+        id: "dia-25-s195",
         type: "revisao_programada",
         title: "Revisão programada do dia",
         estimatedMinutes: 10,
@@ -3370,7 +3010,7 @@ const DAYS: CourseDay[] = [
         completionCriteria: "Revisar os flashcards e revisões vencidos hoje (se houver)."
       },
       {
-        id: "dia-48-fechamento",
+        id: "dia-25-s196",
         type: "fechamento_dia",
         title: "Fechamento do dia",
         estimatedMinutes: 5,
@@ -3379,11 +3019,11 @@ const DAYS: CourseDay[] = [
         completionCriteria: "Registrar confiança e dificuldades percebidas no dia."
       }
     ],
-    estimatedMinutesTotal: 60,
-    expectedOutcome: "Consegue responder corretamente questões objetivas sobre Gestão de Indicadores."
+    estimatedMinutesTotal: 127,
+    expectedOutcome: "Consegue responder corretamente questões objetivas sobre Geometria espacial. Consegue responder corretamente questões objetivas sobre Gestão de Indicadores."
   },
   {
-    day: 49,
+    day: 26,
     phase: "desenvolvimento",
     title: "Revisão intercalada — Processos Administrativos e Legislação (AC-01 a AC-05)",
     learningObjectives: ["Consolidar todo o bloco de Processos Administrativos e Legislação (AC-01 a AC-05) antes de seguir para a próxima disciplina."],
@@ -3392,7 +3032,7 @@ const DAYS: CourseDay[] = [
     prerequisites: [],
     steps: [
       {
-        id: "dia-49-abertura",
+        id: "dia-26-s197",
         type: "abertura",
         title: "Abertura da revisão",
         estimatedMinutes: 2,
@@ -3401,7 +3041,7 @@ const DAYS: CourseDay[] = [
         completionCriteria: "Ler a apresentação da revisão."
       },
       {
-        id: "dia-49-revisao-programada",
+        id: "dia-26-s198",
         type: "revisao_programada",
         title: "Revisão de tudo que foi visto em Processos Administrativos e Legislação (AC-01 a AC-05)",
         estimatedMinutes: 30,
@@ -3410,7 +3050,7 @@ const DAYS: CourseDay[] = [
         completionCriteria: "Revisar flashcards, pontos de memorização e mapas mentais do bloco recém-concluído."
       },
       {
-        id: "dia-49-fechamento",
+        id: "dia-26-s199",
         type: "fechamento_dia",
         title: "Fechamento da revisão",
         estimatedMinutes: 5,
@@ -3423,16 +3063,16 @@ const DAYS: CourseDay[] = [
     expectedOutcome: "Revisão consolidada de Processos Administrativos e Legislação (AC-01 a AC-05), pronto para avançar sem lacunas do bloco anterior."
   },
   {
-    day: 50,
-    phase: "fundamentos",
-    title: "Significação das palavras (PT-08)",
-    learningObjectives: ["Dominar Significação das palavras, código PT-08 do Anexo IV."],
-    subjects: ["portugues"],
-    syllabusCodes: ["PT-08"],
+    day: 27,
+    phase: "desenvolvimento",
+    title: "Dia 27 — Significação das palavras (PT-08) + Gestão de Contratos (AC-17) + Geometria espacial (MAT-10)",
+    learningObjectives: ["Dominar Significação das palavras, código PT-08 do Anexo IV.", "Dominar Gestão de Contratos, código AC-17 do Anexo IV.", "Dominar Geometria espacial, código MAT-10 do Anexo IV."],
+    subjects: ["portugues", "especificas", "matematica"],
+    syllabusCodes: ["PT-08", "AC-17", "MAT-10"],
     prerequisites: [],
     steps: [
       {
-        id: "dia-50-abertura",
+        id: "dia-27-s200",
         type: "abertura",
         title: "Abertura do dia",
         estimatedMinutes: 2,
@@ -3441,7 +3081,7 @@ const DAYS: CourseDay[] = [
         completionCriteria: "Ler a apresentação do dia."
       },
       {
-        id: "dia-50-aula",
+        id: "dia-27-s201",
         type: "aula_textual",
         title: "Aula: Significação das palavras (PT-08)",
         estimatedMinutes: 40,
@@ -3457,7 +3097,22 @@ const DAYS: CourseDay[] = [
         completionCriteria: "Ler a aula completa até o fim."
       },
       {
-        id: "dia-50-checagem",
+        id: "dia-27-s202",
+        type: "videoaula_obrigatoria",
+        title: "Videoaula — Significação das palavras (PT-08)",
+        estimatedMinutes: 12,
+        contentRef: {
+          kind: "video",
+          id: "video-pt-08-22",
+          subjectSlug: "portugues",
+          syllabusCodes: ["PT-08"]
+        },
+        extraContentRefs: [],
+        optional: false,
+        completionCriteria: "Assistir (ou abrir e marcar como assistido) a videoaula obrigatória do tópico."
+      },
+      {
+        id: "dia-27-s203",
         type: "checagem_compreensao",
         title: "Checagem de compreensão — PT-08",
         estimatedMinutes: 3,
@@ -3473,87 +3128,7 @@ const DAYS: CourseDay[] = [
         completionCriteria: "Responder a questão de checagem."
       },
       {
-        id: "dia-50-revisao-programada",
-        type: "revisao_programada",
-        title: "Revisão programada do dia",
-        estimatedMinutes: 10,
-        extraContentRefs: [],
-        optional: true,
-        completionCriteria: "Revisar os flashcards e revisões vencidos hoje (se houver)."
-      },
-      {
-        id: "dia-50-fechamento",
-        type: "fechamento_dia",
-        title: "Fechamento do dia",
-        estimatedMinutes: 5,
-        extraContentRefs: [],
-        optional: false,
-        completionCriteria: "Registrar confiança e dificuldades percebidas no dia."
-      }
-    ],
-    estimatedMinutesTotal: 60,
-    expectedOutcome: "Consegue responder corretamente questões objetivas sobre Significação das palavras."
-  },
-  {
-    day: 51,
-    phase: "fundamentos",
-    title: "Revisão intercalada — Língua Portuguesa (PT-01 a PT-08)",
-    learningObjectives: ["Consolidar todo o bloco de Língua Portuguesa (PT-01 a PT-08) antes de seguir para a próxima disciplina."],
-    subjects: ["portugues"],
-    syllabusCodes: [],
-    prerequisites: [],
-    steps: [
-      {
-        id: "dia-51-abertura",
-        type: "abertura",
-        title: "Abertura da revisão",
-        estimatedMinutes: 2,
-        extraContentRefs: [],
-        optional: false,
-        completionCriteria: "Ler a apresentação da revisão."
-      },
-      {
-        id: "dia-51-revisao-programada",
-        type: "revisao_programada",
-        title: "Revisão de tudo que foi visto em Língua Portuguesa (PT-01 a PT-08)",
-        estimatedMinutes: 30,
-        extraContentRefs: [],
-        optional: false,
-        completionCriteria: "Revisar flashcards, pontos de memorização e mapas mentais do bloco recém-concluído."
-      },
-      {
-        id: "dia-51-fechamento",
-        type: "fechamento_dia",
-        title: "Fechamento da revisão",
-        estimatedMinutes: 5,
-        extraContentRefs: [],
-        optional: false,
-        completionCriteria: "Registrar confiança e dificuldades percebidas na revisão."
-      }
-    ],
-    estimatedMinutesTotal: 37,
-    expectedOutcome: "Revisão consolidada de Língua Portuguesa (PT-01 a PT-08), pronto para avançar sem lacunas do bloco anterior."
-  },
-  {
-    day: 52,
-    phase: "consolidacao",
-    title: "Gestão de Contratos (AC-17) — Parte 2",
-    learningObjectives: ["Dominar Gestão de Contratos, código AC-17 do Anexo IV."],
-    subjects: ["especificas"],
-    syllabusCodes: ["AC-17"],
-    prerequisites: [],
-    steps: [
-      {
-        id: "dia-52-abertura",
-        type: "abertura",
-        title: "Abertura do dia",
-        estimatedMinutes: 2,
-        extraContentRefs: [],
-        optional: false,
-        completionCriteria: "Ler a apresentação do dia."
-      },
-      {
-        id: "dia-52-releitura",
+        id: "dia-27-s204",
         type: "aula_textual",
         title: "Releitura e aprofundamento — AC-17",
         estimatedMinutes: 25,
@@ -3569,87 +3144,7 @@ const DAYS: CourseDay[] = [
         completionCriteria: "Reler os pontos de memorização e o mapa mental da aula."
       },
       {
-        id: "dia-52-revisao-programada",
-        type: "revisao_programada",
-        title: "Revisão programada do dia",
-        estimatedMinutes: 10,
-        extraContentRefs: [],
-        optional: true,
-        completionCriteria: "Revisar os flashcards e revisões vencidos hoje (se houver)."
-      },
-      {
-        id: "dia-52-fechamento",
-        type: "fechamento_dia",
-        title: "Fechamento do dia",
-        estimatedMinutes: 5,
-        extraContentRefs: [],
-        optional: false,
-        completionCriteria: "Registrar confiança e dificuldades percebidas no dia."
-      }
-    ],
-    estimatedMinutesTotal: 42,
-    expectedOutcome: "Consegue responder corretamente questões objetivas sobre Gestão de Contratos."
-  },
-  {
-    day: 53,
-    phase: "consolidacao",
-    title: "Revisão intercalada — Logística e Cadeia de Suprimentos (AC-10 a AC-17)",
-    learningObjectives: ["Consolidar todo o bloco de Logística e Cadeia de Suprimentos (AC-10 a AC-17) antes de seguir para a próxima disciplina."],
-    subjects: ["especificas"],
-    syllabusCodes: [],
-    prerequisites: [],
-    steps: [
-      {
-        id: "dia-53-abertura",
-        type: "abertura",
-        title: "Abertura da revisão",
-        estimatedMinutes: 2,
-        extraContentRefs: [],
-        optional: false,
-        completionCriteria: "Ler a apresentação da revisão."
-      },
-      {
-        id: "dia-53-revisao-programada",
-        type: "revisao_programada",
-        title: "Revisão de tudo que foi visto em Logística e Cadeia de Suprimentos (AC-10 a AC-17)",
-        estimatedMinutes: 30,
-        extraContentRefs: [],
-        optional: false,
-        completionCriteria: "Revisar flashcards, pontos de memorização e mapas mentais do bloco recém-concluído."
-      },
-      {
-        id: "dia-53-fechamento",
-        type: "fechamento_dia",
-        title: "Fechamento da revisão",
-        estimatedMinutes: 5,
-        extraContentRefs: [],
-        optional: false,
-        completionCriteria: "Registrar confiança e dificuldades percebidas na revisão."
-      }
-    ],
-    estimatedMinutesTotal: 37,
-    expectedOutcome: "Revisão consolidada de Logística e Cadeia de Suprimentos (AC-10 a AC-17), pronto para avançar sem lacunas do bloco anterior."
-  },
-  {
-    day: 54,
-    phase: "desenvolvimento",
-    title: "Geometria espacial (MAT-10) — Parte 2",
-    learningObjectives: ["Dominar Geometria espacial, código MAT-10 do Anexo IV."],
-    subjects: ["matematica"],
-    syllabusCodes: ["MAT-10"],
-    prerequisites: [],
-    steps: [
-      {
-        id: "dia-54-abertura",
-        type: "abertura",
-        title: "Abertura do dia",
-        estimatedMinutes: 2,
-        extraContentRefs: [],
-        optional: false,
-        completionCriteria: "Ler a apresentação do dia."
-      },
-      {
-        id: "dia-54-pratica",
+        id: "dia-27-s205",
         type: "questoes",
         title: "Prática adicional — MAT-10 (Geometria espacial)",
         estimatedMinutes: 25,
@@ -3673,7 +3168,7 @@ const DAYS: CourseDay[] = [
         completionCriteria: "Responder ao bloco de questões adicionais."
       },
       {
-        id: "dia-54-revisao-programada",
+        id: "dia-27-s206",
         type: "revisao_programada",
         title: "Revisão programada do dia",
         estimatedMinutes: 10,
@@ -3682,7 +3177,7 @@ const DAYS: CourseDay[] = [
         completionCriteria: "Revisar os flashcards e revisões vencidos hoje (se houver)."
       },
       {
-        id: "dia-54-fechamento",
+        id: "dia-27-s207",
         type: "fechamento_dia",
         title: "Fechamento do dia",
         estimatedMinutes: 5,
@@ -3691,20 +3186,20 @@ const DAYS: CourseDay[] = [
         completionCriteria: "Registrar confiança e dificuldades percebidas no dia."
       }
     ],
-    estimatedMinutesTotal: 42,
-    expectedOutcome: "Consegue responder corretamente questões objetivas sobre Geometria espacial."
+    estimatedMinutesTotal: 122,
+    expectedOutcome: "Consegue responder corretamente questões objetivas sobre Significação das palavras. Consegue responder corretamente questões objetivas sobre Gestão de Contratos. Consegue responder corretamente questões objetivas sobre Geometria espacial."
   },
   {
-    day: 55,
-    phase: "desenvolvimento",
-    title: "Revisão intercalada — Matemática (MAT-01 a MAT-10)",
-    learningObjectives: ["Consolidar todo o bloco de Matemática (MAT-01 a MAT-10) antes de seguir para a próxima disciplina."],
-    subjects: ["matematica"],
+    day: 28,
+    phase: "fundamentos",
+    title: "Revisão intercalada — Língua Portuguesa (PT-01 a PT-08)",
+    learningObjectives: ["Consolidar todo o bloco de Língua Portuguesa (PT-01 a PT-08) antes de seguir para a próxima disciplina."],
+    subjects: ["portugues"],
     syllabusCodes: [],
     prerequisites: [],
     steps: [
       {
-        id: "dia-55-abertura",
+        id: "dia-28-s208",
         type: "abertura",
         title: "Abertura da revisão",
         estimatedMinutes: 2,
@@ -3713,7 +3208,87 @@ const DAYS: CourseDay[] = [
         completionCriteria: "Ler a apresentação da revisão."
       },
       {
-        id: "dia-55-revisao-programada",
+        id: "dia-28-s209",
+        type: "revisao_programada",
+        title: "Revisão de tudo que foi visto em Língua Portuguesa (PT-01 a PT-08)",
+        estimatedMinutes: 30,
+        extraContentRefs: [],
+        optional: false,
+        completionCriteria: "Revisar flashcards, pontos de memorização e mapas mentais do bloco recém-concluído."
+      },
+      {
+        id: "dia-28-s210",
+        type: "fechamento_dia",
+        title: "Fechamento da revisão",
+        estimatedMinutes: 5,
+        extraContentRefs: [],
+        optional: false,
+        completionCriteria: "Registrar confiança e dificuldades percebidas na revisão."
+      }
+    ],
+    estimatedMinutesTotal: 37,
+    expectedOutcome: "Revisão consolidada de Língua Portuguesa (PT-01 a PT-08), pronto para avançar sem lacunas do bloco anterior."
+  },
+  {
+    day: 29,
+    phase: "consolidacao",
+    title: "Revisão intercalada — Logística e Cadeia de Suprimentos (AC-10 a AC-17)",
+    learningObjectives: ["Consolidar todo o bloco de Logística e Cadeia de Suprimentos (AC-10 a AC-17) antes de seguir para a próxima disciplina."],
+    subjects: ["especificas"],
+    syllabusCodes: [],
+    prerequisites: [],
+    steps: [
+      {
+        id: "dia-29-s211",
+        type: "abertura",
+        title: "Abertura da revisão",
+        estimatedMinutes: 2,
+        extraContentRefs: [],
+        optional: false,
+        completionCriteria: "Ler a apresentação da revisão."
+      },
+      {
+        id: "dia-29-s212",
+        type: "revisao_programada",
+        title: "Revisão de tudo que foi visto em Logística e Cadeia de Suprimentos (AC-10 a AC-17)",
+        estimatedMinutes: 30,
+        extraContentRefs: [],
+        optional: false,
+        completionCriteria: "Revisar flashcards, pontos de memorização e mapas mentais do bloco recém-concluído."
+      },
+      {
+        id: "dia-29-s213",
+        type: "fechamento_dia",
+        title: "Fechamento da revisão",
+        estimatedMinutes: 5,
+        extraContentRefs: [],
+        optional: false,
+        completionCriteria: "Registrar confiança e dificuldades percebidas na revisão."
+      }
+    ],
+    estimatedMinutesTotal: 37,
+    expectedOutcome: "Revisão consolidada de Logística e Cadeia de Suprimentos (AC-10 a AC-17), pronto para avançar sem lacunas do bloco anterior."
+  },
+  {
+    day: 30,
+    phase: "desenvolvimento",
+    title: "Revisão intercalada — Matemática (MAT-01 a MAT-10)",
+    learningObjectives: ["Consolidar todo o bloco de Matemática (MAT-01 a MAT-10) antes de seguir para a próxima disciplina."],
+    subjects: ["matematica"],
+    syllabusCodes: [],
+    prerequisites: [],
+    steps: [
+      {
+        id: "dia-30-s214",
+        type: "abertura",
+        title: "Abertura da revisão",
+        estimatedMinutes: 2,
+        extraContentRefs: [],
+        optional: false,
+        completionCriteria: "Ler a apresentação da revisão."
+      },
+      {
+        id: "dia-30-s215",
         type: "revisao_programada",
         title: "Revisão de tudo que foi visto em Matemática (MAT-01 a MAT-10)",
         estimatedMinutes: 30,
@@ -3722,7 +3297,7 @@ const DAYS: CourseDay[] = [
         completionCriteria: "Revisar flashcards, pontos de memorização e mapas mentais do bloco recém-concluído."
       },
       {
-        id: "dia-55-fechamento",
+        id: "dia-30-s216",
         type: "fechamento_dia",
         title: "Fechamento da revisão",
         estimatedMinutes: 5,
@@ -3735,7 +3310,7 @@ const DAYS: CourseDay[] = [
     expectedOutcome: "Revisão consolidada de Matemática (MAT-01 a MAT-10), pronto para avançar sem lacunas do bloco anterior."
   },
   {
-    day: 56,
+    day: 31,
     phase: "reta_final",
     title: "Revisão geral — Dia 1",
     learningObjectives: ["PENDENTE — Fase 2 de revisão será detalhada em prompt futuro."],
@@ -3744,7 +3319,7 @@ const DAYS: CourseDay[] = [
     prerequisites: [],
     steps: [
       {
-        id: "dia-56-abertura",
+        id: "dia-31-s217",
         type: "abertura",
         title: "Revisão geral (estrutura ainda não detalhada)",
         estimatedMinutes: 1,
@@ -3757,7 +3332,7 @@ const DAYS: CourseDay[] = [
     expectedOutcome: "PENDENTE — conteúdo específico deste dia de revisão será definido em prompt futuro."
   },
   {
-    day: 57,
+    day: 32,
     phase: "reta_final",
     title: "Revisão geral — Dia 2",
     learningObjectives: ["PENDENTE — Fase 2 de revisão será detalhada em prompt futuro."],
@@ -3766,7 +3341,7 @@ const DAYS: CourseDay[] = [
     prerequisites: [],
     steps: [
       {
-        id: "dia-57-abertura",
+        id: "dia-32-s218",
         type: "abertura",
         title: "Revisão geral (estrutura ainda não detalhada)",
         estimatedMinutes: 1,
@@ -3779,7 +3354,7 @@ const DAYS: CourseDay[] = [
     expectedOutcome: "PENDENTE — conteúdo específico deste dia de revisão será definido em prompt futuro."
   },
   {
-    day: 58,
+    day: 33,
     phase: "reta_final",
     title: "Revisão geral — Dia 3",
     learningObjectives: ["PENDENTE — Fase 2 de revisão será detalhada em prompt futuro."],
@@ -3788,7 +3363,7 @@ const DAYS: CourseDay[] = [
     prerequisites: [],
     steps: [
       {
-        id: "dia-58-abertura",
+        id: "dia-33-s219",
         type: "abertura",
         title: "Revisão geral (estrutura ainda não detalhada)",
         estimatedMinutes: 1,
@@ -3801,7 +3376,7 @@ const DAYS: CourseDay[] = [
     expectedOutcome: "PENDENTE — conteúdo específico deste dia de revisão será definido em prompt futuro."
   },
   {
-    day: 59,
+    day: 34,
     phase: "reta_final",
     title: "Revisão geral — Dia 4",
     learningObjectives: ["PENDENTE — Fase 2 de revisão será detalhada em prompt futuro."],
@@ -3810,7 +3385,7 @@ const DAYS: CourseDay[] = [
     prerequisites: [],
     steps: [
       {
-        id: "dia-59-abertura",
+        id: "dia-34-s220",
         type: "abertura",
         title: "Revisão geral (estrutura ainda não detalhada)",
         estimatedMinutes: 1,
@@ -3823,7 +3398,7 @@ const DAYS: CourseDay[] = [
     expectedOutcome: "PENDENTE — conteúdo específico deste dia de revisão será definido em prompt futuro."
   },
   {
-    day: 60,
+    day: 35,
     phase: "reta_final",
     title: "Revisão geral — Dia 5",
     learningObjectives: ["PENDENTE — Fase 2 de revisão será detalhada em prompt futuro."],
@@ -3832,7 +3407,7 @@ const DAYS: CourseDay[] = [
     prerequisites: [],
     steps: [
       {
-        id: "dia-60-abertura",
+        id: "dia-35-s221",
         type: "abertura",
         title: "Revisão geral (estrutura ainda não detalhada)",
         estimatedMinutes: 1,
@@ -3845,7 +3420,7 @@ const DAYS: CourseDay[] = [
     expectedOutcome: "PENDENTE — conteúdo específico deste dia de revisão será definido em prompt futuro."
   },
   {
-    day: 61,
+    day: 36,
     phase: "reta_final",
     title: "Revisão geral — Dia 6",
     learningObjectives: ["PENDENTE — Fase 2 de revisão será detalhada em prompt futuro."],
@@ -3854,7 +3429,7 @@ const DAYS: CourseDay[] = [
     prerequisites: [],
     steps: [
       {
-        id: "dia-61-abertura",
+        id: "dia-36-s222",
         type: "abertura",
         title: "Revisão geral (estrutura ainda não detalhada)",
         estimatedMinutes: 1,
@@ -3867,7 +3442,7 @@ const DAYS: CourseDay[] = [
     expectedOutcome: "PENDENTE — conteúdo específico deste dia de revisão será definido em prompt futuro."
   },
   {
-    day: 62,
+    day: 37,
     phase: "reta_final",
     title: "Revisão geral — Dia 7",
     learningObjectives: ["PENDENTE — Fase 2 de revisão será detalhada em prompt futuro."],
@@ -3876,7 +3451,7 @@ const DAYS: CourseDay[] = [
     prerequisites: [],
     steps: [
       {
-        id: "dia-62-abertura",
+        id: "dia-37-s223",
         type: "abertura",
         title: "Revisão geral (estrutura ainda não detalhada)",
         estimatedMinutes: 1,
@@ -3889,7 +3464,7 @@ const DAYS: CourseDay[] = [
     expectedOutcome: "PENDENTE — conteúdo específico deste dia de revisão será definido em prompt futuro."
   },
   {
-    day: 63,
+    day: 38,
     phase: "reta_final",
     title: "Revisão geral — Dia 8",
     learningObjectives: ["PENDENTE — Fase 2 de revisão será detalhada em prompt futuro."],
@@ -3898,7 +3473,7 @@ const DAYS: CourseDay[] = [
     prerequisites: [],
     steps: [
       {
-        id: "dia-63-abertura",
+        id: "dia-38-s224",
         type: "abertura",
         title: "Revisão geral (estrutura ainda não detalhada)",
         estimatedMinutes: 1,
@@ -3911,7 +3486,7 @@ const DAYS: CourseDay[] = [
     expectedOutcome: "PENDENTE — conteúdo específico deste dia de revisão será definido em prompt futuro."
   },
   {
-    day: 64,
+    day: 39,
     phase: "reta_final",
     title: "Revisão geral — Dia 9",
     learningObjectives: ["PENDENTE — Fase 2 de revisão será detalhada em prompt futuro."],
@@ -3920,7 +3495,7 @@ const DAYS: CourseDay[] = [
     prerequisites: [],
     steps: [
       {
-        id: "dia-64-abertura",
+        id: "dia-39-s225",
         type: "abertura",
         title: "Revisão geral (estrutura ainda não detalhada)",
         estimatedMinutes: 1,
@@ -3933,7 +3508,7 @@ const DAYS: CourseDay[] = [
     expectedOutcome: "PENDENTE — conteúdo específico deste dia de revisão será definido em prompt futuro."
   },
   {
-    day: 65,
+    day: 40,
     phase: "reta_final",
     title: "Revisão geral — Dia 10",
     learningObjectives: ["PENDENTE — Fase 2 de revisão será detalhada em prompt futuro."],
@@ -3942,7 +3517,7 @@ const DAYS: CourseDay[] = [
     prerequisites: [],
     steps: [
       {
-        id: "dia-65-abertura",
+        id: "dia-40-s226",
         type: "abertura",
         title: "Revisão geral (estrutura ainda não detalhada)",
         estimatedMinutes: 1,
@@ -3955,7 +3530,7 @@ const DAYS: CourseDay[] = [
     expectedOutcome: "PENDENTE — conteúdo específico deste dia de revisão será definido em prompt futuro."
   },
   {
-    day: 66,
+    day: 41,
     phase: "reta_final",
     title: "Revisão geral — Dia 11",
     learningObjectives: ["PENDENTE — Fase 2 de revisão será detalhada em prompt futuro."],
@@ -3964,7 +3539,7 @@ const DAYS: CourseDay[] = [
     prerequisites: [],
     steps: [
       {
-        id: "dia-66-abertura",
+        id: "dia-41-s227",
         type: "abertura",
         title: "Revisão geral (estrutura ainda não detalhada)",
         estimatedMinutes: 1,
@@ -3977,7 +3552,7 @@ const DAYS: CourseDay[] = [
     expectedOutcome: "PENDENTE — conteúdo específico deste dia de revisão será definido em prompt futuro."
   },
   {
-    day: 67,
+    day: 42,
     phase: "reta_final",
     title: "Revisão geral — Dia 12",
     learningObjectives: ["PENDENTE — Fase 2 de revisão será detalhada em prompt futuro."],
@@ -3986,7 +3561,7 @@ const DAYS: CourseDay[] = [
     prerequisites: [],
     steps: [
       {
-        id: "dia-67-abertura",
+        id: "dia-42-s228",
         type: "abertura",
         title: "Revisão geral (estrutura ainda não detalhada)",
         estimatedMinutes: 1,
@@ -3999,7 +3574,7 @@ const DAYS: CourseDay[] = [
     expectedOutcome: "PENDENTE — conteúdo específico deste dia de revisão será definido em prompt futuro."
   },
   {
-    day: 68,
+    day: 43,
     phase: "reta_final",
     title: "Revisão geral — Dia 13",
     learningObjectives: ["PENDENTE — Fase 2 de revisão será detalhada em prompt futuro."],
@@ -4008,7 +3583,7 @@ const DAYS: CourseDay[] = [
     prerequisites: [],
     steps: [
       {
-        id: "dia-68-abertura",
+        id: "dia-43-s229",
         type: "abertura",
         title: "Revisão geral (estrutura ainda não detalhada)",
         estimatedMinutes: 1,
@@ -4021,7 +3596,7 @@ const DAYS: CourseDay[] = [
     expectedOutcome: "PENDENTE — conteúdo específico deste dia de revisão será definido em prompt futuro."
   },
   {
-    day: 69,
+    day: 44,
     phase: "reta_final",
     title: "Revisão geral — Dia 14",
     learningObjectives: ["PENDENTE — Fase 2 de revisão será detalhada em prompt futuro."],
@@ -4030,7 +3605,7 @@ const DAYS: CourseDay[] = [
     prerequisites: [],
     steps: [
       {
-        id: "dia-69-abertura",
+        id: "dia-44-s230",
         type: "abertura",
         title: "Revisão geral (estrutura ainda não detalhada)",
         estimatedMinutes: 1,
@@ -4043,7 +3618,7 @@ const DAYS: CourseDay[] = [
     expectedOutcome: "PENDENTE — conteúdo específico deste dia de revisão será definido em prompt futuro."
   },
   {
-    day: 70,
+    day: 45,
     phase: "reta_final",
     title: "Revisão geral — Dia 15",
     learningObjectives: ["PENDENTE — Fase 2 de revisão será detalhada em prompt futuro."],
@@ -4052,7 +3627,7 @@ const DAYS: CourseDay[] = [
     prerequisites: [],
     steps: [
       {
-        id: "dia-70-abertura",
+        id: "dia-45-s231",
         type: "abertura",
         title: "Revisão geral (estrutura ainda não detalhada)",
         estimatedMinutes: 1,
@@ -4065,7 +3640,7 @@ const DAYS: CourseDay[] = [
     expectedOutcome: "PENDENTE — conteúdo específico deste dia de revisão será definido em prompt futuro."
   },
   {
-    day: 71,
+    day: 46,
     phase: "reta_final",
     title: "Revisão geral — Dia 16",
     learningObjectives: ["PENDENTE — Fase 2 de revisão será detalhada em prompt futuro."],
@@ -4074,7 +3649,7 @@ const DAYS: CourseDay[] = [
     prerequisites: [],
     steps: [
       {
-        id: "dia-71-abertura",
+        id: "dia-46-s232",
         type: "abertura",
         title: "Revisão geral (estrutura ainda não detalhada)",
         estimatedMinutes: 1,
@@ -4087,7 +3662,7 @@ const DAYS: CourseDay[] = [
     expectedOutcome: "PENDENTE — conteúdo específico deste dia de revisão será definido em prompt futuro."
   },
   {
-    day: 72,
+    day: 47,
     phase: "reta_final",
     title: "Revisão geral — Dia 17",
     learningObjectives: ["PENDENTE — Fase 2 de revisão será detalhada em prompt futuro."],
@@ -4096,7 +3671,7 @@ const DAYS: CourseDay[] = [
     prerequisites: [],
     steps: [
       {
-        id: "dia-72-abertura",
+        id: "dia-47-s233",
         type: "abertura",
         title: "Revisão geral (estrutura ainda não detalhada)",
         estimatedMinutes: 1,
@@ -4109,7 +3684,7 @@ const DAYS: CourseDay[] = [
     expectedOutcome: "PENDENTE — conteúdo específico deste dia de revisão será definido em prompt futuro."
   },
   {
-    day: 73,
+    day: 48,
     phase: "reta_final",
     title: "Revisão geral — Dia 18",
     learningObjectives: ["PENDENTE — Fase 2 de revisão será detalhada em prompt futuro."],
@@ -4118,7 +3693,7 @@ const DAYS: CourseDay[] = [
     prerequisites: [],
     steps: [
       {
-        id: "dia-73-abertura",
+        id: "dia-48-s234",
         type: "abertura",
         title: "Revisão geral (estrutura ainda não detalhada)",
         estimatedMinutes: 1,
