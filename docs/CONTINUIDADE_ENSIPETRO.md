@@ -1,3 +1,97 @@
+# Continuidade — Motores Adaptativos (2026-08-27)
+
+Registra a missão "Motores Adaptativos": repetição espaçada real ligada ao erro (Motor 1), simulado cronometrado com diagnóstico de banca (Motor 2), previsão de nota e priorização automática (Motor 3). Confirmado com o usuário: "Ensipetro" é o nome do curso/produto; o código de verdade continua sendo esta pasta (`TRANSPETRO`) — a pasta irmã `D:\DOCUMENTOS DIVERSOS\ENSIPETRO` é só um workspace de docs/entregas de missões paralelas de conteúdo, sem código de app nenhum.
+
+## 0. Auditoria pré-missão (seção 1 da missão)
+
+A fundação de dados pedagógicos **já existia e já tinha dado real fluindo** — não era esqueleto, não foi preciso simular nada:
+
+- `attempts` (tentativa de questão: resposta dada, resposta certa, tempo gasto, confiança declarada, data) — gravado por `recordAttempt` (`src/lib/pedagogy/service.ts`), único caminho de escrita, usado por miniquiz, banco de questões, revisão de véspera e simulado.
+- `errorEntries` (dificuldade/erro por tópico, com evidências rastreáveis) — `openOrUpdateDifficulty`.
+- `reviewSchedules` + `reviewAttempts` (revisão programada) — `scheduleReview`/`recordReviewResult`, com um algoritmo de intervalos crescentes JÁ implementado (`src/lib/pedagogy/reviewRules.ts`): 1, 3, 7, 14, 30 dias (`REVIEW_SCHEDULE_DAYS` em `src/lib/schedule/priority.ts`), reseta no erro, mantém na dúvida, avança no domínio — muito próximo do SM-2 pedido na missão, só com números ligeiramente diferentes do exemplo da missão (1-2/4-5/~10/~20), mantidos como já estavam por já serem uma escolha deliberada e testada.
+- `masterySnapshots` (estado de domínio, recalculado a cada tentativa) — `recomputeMastery`, com regras de "não confundir 1 acerto com domínio real" já implementadas (`src/lib/pedagogy/masteryRules.ts`).
+- Calendário (Prompt 11): `src/content/coursePlan.ts` + `src/lib/course/schedule.ts` — cada `CourseDay` referencia `syllabusCodes`; conteúdo por código (Prompt 10): `src/content/lessons/**` + `src/content/questions/**`, cada aula/questão com `topicSlug`. Confirmado: **39 tópicos, 39 códigos, relação 1:1** (nenhum tópico com mais de um código) — usado como premissa em todo o Motor 3.
+
+**Achado mais importante da auditoria**: a fórmula de priorização (`computePriority`/`computeWeaknessFactor`/`computeReviewUrgency`, em `src/lib/schedule/priority.ts`) **já existia, com testes próprios, mas nunca era chamada por nenhum serviço ou tela** — órfã desde uma missão anterior. Boa parte do Motor 3 foi ligar essa fórmula a dado real pela primeira vez, não inventar uma nova.
+
+## 1. Motor 1 — Repetição espaçada real (gap-fill, não duplicação)
+
+O que já existia (ver auditoria acima) cobria "errou → dificuldade → revisão agendada com intervalo crescente". Faltava exatamente o que a missão pedia a mais:
+
+- **Sinal fraco em acerto**: `recordAttempt` agora também agenda revisão (razão `"baixa_confianca"` ou `"esquecimento"`, valores que já existiam no enum `ReviewReasonSchema` mas nunca eram usados) quando o aluno ACERTA mas com confiança declarada ≤ 2 (escala 1-5) OU tempo de resposta ≥ 1.75× a própria média histórica no tópico. Nunca dispara no primeiro contato com um tópico (não há "média" pra comparar ainda) — implementado em `scheduleWeakSignalReview` (`src/lib/pedagogy/service.ts`).
+- **Material concreto na revisão**: `ReviewSchedule.recommendedActivityRefs` sempre existiu no schema mas era sempre `[]`. Agora é preenchido (`buildRecommendedActivityRefs`) com `"lesson:<topicSlug>"` (sempre) e `"question:<id>"` (quando a revisão nasceu de uma questão específica). A tela `/meu-curso/revisoes` resolve essas refs em um link real "Abrir aula, resumo e pegadinhas deste código" e mostra o nome do tópico em vez do ID técnico.
+
+**Limitação conhecida**: `"question:<id>"` ainda não vira link clicável — o app não tem uma tela de questão avulsa fora de uma listagem/simulado. Fica só como indicador ("inclui a questão que você errou"). Próxima sessão: criar uma rota `/questoes/[id]` reaproveitando `QuestionCard`.
+
+## 2. Motor 2 — Simulado cronometrado com diagnóstico de banca
+
+- **Simulados menores**: `generateSubjectMockExam` (`src/lib/mock/generator.ts`), além do `generateFullMockExam` já existente — simulado só de uma disciplina, tamanho customizável.
+- **Não repete questão de simulados recentes**: `pickAvoidingRepeats` exclui as questões dos últimos 2 simulados concluídos do aluno (`getRecentMockExamAttempts`, novo em `service.ts`); se o banco não tiver questões novas suficientes, completa com repetição e AVISA — nunca falha silenciosamente nem falsifica o tamanho da prova.
+- **Cronômetro real**: contagem regressiva total, visível, que finaliza o simulado sozinha ao chegar a zero (como na prova real) — 4h pra prova completa, **confirmado no `MATRIZ_EDITAL_TRANSPETRO.md`** ("duração de 4 horas"), não é suposição. Simulados parciais usam fração proporcional ao nº de questões (suposição documentada no código — o edital só define a duração da prova inteira). Tempo por questão: medido pelo relógio real entre uma resposta e a anterior (não é "tempo de leitura isolado" se o aluno pular questões e voltar depois, mas é medição real do relógio, nunca estimada) — mostrado como "respondida em Xs" logo abaixo de cada questão.
+- **Diagnóstico pós-simulado** (`src/lib/mock/diagnostics.ts`, novo):
+  - Regra REAL de eliminação (edital, item 7.1.4.3) com as 4 condições separadas: <50% em Específicas, <50% na soma de Geral (Português+Matemática), zero em Português isolado, zero em Matemática isolado. Só se aplica a simulados que cobrem o blueprint oficial inteiro (`canCheckEliminationRules`) — um simulado parcial não permite simular a regra de corte real. `OBJECTIVE_MIN_PASSING_POINTS` (30 pts) continua existindo só como resumo rápido de "mínimo eliminatório", como já estava documentado como simplificação.
+  - Tempo médio por disciplina.
+  - Acerto por tipo de questão (direta / exceção-pegadinha / cálculo-aplicação) — **classificação HEURÍSTICA por regex sobre o próprio enunciado** (`classifyQuestionType`), nunca um dado oficial da banca (a Cesgranrio não publica essa classificação) — rotulado como tal na UI.
+  - Comparação com o simulado concluído anterior do mesmo aluno, por disciplina (melhorando/piorando/estável) — estado honesto "sem simulado anterior" quando não há base.
+- Corrigido de quebra: um comentário em `generator.ts` dizia "Específicas valem 2 pts" — errado, o edital confirma 1 ponto por questão em qualquer disciplina (60 questões = 60 pontos). Só o comentário estava errado, o cálculo real (`scoreMockExam`) já usava 1 ponto corretamente.
+
+**Limitação conhecida**: a classificação de tipo de questão é só uma heurística de texto — não valida contra o padrão real de cada banca, e pode classificar errado enunciados atípicos. A "estimativa incidência" usada no Motor 3 (abaixo) também é heurística (ver seção 3).
+
+## 3. Motor 3 — Previsão de nota e priorização automática
+
+Novo serviço `src/lib/pedagogy/scoreEstimate.ts`, ligando a fórmula já existente (`computePriority`) a dado real pela primeira vez. **Só leitura** — não grava nada, não duplica `masterySnapshots`/`reviewSchedules`.
+
+### Fórmula (documentada aqui e no cabeçalho do arquivo)
+
+Por código do edital (= tópico, relação 1:1 confirmada):
+
+1. **Peso em pontos do código** = peso da disciplina (`SubjectDef.examWeightPoints`, confirmado pela estrutura oficial) ÷ nº de códigos daquela disciplina. *Suposição documentada*: o edital não publica peso por código, só por disciplina — divisão igual entre os códigos é a estimativa mais neutra possível.
+2. **Acurácia ponderada** = 70% acurácia recente (últimas 10 tentativas, já calculada em `masterySnapshots.recentAccuracyRate`) + 30% acurácia geral — dá mais peso ao desempenho recente (reflete esquecimento/evolução) sem descartar o histórico.
+3. **"Tem dado suficiente"** = ≥ 3 tentativas no tópico (mesmo piso de `MIN_ATTEMPTS_FOR_SIGNAL` usado no domínio) — abaixo disso, o código entra no relatório mas NÃO entra na nota estimada.
+4. **Nota estimada** = extrapolação HONESTA: soma (acurácia ponderada × peso em pontos) só dos códigos com dado suficiente, dividido pelos pontos cobertos por esses códigos = "acurácia conhecida"; a nota mostrada é "acurácia conhecida" × 60 pontos totais — sempre acompanhada de "baseado em X dos 60 pontos já com dado real". Com ZERO tentativas em qualquer tópico, não mostra nenhum número — mostra o estado "ainda coletando dados".
+5. **Priorização** = `computePriority` (já existente): peso normalizado × lacuna de cobertura × fraqueza do aluno × urgência de revisão × incidência estimada.
+   - Lacuna de cobertura = `1 − tentativas/5` (piso de tentativas pra "domínio", `MIN_ATTEMPTS_FOR_MASTERY`) — captura "nunca estudado" (=1) separadamente da fraqueza.
+   - Fraqueza do aluno = `computeWeaknessFactor` já existente, alimentada com a acurácia REAL quando há dado suficiente, e **0.5 neutro quando não há** (bug corrigido durante os testes: usar 0 de acurácia pra tópico nunca tentado inflava a prioridade de TUDO que nunca foi estudado, afogando quem de fato foi tentado e errado bastante — coverage já captura "nunca estudado", não precisa duplicar em weakness).
+   - Urgência de revisão = `computeReviewUrgency` se há uma revisão pendente pro tópico; piso (0.1) se não há nenhuma.
+   - Incidência estimada = tamanho do banco de questões reais daquele código, normalizado pelo código com mais questões. *Suposição documentada*: proxy razoável, não é estatística oficial de incidência (a banca não publica isso).
+
+### Onde aparece
+
+- Painel "Meu Curso" (Hoje): cartão "Nota estimada e prioridade de hoje" com a extrapolação + link direto pro código de maior impacto — ou o estado honesto "ainda coletando dados".
+- Professor (tool calling): `obter_estimativa_e_priorizacao`, nova ferramenta (`risk: "auto"`, só leitura) — responde "no que devo focar hoje?"/"qual minha nota estimada?" com estes dados reais.
+
+**Limitação conhecida**: o peso por código (divisão igual dentro da disciplina) é uma aproximação — se o edital publicar peso oficial por código no futuro, `examWeightPoints` em `scoreEstimate.ts` é o único lugar a ajustar.
+
+## 4. Coerência entre os motores (seção 5 da missão)
+
+Confirmado, sem nenhum passo manual: um erro num simulado (Motor 2) → `finishMockExamAttempt` chama `recordAttempt` pra cada questão (já existia) → `recordAttempt` abre/atualiza dificuldade e agenda revisão (Motor 1, já existia + gap-fill desta missão) → `masterySnapshots` é recalculado na mesma chamada → `computeScoreEstimate` (Motor 3) lê `masterySnapshots`/`reviewSchedules` ao vivo, então a nota estimada e a priorização mudam automaticamente na próxima vez que a tela/ferramenta for consultada. Testado via `src/lib/pedagogy/__tests__/scoreEstimate.test.ts` (muda a estimativa entre "tudo certo" e "tudo errado" no mesmo tópico).
+
+## 5. Suposições assumidas nesta missão
+
+1. Duração da prova completa: 4h — **confirmada** no edital (`MATRIZ_EDITAL_TRANSPETRO.md`), não é suposição.
+2. Duração de simulados parciais: fração proporcional ao nº de questões — suposição, o edital só define a duração da prova inteira.
+3. Peso em pontos por código do edital: divisão igual entre os códigos de cada disciplina — suposição, o edital só publica peso por disciplina.
+4. Incidência estimada por código: tamanho do banco de questões reais daquele código — suposição/proxy, não é estatística oficial da banca.
+5. Classificação de tipo de questão (direta/exceção/cálculo): heurística por regex no enunciado — nunca um dado oficial.
+6. Blend de acurácia recente/geral (70/30): escolha documentada, não uma constante do edital.
+
+## 6. Validações executadas
+
+- `tsc --noEmit`: ✅ 0 erros, em cada um dos 4 commits desta missão.
+- `npm run build`: ✅ 38 rotas, em cada um dos 4 commits.
+- `npm test`: ✅ 92 testes passando, 15 suítes (42 pulados, suítes pré-existentes já marcadas `describe.skip` por dependerem de uma aula placeholder antiga — não mudou nesta missão, ver pendência já registrada na seção "Continuidade — Cronograma" abaixo). Testes novos desta missão: `scoreEstimate.test.ts` (6), `weakSignalReview.test.ts` (5), `diagnostics.test.ts` (16), `generator.test.ts` (6), `recommendedActivityRefs.test.ts` (1), mais 2 novos em `toolExecutors.test.ts` — todos exercitando os motores de ponta a ponta com conteúdo/questões REAIS (não fixtures inventadas), incluindo os casos exigidos pela missão: revisão agendada a partir de um erro real, diagnóstico completo depois de um simulado, nota estimada e priorização mudando de forma coerente após novas tentativas.
+- **Não foi possível validar interativamente no navegador** (login real via Supabase necessário pra ter uma matrícula/progresso de teste) — a validação ficou nos testes automatizados acima, que cobrem exatamente os fluxos pedidos na seção 7 da missão (agendamento de revisão, diagnóstico do simulado, nota estimada mudando). Próxima sessão com acesso ao navegador logado: confirmar visualmente o cartão "Nota estimada" em `/meu-curso` e o relatório de diagnóstico em `/simulados` depois de um simulado real.
+- **Nenhum deploy foi feito** (instrução explícita da missão, seção 6) — os 4 commits desta missão ficaram só locais, sem `git push`.
+
+## 7. Próxima ação recomendada
+
+1. Validar interativamente no navegador (login real) os 3 pontos da seção 7 da missão que só foram cobertos por teste automatizado até aqui.
+2. Criar uma rota `/questoes/[id]` (reaproveitando `QuestionCard`) pra que `"question:<id>"` em `recommendedActivityRefs` vire link clicável de verdade.
+3. Se/quando o usuário decidir fazer deploy desta missão, rodar a sequência já estabelecida (commit → push → conferir deploy no Vercel).
+4. Considerar reescrever as suítes `describe.skip` (`service.test.ts`, `toolExecutors.test.ts`) contra um tópico real (ex.: `pt-01-compreensao-textos`, já usado nos testes novos desta missão) — pendência antiga, não desta missão, mas cada vez mais fácil de resolver agora que há mais exemplos recentes de teste com conteúdo real no próprio arquivo.
+
+---
+
 # Continuidade — Cronograma "Meu Curso" (Ensipetro)
 
 Registra a missão de construção do cronograma/calendário completo do "Meu Curso" — Fase 1 (conteúdo geral, 39 códigos) detalhada por completo, Fase 2 (revisão) só como estrutura. "Ensipetro" é o nome do curso/produto; a estrutura de projeto continua sendo esta pasta (`TRANSPETRO`), conforme confirmado pelo usuário.
