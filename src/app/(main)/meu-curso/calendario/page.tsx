@@ -2,13 +2,16 @@
 
 import { useEffect, useMemo, useState } from "react";
 import Link from "next/link";
-import { CalendarDays, ChevronLeft, ChevronRight, List, LayoutGrid, Download } from "lucide-react";
+import { CalendarDays, ChevronLeft, ChevronRight, List, LayoutGrid, Download, Image as ImageIcon, FileText, FileSpreadsheet, CalendarPlus, type LucideIcon } from "lucide-react";
 import { PageHeader } from "@/components/ui/PageHeader";
 import { PHASE_LABEL, formatMinutes } from "@/lib/course/labels";
 import { formatDateBR, todayInExamTimezone } from "@/lib/schedule/dates";
 import { EXAM_DATE } from "@config/concurso";
 import { getEnrollment, getCourseOverview, type CourseDayOverviewEntry } from "@/lib/course/service";
 import { buildCourseIcs, downloadIcs } from "@/lib/calendar/exportIcs";
+import { downloadCourseCalendarImage } from "@/lib/calendar/exportImage";
+import { downloadCoursePdf } from "@/lib/calendar/exportPdf";
+import { buildCourseCsv, downloadCsv } from "@/lib/calendar/exportCsv";
 import type { CourseEnrollment } from "@/lib/models/schema";
 
 type ViewMode = "mes" | "agenda";
@@ -32,6 +35,8 @@ export default function CalendarioPage() {
   const [view, setView] = useState<ViewMode>("mes");
   const [monthCursor, setMonthCursor] = useState<Date | null>(null);
   const [selectedDay, setSelectedDay] = useState<number | null>(null);
+  const [downloadOpen, setDownloadOpen] = useState(false);
+  const [downloading, setDownloading] = useState(false);
 
   useEffect(() => {
     (async () => {
@@ -118,14 +123,64 @@ export default function CalendarioPage() {
                 <List size={13} aria-hidden /> Agenda
               </button>
             </div>
-            <button
-              type="button"
-              onClick={() => downloadIcs(buildCourseIcs(entries, EXAM_DATE))}
-              className="tap-target px-2.5 py-1.5 rounded-lg border border-border text-xs flex items-center gap-1 text-foreground-muted hover:bg-surface-muted"
-              title="Baixar cronograma completo (.ics) — importável no Google Calendar, Outlook, Apple Calendar"
-            >
-              <Download size={13} aria-hidden /> Baixar (.ics)
-            </button>
+            <div className="relative">
+              <button
+                type="button"
+                onClick={() => setDownloadOpen((v) => !v)}
+                disabled={downloading}
+                className="tap-target px-2.5 py-1.5 rounded-lg border border-border text-xs flex items-center gap-1 text-foreground-muted hover:bg-surface-muted disabled:opacity-60"
+                aria-haspopup="menu"
+                aria-expanded={downloadOpen}
+              >
+                <Download size={13} aria-hidden /> {downloading ? "Gerando…" : "Baixar"}
+              </button>
+              {downloadOpen && (
+                <>
+                  <div className="fixed inset-0 z-40" onClick={() => setDownloadOpen(false)} />
+                  <div role="menu" className="absolute right-0 top-full mt-1.5 z-50 w-64 rounded-xl border border-border bg-surface p-1.5 shadow-lg">
+                    <p className="px-2.5 pt-1 pb-1.5 text-[10.5px] font-semibold uppercase tracking-wide text-foreground-muted">Escolha o formato</p>
+                    <DownloadOption
+                      icon={ImageIcon}
+                      label="Imagem (PNG)"
+                      description="Cronograma completo, organizado por dia — pra visualizar ou compartilhar"
+                      onClick={async () => {
+                        setDownloading(true);
+                        setDownloadOpen(false);
+                        await downloadCourseCalendarImage(entries, formatDateBR(EXAM_DATE));
+                        setDownloading(false);
+                      }}
+                    />
+                    <DownloadOption
+                      icon={FileText}
+                      label="PDF"
+                      description="Documento pronto pra imprimir ou guardar"
+                      onClick={() => {
+                        setDownloadOpen(false);
+                        downloadCoursePdf(entries, formatDateBR(EXAM_DATE));
+                      }}
+                    />
+                    <DownloadOption
+                      icon={FileSpreadsheet}
+                      label="Excel (CSV)"
+                      description="Planilha com todas as colunas — abre no Excel ou Google Sheets"
+                      onClick={() => {
+                        setDownloadOpen(false);
+                        downloadCsv(buildCourseCsv(entries));
+                      }}
+                    />
+                    <DownloadOption
+                      icon={CalendarPlus}
+                      label="Calendário (.ics)"
+                      description="Importa no Google Calendar, Outlook ou Apple Calendar"
+                      onClick={() => {
+                        setDownloadOpen(false);
+                        downloadIcs(buildCourseIcs(entries, EXAM_DATE));
+                      }}
+                    />
+                  </div>
+                </>
+              )}
+            </div>
           </div>
         }
       />
@@ -261,5 +316,34 @@ function LegendDot({ cls, label }: { cls: string; label: string }) {
       <span className={`inline-block h-2.5 w-2.5 rounded-sm border ${cls}`} />
       {label}
     </span>
+  );
+}
+
+function DownloadOption({
+  icon: Icon,
+  label,
+  description,
+  onClick,
+}: {
+  icon: LucideIcon;
+  label: string;
+  description: string;
+  onClick: () => void;
+}) {
+  return (
+    <button
+      type="button"
+      role="menuitem"
+      onClick={onClick}
+      className="w-full flex items-start gap-2.5 rounded-lg px-2.5 py-2 text-left hover:bg-surface-muted transition-colors"
+    >
+      <span className="flex items-center justify-center w-8 h-8 rounded-lg bg-brand-soft text-brand shrink-0 mt-0.5">
+        <Icon size={15} aria-hidden />
+      </span>
+      <span className="min-w-0">
+        <span className="block text-[13px] font-medium">{label}</span>
+        <span className="block text-[11px] text-foreground-muted leading-snug">{description}</span>
+      </span>
+    </button>
   );
 }
