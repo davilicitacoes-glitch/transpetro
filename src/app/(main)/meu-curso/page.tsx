@@ -3,22 +3,46 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { CalendarCheck2, CalendarClock, ChevronRight, Clock, Play } from "lucide-react";
+import {
+  CalendarCheck2,
+  CalendarClock,
+  ChevronRight,
+  Clock,
+  ClipboardList,
+  Flame,
+  ListChecks,
+  NotebookPen,
+  Play,
+  RotateCcw,
+  TrendingUp,
+} from "lucide-react";
 import { PageHeader } from "@/components/ui/PageHeader";
+import { ProgressRing } from "@/components/ui/ProgressRing";
 import { MigrationBanner } from "@/components/app/MigrationBanner";
 import { PHASE_LABEL, formatMinutes } from "@/lib/course/labels";
 import { formatDateBR, todayInExamTimezone, daysBetween } from "@/lib/schedule/dates";
+import { computeStudyStreak } from "@/lib/course/streak";
 import { EXAM_DATE, LAST_STUDY_DATE, TOTAL_MISSIONS } from "@config/concurso";
 import {
   getEnrollment,
   startEnrollment,
   getCalendar,
   getCourseDay,
+  getCourseOverview,
   getCurrentDayNumber,
   getDayProgress,
   getDueReviewsToday,
 } from "@/lib/course/service";
 import type { CourseEnrollment, CourseDay, CourseDayProgress, ReviewSchedule } from "@/lib/models/schema";
+
+const QUICK_LINKS = [
+  { href: "/questoes", label: "Questões", icon: ListChecks },
+  { href: "/simulados", label: "Simulados", icon: ClipboardList },
+  { href: "/revisoes", label: "Revisões", icon: RotateCcw },
+  { href: "/erros", label: "Caderno de Erros", icon: NotebookPen },
+  { href: "/desempenho", label: "Desempenho", icon: TrendingUp },
+  { href: "/meu-curso/calendario", label: "Calendário", icon: CalendarCheck2 },
+];
 
 export default function MeuCursoPage() {
   const router = useRouter();
@@ -30,6 +54,8 @@ export default function MeuCursoPage() {
   const [overloaded, setOverloaded] = useState(false);
   const [startDateInput, setStartDateInput] = useState(todayInExamTimezone());
   const [dueReviews, setDueReviews] = useState<ReviewSchedule[] | null>(null);
+  const [daysCompleted, setDaysCompleted] = useState(0);
+  const [streak, setStreak] = useState(0);
 
   async function load() {
     setLoading(true);
@@ -44,12 +70,15 @@ export default function MeuCursoPage() {
     const dayProgress = await getDayProgress(existing.studentId, dayNumber);
     const calendar = getCalendar(existing);
     const due = await getDueReviewsToday(existing.studentId);
+    const overview = await getCourseOverview(existing.studentId, existing);
     setEnrollment(existing);
     setCurrentDay(day);
     setProgress(dayProgress);
     setScheduledDate(calendar.dateByDay[dayNumber]);
     setOverloaded(calendar.overloaded);
     setDueReviews(due);
+    setDaysCompleted(overview.filter((d) => d.status === "concluido").length);
+    setStreak(computeStudyStreak(overview, todayInExamTimezone()));
     setLoading(false);
   }
 
@@ -128,15 +157,29 @@ export default function MeuCursoPage() {
 
       <MigrationBanner />
 
-      <div className="card p-3.5 mb-4 flex items-center justify-between gap-3 bg-brand-soft/30 border-brand/30">
-        <div className="flex items-center gap-2">
-          <Clock size={16} className="text-brand shrink-0" aria-hidden />
-          <p className="text-[12.5px]">
-            <strong>{daysToExam} dia(s)</strong> até a prova ({formatDateBR(EXAM_DATE)})
+      <div className="card p-4 mb-4 flex items-center gap-4">
+        <ProgressRing percent={TOTAL_MISSIONS > 0 ? (daysCompleted / TOTAL_MISSIONS) * 100 : 0} size={64} strokeWidth={6}>
+          <span className="text-[14px] font-display font-bold">{Math.round((daysCompleted / Math.max(1, TOTAL_MISSIONS)) * 100)}%</span>
+        </ProgressRing>
+        <div className="min-w-0 flex-1">
+          <p className="text-[15px] font-display font-semibold mb-0.5">
+            {daysCompleted} de {TOTAL_MISSIONS} dias concluídos
           </p>
+          <div className="flex items-center gap-3 text-[12px] text-foreground-muted flex-wrap">
+            <span className="flex items-center gap-1">
+              <Clock size={12} aria-hidden />
+              <strong className="text-foreground">{daysToExam}</strong> dia(s) até a prova
+            </span>
+            {streak > 0 && (
+              <span className="flex items-center gap-1 text-warning font-medium">
+                <Flame size={12} aria-hidden />
+                {streak} dia(s) seguidos
+              </span>
+            )}
+          </div>
         </div>
-        <Link href="/meu-curso/calendario" className="text-[11px] text-brand hover:underline shrink-0">
-          Ver calendário
+        <Link href="/meu-curso/calendario" className="text-[11px] text-brand hover:underline shrink-0 self-start mt-1">
+          Calendário
         </Link>
       </div>
 
@@ -213,6 +256,22 @@ export default function MeuCursoPage() {
             </div>
           </>
         )}
+      </div>
+
+      <p className="text-xs font-semibold uppercase tracking-wide text-foreground-muted mt-6 mb-2.5">Acesso rápido</p>
+      <div className="grid grid-cols-3 gap-2.5">
+        {QUICK_LINKS.map((item) => (
+          <Link
+            key={item.href}
+            href={item.href}
+            className="card p-3 flex flex-col items-center justify-center gap-1.5 text-center hover:shadow-md hover:border-brand/30 transition-shadow"
+          >
+            <span className="flex items-center justify-center w-9 h-9 rounded-lg bg-brand-soft text-brand">
+              <item.icon size={16} aria-hidden />
+            </span>
+            <span className="text-[11px] font-medium leading-tight">{item.label}</span>
+          </Link>
+        ))}
       </div>
     </main>
   );
