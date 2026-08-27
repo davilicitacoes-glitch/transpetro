@@ -24,6 +24,9 @@ export default function PerfilPage() {
         </div>
       ) : user ? (
         <div className="card p-5 space-y-4">
+          {typeof user.user_metadata?.full_name === "string" && user.user_metadata.full_name.trim() && (
+            <p className="text-[17px] font-display font-semibold">{user.user_metadata.full_name}</p>
+          )}
           <div className="flex items-center gap-2 text-sm">
             <Mail size={15} className="text-foreground-muted" aria-hidden />
             {user.email}
