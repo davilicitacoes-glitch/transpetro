@@ -40,6 +40,9 @@ export function NavShell({ children }: { children: React.ReactNode }) {
   const immersive = isImmersiveRoute(pathname ?? "");
   const professorAllowed = useProfessorAccess();
   const primaryNav = PRIMARY_NAV.filter((item) => item.href !== "/professor" || professorAllowed);
+  // "/estudio" é uma ferramenta interna de autoria de conteúdo (gera pacotes NotebookLM, testa
+  // narração) — não faz sentido nenhum pra um aluno pagante, mesma lógica de acesso do Professor.
+  const secondaryNav = SECONDARY_NAV.filter((item) => item.href !== "/estudio" || professorAllowed);
 
   return (
     <div className="flex flex-1 min-h-screen">
@@ -82,7 +85,7 @@ export function NavShell({ children }: { children: React.ReactNode }) {
         </nav>
         <div className="h-px bg-white/10 my-3 mx-1" />
         <nav className="flex flex-col gap-0.5 overflow-y-auto scrollbar-thin" aria-label="Navegação secundária">
-          {SECONDARY_NAV.map((item) => {
+          {secondaryNav.map((item) => {
             const active = pathname?.startsWith(item.href);
             const Icon = item.icon;
             return (
@@ -156,7 +159,7 @@ export function NavShell({ children }: { children: React.ReactNode }) {
               </button>
             </div>
             <div className="grid grid-cols-3 gap-3">
-              {SECONDARY_NAV.map((item) => {
+              {secondaryNav.map((item) => {
                 const Icon = item.icon;
                 return (
                   <Link

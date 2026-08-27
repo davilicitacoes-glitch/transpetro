@@ -3,7 +3,7 @@
 import { useEffect, useMemo, useState } from "react";
 import { ArrowLeft, Check, FileText, Printer, Save } from "lucide-react";
 import { ESSAY_PROMPTS, type EssayPromptContent } from "@/content/essays/prompts";
-import { ESSAY_MAX_LINES, ESSAY_MIN_LINES, ESSAY_RUBRIC, ESSAY_TOTAL_POINTS, ESSAY_MIN_PASSING_POINTS } from "@config/concurso";
+import { ESSAY_MAX_LINES, ESSAY_MIN_LINES, ESSAY_RUBRIC, ESSAY_TOTAL_POINTS, ESSAY_MIN_PASSING_POINTS, HAS_ESSAY_STAGE } from "@config/concurso";
 import { PageHeader } from "@/components/ui/PageHeader";
 import { recordEssaySubmission, startOrResumeSession } from "@/lib/pedagogy/service";
 
@@ -59,20 +59,33 @@ export default function RedacaoPage() {
         <PageHeader
           eyebrow="Redação"
           title={`${ESSAY_PROMPTS.length} propostas de treino`}
-          description={`Dissertativo-argumentativa, de ${ESSAY_MIN_LINES} a ${ESSAY_MAX_LINES} linhas, valendo ${ESSAY_TOTAL_POINTS} pontos (mínimo ${ESSAY_MIN_PASSING_POINTS}). Propostas inéditas Transpetro Estudos — não são previsão do tema real.`}
+          description={
+            HAS_ESSAY_STAGE
+              ? `Dissertativo-argumentativa, de ${ESSAY_MIN_LINES} a ${ESSAY_MAX_LINES} linhas, valendo ${ESSAY_TOTAL_POINTS} pontos (mínimo ${ESSAY_MIN_PASSING_POINTS}). Propostas inéditas Transpetro Estudos — não são previsão do tema real.`
+              : "Propostas inéditas Transpetro Estudos, para treinar argumentação e escrita — não são previsão de tema real."
+          }
         />
 
-        <section className="card p-5 mb-5">
-          <h2 className="font-semibold text-[14px] mb-3">Rubrica oficial de correção</h2>
-          <ul className="space-y-1.5">
-            {ESSAY_RUBRIC.map((c) => (
-              <li key={c.id} className="flex justify-between text-[13px] border-b border-border/50 pb-1.5 last:border-0">
-                <span className="text-foreground-muted pr-3">{c.name}</span>
-                <span className="font-semibold shrink-0">{c.maxPoints} pts</span>
-              </li>
-            ))}
-          </ul>
-        </section>
+        {!HAS_ESSAY_STAGE && (
+          <div className="card p-3.5 mb-5 border-brand/30 bg-brand-soft/30 text-[12.5px]">
+            O Edital nº 03/2026.3 da Transpetro <strong>não tem etapa de redação</strong> — a prova é só objetiva. Este
+            espaço é um treino extra opcional (não vale nota na prova), útil pra fixar conteúdo e treinar argumentação.
+          </div>
+        )}
+
+        {HAS_ESSAY_STAGE && ESSAY_RUBRIC.length > 0 && (
+          <section className="card p-5 mb-5">
+            <h2 className="font-semibold text-[14px] mb-3">Rubrica oficial de correção</h2>
+            <ul className="space-y-1.5">
+              {ESSAY_RUBRIC.map((c) => (
+                <li key={c.id} className="flex justify-between text-[13px] border-b border-border/50 pb-1.5 last:border-0">
+                  <span className="text-foreground-muted pr-3">{c.name}</span>
+                  <span className="font-semibold shrink-0">{c.maxPoints} pts</span>
+                </li>
+              ))}
+            </ul>
+          </section>
+        )}
 
         <div className="space-y-3">
           {ESSAY_PROMPTS.map((prompt, i) => (
@@ -147,13 +160,15 @@ export default function RedacaoPage() {
             className={`chip ${
               lineCount === 0
                 ? "bg-surface-muted text-foreground-muted"
-                : withinRange
-                  ? "bg-success-soft text-success"
-                  : "bg-danger-soft text-danger"
+                : !HAS_ESSAY_STAGE
+                  ? "bg-brand-soft text-brand"
+                  : withinRange
+                    ? "bg-success-soft text-success"
+                    : "bg-danger-soft text-danger"
             }`}
           >
             ~{lineCount} linhas
-            {lineCount > 0 && !withinRange && (lineCount < ESSAY_MIN_LINES ? " · curta demais" : " · longa demais")}
+            {HAS_ESSAY_STAGE && lineCount > 0 && !withinRange && (lineCount < ESSAY_MIN_LINES ? " · curta demais" : " · longa demais")}
           </span>
         </div>
 
@@ -161,14 +176,15 @@ export default function RedacaoPage() {
           value={text}
           onChange={(e) => setText(e.target.value)}
           rows={16}
-          placeholder="Escreva aqui para treinar o texto antes de passar a limpo à mão. A prova é manuscrita."
+          placeholder="Escreva aqui para treinar sua argumentação e escrita."
           aria-label="Texto da redação"
           className="w-full rounded-lg border border-border bg-surface-muted px-3.5 py-3 text-[13.5px] leading-[1.9] resize-y"
         />
 
         <p className="text-[11px] text-foreground-muted mt-2">
-          A contagem é uma estimativa ({CHARS_PER_LINE} caracteres por linha). Menos de {ESSAY_MIN_LINES} linhas zera a
-          redação; o que passar de {ESSAY_MAX_LINES} é desconsiderado.
+          {HAS_ESSAY_STAGE
+            ? `A contagem é uma estimativa (${CHARS_PER_LINE} caracteres por linha). Menos de ${ESSAY_MIN_LINES} linhas zera a redação; o que passar de ${ESSAY_MAX_LINES} é desconsiderado.`
+            : `A contagem é uma estimativa (${CHARS_PER_LINE} caracteres por linha), só como referência — sem limite oficial, já que este edital não tem etapa de redação.`}
         </p>
       </section>
 

@@ -5,7 +5,7 @@ import Link from "next/link";
 import { CheckCircle2, ExternalLink, AlertTriangle } from "lucide-react";
 import { TOPICS, MODULES, SUBJECTS } from "@/content/curriculum";
 import { ALL_LESSONS } from "@/content/lessons";
-import { EXAM_BLUEPRINT, EXAM_DATE, OBJECTIVE_TOTAL_POINTS, ESSAY_TOTAL_POINTS } from "@config/concurso";
+import { EXAM_BLUEPRINT, EXAM_DATE, OBJECTIVE_TOTAL_POINTS, ESSAY_TOTAL_POINTS, HAS_ESSAY_STAGE } from "@config/concurso";
 import { formatDateBR } from "@/lib/schedule/dates";
 import { PageHeader } from "@/components/ui/PageHeader";
 
@@ -73,11 +73,18 @@ export default function EditalPage() {
             <span>Objetiva</span>
             <span>{OBJECTIVE_TOTAL_POINTS} pts</span>
           </li>
-          <li className="flex justify-between font-semibold">
-            <span>Redação</span>
-            <span>{ESSAY_TOTAL_POINTS} pts</span>
-          </li>
+          {HAS_ESSAY_STAGE && (
+            <li className="flex justify-between font-semibold">
+              <span>Redação</span>
+              <span>{ESSAY_TOTAL_POINTS} pts</span>
+            </li>
+          )}
         </ul>
+        {!HAS_ESSAY_STAGE && (
+          <p className="text-[11.5px] text-foreground-muted mt-2.5">
+            Este edital não tem etapa de redação — a prova é só objetiva.
+          </p>
+        )}
       </section>
 
       {SUBJECTS.filter((s) => s.slug !== "redacao").map((subject) => {

@@ -1,7 +1,6 @@
 import type { LucideIcon } from "lucide-react";
 import {
   BookOpen,
-  CalendarDays,
   ClipboardList,
   GraduationCap,
   Library,
@@ -45,7 +44,6 @@ export const SECONDARY_NAV: NavItem[] = [
   { href: "/edital", label: "Edital", icon: ClipboardList },
   { href: "/desempenho", label: "Desempenho", icon: TrendingUp },
   { href: "/estudio", label: "Estúdio de Conteúdo", icon: Sparkles },
-  { href: "/cronograma", label: "Cronograma (antigo)", icon: CalendarDays },
   { href: "/perfil", label: "Minha conta", icon: UserCircle },
   { href: "/configuracoes", label: "Configurações", icon: Settings },
 ];
