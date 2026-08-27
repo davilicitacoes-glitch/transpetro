@@ -6,7 +6,20 @@ import { AlertTriangle, CalendarClock, CheckCircle2, ExternalLink, RotateCcw } f
 import { PageHeader } from "@/components/ui/PageHeader";
 import { formatDateBR } from "@/lib/schedule/dates";
 import { getReviewsOverview, type ReviewsOverview } from "@/lib/course/service";
+import { topicNameOf } from "@/lib/pedagogy/contentRef";
 import type { ReviewSchedule } from "@/lib/models/schema";
+
+/** Resolve as refs concretas gravadas em `recommendedActivityRefs` (convenção documentada em
+ * `scheduleReview`, src/lib/pedagogy/service.ts) — hoje só "lesson:<topicSlug>" vira link de
+ * verdade (aula/resumo/pegadinha/mapa mental do tópico, em /curso/<topicSlug>); "question:<id>"
+ * ainda não tem uma tela de questão avulsa no app, então só é usada como contagem/indicador, não
+ * como link — limitação conhecida, registrada em docs/CONTINUIDADE_ENSIPETRO.md. */
+function resolveRecommendedActivityRef(ref: string): { kind: "lesson" | "question"; id: string; label: string } | null {
+  const [kind, id] = ref.split(":");
+  if (kind === "lesson" && id) return { kind: "lesson", id, label: topicNameOf(id) ?? id };
+  if (kind === "question" && id) return { kind: "question", id, label: id };
+  return null;
+}
 
 const ITEM_TYPE_LABEL: Record<ReviewSchedule["itemType"], string> = {
   flashcard: "Flashcard",
@@ -131,24 +144,35 @@ function ReviewSection({
           <p className="text-xs text-foreground-muted pb-2">{emptyText}</p>
         ) : (
           <ul className="space-y-1.5">
-            {items.map((r) => (
-              <li key={r.id} className="card p-3 flex items-center justify-between gap-2">
-                <div className="min-w-0">
-                  <p className="text-[13px] font-medium truncate">
-                    {ITEM_TYPE_LABEL[r.itemType]} · {r.itemId}
-                  </p>
-                  <p className="text-[11px] text-foreground-muted">
-                    {REASON_LABEL[r.reason]}
-                    {showDoneDate && r.lastReviewedAt ? ` · revisado em ${formatDateBR(r.lastReviewedAt.slice(0, 10))}` : ` · previsto para ${formatDateBR(r.nextReviewDate)}`}
-                  </p>
-                </div>
-                {r.itemType === "flashcard" && (
-                  <Link href="/revisoes" className="text-[11px] text-brand hover:underline shrink-0">
-                    Revisar
-                  </Link>
-                )}
-              </li>
-            ))}
+            {items.map((r) => {
+              const refs = (r.recommendedActivityRefs ?? []).map(resolveRecommendedActivityRef).filter((x): x is NonNullable<typeof x> => !!x);
+              const lessonRef = refs.find((x) => x.kind === "lesson");
+              const questionCount = refs.filter((x) => x.kind === "question").length;
+              return (
+                <li key={r.id} className="card p-3">
+                  <div className="flex items-center justify-between gap-2">
+                    <div className="min-w-0">
+                      <p className="text-[13px] font-medium truncate">{lessonRef ? lessonRef.label : `${ITEM_TYPE_LABEL[r.itemType]} · ${r.itemId}`}</p>
+                      <p className="text-[11px] text-foreground-muted">
+                        {REASON_LABEL[r.reason]}
+                        {showDoneDate && r.lastReviewedAt ? ` · revisado em ${formatDateBR(r.lastReviewedAt.slice(0, 10))}` : ` · previsto para ${formatDateBR(r.nextReviewDate)}`}
+                        {questionCount > 0 ? ` · inclui a questão que você errou` : ""}
+                      </p>
+                    </div>
+                    {r.itemType === "flashcard" && (
+                      <Link href="/revisoes" className="text-[11px] text-brand hover:underline shrink-0">
+                        Revisar
+                      </Link>
+                    )}
+                  </div>
+                  {lessonRef && (
+                    <Link href={`/curso/${lessonRef.id}`} className="mt-2 inline-flex items-center gap-1 text-[11px] text-brand hover:underline">
+                      Abrir aula, resumo e pegadinhas deste código →
+                    </Link>
+                  )}
+                </li>
+              );
+            })}
           </ul>
         )
       )}

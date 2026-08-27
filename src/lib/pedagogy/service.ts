@@ -330,7 +330,17 @@ async function scheduleWeakSignalReview(
     itemType: "topic",
     itemId: topicSlug,
     reason: lowConfidence ? "baixa_confianca" : "esquecimento",
+    recommendedActivityRefs: buildRecommendedActivityRefs(topicSlug, input.questionId),
   });
+}
+
+/** Monta as referências de material recomendado pra uma revisão: sempre a aula/resumo do tópico
+ * (existe pra todos os 39 códigos) e, quando a revisão nasceu de uma questão específica, essa
+ * questão também — reaparece marcada na revisão, não só "revise o tópico" genérico. */
+function buildRecommendedActivityRefs(topicSlug: string, questionId?: string): string[] {
+  const refs = [`lesson:${topicSlug}`];
+  if (questionId) refs.push(`question:${questionId}`);
+  return refs;
 }
 
 /* ------------------------------------------------------------------------------------------------
@@ -389,6 +399,7 @@ export async function openOrUpdateDifficulty(
       itemId: updated.id,
       errorEntryId: updated.id,
       reason: "erro",
+      recommendedActivityRefs: buildRecommendedActivityRefs(input.topicSlug, input.questionId),
     });
     return { difficulty: updated, reviewScheduled };
   }
@@ -428,6 +439,7 @@ export async function openOrUpdateDifficulty(
     itemId: created.id,
     errorEntryId: created.id,
     reason: "erro",
+    recommendedActivityRefs: buildRecommendedActivityRefs(input.topicSlug, input.questionId),
   });
 
   return { difficulty: created, reviewScheduled };
@@ -505,6 +517,11 @@ interface ScheduleReviewInput {
   errorEntryId?: string;
   reason: ReviewSchedule["reason"];
   priority?: ReviewSchedule["priority"];
+  /** Referências concretas ao material recomendado pra esta revisão — a UI (Revisões/Meu Curso)
+   * resolve cada string em um link real. Convenção: "lesson:<topicSlug>" (aula/resumo/pegadinha/mapa
+   * mental do tópico) e "question:<questionId>" (a questão específica que originou o erro). Ver
+   * `resolveRecommendedActivityRef` em src/app/(main)/meu-curso/revisoes/page.tsx. */
+  recommendedActivityRefs?: string[];
 }
 
 /** Não empilha revisão duplicada: se já existir uma pendente/disponível para o mesmo item, reutiliza. */
@@ -527,7 +544,7 @@ export async function scheduleReview(input: ScheduleReviewInput): Promise<Review
     priority: input.priority ?? "media",
     nextReviewDate: computeNextReviewDate(0),
     status: "pendente",
-    recommendedActivityRefs: [],
+    recommendedActivityRefs: input.recommendedActivityRefs ?? [],
     createdAt: now,
     updatedAt: now,
   };
