@@ -14,6 +14,7 @@ import {
   NotebookPen,
   Play,
   RotateCcw,
+  Target,
   TrendingUp,
 } from "lucide-react";
 import { PageHeader } from "@/components/ui/PageHeader";
@@ -22,6 +23,7 @@ import { MigrationBanner } from "@/components/app/MigrationBanner";
 import { PHASE_LABEL, formatMinutes } from "@/lib/course/labels";
 import { formatDateBR, todayInExamTimezone, daysBetween } from "@/lib/schedule/dates";
 import { computeStudyStreak } from "@/lib/course/streak";
+import { computeScoreEstimate, type ScoreEstimate } from "@/lib/pedagogy/scoreEstimate";
 import { EXAM_DATE, LAST_STUDY_DATE, TOTAL_MISSIONS } from "@config/concurso";
 import {
   getEnrollment,
@@ -56,6 +58,7 @@ export default function MeuCursoPage() {
   const [dueReviews, setDueReviews] = useState<ReviewSchedule[] | null>(null);
   const [daysCompleted, setDaysCompleted] = useState(0);
   const [streak, setStreak] = useState(0);
+  const [scoreEstimate, setScoreEstimate] = useState<ScoreEstimate | null>(null);
 
   async function load() {
     setLoading(true);
@@ -71,6 +74,7 @@ export default function MeuCursoPage() {
     const calendar = getCalendar(existing);
     const due = await getDueReviewsToday(existing.studentId);
     const overview = await getCourseOverview(existing.studentId, existing);
+    const estimate = await computeScoreEstimate(existing.studentId);
     setEnrollment(existing);
     setCurrentDay(day);
     setProgress(dayProgress);
@@ -79,6 +83,7 @@ export default function MeuCursoPage() {
     setDueReviews(due);
     setDaysCompleted(overview.filter((d) => d.status === "concluido").length);
     setStreak(computeStudyStreak(overview, todayInExamTimezone()));
+    setScoreEstimate(estimate);
     setLoading(false);
   }
 
@@ -204,6 +209,40 @@ export default function MeuCursoPage() {
             <strong>{dueReviews.length} revisão(ões)</strong> vencida(s) ou para hoje — toque para abrir.
           </p>
         </Link>
+      )}
+
+      {scoreEstimate && (
+        <div className="card p-4 mb-4">
+          <p className="flex items-center gap-1.5 text-xs font-semibold uppercase tracking-wide text-foreground-muted mb-2">
+            <Target size={13} aria-hidden /> Nota estimada e prioridade de hoje
+          </p>
+          {scoreEstimate.hasEnoughData ? (
+            <>
+              <div className="flex items-baseline gap-2 mb-1 flex-wrap">
+                <span className="text-[26px] font-display font-bold text-brand leading-none">{Math.round(scoreEstimate.extrapolatedPoints)}</span>
+                <span className="text-sm text-foreground-muted">/ {scoreEstimate.totalPoints} pts (estimativa)</span>
+              </div>
+              <p className="text-[11px] text-foreground-muted mb-3">
+                Extrapolação a partir de {scoreEstimate.pointsWithData} de {scoreEstimate.totalPoints} pts da prova já com dado real (questões
+                suficientes respondidas) — não é uma promessa, ajusta conforme você responde mais questões.
+              </p>
+              {scoreEstimate.topPriority[0] && (
+                <p className="text-[13px] border-t border-border pt-3">
+                  <strong>Maior impacto hoje:</strong> estudar{" "}
+                  <Link href={`/curso/${scoreEstimate.topPriority[0].topicSlug}`} className="text-brand font-medium hover:underline">
+                    {scoreEstimate.topPriority[0].syllabusCode} — {scoreEstimate.topPriority[0].topicName}
+                  </Link>{" "}
+                  tem mais impacto na sua nota estimada agora do que revisar um tema que você já domina.
+                </p>
+              )}
+            </>
+          ) : (
+            <p className="text-sm text-foreground-muted">
+              Ainda coletando dados — responda algumas questões em <Link href="/questoes" className="text-brand hover:underline">Questões</Link> ou
+              num simulado pra começarmos a estimar sua nota e priorizar o que estudar.
+            </p>
+          )}
+        </div>
       )}
 
       {overloaded && (

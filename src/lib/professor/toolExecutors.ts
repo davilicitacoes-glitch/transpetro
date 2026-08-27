@@ -13,6 +13,7 @@ import {
   openOrUpdateDifficulty,
 } from "@/lib/pedagogy/service";
 import { getReviewsOverview } from "@/lib/course/service";
+import { computeScoreEstimate } from "@/lib/pedagogy/scoreEstimate";
 import { resolveTopicRef, topicNameOf } from "@/lib/pedagogy/contentRef";
 import { ALL_QUESTIONS } from "@/content/questions";
 import { DEFAULT_STUDENT_ID } from "@/lib/models/schema";
@@ -41,6 +42,25 @@ export async function executeProfessorTool(call: ProfessorToolCallRequest, stude
 
     case "obter_revisoes_pendentes":
       return getReviewsOverview(studentId);
+
+    case "obter_estimativa_e_priorizacao": {
+      const estimate = await computeScoreEstimate(studentId);
+      // Resumo enxuto pro modelo — evita mandar os 39 códigos inteiros quando só os top 5 importam
+      // pra resposta, mas mantém a base do cálculo visível (nunca falsa precisão).
+      return {
+        temDadoSuficiente: estimate.hasEnoughData,
+        pontosComDado: estimate.pointsWithData,
+        pontosTotais: estimate.totalPoints,
+        notaEstimada: estimate.hasEnoughData ? Math.round(estimate.extrapolatedPoints) : null,
+        prioridades: estimate.topPriority.map((c) => ({
+          codigo: c.syllabusCode,
+          topico: c.topicName,
+          temDadoSuficiente: c.hasEnoughData,
+          acertoAtual: c.hasEnoughData ? Math.round(c.weightedAccuracy * 100) : null,
+          pesoNaProva: Math.round(c.examWeightPoints * 10) / 10,
+        })),
+      };
+    }
 
     case "propor_agendar_revisao": {
       const topicSlug = String(args.topicSlug ?? "");

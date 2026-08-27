@@ -59,6 +59,16 @@ export const PROFESSOR_TOOLS: ProfessorToolSchema[] = [
     type: "function",
     risk: "auto",
     function: {
+      name: "obter_estimativa_e_priorizacao",
+      description:
+        "Retorna a nota estimada atual do aluno (com a base real de cálculo — nunca uma promessa) e a lista de códigos do edital priorizados por impacto potencial na nota, calculada a partir do desempenho real. Use para responder perguntas do tipo 'no que eu devo focar hoje?' ou 'qual minha nota estimada agora?' — sempre com estes dados, nunca uma resposta genérica.",
+      parameters: { type: "object", properties: {}, required: [] },
+    },
+  },
+  {
+    type: "function",
+    risk: "auto",
+    function: {
       name: "propor_agendar_revisao",
       description:
         "Agenda (ou reutiliza, se já existir) uma revisão espaçada para um tópico ou dificuldade específica. Ação reversível e de baixo risco — pode ser executada direto, sem confirmação do aluno.",

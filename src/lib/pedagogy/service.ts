@@ -1,7 +1,7 @@
 import { getDB } from "@/lib/db/dexie";
 import { newId, newIdempotencyKey, nowIso } from "@/lib/pedagogy/ids";
 import { resolveQuestionRef, resolveTopicRef, subjectOfTopic, topicNameOf } from "@/lib/pedagogy/contentRef";
-import { computeMasteryLevel, MASTERY_RULE_VERSION } from "@/lib/pedagogy/masteryRules";
+import { computeMasteryLevel, MASTERY_RULE_VERSION, MIN_ATTEMPTS_FOR_SIGNAL } from "@/lib/pedagogy/masteryRules";
 import { computeNextReviewDate, decideReviewOutcome, REVIEW_STRATEGY_VERSION } from "@/lib/pedagogy/reviewRules";
 import {
   syncStudySession,
@@ -280,12 +280,57 @@ export async function recordAttempt(input: RecordAttemptInput): Promise<RecordAt
       reviewScheduled = result.reviewScheduled;
     } else {
       difficulty = await registerCorrectEvidenceOnOpenDifficulty(studentId, ref.topicSlug, input.questionId, attempt.id);
+      // Acertou, mas com sinal fraco (confiança declarada baixa, ou muito mais lento que o próprio
+      // histórico no tópico) — não é um erro (não abre/atualiza dificuldade), mas ainda é candidato
+      // real a revisão futura (missão "Motores adaptativos", seção 2). Só dispara com base em
+      // histórico de verdade (nunca no primeiro contato com o tópico) — ver scheduleWeakSignalReview.
+      reviewScheduled = await scheduleWeakSignalReview(studentId, ref.topicSlug, ref.subjectSlug, input);
     }
   }
 
   const mastery = ref?.topicSlug ? await recomputeMastery(studentId, ref.topicSlug, ref.subjectSlug) : null;
 
   return { attempt, difficulty, mastery, reviewScheduled, wasDuplicate: false };
+}
+
+/** Limiar de "muito mais lento que a média": tempo >= 1.75x a média histórica do tópico — mesma
+ * convenção de saturação usada em `computeWeaknessFactor` (src/lib/schedule/priority.ts), que trata
+ * 2x como o pior caso. Documentado aqui porque é o único lugar que decide o gatilho de revisão. */
+const SLOW_RESPONSE_RATIO_THRESHOLD = 1.75;
+/** Confiança declarada (1-5) igual ou abaixo disto conta como "baixa confiança", mesma convenção de
+ * `correctLowConfidenceCount` em masteryRules.ts. */
+const LOW_CONFIDENCE_THRESHOLD = 2;
+/** Só compara tempo de resposta contra um histórico com pelo menos essa quantidade de tentativas —
+ * mesmo piso de MIN_ATTEMPTS_FOR_SIGNAL em masteryRules.ts, pra não reagir a uma média de 1 tentativa. */
+const MIN_ATTEMPTS_FOR_WEAK_SIGNAL_TIME = MIN_ATTEMPTS_FOR_SIGNAL;
+
+/** Agenda revisão por sinal fraco num acerto (baixa confiança ou lentidão muito acima do próprio
+ * histórico do tópico) — nunca no primeiro contato com o tópico, porque ainda não há "histórico"
+ * pra comparar (evita inventar um sinal de fraqueza sem dado real por trás). */
+async function scheduleWeakSignalReview(
+  studentId: string,
+  topicSlug: string,
+  subjectSlug: string | undefined,
+  input: RecordAttemptInput,
+): Promise<ReviewSchedule | null> {
+  const lowConfidence = typeof input.confidence === "number" && input.confidence <= LOW_CONFIDENCE_THRESHOLD;
+
+  let slowResponse = false;
+  if (typeof input.responseTimeMs === "number") {
+    const priorSnapshot = await getMasteryState(studentId, topicSlug);
+    if (priorSnapshot && priorSnapshot.attemptsCount >= MIN_ATTEMPTS_FOR_WEAK_SIGNAL_TIME && priorSnapshot.averageResponseTimeMs) {
+      slowResponse = input.responseTimeMs >= priorSnapshot.averageResponseTimeMs * SLOW_RESPONSE_RATIO_THRESHOLD;
+    }
+  }
+
+  if (!lowConfidence && !slowResponse) return null;
+
+  return scheduleReview({
+    studentId,
+    itemType: "topic",
+    itemId: topicSlug,
+    reason: lowConfidence ? "baixa_confianca" : "esquecimento",
+  });
 }
 
 /* ------------------------------------------------------------------------------------------------

@@ -40,12 +40,13 @@ describe("classificação de risco das ferramentas do Professor", () => {
     expect(autoTools).toContain("propor_agendar_revisao");
   });
 
-  it("todas as 10 ferramentas do prompt existem com nome exato", () => {
+  it("todas as 11 ferramentas do prompt existem com nome exato", () => {
     const names = PROFESSOR_TOOLS.map((t) => t.function.name).sort();
     expect(names).toEqual(
       [
         "obter_contexto_professor",
         "obter_detalhe_dificuldade",
+        "obter_estimativa_e_priorizacao",
         "obter_revisoes_pendentes",
         "propor_agendar_revisao",
         "propor_classificacao_erro",
@@ -64,6 +65,40 @@ describe("obter_contexto_professor", () => {
     const result = (await executeProfessorTool(call("obter_contexto_professor"))) as { studentId: string; openDifficulties: unknown[] };
     expect(result.studentId).toBe(DEFAULT_STUDENT_ID);
     expect(Array.isArray(result.openDifficulties)).toBe(true);
+  });
+});
+
+describe("obter_estimativa_e_priorizacao (Motor 3)", () => {
+  it("responde honesto ('sem dado suficiente') quando o aluno ainda não respondeu questões", async () => {
+    const result = (await executeProfessorTool(call("obter_estimativa_e_priorizacao"))) as {
+      temDadoSuficiente: boolean;
+      notaEstimada: number | null;
+      prioridades: unknown[];
+    };
+    expect(result.temDadoSuficiente).toBe(false);
+    expect(result.notaEstimada).toBeNull();
+    expect(Array.isArray(result.prioridades)).toBe(true);
+  });
+
+  it("passa a estimar nota e priorizar depois de tentativas reais", async () => {
+    const realQuestion = ALL_QUESTIONS.find((q) => q.topicSlug === "pt-01-compreensao-textos")!;
+    const correctKey = realQuestion.options.find((o) => o.isCorrect)!.key;
+    for (let i = 0; i < 3; i++) {
+      await recordAttempt({
+        questionId: realQuestion.id,
+        selectedKey: correctKey,
+        correctKey,
+        isCorrect: true,
+        mode: "treino",
+        idempotencyKey: `weak-${i}`,
+      });
+    }
+    const result = (await executeProfessorTool(call("obter_estimativa_e_priorizacao"))) as {
+      temDadoSuficiente: boolean;
+      notaEstimada: number | null;
+    };
+    expect(result.temDadoSuficiente).toBe(true);
+    expect(typeof result.notaEstimada).toBe("number");
   });
 });
 
