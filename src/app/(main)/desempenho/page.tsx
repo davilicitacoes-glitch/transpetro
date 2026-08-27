@@ -6,12 +6,15 @@ import { TrendingUp } from "lucide-react";
 import { ALL_LESSONS } from "@/content/lessons";
 import { ALL_QUESTIONS, QUESTION_COUNT_BY_SUBJECT } from "@/content/questions";
 import { SUBJECTS } from "@/content/curriculum";
-import { EXAM_BLUEPRINT, OBJECTIVE_TARGET_POINTS, OBJECTIVE_TOTAL_POINTS } from "@config/concurso";
+import { EXAM_BLUEPRINT, OBJECTIVE_MIN_PASSING_POINTS, OBJECTIVE_TOTAL_POINTS } from "@config/concurso";
 import { useCompletedLessons } from "@/lib/progress/useCompletedLessons";
+import { useAttemptStats } from "@/lib/progress/useAttemptStats";
 import { PageHeader } from "@/components/ui/PageHeader";
+import { Target } from "lucide-react";
 
 export default function DesempenhoPage() {
   const { completed } = useCompletedLessons();
+  const { stats: attemptStats } = useAttemptStats();
 
   const stats = useMemo(
     () =>
@@ -52,10 +55,44 @@ export default function DesempenhoPage() {
           <p className="text-[11px] text-foreground-muted mt-1">questões no banco</p>
         </div>
         <div className="card p-3 text-center">
-          <p className="text-[22px] font-bold leading-none text-brand">{OBJECTIVE_TARGET_POINTS}</p>
-          <p className="text-[11px] text-foreground-muted mt-1">meta / {OBJECTIVE_TOTAL_POINTS} pts</p>
+          <p className="text-[22px] font-bold leading-none text-brand">{OBJECTIVE_MIN_PASSING_POINTS}</p>
+          <p className="text-[11px] text-foreground-muted mt-1">mínimo p/ passar / {OBJECTIVE_TOTAL_POINTS} pts</p>
         </div>
       </div>
+
+      {attemptStats.totalAttempts > 0 && (
+        <section className="card p-5 mb-5">
+          <h2 className="font-semibold text-[14px] mb-4 flex items-center gap-2">
+            <Target size={16} className="text-brand" aria-hidden />
+            Acerto real em questões
+          </h2>
+          <div className="flex items-center gap-4 mb-4">
+            <p className="text-[28px] font-display font-bold text-brand leading-none">{attemptStats.overallAccuracy}%</p>
+            <p className="text-[12px] text-foreground-muted">
+              {attemptStats.totalCorrect} de {attemptStats.totalAttempts} questões respondidas certas, no total.
+            </p>
+          </div>
+          <div className="space-y-3">
+            {SUBJECTS.filter((s) => attemptStats.bySubject[s.slug]).map((subject) => {
+              const s = attemptStats.bySubject[subject.slug];
+              return (
+                <div key={subject.slug}>
+                  <div className="flex items-center justify-between mb-1">
+                    <span className="text-[12.5px] font-medium">{subject.name}</span>
+                    <span className="text-[11px] text-foreground-muted">{s.correct}/{s.total} ({s.accuracy}%)</span>
+                  </div>
+                  <div className="w-full h-1.5 bg-surface-muted rounded-full overflow-hidden">
+                    <div
+                      className="h-full transition-all"
+                      style={{ width: `${s.accuracy}%`, backgroundColor: s.accuracy >= 60 ? "var(--success)" : s.accuracy >= 40 ? "var(--warning)" : "var(--danger)" }}
+                    />
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+        </section>
+      )}
 
       <section className="card p-5 mb-5">
         <h2 className="font-semibold text-[14px] mb-4 flex items-center gap-2">
