@@ -103,10 +103,24 @@ export default function MeuCursoPage() {
     return (
       <main className="flex-1 px-4 py-6 md:px-8 md:py-8 max-w-xl mx-auto w-full animate-fade-in">
         <PageHeader
-          eyebrow="Meu Curso"
-          title="Trilha guiada de aprovação"
-          description="Uma trilha diária, fechada e sequencial, feita para o Edital nº 3/2026 da Transpetro — Nível Médio, ênfase Administração e Controle. Você não escolhe o que estudar — o curso te guia."
+          eyebrow="Bem-vindo(a)"
+          title="Sua trilha guiada de aprovação"
+          description={`Uma trilha diária, fechada e sequencial, feita para o Edital nº 3/2026 da Transpetro — Nível Médio, ênfase Administração e Controle. ${TOTAL_MISSIONS} dias, cada um com aula em slide narrado, videoaula, questões reais e revisão. Você não escolhe o que estudar — o curso te guia.`}
         />
+        <ul className="grid sm:grid-cols-3 gap-2.5 mb-5">
+          {[
+            { label: "Aula + videoaula por dia", icon: Play },
+            { label: "Questões reais de banca", icon: CalendarCheck2 },
+            { label: "Revisão espaçada automática", icon: CalendarClock },
+          ].map((item) => (
+            <li key={item.label} className="card p-3 flex flex-col items-center text-center gap-1.5">
+              <span className="flex items-center justify-center w-8 h-8 rounded-lg bg-brand-soft text-brand">
+                <item.icon size={15} aria-hidden />
+              </span>
+              <span className="text-[11.5px] font-medium leading-tight">{item.label}</span>
+            </li>
+          ))}
+        </ul>
         <div className="card p-5 space-y-4">
           <div>
             <label htmlFor="start-date" className="block text-xs font-medium mb-1.5">
