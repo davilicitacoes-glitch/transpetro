@@ -923,6 +923,18 @@ export async function finishMockExamAttempt(
   return updated;
 }
 
+/** Simulados concluídos mais recentes do aluno, mais novo primeiro — usado pra (1) evitar repetir
+ * questões de simulados recentes na geração de um novo (Motor 2) e (2) comparar o resultado atual
+ * com o histórico real no diagnóstico pós-simulado. Só leitura. */
+export async function getRecentMockExamAttempts(studentId = DEFAULT_STUDENT_ID, limit = 5): Promise<MockExamAttempt[]> {
+  const db = getDB();
+  const all = await db.mockExamAttempts.where({ studentId }).toArray();
+  return all
+    .filter((a) => a.status === "concluido")
+    .sort((a, b) => (b.finishedAt ?? "").localeCompare(a.finishedAt ?? ""))
+    .slice(0, limit);
+}
+
 /* ------------------------------------------------------------------------------------------------
  * Utilitário
  * ---------------------------------------------------------------------------------------------- */
