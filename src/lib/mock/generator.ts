@@ -22,9 +22,9 @@ function shuffle<T>(items: T[], seed: number): T[] {
 }
 
 /**
- * Gera a prova completa no blueprint oficial do edital (item 9.1.4, cargos de nível médio):
- * 10 Português + 5 Informática + 5 Lógica + 20 Específicas = 40 questões / 60 pontos.
- * Nunca repete a mesma questão dentro da mesma prova.
+ * Gera a prova completa no blueprint oficial do edital (item 7, ver EXAM_BLUEPRINT em
+ * config/concurso.ts): 40 Conhecimentos Específicos + 10 Português + 10 Matemática =
+ * 60 questões / 60 pontos. Nunca repete a mesma questão dentro da mesma prova.
  */
 export function generateFullMockExam(seed = Date.now()): GeneratedMockExam {
   const questions: Question[] = [];

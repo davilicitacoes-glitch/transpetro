@@ -139,26 +139,28 @@ export default function EditalPage() {
         );
       })}
 
-      <section className="card p-5">
-        <h2 className="font-semibold text-[14px] mb-3">Fontes oficiais consultadas</h2>
-        <ul className="space-y-2.5">
-          {OFFICIAL_SOURCES.map((s) => (
-            <li key={s.url}>
-              <a
-                href={s.url}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-[13px] text-brand hover:underline inline-flex items-center gap-1"
-              >
-                {s.title}
-                <ExternalLink size={12} aria-hidden />
-              </a>
-              <p className="text-[11px] text-foreground-muted mt-0.5">{s.note}</p>
-            </li>
-          ))}
-        </ul>
-        <p className="text-[11px] text-foreground-subtle mt-3">Consultadas em 06/08/2026.</p>
-      </section>
+      {OFFICIAL_SOURCES.length > 0 && (
+        <section className="card p-5">
+          <h2 className="font-semibold text-[14px] mb-3">Fontes oficiais consultadas</h2>
+          <ul className="space-y-2.5">
+            {OFFICIAL_SOURCES.map((s) => (
+              <li key={s.url}>
+                <a
+                  href={s.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-[13px] text-brand hover:underline inline-flex items-center gap-1"
+                >
+                  {s.title}
+                  <ExternalLink size={12} aria-hidden />
+                </a>
+                <p className="text-[11px] text-foreground-muted mt-0.5">{s.note}</p>
+              </li>
+            ))}
+          </ul>
+          <p className="text-[11px] text-foreground-subtle mt-3">Consultadas em 06/08/2026.</p>
+        </section>
+      )}
     </main>
   );
 }

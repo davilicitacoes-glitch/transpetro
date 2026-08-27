@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { AlertTriangle, ClipboardList, Clock, Play, RotateCcw } from "lucide-react";
 import { generateFullMockExam, scoreMockExam, type GeneratedMockExam, type MockExamResult } from "@/lib/mock/generator";
-import { EXAM_BLUEPRINT, OBJECTIVE_MIN_PASSING_POINTS, OBJECTIVE_TARGET_POINTS, OBJECTIVE_TOTAL_POINTS, EXAM_DURATION_HOURS } from "@config/concurso";
+import { EXAM_BLUEPRINT, OBJECTIVE_MIN_PASSING_POINTS, OBJECTIVE_TARGET_POINTS, OBJECTIVE_TOTAL_POINTS, OBJECTIVE_TOTAL_QUESTIONS, EXAM_DURATION_HOURS } from "@config/concurso";
 import { QuestionCard } from "@/components/questions/QuestionCard";
 import { PageHeader } from "@/components/ui/PageHeader";
 import { getDB } from "@/lib/db/dexie";
@@ -97,7 +97,7 @@ export default function SimuladosPage() {
               ))}
               <tr className="font-semibold">
                 <td className="pt-2">Total</td>
-                <td className="pt-2 text-center">40</td>
+                <td className="pt-2 text-center">{OBJECTIVE_TOTAL_QUESTIONS}</td>
                 <td className="pt-2" />
                 <td className="pt-2 text-right">{OBJECTIVE_TOTAL_POINTS} pts</td>
               </tr>
@@ -105,7 +105,9 @@ export default function SimuladosPage() {
           </table>
           <div className="flex flex-wrap gap-3 mt-4 text-xs text-foreground-muted">
             <span className="chip bg-surface-muted">Mínimo eliminatório: {OBJECTIVE_MIN_PASSING_POINTS} pts</span>
-            <span className="chip bg-brand-soft text-brand">Meta Transpetro Estudos: {OBJECTIVE_TARGET_POINTS} pts</span>
+            {OBJECTIVE_TARGET_POINTS > 0 && (
+              <span className="chip bg-brand-soft text-brand">Meta Transpetro Estudos: {OBJECTIVE_TARGET_POINTS} pts</span>
+            )}
             <span className="chip bg-surface-muted">
               <Clock size={11} aria-hidden /> {EXAM_DURATION_HOURS}h na prova real
             </span>
@@ -169,9 +171,11 @@ export default function SimuladosPage() {
             <span className={`chip ${result.passedMinimum ? "bg-success-soft text-success" : "bg-danger-soft text-danger"}`}>
               {result.passedMinimum ? "Acima do mínimo eliminatório" : "Abaixo do mínimo eliminatório"} ({OBJECTIVE_MIN_PASSING_POINTS} pts)
             </span>
-            <span className="chip bg-brand-soft text-brand">
-              {result.distanceToTarget === 0 ? "Meta atingida" : `Faltam ${result.distanceToTarget} pts para a meta`}
-            </span>
+            {OBJECTIVE_TARGET_POINTS > 0 && (
+              <span className="chip bg-brand-soft text-brand">
+                {result.distanceToTarget === 0 ? "Meta atingida" : `Faltam ${result.distanceToTarget} pts para a meta`}
+              </span>
+            )}
           </div>
 
           <div className="space-y-2.5">
