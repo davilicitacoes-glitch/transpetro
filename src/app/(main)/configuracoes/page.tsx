@@ -1,17 +1,13 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import Link from "next/link";
 import { Download, Moon, Sun, Trash2, Upload } from "lucide-react";
 import { getDB } from "@/lib/db/dexie";
-import { useTranspetroStore } from "@/lib/store/useTranspetroStore";
 import { PageHeader } from "@/components/ui/PageHeader";
 import { deleteAllConversations, isHistoryEnabled, setHistoryEnabled } from "@/lib/professor/history";
 
 export default function ConfiguracoesPage() {
-  const profile = useTranspetroStore((s) => s.profile);
-  const completeOnboarding = useTranspetroStore((s) => s.completeOnboarding);
-  const [weekdayHours, setWeekdayHours] = useState(profile?.weekdayHours ?? 4);
-  const [weekendHours, setWeekendHours] = useState(profile?.weekendHours ?? 5);
   const [message, setMessage] = useState<string | null>(null);
   const [historyEnabled, setHistoryEnabledState] = useState(true);
   const fileRef = useRef<HTMLInputElement>(null);
@@ -29,15 +25,6 @@ export default function ConfiguracoesPage() {
   async function clearHistory() {
     await deleteAllConversations();
     setMessage("Histórico de conversas com o Professor apagado.");
-  }
-
-  async function saveAvailability() {
-    await completeOnboarding({
-      weekdayHours,
-      weekendHours,
-      perceivedLevel: profile?.perceivedLevel ?? "iniciante",
-    });
-    setMessage("Disponibilidade salva. O cronograma foi recalculado.");
   }
 
   async function exportBackup() {
@@ -99,46 +86,16 @@ export default function ConfiguracoesPage() {
       )}
 
       <section className="card p-5 mb-4">
-        <h2 className="font-semibold text-[14px] mb-3">Disponibilidade de estudo</h2>
-        <div className="grid grid-cols-2 gap-3 mb-3">
-          <div>
-            <label htmlFor="weekday" className="block text-xs font-medium mb-1.5">
-              Horas em dias úteis
-            </label>
-            <input
-              id="weekday"
-              type="number"
-              min={0}
-              max={16}
-              step={0.5}
-              value={weekdayHours}
-              onChange={(e) => setWeekdayHours(Number(e.target.value))}
-              className="w-full rounded-lg border border-border bg-surface px-3 py-2 text-sm"
-            />
-          </div>
-          <div>
-            <label htmlFor="weekend" className="block text-xs font-medium mb-1.5">
-              Horas aos fins de semana
-            </label>
-            <input
-              id="weekend"
-              type="number"
-              min={0}
-              max={16}
-              step={0.5}
-              value={weekendHours}
-              onChange={(e) => setWeekendHours(Number(e.target.value))}
-              className="w-full rounded-lg border border-border bg-surface px-3 py-2 text-sm"
-            />
-          </div>
-        </div>
-        <button
-          type="button"
-          onClick={saveAvailability}
-          className="w-full rounded-lg bg-brand text-brand-foreground py-2.5 text-sm font-medium hover:opacity-90"
-        >
-          Salvar e recalcular cronograma
-        </button>
+        <h2 className="font-semibold text-[14px] mb-1">Cronograma</h2>
+        <p className="text-xs text-foreground-muted">
+          O cronograma do Meu Curso é calculado a partir da sua data de início e espalhado
+          automaticamente sobre os dias úteis disponíveis até a prova — não há configuração manual de
+          horas por dia. Veja as datas de cada dia em{" "}
+          <Link href="/meu-curso/calendario" className="text-brand font-medium hover:underline">
+            Calendário
+          </Link>
+          .
+        </p>
       </section>
 
       <section className="card p-5 mb-4">
