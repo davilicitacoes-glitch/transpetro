@@ -189,12 +189,16 @@ export function buildCoursePdf(entries: CourseDayOverviewEntry[], examDateBR: st
   for (const page of pages) {
     const content = buildContentStream(page);
     const contentBytes = toWinAnsiBytes(content).length; // conteúdo é só ASCII/WinAnsi, então bytes = chars
-    const contentObjIndex = objects.length + 1; // será o próximo objeto após o Page dict
-    const pageObjIndex = objects.length; // objeto Page fica antes do Contents
-    objects.push(""); // placeholder Page dict (preenchido abaixo com referência ao Contents)
+
+    // objeto N = objects[N-1] (numeração 1-based). O número de cada objeto tem que ser calculado
+    // ANTES do respectivo push, na ordem exata em que são empilhados — Page dict primeiro, depois
+    // Contents — senão a referência /Contents aponta pro objeto errado (ou pisa em outro já existente).
+    const pageObjNum = objects.length + 1;
+    objects.push(""); // placeholder Page dict, preenchido abaixo já com a referência certa ao Contents
+    const contentObjNum = objects.length + 1;
     objects.push(`<< /Length ${contentBytes} >>\nstream\n${content}\nendstream`);
-    objects[pageObjIndex - 1] = `<< /Type /Page /Parent 2 0 R /Resources << /Font << /F1 3 0 R /F2 4 0 R >> >> /MediaBox [0 0 ${PAGE_W} ${PAGE_H}] /Contents ${contentObjIndex} 0 R >>`;
-    pageObjNums.push(pageObjIndex);
+    objects[pageObjNum - 1] = `<< /Type /Page /Parent 2 0 R /Resources << /Font << /F1 3 0 R /F2 4 0 R >> >> /MediaBox [0 0 ${PAGE_W} ${PAGE_H}] /Contents ${contentObjNum} 0 R >>`;
+    pageObjNums.push(pageObjNum);
   }
 
   objects[0] = "<< /Type /Catalog /Pages 2 0 R >>";

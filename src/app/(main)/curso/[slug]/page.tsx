@@ -2,7 +2,7 @@
 
 import { use, useEffect, useMemo, useRef, useState } from "react";
 import Link from "next/link";
-import { notFound } from "next/navigation";
+import { notFound, useRouter } from "next/navigation";
 import {
   ArrowLeft,
   ArrowRight,
@@ -97,6 +97,16 @@ export default function LessonPage({ params }: { params: Promise<{ slug: string 
   const [marking, setMarking] = useState(false);
   const [sessionId, setSessionId] = useState<string | null>(null);
   const quizIdempotencyKeysRef = useRef<Map<number, string>>(new Map());
+  const router = useRouter();
+
+  // "Voltar" precisa voltar pra ONDE o aluno veio (ex.: o dia do Meu Curso que abriu esta aula em
+  // texto), não sempre pro catálogo /curso — um link fixo pra /curso quebrava a navegação de quem
+  // chegou aqui a partir de /meu-curso/dia/[day]. Usa o histórico do navegador quando existe; só cai
+  // pro catálogo se a aula foi aberta direto (sem histórico prévio nesta aba, ex.: link compartilhado).
+  function handleBack() {
+    if (typeof window !== "undefined" && window.history.length > 1) router.back();
+    else router.push("/curso");
+  }
 
   const subjectLessons = useMemo(
     () => (lesson ? ALL_LESSONS.filter((l) => l.subjectSlug === lesson.subjectSlug) : []),
@@ -185,9 +195,13 @@ export default function LessonPage({ params }: { params: Promise<{ slug: string 
         style={{ background: `linear-gradient(135deg, ${subject?.color ?? "#1a4fd6"}14, transparent)` }}
       >
         <div className="max-w-3xl mx-auto w-full">
-          <Link href="/curso" className="inline-flex items-center gap-1.5 text-xs text-foreground-muted hover:text-foreground mb-4">
-            <ArrowLeft size={14} aria-hidden /> Voltar ao curso
-          </Link>
+          <button
+            type="button"
+            onClick={handleBack}
+            className="inline-flex items-center gap-1.5 text-xs text-foreground-muted hover:text-foreground mb-4"
+          >
+            <ArrowLeft size={14} aria-hidden /> Voltar
+          </button>
 
           <div className="flex flex-wrap items-center gap-1.5 mb-3">
             {lesson.syllabusCodes.map((code) => (
