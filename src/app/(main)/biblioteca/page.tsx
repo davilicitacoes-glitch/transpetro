@@ -47,12 +47,6 @@ export default function BibliotecaPage() {
         <Link href="/biblioteca/lei-seca" className="text-xs text-brand font-medium hover:underline">Abrir material de lei seca →</Link>
       </section>
 
-      <section className="card p-4 mb-5 border-brand/30 bg-brand-soft/30">
-        <h2 className="font-semibold text-[14px] mb-1 flex items-center gap-2"><Scale size={16} className="text-brand" aria-hidden />Lei seca comentada</h2>
-        <p className="text-xs text-foreground-muted mb-2">27 dispositivos do Prompt 9, com separação entre texto, comentário, pegadinha e forma de cobrança.</p>
-        <Link href="/biblioteca/lei-seca" className="text-xs text-brand font-medium hover:underline">Abrir material de lei seca →</Link>
-      </section>
-
       <section className="mb-8">
         <h2 className="font-semibold text-[15px] mb-3 flex items-center gap-2">
           <Scale size={16} className="text-brand" aria-hidden />
