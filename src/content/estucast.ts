@@ -1,12 +1,15 @@
 /**
  * Estucast — aulas em áudio (missão de teste, 28/08/2026). Aba nova, isolada de "Meu Curso",
- * criada a pedido do usuário pra validar 2 formatos de áudio gerado (aula com a professora e uma
+ * criada a pedido do usuário pra validar formatos de áudio gerado (aula com a professora e uma
  * discussão em formato podcast) antes de decidir se o piloto vira produção de verdade.
  *
- * Fonte dos 2 áudios de teste: ENSIPETRO/entregas/audio_secundario_integracao_futura/
- * piloto_v03_openai/audio/ (piloto "v03 openai"), copiados pra public/audio/estucast/ deste
- * projeto pra serem servidos pelo Next.js. Cobrem só AC-01 (Recursos Humanos, não "Recrutamento" —
- * esse é o nome oficial do tópico no edital, ver src/content/curriculum.ts) por enquanto.
+ * Fontes dos áudios de teste, copiados pra public/audio/estucast/ deste projeto pra serem
+ * servidos pelo Next.js:
+ * - AC-01 (piloto v03): ENSIPETRO/entregas/audio_secundario_integracao_futura/
+ *   piloto_v03_openai/audio/.
+ * - MAT-01 (produção v04): ENSIPETRO/entregas/audio_secundario_integracao_futura/
+ *   producao_v04_openai/audio/MAT-01/ (metadados confirmam: gpt-audio-1.5, disclosure de voz IA
+ *   no próprio áudio, gerado a partir do resumo/pontos de memorizar/pegadinhas reais do código).
  */
 export interface EstucastEpisode {
   id: string;
@@ -65,6 +68,28 @@ export const ESTUCAST_EPISODES: EstucastEpisode[] = [
     description:
       "Conversa em formato podcast entre dois apresentadores discutindo os pontos-chave de Recursos Humanos (AC-01), pra fixação por repetição em outro formato.",
     audioSrc: "/audio/estucast/ac-01-podcast.wav",
+    approxSizeMb: 29,
+  },
+  {
+    id: "mat-01-aula-v04",
+    syllabusCodes: ["MAT-01"],
+    topicSlug: "mat-01-conjuntos-numericos",
+    format: "aula",
+    title: "Conjuntos numéricos — aula narrada",
+    description:
+      "Aula em áudio com a professora, cobrindo conjuntos numéricos (naturais, inteiros, racionais e reais — MAT-01) no mesmo nível da microaula em slides.",
+    audioSrc: "/audio/estucast/mat-01-aula.wav",
+    approxSizeMb: 19,
+  },
+  {
+    id: "mat-01-podcast-v04",
+    syllabusCodes: ["MAT-01"],
+    topicSlug: "mat-01-conjuntos-numericos",
+    format: "podcast",
+    title: "Conjuntos numéricos — discussão em podcast",
+    description:
+      "Conversa em formato podcast entre dois apresentadores discutindo conjuntos numéricos (MAT-01) como cobrado pela Cesgranrio, pra fixação por repetição em outro formato.",
+    audioSrc: "/audio/estucast/mat-01-podcast.wav",
     approxSizeMb: 29,
   },
 ];

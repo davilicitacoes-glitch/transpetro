@@ -20,7 +20,7 @@ export default function EstucastPage() {
       <PageHeader
         eyebrow="Estucast · piloto de teste"
         title="Aulas em áudio, por competência"
-        description="Escolha a competência do edital: clique pra abrir e ouvir a aula narrada e a discussão em podcast daquele tema. Piloto ainda cobre só 1 competência (AC-01), como teste."
+        description={`Escolha a competência do edital: clique pra abrir e ouvir a aula narrada e a discussão em podcast daquele tema. Piloto ainda cobre só ${competencias.length} competência${competencias.length === 1 ? "" : "s"}, como teste.`}
       />
 
       <div className="mb-5 rounded-lg border border-warning/30 bg-warning-soft p-3 text-[12px] text-foreground">
