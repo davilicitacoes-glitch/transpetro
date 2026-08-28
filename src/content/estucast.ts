@@ -22,6 +22,28 @@ export interface EstucastEpisode {
   approxSizeMb: number;
 }
 
+export interface EstucastCompetencia {
+  topicSlug: string;
+  syllabusCode: string;
+  episodes: EstucastEpisode[];
+}
+
+/** Agrupa os episódios por competência (código do edital) — usado pra montar a lista de "competências"
+ * clicáveis na aba Estucast, uma por tópico com áudio disponível. */
+export function groupEstucastByCompetencia(episodes: EstucastEpisode[]): EstucastCompetencia[] {
+  const byTopic = new Map<string, EstucastEpisode[]>();
+  for (const ep of episodes) {
+    const list = byTopic.get(ep.topicSlug) ?? [];
+    list.push(ep);
+    byTopic.set(ep.topicSlug, list);
+  }
+  return [...byTopic.entries()].map(([topicSlug, eps]) => ({
+    topicSlug,
+    syllabusCode: eps[0].syllabusCodes[0],
+    episodes: eps,
+  }));
+}
+
 export const ESTUCAST_EPISODES: EstucastEpisode[] = [
   {
     id: "ac-01-aula-v03",

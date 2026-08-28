@@ -2,13 +2,14 @@
 
 import { useMemo, useState } from "react";
 import Link from "next/link";
-import { BookOpen, RotateCcw } from "lucide-react";
+import { BookOpen, Headphones, RotateCcw } from "lucide-react";
 import { ALL_LESSONS } from "@/content/lessons";
 import { SUBJECTS } from "@/content/curriculum";
 import { REVIEW_SCHEDULE_DAYS } from "@/lib/schedule/priority";
 import { PageHeader } from "@/components/ui/PageHeader";
 import { recordReviewResult, scheduleReview } from "@/lib/pedagogy/service";
 import { DEFAULT_STUDENT_ID } from "@/lib/models/schema";
+import { ESTUCAST_EPISODES } from "@/content/estucast";
 
 interface ReviewCard {
   /** Mesmo esquema de ID usado no seed (`flashcard-<lessonSlug>-<índice>`) — liga a revisão ao flashcard real. */
@@ -41,9 +42,15 @@ export default function RevisoesPage() {
   const [results, setResults] = useState<Record<number, "dominado" | "duvida" | "erro">>({});
   const [saving, setSaving] = useState(false);
 
+  const [showAudio, setShowAudio] = useState(false);
+
   const card = allCards[index];
   const reviewed = Object.keys(results).length;
   const subject = card ? SUBJECTS.find((s) => s.slug === card.subjectSlug) : null;
+  // Estucast (piloto de aulas em áudio): quando o flashcard em revisão é da mesma competência de um
+  // episódio já gravado, oferece o áudio direto aqui — reforço espaçado no formato auditivo, sem sair
+  // do fluxo de revisão. Ver src/content/estucast.ts.
+  const audiosForCard = card ? ESTUCAST_EPISODES.filter((ep) => ep.topicSlug === card.lessonSlug) : [];
 
   async function answer(result: "dominado" | "duvida" | "erro") {
     if (!card || saving) return;
@@ -54,6 +61,7 @@ export default function RevisoesPage() {
     await recordReviewResult(review.id, result);
     setResults((prev) => ({ ...prev, [index]: result }));
     setShowBack(false);
+    setShowAudio(false);
     setIndex((i) => (i + 1) % allCards.length);
     setSaving(false);
   }
@@ -164,6 +172,30 @@ export default function RevisoesPage() {
             <BookOpen size={13} aria-hidden />
             Ver a aula: {card.lessonTitle}
           </Link>
+
+          {audiosForCard.length > 0 && (
+            <div className="mt-4">
+              <button
+                type="button"
+                onClick={() => setShowAudio((v) => !v)}
+                className="w-full flex items-center justify-center gap-1.5 rounded-lg border border-border py-2 text-xs font-medium hover:bg-surface-muted transition-colors"
+              >
+                <Headphones size={13} aria-hidden />
+                {showAudio ? "Ocultar áudio (Estucast)" : "Ouvir esta competência (Estucast)"}
+              </button>
+
+              {showAudio && (
+                <div className="mt-3 space-y-3 animate-fade-in">
+                  {audiosForCard.map((ep) => (
+                    <div key={ep.id} className="card p-3">
+                      <p className="text-[12px] font-medium mb-1.5">{ep.title}</p>
+                      <audio controls preload="none" className="w-full" src={ep.audioSrc} />
+                    </div>
+                  ))}
+                </div>
+              )}
+            </div>
+          )}
         </>
       )}
     </main>
