@@ -2,6 +2,7 @@ import { getDB } from "@/lib/db/dexie";
 import { newId, newIdempotencyKey, nowIso } from "@/lib/pedagogy/ids";
 import { resolveQuestionRef, resolveTopicRef, subjectOfTopic, topicNameOf } from "@/lib/pedagogy/contentRef";
 import { computeMasteryLevel, MASTERY_RULE_VERSION, MIN_ATTEMPTS_FOR_SIGNAL } from "@/lib/pedagogy/masteryRules";
+import { explainAnswerById, explanationToCause, type AnswerExplanation } from "@/lib/pedagogy/answerExplanation";
 import { computeNextReviewDate, decideReviewOutcome, REVIEW_STRATEGY_VERSION } from "@/lib/pedagogy/reviewRules";
 import {
   syncStudySession,
@@ -206,6 +207,10 @@ export interface RecordAttemptResult {
   reviewScheduled: ReviewSchedule | null;
   /** true quando o registro já existia (reenvio deduplicado) — nada novo foi computado. */
   wasDuplicate: boolean;
+  /** Explicação de erro universal (missão "Recursos Extras") — só preenchida quando isCorrect=false
+   * e a questão existe no banco real. A mesma UI que chamou recordAttempt pode usar isto direto em
+   * vez de recalcular (já é o mesmo cálculo gravado no Caderno de Erros). */
+  explanation: AnswerExplanation | null;
 }
 
 /**
@@ -256,11 +261,17 @@ export async function recordAttempt(input: RecordAttemptInput): Promise<RecordAt
     if (isConstraintError(err)) {
       const existing = await db.attempts.where("idempotencyKey").equals(idempotencyKey).first();
       if (existing) {
-        return { attempt: existing, difficulty: null, mastery: null, reviewScheduled: null, wasDuplicate: true };
+        return { attempt: existing, difficulty: null, mastery: null, reviewScheduled: null, wasDuplicate: true, explanation: null };
       }
     }
     throw err;
   }
+
+  // Explicação de erro universal (missão "Recursos Extras", seção 0.2/1): calculada UMA vez, aqui —
+  // o único caminho de escrita de tentativas — e reaproveitada tanto pro Caderno de Erros (reaparece
+  // na revisão espaçada, Motor 1) quanto pro retorno desta função (a UI mostra na hora, sem
+  // recalcular). Independente de `ref.topicSlug` existir — a explicação só depende da questão.
+  const explanation = !input.isCorrect ? explainAnswerById(input.questionId, input.selectedKey) : null;
 
   let difficulty: ErrorEntry | null = null;
   let reviewScheduled: ReviewSchedule | null = null;
@@ -275,6 +286,8 @@ export async function recordAttempt(input: RecordAttemptInput): Promise<RecordAt
         questionId: input.questionId,
         newEvidenceAttemptId: attempt.id,
         origin: "auto_tentativa",
+        cause: explanation ? explanationToCause(explanation) : undefined,
+        correctRule: explanation?.correctExplanation,
       });
       difficulty = result.difficulty;
       reviewScheduled = result.reviewScheduled;
@@ -290,7 +303,7 @@ export async function recordAttempt(input: RecordAttemptInput): Promise<RecordAt
 
   const mastery = ref?.topicSlug ? await recomputeMastery(studentId, ref.topicSlug, ref.subjectSlug) : null;
 
-  return { attempt, difficulty, mastery, reviewScheduled, wasDuplicate: false };
+  return { attempt, difficulty, mastery, reviewScheduled, wasDuplicate: false, explanation };
 }
 
 /** Limiar de "muito mais lento que a média": tempo >= 1.75x a média histórica do tópico — mesma

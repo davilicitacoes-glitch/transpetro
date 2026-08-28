@@ -1,10 +1,11 @@
 "use client";
 
 import Link from "next/link";
-import { BookOpen, CheckCircle2, XCircle } from "lucide-react";
+import { BookOpen, CheckCircle2, Lightbulb, XCircle } from "lucide-react";
 import type { Question } from "@/lib/models/schema";
 import { QUESTION_LESSON_SLUG } from "@/content/questions";
 import { SUBJECTS } from "@/content/curriculum";
+import { buildAnswerExplanation } from "@/lib/pedagogy/answerExplanation";
 
 const ORIGIN_LABEL: Record<string, { label: string; className: string }> = {
   real: { label: "Questão real", className: "bg-success-soft text-success" },
@@ -33,6 +34,10 @@ export function QuestionCard({
   const lessonSlug = QUESTION_LESSON_SLUG.get(question.id);
   const correctKey = question.options.find((o) => o.isCorrect)?.key;
   const isCorrect = selected === correctKey;
+  // Explicação de erro universal (mesmo componente central de src/lib/pedagogy/answerExplanation.ts
+  // usado por recordAttempt pra gravar no Caderno de Erros) — nunca deixa uma resposta errada sem
+  // dizer por que a certa é certa e por que a marcada está errada.
+  const explanation = revealed && selected ? buildAnswerExplanation(question, selected) : null;
 
   return (
     <article className="card p-4">
@@ -86,6 +91,18 @@ export function QuestionCard({
           );
         })}
       </div>
+
+      {explanation?.matchedPegadinha && (
+        <div className="mt-3 rounded-lg bg-warning-soft p-3 flex gap-2">
+          <Lightbulb size={14} className="text-warning shrink-0 mt-0.5" aria-hidden />
+          <p className="text-[12px] text-foreground">
+            <strong>
+              Essa é a pegadinha nº {explanation.matchedPegadinha.index} de {explanation.matchedPegadinha.total} deste tema:
+            </strong>{" "}
+            {explanation.matchedPegadinha.text}
+          </p>
+        </div>
+      )}
 
       {revealed && showLessonLink && lessonSlug && (
         <Link

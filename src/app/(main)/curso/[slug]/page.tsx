@@ -18,10 +18,12 @@ import {
   Video,
 } from "lucide-react";
 import { ALL_LESSONS } from "@/content/lessons";
+import { ALL_QUESTIONS } from "@/content/questions";
 import { SUBJECTS } from "@/content/curriculum";
 import { getVideosForSyllabusCodes } from "@/content/videos";
 import { YouTubePlayer, WatchOnYouTubeLink } from "@/components/video/YouTubePlayer";
 import { SlidePlayer } from "@/components/video/SlidePlayer";
+import { QuestionCard } from "@/components/questions/QuestionCard";
 import { buildSlides } from "@/lib/slides/buildSlides";
 import { useCompletedLessons } from "@/lib/progress/useCompletedLessons";
 import { resolveLessonRef, miniQuizQuestionId } from "@/lib/pedagogy/contentRef";
@@ -404,39 +406,24 @@ export default function LessonPage({ params }: { params: Promise<{ slug: string 
                 )}
               </div>
               <div className="space-y-4">
-                {lesson.miniQuiz.map((q, qi) => {
+                {lesson.miniQuiz.map((_, qi) => {
+                  // O miniquiz da aula é a MESMA questão (mesmo id `q-<lessonSlug>-<n>`, ver
+                  // src/lib/pedagogy/contentRef.ts) que existe no banco de questões — busca o
+                  // objeto Question completo em vez de renderizar lesson.miniQuiz[qi] manualmente,
+                  // pra reaproveitar o <QuestionCard> (explicação de erro universal, ver
+                  // src/lib/pedagogy/answerExplanation.ts) em vez de duplicar a lógica aqui.
+                  const question = ALL_QUESTIONS.find((q) => q.id === miniQuizQuestionId(lesson.slug, qi));
+                  if (!question) return null;
                   const selected = quizAnswers[qi];
                   return (
-                    <div key={qi} className="border border-border rounded-xl p-4">
-                      <p className="text-[13.5px] mb-3 font-medium">{q.statement}</p>
-                      <div className="space-y-1.5">
-                        {q.options.map((opt) => {
-                          const isSelected = selected === opt.key;
-                          const showResult = !!selected;
-                          return (
-                            <button
-                              key={opt.key}
-                              type="button"
-                              onClick={() => handleQuizAnswer(qi, opt.key)}
-                              disabled={!!selected}
-                              className={`w-full text-left rounded-lg border px-3 py-2 text-[13px] transition-colors ${
-                                showResult && opt.isCorrect
-                                  ? "border-success bg-success-soft"
-                                  : showResult && isSelected && !opt.isCorrect
-                                    ? "border-danger bg-danger-soft"
-                                    : "border-border hover:bg-surface-muted"
-                              }`}
-                            >
-                              <span className="font-semibold mr-2">{opt.key}</span>
-                              {opt.text}
-                              {showResult && (isSelected || opt.isCorrect) && (
-                                <span className="block text-[12px] text-foreground-muted mt-1">{opt.explanation}</span>
-                              )}
-                            </button>
-                          );
-                        })}
-                      </div>
-                    </div>
+                    <QuestionCard
+                      key={qi}
+                      question={question}
+                      selected={selected}
+                      onSelect={(key) => handleQuizAnswer(qi, key)}
+                      revealed={!!selected}
+                      showLessonLink={false}
+                    />
                   );
                 })}
               </div>

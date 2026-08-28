@@ -11,6 +11,7 @@ import { VIDEO_LESSONS, type VideoLesson } from "@/content/videos";
 import { ESSAY_PROMPTS } from "@/content/essays/prompts";
 import { YouTubePlayer } from "@/components/video/YouTubePlayer";
 import { SlidePlayer } from "@/components/video/SlidePlayer";
+import { QuestionCard } from "@/components/questions/QuestionCard";
 import { buildSlides } from "@/lib/slides/buildSlides";
 import { STEP_TYPE_LABEL, formatMinutes } from "@/lib/course/labels";
 import { DEFAULT_STUDENT_ID, type CourseDay, type CourseDayProgress, type CourseStep, type Question } from "@/lib/models/schema";
@@ -399,11 +400,11 @@ function QuestoesStep({ step, day, onAnswered }: { step: CourseStep; day: number
 
 function QuestionBlock({ questionId, day, stepId, onAnswered }: { questionId: string; day: number; stepId: string; onAnswered: () => void }) {
   const question = questionById.get(questionId);
-  const [selected, setSelected] = useState<"A" | "B" | "C" | "D" | "E" | null>(null);
+  const [selected, setSelected] = useState<string | undefined>(undefined);
   const [answered, setAnswered] = useState(false);
   if (!question) return <p className="text-sm text-danger">Questão não encontrada ({questionId}).</p>;
 
-  async function answer(key: "A" | "B" | "C" | "D" | "E") {
+  async function answer(key: string) {
     if (answered || !question) return;
     setSelected(key);
     setAnswered(true);
@@ -412,46 +413,17 @@ function QuestionBlock({ questionId, day, stepId, onAnswered }: { questionId: st
       day,
       stepId,
       questionId,
-      selectedKey: key,
+      selectedKey: key as "A" | "B" | "C" | "D" | "E",
       correctKey: correct?.key,
       isCorrect: key === correct?.key,
     });
     onAnswered();
   }
 
-  return (
-    <div className="border border-border rounded-lg p-3.5">
-      <p className="text-[13.5px] mb-2.5">{question.statement}</p>
-      <div className="space-y-1.5">
-        {question.options.map((opt) => {
-          const showResult = answered;
-          const isSelected = selected === opt.key;
-          const tone = !showResult
-            ? "border-border hover:border-brand"
-            : opt.isCorrect
-              ? "border-success bg-success-soft"
-              : isSelected
-                ? "border-danger bg-danger-soft"
-                : "border-border opacity-60";
-          return (
-            <button
-              key={opt.key}
-              type="button"
-              disabled={answered}
-              onClick={() => answer(opt.key)}
-              className={`w-full text-left rounded-lg border px-3 py-2 text-[13px] transition-colors ${tone}`}
-            >
-              <span className="font-semibold mr-1.5">{opt.key})</span>
-              {opt.text}
-              {showResult && isSelected && (
-                <span className="block text-xs mt-1 text-foreground-muted">{opt.explanation}</span>
-              )}
-            </button>
-          );
-        })}
-      </div>
-    </div>
-  );
+  // Mesmo componente central usado em /questoes e /simulados (QuestionCard) — garante que a
+  // explicação de erro universal (alternativa certa + por que a marcada está errada + pegadinha,
+  // quando bate) apareça igual em qualquer lugar do app, sem lógica duplicada por tela.
+  return <QuestionCard question={question} selected={selected} onSelect={answer} revealed={answered} showLessonLink={false} />;
 }
 
 function RedacaoStep({ step }: { step: CourseStep }) {

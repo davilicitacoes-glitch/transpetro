@@ -109,3 +109,39 @@ describe("recordAttempt — revisão por sinal fraco em acerto", () => {
     expect(result.reviewScheduled?.reason).toBe("esquecimento");
   });
 });
+
+describe("recordAttempt — explicação de erro universal integrada ao Caderno de Erros", () => {
+  it("grava a explicação real da alternativa errada em ErrorEntry.cause, não um texto genérico fixo", async () => {
+    const question = topicQuestions[0];
+    const wrongOption = question.options.find((o) => !o.isCorrect)!;
+    const correctKey = correctAnswerFor(question.id);
+
+    const result = await recordAttempt({
+      questionId: question.id,
+      selectedKey: wrongOption.key,
+      correctKey,
+      isCorrect: false,
+      mode: "treino",
+      idempotencyKey: newIdempotencyKey(),
+    });
+
+    expect(result.explanation).not.toBeNull();
+    expect(result.explanation!.selectedExplanation).toBe(wrongOption.explanation);
+    expect(result.difficulty).not.toBeNull();
+    expect(result.difficulty!.cause).toContain(wrongOption.explanation);
+    expect(result.difficulty!.correctRule).toBe(result.explanation!.correctExplanation);
+  });
+
+  it("explanation vem null quando a resposta está correta", async () => {
+    const question = topicQuestions[0];
+    const result = await recordAttempt({
+      questionId: question.id,
+      selectedKey: correctAnswerFor(question.id),
+      correctKey: correctAnswerFor(question.id),
+      isCorrect: true,
+      mode: "treino",
+      idempotencyKey: newIdempotencyKey(),
+    });
+    expect(result.explanation).toBeNull();
+  });
+});
