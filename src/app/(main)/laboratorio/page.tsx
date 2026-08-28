@@ -6,6 +6,7 @@ import {
   CheckSquare,
   Clock3,
   FlaskConical,
+  Gamepad2,
   Layers,
   MessageSquareQuote,
   Radar,
@@ -90,6 +91,13 @@ const TOOLS: LabTool[] = [
     icon: SlidersHorizontal,
     title: "Simulado adaptativo",
     description: "O próximo tópico muda conforme você acerta ou erra, usando seu histórico real.",
+    status: "disponivel",
+  },
+  {
+    href: "/laboratorio/jogos",
+    icon: Gamepad2,
+    title: "Jogos",
+    description: "Viva um dia de trabalho — e-mails, colegas e decisões testando o edital de verdade.",
     status: "disponivel",
   },
 ];

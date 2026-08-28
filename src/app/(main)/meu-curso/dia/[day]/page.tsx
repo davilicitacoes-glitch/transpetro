@@ -4,7 +4,8 @@ import { useEffect, useState, useCallback, useMemo } from "react";
 import { use as usePromise } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { ArrowLeft, ArrowRight, CheckCircle2, Circle, ExternalLink, List, LogOut, PlayCircle, Sparkles } from "lucide-react";
+import { ArrowLeft, ArrowRight, Briefcase, CheckCircle2, Circle, ExternalLink, List, LogOut, PlayCircle, Sparkles } from "lucide-react";
+import { findEpisodesForCodes } from "@/lib/games/catalog";
 import { ALL_LESSONS } from "@/content/lessons";
 import { ALL_QUESTIONS } from "@/content/questions";
 import { VIDEO_LESSONS, type VideoLesson } from "@/content/videos";
@@ -513,6 +514,10 @@ function FechamentoCard({
   const questions = getComplementaryQuestionsForDay(planDay);
   const hasComplementary = videos.length > 0 || questions.length > 0;
   const choice = progress.complementaryReviewChoice;
+  // Convite pro jogo "Um Dia no Escritório" (missão, seção 1) — só aparece quando um dos códigos
+  // do dia realmente tem um episódio pronto no motor de jogos; nunca oferece um jogo genérico sem
+  // relação real com o que o aluno acabou de estudar. Ignorável — a jornada normal segue igual.
+  const gameEpisodes = findEpisodesForCodes(planDay.syllabusCodes);
 
   async function handleChoice(next: "feito" | "adiado") {
     await setComplementaryReviewChoice(DEFAULT_STUDENT_ID, dayNumber, next);
@@ -551,6 +556,24 @@ function FechamentoCard({
           </button>
         </div>
       </div>
+
+      {gameEpisodes.length > 0 && (
+        <Link
+          href={`/laboratorio/jogos/um-dia-no-escritorio/${gameEpisodes[0].id}`}
+          className="card p-4 flex items-start gap-3 border-brand/30 hover:shadow-md transition-shadow"
+        >
+          <span className="flex items-center justify-center w-10 h-10 rounded-lg bg-brand-soft text-brand shrink-0">
+            <Briefcase size={17} aria-hidden />
+          </span>
+          <span>
+            <span className="block text-[13.5px] font-semibold mb-1">Quer praticar isso jogando?</span>
+            <span className="block text-[12.5px] text-foreground-muted">
+              Um Dia no Escritório tem uma missão sobre {gameEpisodes[0].syllabusCodes.filter((c) => planDay.syllabusCodes.includes(c)).join(", ")}{" "}
+              ({gameEpisodes[0].title}) — opcional, fica no Laboratório.
+            </span>
+          </span>
+        </Link>
+      )}
 
       {hasComplementary && !choice && (
         <div className="card p-5 border-brand/30 bg-brand-soft/30">

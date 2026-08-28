@@ -1,3 +1,54 @@
+# Continuidade — Motor de Jogos: "Um Dia no Escritório" (2026-08-28, CONCLUÍDA, SEM DEPLOY)
+
+Primeiro de 7 jogos temáticos planejados. Arquitetura completa documentada em
+`docs/MOTOR_DE_JOGOS.md` — este registro é o resumo executivo.
+
+**"Dias de trabalho" implementados nesta entrega**: 2, cobrindo 4 códigos, ambos com os 3 formatos
+de tarefa exigidos (e-mail, colega, decisão):
+- **RH e Processos** (`rh-e-processos`) — AC-01, AC-02.
+- **Compras e Estoques** (`compras-e-estoques`) — AC-16, AC-12.
+
+**Rastreabilidade real**: toda `GameTask` referencia uma `questionId` de uma `Question` já
+existente em `ALL_QUESTIONS` (nunca um enunciado inventado pro jogo) — garantido por teste
+automatizado que falha se algum episódio referenciar uma questão inexistente ou de um código fora
+do escopo declarado (`src/lib/games/__tests__/gameEngine.test.ts`).
+
+**Onde vive**: dentro do Laboratório (`/laboratorio/jogos`), fora da navegação do Meu Curso. Ao
+final de uma aula do Meu Curso cujo(s) código(s) tenham um dia de trabalho pronto, aparece um
+convite opcional ("Quer praticar isso jogando?") na tela de resumo do dia — implementado via
+`findEpisodesForCodes(planDay.syllabusCodes)`, testado com casos positivos (AC-01, AC-16) e
+negativos (PT-01, AC-09 → sem convite).
+
+**Mesma fundação de dados dos Motores 1-3**: todo acerto/erro do jogo passa por
+`recordGameAttempt` → `recordAttempt` (o único caminho de escrita de tentativas do app) — testado:
+um erro no jogo abre uma dificuldade real no Caderno de Erros e agenda revisão espaçada; 3 erros no
+mesmo código dentro do jogo derrubam a acurácia usada pela nota estimada (Motor 3), exatamente como
+um erro em qualquer outra tela.
+
+**Explicação de erro universal**: reaproveita o `<QuestionCard>` compartilhado (mesmo componente de
+`/questoes`, `/simulados`, Meu Curso e miniquiz de aula) — não uma versão reescrita. Testado ao
+vivo no navegador: joguei o dia "RH e Processos" do início ao fim (6 cenas), errando de propósito a
+primeira tarefa (e-mail sobre educação corporativa) — "Errou", explicação real da alternativa
+certa e da errada apareceram corretamente; acertando a segunda (colega, avaliação 360°) — reação
+"Isso mesmo, era isso!" e explicação real também corretas; resultado final: 3 de 4 certas, batendo
+exatamente com as respostas dadas.
+
+**Validações executadas**: `tsc --noEmit` limpo, `npm run build` limpo (rotas novas
+`/laboratorio/jogos`, `/laboratorio/jogos/um-dia-no-escritorio`, `.../[episodeId]` compilando), 118
+testes passando (5 novos do motor de jogos). Convite no fim da aula validado por leitura de código
++ teste da função de matching (não clicado interativamente até o fim — o Dia 2 do Meu Curso tem 9
+etapas sequenciais bloqueadas, custoso de percorrer só pra validação; a lógica que decide se o
+convite aparece é a mesma testada isoladamente).
+
+**Sem deploy nesta missão** (instrução explícita do usuário) — tudo em commit local, aguardando
+autorização.
+
+**Próximos "dias de trabalho" sugeridos** (códigos com material pronto, aguardando pedido de
+expansão): Finanças e Contabilidade (AC-06 + AC-08), Patrimônio e Manutenção (AC-03 + AC-04),
+Segurança da Informação (AC-20 + AC-21) — detalhado em `docs/MOTOR_DE_JOGOS.md`.
+
+---
+
 # Continuidade — Método Vetor (2026-08-28, CONCLUÍDA E EM PRODUÇÃO)
 
 Missão que NÃO adiciona funcionalidade de conteúdo nova — transforma o que já existia (Motor 3 de
