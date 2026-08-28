@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import Link from "next/link";
 import { BookOpen, Headphones, RotateCcw } from "lucide-react";
 import { ALL_LESSONS } from "@/content/lessons";
@@ -8,6 +8,8 @@ import { SUBJECTS } from "@/content/curriculum";
 import { REVIEW_SCHEDULE_DAYS } from "@/lib/schedule/priority";
 import { PageHeader } from "@/components/ui/PageHeader";
 import { recordReviewResult, scheduleReview } from "@/lib/pedagogy/service";
+import { getDB } from "@/lib/db/dexie";
+import { subjectOfTopic, topicNameOf } from "@/lib/pedagogy/contentRef";
 import { DEFAULT_STUDENT_ID } from "@/lib/models/schema";
 import { ESTUCAST_EPISODES } from "@/content/estucast";
 
@@ -22,7 +24,7 @@ interface ReviewCard {
 }
 
 export default function RevisoesPage() {
-  const allCards = useMemo<ReviewCard[]>(
+  const staticCards = useMemo<ReviewCard[]>(
     () =>
       ALL_LESSONS.flatMap((lesson) =>
         lesson.flashcards.map((fc, idx) => ({
@@ -36,6 +38,30 @@ export default function RevisoesPage() {
       ),
     [],
   );
+
+  // Flashcards nascidos da técnica de Feynman (Laboratório, ferramenta 2.9) — mesma fila de
+  // revisão espaçada dos flashcards fixos do curso, não uma fila paralela. Carregados à parte
+  // (fonte assíncrona, Dexie) e mesclados nos cards estáticos abaixo.
+  const [feynmanCards, setFeynmanCards] = useState<ReviewCard[]>([]);
+  useEffect(() => {
+    (async () => {
+      const db = getDB();
+      const cards = await db.flashcards.where("studentId").equals(DEFAULT_STUDENT_ID).toArray();
+      const feynmanOnly = cards.filter((c) => c.origin === "feynman");
+      setFeynmanCards(
+        feynmanOnly.map((fc) => ({
+          id: fc.id,
+          front: fc.front,
+          back: fc.back,
+          lessonSlug: fc.lessonSlug,
+          lessonTitle: topicNameOf(fc.lessonSlug) ?? fc.lessonSlug,
+          subjectSlug: subjectOfTopic(fc.lessonSlug) ?? "especificas",
+        })),
+      );
+    })();
+  }, []);
+
+  const allCards = useMemo(() => [...staticCards, ...feynmanCards], [staticCards, feynmanCards]);
 
   const [index, setIndex] = useState(0);
   const [showBack, setShowBack] = useState(false);

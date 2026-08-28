@@ -362,6 +362,12 @@ export const FlashcardSchema = AuditFieldsSchema.extend({
   lessonSlug: z.string(),
   front: z.string(),
   back: z.string(),
+  /** "curso" = os flashcards fixos de cada aula (seed estático, ver src/lib/db/seed.ts, nunca lido
+   * de volta hoje — a revisão usa o array estático de ALL_LESSONS diretamente). "feynman" = nascido
+   * de uma explicação do próprio aluno validada pelo Professor (Laboratório, ferramenta 2.9) —
+   * esses SIM entram na fila real de revisão em /revisoes, mesclados aos estáticos. */
+  origin: z.enum(["curso", "feynman"]).default("curso"),
+  studentId: z.string().default(DEFAULT_STUDENT_ID).optional(),
 });
 export type Flashcard = z.infer<typeof FlashcardSchema>;
 
@@ -695,6 +701,25 @@ export const DoubtSchema = AuditFieldsSchema.extend({
   resolutionNote: z.string().optional(),
 });
 export type Doubt = z.infer<typeof DoubtSchema>;
+
+/* ---------------- Diário de confiança emocional (Laboratório, ferramenta 2.8) ---------------- */
+
+/** Check-in rápido e OPCIONAL de autoavaliação antes/depois de uma sessão de estudo — 1 (nada
+ * confiante/muito ansioso) a 5 (muito confiante/tranquilo). Nunca é diagnóstico clínico, só um
+ * dado auto-declarado pra cruzar com desempenho real (ver src/lib/lab/confidenceJournal.ts). */
+export const ConfidenceCheckinMomentSchema = z.enum(["antes", "depois"]);
+export type ConfidenceCheckinMoment = z.infer<typeof ConfidenceCheckinMomentSchema>;
+
+export const ConfidenceCheckinSchema = AuditFieldsSchema.extend({
+  studentId: z.string().default(DEFAULT_STUDENT_ID),
+  moment: ConfidenceCheckinMomentSchema,
+  /** 1 = pouco confiante/muito ansioso, 5 = muito confiante/tranquilo. */
+  value: z.number().int().min(1).max(5),
+  note: z.string().optional(),
+  sessionId: z.string().optional(),
+  occurredAt: z.string().datetime(),
+});
+export type ConfidenceCheckin = z.infer<typeof ConfidenceCheckinSchema>;
 
 /* ---------------- Contexto do futuro Professor (contrato tipado, sem IA) ---------------- */
 

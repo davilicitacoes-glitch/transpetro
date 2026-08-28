@@ -2,6 +2,7 @@ import Dexie, { type EntityTable } from "dexie";
 import type {
   Attempt,
   Bookmark,
+  ConfidenceCheckin,
   CourseDayProgress,
   CourseEnrollment,
   Doubt,
@@ -92,6 +93,9 @@ export class TranspetroDB extends Dexie {
   // --- Professor (ver docs/PROFESSOR.md) ---
   professorConversations!: EntityTable<ProfessorConversation, "id">;
 
+  // --- Laboratório (Recursos Extras) ---
+  confidenceCheckins!: EntityTable<ConfidenceCheckin, "id">;
+
   constructor() {
     super("transpetro-estudos-db");
     this.version(1).stores({
@@ -164,6 +168,11 @@ export class TranspetroDB extends Dexie {
     // --- v4: Professor — histórico de conversas ---
     this.version(4).stores({
       professorConversations: "id, studentId, activeFunction, updatedAt, [studentId+activeFunction]",
+    });
+
+    // --- v5: Laboratório — diário de confiança emocional (ferramenta 2.8) ---
+    this.version(5).stores({
+      confidenceCheckins: "id, studentId, moment, occurredAt, [studentId+occurredAt]",
     });
   }
 }

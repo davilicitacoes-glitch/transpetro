@@ -49,7 +49,7 @@ uma narrativa de confusão sem relação detectável.
   estruturalmente diferente do formato A-E do `QuestionCard`. `diagnostico/page.tsx` também não —
   é a tela de onboarding legada, já órfã/inacessível desde a missão anterior.
 
-### Seção 2 — As 10 ferramentas do Laboratório: 6 de 10 concluídas, 4 pendentes
+### Seção 2 — As 10 ferramentas do Laboratório: 10 de 10 CONCLUÍDAS
 
 **Concluídas (dado real, sem tela decorativa):**
 - **2.7 Cartão de emergência** (`/laboratorio/cartao-emergencia`): lê `errorEntries` abertos
@@ -88,24 +88,53 @@ uma narrativa de confusão sem relação detectável.
   suficiente entra neutro. Lógica documentada explicitamente na própria tela (mission: "documentar
   a lógica de forma simples e transparente"). Testado no navegador: responder errado a questão 1
   mostrou corretamente "chão mais firme" na questão 2.
-
-**Pendentes (aparecem no hub `/laboratorio` como "Em construção", NÃO fingem funcionar):**
-- 2.2 Simulado em condição real (cartão-resposta)
-- 2.5 Técnica de Feynman assistida pelo Professor
-- 2.8 Diário de confiança emocional
-- 2.9 Flashcards nascidos do Feynman (depende de 2.5)
-
-Próxima sessão: 2.2 reaproveita o gerador de simulado do Motor 2 (menor risco); 2.5+2.9 exigem
-integração com o sistema de ferramentas do Professor (`src/lib/professor/`); 2.8 exige uma tabela
-Dexie nova (`this.version(5)`).
+- **2.2 Simulado em condição real** (`/laboratorio/simulado-cartao-resposta`): reaproveita
+  `generateFullMockExam`/`scoreMockExam`/`startMockExamAttempt`/`finishMockExamAttempt` do Motor 2
+  (mesma prova de 60 questões, 4h de cronômetro real) — a diferença é a UI de resposta: cartão-
+  resposta com 5 bolhas A-E clicáveis por questão (clicar de novo desmarca = apagar) em vez do
+  QuestionCard normal. No fim, sinaliza dupla marcação (2+ bolhas na mesma questão — anula a
+  resposta, como numa prova real), questões em branco, e "marcação instável" (apagada/remarcada 2+
+  vezes) — a leitura honesta de "fora do padrão" num formulário digital (documentado na própria
+  tela: não existe marca fraca/borrão pra detectar de verdade num clique). Testado no navegador:
+  dupla marcação, marcação instável e questões em branco todas sinalizadas corretamente após
+  submeter; corrigido um bug de gramática ("questãos" → "questões") achado no teste.
+- **2.8 Diário de confiança** (`/laboratorio/diario-confianca`,
+  `src/lib/lab/confidenceJournal.ts`): check-in opcional de 1-5 (antes/depois de estudar), tabela
+  Dexie nova `confidenceCheckins` (`this.version(5)`, `ConfidenceCheckinSchema` em
+  `src/lib/models/schema.ts`). Cruza, por DIA, a confiança média declarada com a acurácia real das
+  `attempts` daquele dia — só aponta um "padrão" quando há pelo menos 5 dias com os dois dados E
+  pelo menos 2 dias de confiança baixa (≤2) e 2 de confiança alta (≥4); do contrário, "coletando
+  dados", nunca força conclusão de amostra pequena. Nunca diagnóstico clínico, sempre com o aviso
+  "pode ser coincidência". 3 testes (1 pego e corrigido: usava `orderBy("id").last()` pra achar o
+  registro recém-criado, mas `newId()` usa UUID aleatório, não ordenável por tempo — corrigido pra
+  usar o objeto retornado por `recordConfidenceCheckin` diretamente).
+- **2.5 Técnica de Feynman + 2.9 Flashcards nascidos do Feynman** (`/laboratorio/feynman`,
+  `src/app/api/professor/feynman/route.ts`, `src/lib/lab/feynman.ts`): aluno explica um tema com as
+  próprias palavras; nova rota de servidor dedicada (separada do chat geral do Professor, sem loop
+  de tool-calling — só 1 avaliação estruturada por vez) avalia contra o conteúdo REAL da aula
+  (`reviewSummaryPoints`, `mustMemorize`, `commonMistakes` — nunca o conhecimento genérico do
+  modelo sobre o tema), retornando veredito (correto/parcial/incorreto) + feedback específico +
+  pontos cobertos/perdidos — nunca elogio genérico (instruído explicitamente no prompt). Reaproveita
+  `hasProfessorAccess()` (mesmo gate do Professor — dono ou conta liberada manualmente) e
+  `ProfessorAccessGate` (mesmo componente de UI de acesso restrito) — decisão deliberada de NÃO
+  abrir uma rota OpenAI nova sem o controle de acesso/custo que já existe pro resto do Professor.
+  Quando o veredito não é "incorreto", o aluno pode salvar a EXPLICAÇÃO DELE (não uma reescrita da
+  IA) como flashcard: `FlashcardSchema` ganhou os campos `origin: "curso"|"feynman"` e `studentId`
+  (`src/lib/models/schema.ts`); `/revisoes/page.tsx` passou a mesclar os flashcards `origin:
+  "feynman"` do Dexie com os estáticos de `ALL_LESSONS` na MESMA fila de revisão espaçada — não uma
+  fila paralela, cumprindo a exigência da missão de reaproveitar o Motor 1 já existente.
+  Validação: `tsc --noEmit` e `npm run build` limpos (rota nova em `/api/professor/feynman`
+  compilou), Professor real não testado ao vivo nesta sessão (exige `OPENAI_API_KEY` configurada e
+  conta com `professor_access` — a integração com o gate/schema foi validada por leitura de código
+  + build, não por chamada real à OpenAI).
 
 ### Seção 5/6 — Validação e deploy
 
-`tsc --noEmit` limpo e suíte completa (106 testes) passando a cada checkpoint. Deploy feito em
-etapas conforme autorizado pelo usuário: Estucast (AC-01 depois MAT-01) já em produção; a Seção 1
-(explicação universal) + as 6 ferramentas do Laboratório concluídas até agora ainda estão só em
-commits locais (`e4342df`, `4d4d900`, e os do gerador de analogia/simulado adaptativo desta rodada),
-aguardando autorização explícita pra subir — não foram push/deploy ainda.
+`tsc --noEmit`, `npm run build` e suíte completa (109 testes) passando a cada checkpoint. Deploy
+feito em etapas conforme autorizado pelo usuário: Estucast (AC-01 depois MAT-01) já em produção. A
+Seção 1 (explicação universal) + as 10 ferramentas do Laboratório, TODAS concluídas agora, ainda
+estão só em commits locais (`e4342df`, `4d4d900`, `9b1a2a1`, e o desta rodada — 2.2/2.5/2.8/2.9),
+aguardando autorização explícita do usuário pra subir — não foram push/deploy ainda.
 
 ---
 

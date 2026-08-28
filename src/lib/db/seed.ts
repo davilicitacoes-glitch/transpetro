@@ -174,6 +174,7 @@ export async function seedDatabase(): Promise<{ seeded: boolean; reason?: string
         lessonSlug: lc.slug,
         front: fc.front,
         back: fc.back,
+        origin: "curso",
         createdAt: now,
         updatedAt: now,
       });
