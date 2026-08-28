@@ -3,6 +3,7 @@ import {
   BookOpen,
   ClipboardList,
   GraduationCap,
+  Headphones,
   Library,
   ListChecks,
   MessageCircle,
@@ -31,6 +32,7 @@ export const PRIMARY_NAV: NavItem[] = [
   { href: "/professor", label: "Professor", icon: MessageCircle },
   { href: "/curso", label: "Biblioteca de Aulas", icon: BookOpen },
   { href: "/videoaulas", label: "Videoaulas", icon: MonitorPlay },
+  { href: "/estucast", label: "Estucast", icon: Headphones },
 ];
 
 export const SECONDARY_NAV: NavItem[] = [
