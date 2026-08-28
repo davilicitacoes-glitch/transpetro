@@ -1,3 +1,90 @@
+# Continuidade — Método Vetor (2026-08-28, CONCLUÍDA E EM PRODUÇÃO)
+
+Missão que NÃO adiciona funcionalidade de conteúdo nova — transforma o que já existia (Motor 3 de
+previsão de nota + Professor) num produto com identidade e prova visível.
+
+## 1. Nome final e onde aparece
+
+**Método Vetor** ("Vetor" — cada recomendação tem direção + magnitude, refletindo a mecânica real
+do Motor 3). Constante central única: `config/metodo.ts` (`NOME_METODO`, `NOME_MENTOR`) — nenhum
+outro arquivo escreve o nome literal.
+
+Onde aparece na interface: tela inicial (`/meu-curso`, eyebrow "Método Vetor · sua nota
+estimada"), tela `/meu-curso/como-calculamos`, tela `/cobertura-real`, identidade do Professor no
+`systemPrompt.ts` ("Você é Vetor, o mentor de IA do Método Vetor..."), e na abertura contextual de
+toda conversa nova (`gerarAberturaContextual`, assina "Vetor:").
+
+## 2. Nota estimada como centro da experiência
+
+- Movida pro TOPO da tela inicial (antes vinha depois do anel de progresso) — primeiro número que
+  o aluno vê ao abrir o app, com contexto (quantos pontos da prova têm dado real, quantos códigos).
+- Tendência real de 7/30 dias: `src/lib/pedagogy/scoreEstimateHistory.ts` + tabela Dexie
+  `scoreEstimateSnapshots` (v6) — grava no máximo 1 snapshot/dia/aluno; sem snapshot antigo o
+  suficiente, não mostra tendência nenhuma (nunca inventada).
+- `/meu-curso/como-calculamos`: explica a fórmula real passo a passo (peso do código ÷ tópicos da
+  disciplina, blend 70% recente/30% geral, limiar de 3 tentativas pra contar como sinal,
+  extrapolação, e o que decide a recomendação de "maior impacto hoje").
+- Simulados (Motor 2): resultado mostra "nota estimada antes → depois" explícito, recalculado
+  depois que as tentativas do simulado já foram gravadas.
+- Comparação entre alunos: **NÃO implementada** — `computePercentileAmongStudents()` existe,
+  documentado, e retorna `null` explicando que exige um backend agregando dados de vários alunos
+  que este app local-first (IndexedDB por dispositivo) não tem hoje. O formato do dado
+  (`ScoreEstimateSnapshot`) já está pronto pra alimentar isso quando o backend existir.
+
+## 3. Vetor com abertura contextual
+
+`gerarAberturaContextual()` (`src/lib/professor/openingMessage.ts`) — chamada sempre que uma
+conversa nova abre com o Professor, ANTES de qualquer chamada à OpenAI (local/determinística,
+aparece instantânea). Prioridade real, nunca generica: revisão vencida > erro aberto (o mais
+recente, resolvido via `lastOccurrenceAt` real) > conquista real (código com `hasEnoughData` e
+acurácia ≥85%, usando o Motor 3) > desempenho recente geral > honesto "ainda não tenho histórico"
+pra aluno zerado. `systemPrompt.ts` reforça continuidade nas 6 funções existentes (instrução
+explícita: citar pelo menos 1 fato real do contexto sempre que fizer sentido) e a identidade
+"Vetor". 4 testes cobrindo a ordem de prioridade (`src/lib/professor/__tests__/
+openingMessage.test.ts`) — Professor exige conta liberada (`professor_access`), não testado com
+chamada real à OpenAI nesta sessão.
+
+## 4. Números reais da tela "Cobertura Real" (no momento da entrega, 2026-08-28)
+
+Todos calculados dinamicamente em `/cobertura-real` a partir dos catálogos reais — nunca
+hardcoded, nunca arredondado:
+- **307 questões reais** de 311 no banco total, extraídas de **10 provas** catalogadas, banca
+  **CESGRANRIO**.
+- **39/39 códigos** do Anexo IV com pelo menos 1 questão real.
+- **112 videoaulas** mapeadas, cobrindo 38/39 códigos.
+- **36 min (0,61h) de áudio original** do Estucast, em 4 episódios, cobrindo 2/39 códigos
+  (`EstucastEpisode.durationSeconds`, extraído dos metadados reais de geração — não estimado).
+
+## 5. Diagnóstico inicial de onboarding
+
+`/meu-curso/diagnostico-inicial` (`src/lib/onboarding/diagnostic.ts`) — 12 questões reais
+concentradas em 4 códigos (2 Específicas, 1 Português, 1 Matemática, 3 questões cada). O número
+"3 por código" NÃO é arbitrário: é `MIN_ATTEMPTS_FOR_SIGNAL` (o mesmo limiar usado em todo o Motor
+3) — o mínimo exato pra esses 4 códigos cruzarem o limiar e gerarem uma nota estimada REAL ao final
+do diagnóstico, em vez de continuar em "coletando dados". Testado de ponta a ponta no navegador:
+12 perguntas → nota estimada 13/60 real (baseada em 4 códigos com sinal) → códigos mais fracos
+identificados (AC-12, AC-06, AC-01) → recomendação específica do Vetor → "Começar o curso" →
+matrícula real criada → nota aparece no topo do painel. Tela de matrícula (`/meu-curso`, estado sem
+matrícula) ganhou o CTA "Fazer diagnóstico rápido e começar", com opção de pular pra quem preferir.
+
+## 6. Deploy
+
+Fluxo completo preview → produção, como pedido:
+1. Commit `49527e0` na branch `metodo-vetor-preview` → deploy de PREVIEW real na Vercel
+   (`target: null`, não produção) — `dpl_7mo2dKa7Zz26yh8G6dcBqcfmUgcN`, `READY`.
+2. Validado: `/meu-curso`, `/cobertura-real`, `/meu-curso/como-calculamos` responderam `200 OK` na
+   preview (roteamento saudável — redireciona pra `/login` sem sessão, igual toda rota protegida do
+   app); as 3 telas já tinham sido validadas de ponta a ponta no navegador local antes disso
+   (diagnóstico completo, nota estimada, fórmula, números da Cobertura Real).
+3. Promovido: `git merge --ff-only` + push do commit pra `master` → deploy de PRODUÇÃO
+   (`dpl_8vRRbZ4XRRSaRKYD65u5GzFnyFEk`, `target: production`), `READY`.
+4. Produção verificada: `https://transpetro-analistapro.vercel.app/cobertura-real` → `200 OK`.
+5. Branch de preview `metodo-vetor-preview` deletada (local e remota) depois de promovida.
+
+`tsc --noEmit`, `npm run build` (53 rotas) e suíte completa (113 testes) limpos antes do push.
+
+---
+
 # Continuidade — Estucast + Recursos Extras / Laboratório (2026-08-28, EM ANDAMENTO)
 
 ## Estucast (piloto de teste, concluído e em produção)
