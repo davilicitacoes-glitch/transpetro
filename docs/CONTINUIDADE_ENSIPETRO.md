@@ -3,15 +3,17 @@
 ## Estucast (piloto de teste, concluído e em produção)
 
 Aba nova (`/estucast`, nav principal), independente de "Meu Curso", pedida como teste rápido pelo
-usuário: 2 áudios piloto (v03 openai) — uma aula narrada com a professora e uma discussão em
-podcast, ambos cobrindo AC-01 (Recursos Humanos) — tocáveis dentro do app. Estrutura final: lista
-de "competências" em acordeão (`src/content/estucast.ts` + `src/app/(main)/estucast/page.tsx`);
-quando o flashcard em revisão em `/revisoes` é da mesma competência, um botão "Ouvir esta
-competência" toca os mesmos áudios sem sair do fluxo de revisão espaçada. **Em produção** (commits
-`0e350a3`, `30438df`), validado local e na Vercel. Pendência conhecida, não bloqueante: os `.wav`
-(~52MB) foram commitados direto no repo (sem Git LFS) e `/audio/*.wav` cai atrás do gate de auth do
-middleware (só `.svg/.png/.jpg/.ico/.webmanifest/.json` são liberados sem login) — funciona normal
-pra aluno logado, mas não é baixável por URL direta sem sessão.
+usuário: áudios piloto tocáveis dentro do app — **AC-01** (Recursos Humanos, piloto v03 openai) e
+**MAT-01** (Conjuntos numéricos, produção v04 openai, adicionado depois), cada um com aula narrada
++ discussão em podcast. Estrutura final: lista de "competências" em acordeão
+(`src/content/estucast.ts` + `src/app/(main)/estucast/page.tsx`); quando o flashcard em revisão em
+`/revisoes` é da mesma competência, um botão "Ouvir esta competência" toca os mesmos áudios sem sair
+do fluxo de revisão espaçada. **Em produção** (commits `0e350a3`, `30438df`, `498df70`), validado
+local e na Vercel a cada rodada (deploy do MAT-01 confirmado `READY` via API da Vercel). Pendência
+conhecida, não bloqueante: os `.wav` (~102MB ao todo agora) foram commitados direto no repo (sem Git
+LFS) e `/audio/*.wav` cai atrás do gate de auth do middleware (só
+`.svg/.png/.jpg/.ico/.webmanifest/.json` são liberados sem login) — funciona normal pra aluno
+logado, mas não é baixável por URL direta sem sessão.
 
 ## Recursos Extras / "Laboratório" — EM ANDAMENTO (não terminado, sem deploy ainda)
 
@@ -47,7 +49,7 @@ uma narrativa de confusão sem relação detectável.
   estruturalmente diferente do formato A-E do `QuestionCard`. `diagnostico/page.tsx` também não —
   é a tela de onboarding legada, já órfã/inacessível desde a missão anterior.
 
-### Seção 2 — As 10 ferramentas do Laboratório: 4 de 10 concluídas, 6 pendentes
+### Seção 2 — As 10 ferramentas do Laboratório: 6 de 10 concluídas, 4 pendentes
 
 **Concluídas (dado real, sem tela decorativa):**
 - **2.7 Cartão de emergência** (`/laboratorio/cartao-emergencia`): lê `errorEntries` abertos
@@ -65,26 +67,45 @@ uma narrativa de confusão sem relação detectável.
   dia (madrugada/manhã/tarde/noite), cruza acerto e tempo médio de resposta. Estado honesto
   "coletando dados" abaixo de 25 tentativas totais ou 8 por horário — testado, mostra
   corretamente esse estado com 1 tentativa real registrada.
+- **2.1 Gerador de questão por analogia** (`/laboratorio/gerador-analogia`,
+  `src/lib/lab/analogyGenerator.ts`): parte de uma questão REAL (`source.origin === "real"`) que
+  contenha um substantivo de cenário genérico (empresa/colaborador/gestor/cliente etc., dicionário
+  fechado em `SWAP_GROUPS`), troca esse termo por um sinônimo IDÊNTICO em todo o enunciado +
+  alternativas + explicações — nunca mexe em número nem em termo técnico, então nunca arrisca
+  quebrar a corretude. Retorna `null` (sem gerar nada) quando a questão é puramente
+  conceitual/definicional (a maioria do acervo real é assim — só ~105 das ~352 questões reais têm
+  cenário variável). Selo "questão inédita, baseada na questão real nº X" sempre visível; a
+  tentativa é gravada (`recordAttempt`) contra o ID da questão REAL de origem, então conta pro
+  Motor 1/Caderno de Erros do tópico certo. 5 testes cobrindo: rejeita fonte não-real, rejeita
+  questão sem cenário, troca consistente statement+opções+explicação preservando corretude/chaves,
+  nunca sobrescreve o ID original, confirma que existe pelo menos 1 questão real variável no acervo.
+- **2.10 Simulado adaptativo** (`/laboratorio/simulado-adaptativo`): 18 questões. `Question.
+  difficulty` NÃO é sinal real (quase todo o acervo está marcado "medio" por falta de calibração
+  própria — decidido NÃO fingir adaptação nesse campo). Em vez disso, adapta por TÓPICO usando a
+  acurácia real do próprio aluno (`MasterySnapshot.accuracyRate`, `attemptsCount >= 3` pra contar
+  como sinal): acertou → próxima questão vem de um tópico onde o aluno historicamente vai pior
+  (mais desafiador); errou → vem de um tópico onde vai melhor (chão mais firme). Tópico sem dado
+  suficiente entra neutro. Lógica documentada explicitamente na própria tela (mission: "documentar
+  a lógica de forma simples e transparente"). Testado no navegador: responder errado a questão 1
+  mostrou corretamente "chão mais firme" na questão 2.
 
 **Pendentes (aparecem no hub `/laboratorio` como "Em construção", NÃO fingem funcionar):**
-- 2.1 Gerador de questão por analogia
 - 2.2 Simulado em condição real (cartão-resposta)
 - 2.5 Técnica de Feynman assistida pelo Professor
 - 2.8 Diário de confiança emocional
 - 2.9 Flashcards nascidos do Feynman (depende de 2.5)
-- 2.10 Simulado adaptativo
 
-Próxima sessão: seguir por 2.2/2.10 (reaproveitam o gerador de simulado do Motor 2, risco menor) e
-2.1 (swap de nome/cenário em questão real, sem arriscar recalcular resposta numérica); 2.5+2.9
-exigem integração com o sistema de ferramentas do Professor (`src/lib/professor/`); 2.8 exige uma
-tabela Dexie nova (`this.version(5)`).
+Próxima sessão: 2.2 reaproveita o gerador de simulado do Motor 2 (menor risco); 2.5+2.9 exigem
+integração com o sistema de ferramentas do Professor (`src/lib/professor/`); 2.8 exige uma tabela
+Dexie nova (`this.version(5)`).
 
 ### Seção 5/6 — Validação e deploy
 
-`tsc --noEmit` limpo e suíte completa (102 testes) passando a cada checkpoint. **Ainda NÃO fez
-deploy desta parte** (Seção 1 + as 4 ferramentas do Laboratório) — commits locais (`e4342df` e
-seguintes), aguardando o restante das 10 ferramentas ou autorização explícita do usuário pra subir
-parcial.
+`tsc --noEmit` limpo e suíte completa (106 testes) passando a cada checkpoint. Deploy feito em
+etapas conforme autorizado pelo usuário: Estucast (AC-01 depois MAT-01) já em produção; a Seção 1
+(explicação universal) + as 6 ferramentas do Laboratório concluídas até agora ainda estão só em
+commits locais (`e4342df`, `4d4d900`, e os do gerador de analogia/simulado adaptativo desta rodada),
+aguardando autorização explícita pra subir — não foram push/deploy ainda.
 
 ---
 

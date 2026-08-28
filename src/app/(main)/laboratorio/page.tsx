@@ -62,7 +62,7 @@ const TOOLS: LabTool[] = [
     icon: Shuffle,
     title: "Questão por analogia",
     description: "Varia nome/cenário de uma questão real, mantendo a mesma regra testada.",
-    status: "em_construcao",
+    status: "disponivel",
   },
   {
     href: "/laboratorio/simulado-cartao-resposta",
@@ -89,8 +89,8 @@ const TOOLS: LabTool[] = [
     href: "/laboratorio/simulado-adaptativo",
     icon: SlidersHorizontal,
     title: "Simulado adaptativo",
-    description: "A dificuldade da próxima questão muda conforme você acerta ou erra.",
-    status: "em_construcao",
+    description: "O próximo tópico muda conforme você acerta ou erra, usando seu histórico real.",
+    status: "disponivel",
   },
 ];
 
