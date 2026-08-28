@@ -23,6 +23,10 @@ export interface EstucastEpisode {
   audioSrc: string;
   /** Tamanho aproximado do arquivo, só pra dar transparência ao aluno antes de carregar. */
   approxSizeMb: number;
+  /** Duração real do áudio, em segundos — extraída dos metadados de geração (*_METADADOS_*.json,
+   * campo duration_seconds), não estimada. Usada pela tela "Cobertura Real" (missão "Método
+   * Vetor", seção 4) pra somar horas de áudio original produzidas sem arredondar à mão. */
+  durationSeconds: number;
 }
 
 export interface EstucastCompetencia {
@@ -58,6 +62,7 @@ export const ESTUCAST_EPISODES: EstucastEpisode[] = [
       "Aula em áudio com a professora, cobrindo o conteúdo de Recursos Humanos (AC-01) no mesmo nível da microaula em slides.",
     audioSrc: "/audio/estucast/ac-01-aula.wav",
     approxSizeMb: 24,
+    durationSeconds: 515.01,
   },
   {
     id: "ac-01-podcast-v03",
@@ -69,6 +74,7 @@ export const ESTUCAST_EPISODES: EstucastEpisode[] = [
       "Conversa em formato podcast entre dois apresentadores discutindo os pontos-chave de Recursos Humanos (AC-01), pra fixação por repetição em outro formato.",
     audioSrc: "/audio/estucast/ac-01-podcast.wav",
     approxSizeMb: 29,
+    durationSeconds: 618.86,
   },
   {
     id: "mat-01-aula-v04",
@@ -80,6 +86,7 @@ export const ESTUCAST_EPISODES: EstucastEpisode[] = [
       "Aula em áudio com a professora, cobrindo conjuntos numéricos (naturais, inteiros, racionais e reais — MAT-01) no mesmo nível da microaula em slides.",
     audioSrc: "/audio/estucast/mat-01-aula.wav",
     approxSizeMb: 19,
+    durationSeconds: 418.87,
   },
   {
     id: "mat-01-podcast-v04",
@@ -91,5 +98,6 @@ export const ESTUCAST_EPISODES: EstucastEpisode[] = [
       "Conversa em formato podcast entre dois apresentadores discutindo conjuntos numéricos (MAT-01) como cobrado pela Cesgranrio, pra fixação por repetição em outro formato.",
     audioSrc: "/audio/estucast/mat-01-podcast.wav",
     approxSizeMb: 29,
+    durationSeconds: 629.93,
   },
 ];

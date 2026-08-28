@@ -5,6 +5,7 @@ import Link from "next/link";
 import { AlertCircle, ArrowLeft, Check, History, Loader2, Send, X } from "lucide-react";
 import { VoiceSession } from "@/components/professor/VoiceSession";
 import { buildProfessorContext } from "@/lib/pedagogy/professorContext";
+import { gerarAberturaContextual } from "@/lib/professor/openingMessage";
 import { DEFAULT_STUDENT_ID, type ProfessorContext } from "@/lib/models/schema";
 import { findToolSchema } from "@/lib/professor/toolSchemas";
 import { executeProfessorTool } from "@/lib/professor/toolExecutors";
@@ -70,12 +71,29 @@ export default function ProfessorConversaPage({ params }: { params: Promise<{ fu
   const [pendingConfirmation, setPendingConfirmation] = useState<PendingConfirmation | null>(null);
   const [usage, setUsage] = useState(getProfessorUsageToday());
   const [recentSummary, setRecentSummary] = useState<string>("");
+  const [openingLoading, setOpeningLoading] = useState(true);
   const bottomRef = useRef<HTMLDivElement>(null);
   const conversationIdRef = useRef<string>(newConversationId());
+  const openingRequestedRef = useRef(false);
 
   useEffect(() => {
     buildProfessorContext(DEFAULT_STUDENT_ID).then(setContext);
     buildRecentSummary().then(setRecentSummary);
+  }, []);
+
+  // Abertura contextual do Vetor (missão "Método Vetor", seção 3): a primeira coisa que o aluno vê
+  // NUNCA é um cumprimento genérico — vem de gerarAberturaContextual, que cita algo real do
+  // histórico dele. Local/determinístico (não chama IA), então aparece instantâneo, sem esperar a
+  // API. Vira a primeira mensagem da conversa (aparece no histórico salvo), mas não é reenviada
+  // pro modelo — o system prompt já recebe o ProfessorContext completo.
+  useEffect(() => {
+    if (openingRequestedRef.current) return;
+    openingRequestedRef.current = true;
+    gerarAberturaContextual(DEFAULT_STUDENT_ID)
+      .then((text) => {
+        setMessages((prev) => (prev.length === 0 ? [{ id: crypto.randomUUID(), role: "assistant", content: text }] : prev));
+      })
+      .finally(() => setOpeningLoading(false));
   }, []);
 
   useEffect(() => {
@@ -204,7 +222,13 @@ export default function ProfessorConversaPage({ params }: { params: Promise<{ fu
       <div className="flex-1 overflow-y-auto space-y-3 pb-3">
         {context && <VoiceSession activeFunction={activeFunction} context={context} recentConversationsSummary={recentSummary} conversationId={conversationIdRef.current} />}
 
-        {messages.length === 0 && !loading && (
+        {messages.length === 0 && openingLoading && (
+          <div className="flex items-center gap-2 text-xs text-foreground-muted">
+            <Loader2 size={14} className="animate-spin" aria-hidden />
+            Vetor está olhando seu histórico…
+          </div>
+        )}
+        {messages.length === 0 && !openingLoading && !loading && (
           <div className="card p-4 text-[13px] text-foreground-muted">
             {activeFunction === "me_teste_agora"
               ? "Diga qual assunto você quer que eu teste. Vou fazer perguntas — não vou entregar a resposta de graça."

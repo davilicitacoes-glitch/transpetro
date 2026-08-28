@@ -10,6 +10,8 @@ import { PageHeader } from "@/components/ui/PageHeader";
 import { getDB } from "@/lib/db/dexie";
 import { finishMockExamAttempt, getRecentMockExamAttempts, startMockExamAttempt, startOrResumeSession, endSession } from "@/lib/pedagogy/service";
 import { newId } from "@/lib/pedagogy/ids";
+import { computeScoreEstimate } from "@/lib/pedagogy/scoreEstimate";
+import { recordScoreEstimateSnapshot } from "@/lib/pedagogy/scoreEstimateHistory";
 import { DEFAULT_STUDENT_ID, type MockExam, type MockExamAttempt } from "@/lib/models/schema";
 
 type ExamKind = "completo" | string; // "completo" ou o subjectId (simulado por disciplina)
@@ -35,6 +37,8 @@ export default function SimuladosPage() {
   const [totalSeconds, setTotalSeconds] = useState<number | null>(null);
   const [secondsRemaining, setSecondsRemaining] = useState<number | null>(null);
   const [responseTimesMs, setResponseTimesMs] = useState<Record<string, number>>({});
+  const [scoreBefore, setScoreBefore] = useState<number | null>(null);
+  const [scoreAfter, setScoreAfter] = useState<number | null>(null);
   const lastEventAtRef = useRef<number>(Date.now());
   const finishRef = useRef<() => void>(() => {});
 
@@ -69,6 +73,13 @@ export default function SimuladosPage() {
       setDiagnostic(null);
       setResponseTimesMs({});
       lastEventAtRef.current = Date.now();
+      setScoreAfter(null);
+
+      // Antes/depois da nota estimada (missão "Método Vetor", seção 2) — captura o estado ANTES
+      // de responder qualquer questão deste simulado, pra comparar com o "depois" no fim.
+      const before = await computeScoreEstimate(DEFAULT_STUDENT_ID);
+      setScoreBefore(before.hasEnoughData ? before.extrapolatedPoints : null);
+      if (before.hasEnoughData) await recordScoreEstimateSnapshot(before, "simulado_antes", DEFAULT_STUDENT_ID);
 
       const questionCount = generated.questions.length;
       const seconds = Math.round(EXAM_DURATION_HOURS * 3600 * (questionCount / OBJECTIVE_TOTAL_QUESTIONS));
@@ -131,6 +142,14 @@ export default function SimuladosPage() {
       }));
       await finishMockExamAttempt(mockExamAttemptId, answerList, scoreBySubject, scored.totalPoints, DEFAULT_STUDENT_ID);
       if (sessionId) await endSession(sessionId, { status: "concluida" });
+
+      // "Depois" da nota estimada — recalcula AGORA que as tentativas deste simulado já foram
+      // gravadas (finishMockExamAttempt já chamou recordAttempt pra cada questão), então reflete
+      // o efeito real deste simulado específico, não uma estimativa antiga.
+      const after = await computeScoreEstimate(DEFAULT_STUDENT_ID);
+      setScoreAfter(after.hasEnoughData ? after.extrapolatedPoints : null);
+      if (after.hasEnoughData) await recordScoreEstimateSnapshot(after, "simulado_depois", DEFAULT_STUDENT_ID);
+
       setFinishing(false);
     }
   }
@@ -263,6 +282,34 @@ export default function SimuladosPage() {
           <p className="text-sm text-foreground-muted mb-4">
             {result.correctCount} acertos em {result.totalQuestions} questões
           </p>
+
+          {/* Antes/depois da nota estimada (missão "Método Vetor", seção 2) — só aparece quando os
+              dois lados têm dado suficiente; nunca mostra "0" fingindo ser uma nota real. */}
+          {scoreBefore !== null && scoreAfter !== null && (
+            <div className="rounded-lg bg-brand-soft p-3.5 mb-4 flex items-center justify-between gap-3">
+              <div>
+                <p className="text-[10.5px] text-foreground-muted uppercase tracking-wide">Nota estimada antes</p>
+                <p className="text-[18px] font-bold">{scoreBefore}</p>
+              </div>
+              <span className="text-foreground-muted text-lg">→</span>
+              <div>
+                <p className="text-[10.5px] text-foreground-muted uppercase tracking-wide">Nota estimada depois</p>
+                <p className={`text-[18px] font-bold ${scoreAfter > scoreBefore ? "text-success" : scoreAfter < scoreBefore ? "text-danger" : ""}`}>
+                  {scoreAfter}
+                </p>
+              </div>
+              <span className={`chip shrink-0 ${scoreAfter > scoreBefore ? "bg-success-soft text-success" : scoreAfter < scoreBefore ? "bg-danger-soft text-danger" : "bg-surface text-foreground-muted"}`}>
+                {scoreAfter > scoreBefore ? "+" : ""}
+                {Math.round((scoreAfter - scoreBefore) * 10) / 10} pts
+              </span>
+            </div>
+          )}
+          {scoreBefore === null && scoreAfter !== null && (
+            <p className="text-[11.5px] text-foreground-muted mb-4">
+              Sua nota estimada agora: <strong>{scoreAfter} pts</strong>. Ainda não havia dado suficiente antes deste simulado pra comparar
+              antes/depois — a partir de agora esse comparativo passa a aparecer.
+            </p>
+          )}
 
           <div className="flex flex-wrap gap-2 mb-4">
             <span className={`chip ${result.passedMinimum ? "bg-success-soft text-success" : "bg-danger-soft text-danger"}`}>

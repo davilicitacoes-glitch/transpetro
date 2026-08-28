@@ -721,6 +721,26 @@ export const ConfidenceCheckinSchema = AuditFieldsSchema.extend({
 });
 export type ConfidenceCheckin = z.infer<typeof ConfidenceCheckinSchema>;
 
+/* ---------------- Histórico da nota estimada (missão "Método Vetor", seção 2) ---------------- */
+
+/** Snapshot compacto e real do resultado do Motor 3 (`computeScoreEstimate`,
+ * src/lib/pedagogy/scoreEstimate.ts) em um momento — grava no MÁXIMO 1 por aluno por dia (upsert
+ * por `[studentId+date]`), pra permitir mostrar a tendência real (7/30 dias) sem recalcular
+ * histórico que não existe. Nunca inventa um ponto de dado — sem snapshot antigo o suficiente, a
+ * tela mostra "ainda sem histórico" em vez de uma tendência forjada. */
+export const ScoreEstimateSnapshotSchema = AuditFieldsSchema.extend({
+  studentId: z.string().default(DEFAULT_STUDENT_ID),
+  /** Data local (YYYY-MM-DD, fuso do edital) em que este snapshot foi calculado. */
+  date: z.string(),
+  extrapolatedPoints: z.number(),
+  pointsWithData: z.number(),
+  knownAccuracy: z.number(),
+  /** Origem do cálculo — "simulado" quando gravado logo após um Motor 2 concluído (usado pro
+   * "antes/depois"), "regular" nos demais casos (ex.: abrir a tela inicial). */
+  trigger: z.enum(["regular", "simulado_antes", "simulado_depois"]).default("regular"),
+});
+export type ScoreEstimateSnapshot = z.infer<typeof ScoreEstimateSnapshotSchema>;
+
 /* ---------------- Contexto do futuro Professor (contrato tipado, sem IA) ---------------- */
 
 export const ProfessorActionKindSchema = z.enum([

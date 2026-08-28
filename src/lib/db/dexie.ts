@@ -28,6 +28,7 @@ import type {
   Question,
   ReviewAttempt,
   ReviewSchedule,
+  ScoreEstimateSnapshot,
   CourseModule,
   StudyPlanRecord,
   StudySession,
@@ -95,6 +96,9 @@ export class TranspetroDB extends Dexie {
 
   // --- Laboratório (Recursos Extras) ---
   confidenceCheckins!: EntityTable<ConfidenceCheckin, "id">;
+
+  // --- Método Vetor — histórico da nota estimada ---
+  scoreEstimateSnapshots!: EntityTable<ScoreEstimateSnapshot, "id">;
 
   constructor() {
     super("transpetro-estudos-db");
@@ -173,6 +177,11 @@ export class TranspetroDB extends Dexie {
     // --- v5: Laboratório — diário de confiança emocional (ferramenta 2.8) ---
     this.version(5).stores({
       confidenceCheckins: "id, studentId, moment, occurredAt, [studentId+occurredAt]",
+    });
+
+    // --- v6: Método Vetor — histórico da nota estimada (1 snapshot/dia/aluno) ---
+    this.version(6).stores({
+      scoreEstimateSnapshots: "id, studentId, date, [studentId+date]",
     });
   }
 }

@@ -9,12 +9,16 @@ import {
   ChevronRight,
   Clock,
   ClipboardList,
+  Database,
   Flame,
+  Info,
   ListChecks,
+  Minus,
   NotebookPen,
   Play,
   RotateCcw,
   Target,
+  TrendingDown,
   TrendingUp,
 } from "lucide-react";
 import { PageHeader } from "@/components/ui/PageHeader";
@@ -24,7 +28,9 @@ import { PHASE_LABEL, formatMinutes } from "@/lib/course/labels";
 import { formatDateBR, todayInExamTimezone, daysBetween } from "@/lib/schedule/dates";
 import { computeStudyStreak } from "@/lib/course/streak";
 import { computeScoreEstimate, type ScoreEstimate } from "@/lib/pedagogy/scoreEstimate";
+import { recordScoreEstimateSnapshot, getScoreEstimateTrend, type ScoreEstimateTrend } from "@/lib/pedagogy/scoreEstimateHistory";
 import { EXAM_DATE, LAST_STUDY_DATE, TOTAL_MISSIONS } from "@config/concurso";
+import { NOME_METODO } from "@config/metodo";
 import {
   getEnrollment,
   startEnrollment,
@@ -44,6 +50,7 @@ const QUICK_LINKS = [
   { href: "/erros", label: "Caderno de Erros", icon: NotebookPen },
   { href: "/desempenho", label: "Desempenho", icon: TrendingUp },
   { href: "/meu-curso/calendario", label: "Calendário", icon: CalendarCheck2 },
+  { href: "/cobertura-real", label: "Cobertura Real", icon: Database },
 ];
 
 export default function MeuCursoPage() {
@@ -59,6 +66,7 @@ export default function MeuCursoPage() {
   const [daysCompleted, setDaysCompleted] = useState(0);
   const [streak, setStreak] = useState(0);
   const [scoreEstimate, setScoreEstimate] = useState<ScoreEstimate | null>(null);
+  const [scoreTrend, setScoreTrend] = useState<ScoreEstimateTrend | null>(null);
 
   async function load() {
     setLoading(true);
@@ -75,6 +83,11 @@ export default function MeuCursoPage() {
     const due = await getDueReviewsToday(existing.studentId);
     const overview = await getCourseOverview(existing.studentId, existing);
     const estimate = await computeScoreEstimate(existing.studentId);
+    // Nota estimada é o primeiro número que o aluno vê ao abrir o app (missão "Método Vetor",
+    // seção 2) — grava um snapshot real (no máximo 1/dia) toda vez que a tela inicial calcula a
+    // nota, o que alimenta a tendência de 7/30 dias sem precisar de uma tela dedicada só pra isso.
+    await recordScoreEstimateSnapshot(estimate, "regular", existing.studentId);
+    const trend = await getScoreEstimateTrend(existing.studentId);
     setEnrollment(existing);
     setCurrentDay(day);
     setProgress(dayProgress);
@@ -84,6 +97,7 @@ export default function MeuCursoPage() {
     setDaysCompleted(overview.filter((d) => d.status === "concluido").length);
     setStreak(computeStudyStreak(overview, todayInExamTimezone()));
     setScoreEstimate(estimate);
+    setScoreTrend(trend);
     setLoading(false);
   }
 
@@ -145,13 +159,15 @@ export default function MeuCursoPage() {
             A prova é em {formatDateBR(EXAM_DATE)}. O último dia de
             estudo é {formatDateBR(LAST_STUDY_DATE)}.
           </p>
-          <button
-            type="button"
-            onClick={handleStart}
+          <Link
+            href={`/meu-curso/diagnostico-inicial?startDate=${startDateInput}`}
             className="btn btn-primary w-full"
           >
             <Play size={16} aria-hidden />
-            Começar o curso
+            Fazer diagnóstico rápido e começar
+          </Link>
+          <button type="button" onClick={handleStart} className="w-full text-center text-[11.5px] text-foreground-muted hover:text-foreground underline">
+            Pular o diagnóstico e começar direto
           </button>
         </div>
       </main>
@@ -175,6 +191,49 @@ export default function MeuCursoPage() {
       />
 
       <MigrationBanner />
+
+      {/* Nota estimada — primeiro número que o aluno vê ao abrir o app (missão "Método Vetor",
+          seção 2). Antes deste card vinha depois do anel de progresso; movido pra cá de propósito. */}
+      {scoreEstimate && (
+        <div className="card p-4 mb-4">
+          <p className="flex items-center justify-between gap-2 mb-2">
+            <span className="flex items-center gap-1.5 text-xs font-semibold uppercase tracking-wide text-foreground-muted">
+              <Target size={13} aria-hidden /> {NOME_METODO} · sua nota estimada
+            </span>
+            <Link href="/meu-curso/como-calculamos" className="flex items-center gap-1 text-[11px] text-brand hover:underline shrink-0">
+              <Info size={11} aria-hidden /> Como calculamos
+            </Link>
+          </p>
+          {scoreEstimate.hasEnoughData ? (
+            <>
+              <div className="flex items-baseline gap-2 mb-1 flex-wrap">
+                <span className="text-[30px] font-display font-bold text-brand leading-none">{Math.round(scoreEstimate.extrapolatedPoints)}</span>
+                <span className="text-sm text-foreground-muted">/ {scoreEstimate.totalPoints} pts (estimativa)</span>
+                <TrendBadge trend={scoreTrend} current={scoreEstimate.extrapolatedPoints} />
+              </div>
+              <p className="text-[11px] text-foreground-muted mb-3">
+                Extrapolação a partir de {scoreEstimate.pointsWithData} de {scoreEstimate.totalPoints} pts da prova já com dado real (
+                {scoreEstimate.perCode.filter((c) => c.hasEnoughData).length} código(s) com tentativas suficientes) — não é uma promessa, ajusta
+                conforme você responde mais questões.
+              </p>
+              {scoreEstimate.topPriority[0] && (
+                <p className="text-[13px] border-t border-border pt-3">
+                  <strong>Maior impacto hoje:</strong> estudar{" "}
+                  <Link href={`/curso/${scoreEstimate.topPriority[0].topicSlug}`} className="text-brand font-medium hover:underline">
+                    {scoreEstimate.topPriority[0].syllabusCode} — {scoreEstimate.topPriority[0].topicName}
+                  </Link>{" "}
+                  tem mais impacto na sua nota estimada agora do que revisar um tema que você já domina.
+                </p>
+              )}
+            </>
+          ) : (
+            <p className="text-sm text-foreground-muted">
+              Ainda coletando dados — responda algumas questões em <Link href="/questoes" className="text-brand hover:underline">Questões</Link> ou
+              num simulado pra começarmos a estimar sua nota e priorizar o que estudar.
+            </p>
+          )}
+        </div>
+      )}
 
       <div className="card p-4 mb-4 flex items-center gap-4">
         <ProgressRing percent={TOTAL_MISSIONS > 0 ? (daysCompleted / TOTAL_MISSIONS) * 100 : 0} size={64} strokeWidth={6}>
@@ -209,40 +268,6 @@ export default function MeuCursoPage() {
             <strong>{dueReviews.length} revisão(ões)</strong> vencida(s) ou para hoje — toque para abrir.
           </p>
         </Link>
-      )}
-
-      {scoreEstimate && (
-        <div className="card p-4 mb-4">
-          <p className="flex items-center gap-1.5 text-xs font-semibold uppercase tracking-wide text-foreground-muted mb-2">
-            <Target size={13} aria-hidden /> Nota estimada e prioridade de hoje
-          </p>
-          {scoreEstimate.hasEnoughData ? (
-            <>
-              <div className="flex items-baseline gap-2 mb-1 flex-wrap">
-                <span className="text-[26px] font-display font-bold text-brand leading-none">{Math.round(scoreEstimate.extrapolatedPoints)}</span>
-                <span className="text-sm text-foreground-muted">/ {scoreEstimate.totalPoints} pts (estimativa)</span>
-              </div>
-              <p className="text-[11px] text-foreground-muted mb-3">
-                Extrapolação a partir de {scoreEstimate.pointsWithData} de {scoreEstimate.totalPoints} pts da prova já com dado real (questões
-                suficientes respondidas) — não é uma promessa, ajusta conforme você responde mais questões.
-              </p>
-              {scoreEstimate.topPriority[0] && (
-                <p className="text-[13px] border-t border-border pt-3">
-                  <strong>Maior impacto hoje:</strong> estudar{" "}
-                  <Link href={`/curso/${scoreEstimate.topPriority[0].topicSlug}`} className="text-brand font-medium hover:underline">
-                    {scoreEstimate.topPriority[0].syllabusCode} — {scoreEstimate.topPriority[0].topicName}
-                  </Link>{" "}
-                  tem mais impacto na sua nota estimada agora do que revisar um tema que você já domina.
-                </p>
-              )}
-            </>
-          ) : (
-            <p className="text-sm text-foreground-muted">
-              Ainda coletando dados — responda algumas questões em <Link href="/questoes" className="text-brand hover:underline">Questões</Link> ou
-              num simulado pra começarmos a estimar sua nota e priorizar o que estudar.
-            </p>
-          )}
-        </div>
       )}
 
       {overloaded && (
@@ -327,5 +352,24 @@ export default function MeuCursoPage() {
         ))}
       </div>
     </main>
+  );
+}
+
+/** Contexto de tendência da nota estimada (missão "Método Vetor", seção 2): compara com 7 e 30
+ * dias atrás quando existe snapshot real dessa distância — nunca inventa "subindo/estável/caindo"
+ * sem um ponto de comparação real gravado (ver src/lib/pedagogy/scoreEstimateHistory.ts). */
+function TrendBadge({ trend, current }: { trend: ScoreEstimateTrend | null; current: number }) {
+  if (!trend || (trend.sevenDaysAgo === null && trend.thirtyDaysAgo === null)) return null;
+  const reference = trend.sevenDaysAgo ?? trend.thirtyDaysAgo!;
+  const label = trend.sevenDaysAgo !== null ? "7 dias" : "30 dias";
+  const delta = Math.round((current - reference) * 10) / 10;
+  const Icon = delta > 0.5 ? TrendingUp : delta < -0.5 ? TrendingDown : Minus;
+  const className = delta > 0.5 ? "text-success" : delta < -0.5 ? "text-danger" : "text-foreground-muted";
+  return (
+    <span className={`flex items-center gap-1 text-[11px] font-medium ${className}`} title={`Nota estimada há ${label}: ${reference} pts`}>
+      <Icon size={12} aria-hidden />
+      {delta > 0 ? "+" : ""}
+      {delta} em {label}
+    </span>
   );
 }
