@@ -1,5 +1,89 @@
 # Motor de Jogos — arquitetura (2026-08-28)
 
+## Camada visual (2026-08-28, adicionada depois da entrega inicial)
+
+Missão que trocou SÓ a apresentação do jogo já existente — a lógica de conteúdo, tarefa → resposta
+→ explicação → registro no motor de dados, descrita no resto deste documento, **não mudou em
+nada**. Confirmado por: a suíte de testes inteira (`gameEngine.test.ts` incluído) continua
+passando sem alteração, e um playthrough completo de "RH e Processos" depois da mudança visual deu
+o mesmo resultado (3/4 acertos, nas mesmas cenas) de antes.
+
+### Abordagem técnica
+
+**SVG desenhado por código + animação CSS (`@keyframes`)** — sem biblioteca de animação (nenhuma
+dependência nova instalada) e sem Canvas. Ficou em duas peças:
+
+- `src/components/games/OfficeAvatar.tsx` — o personagem: um `<svg>` com cabeça/tronco/braços/
+  pernas como `<g>`/`<rect>`/`<circle>` separados, cada parte com seu próprio `transform-origin`.
+  O estado (`AvatarAction`) decide quais classes CSS ficam ativas em cada parte.
+- `src/components/games/OfficeScene.tsx` — o cenário: `<div>`s posicionados em `%` sobre um fundo
+  simples (parede + piso), com o personagem envolto num wrapper cuja propriedade `left` tem
+  `transition` (`.office-scene-avatar-wrapper` em `globals.css`) — é isso que faz o personagem se
+  mover fisicamente entre os pontos, não uma troca de imagem estática.
+- Keyframes em `src/app/globals.css` (seção "Personagem 2D do motor de jogos"), reaproveitando as
+  variáveis de cor já existentes do design system (`--brand`, `--navy`, `--accent` etc.) — o
+  personagem já nasce com a identidade visual do app, sem paleta nova.
+
+Todas as animações usam só `transform`/`opacity` (rotate, scaleY, translate) — nunca propriedades
+caras de repintar (`box-shadow` animado, `filter`, `width`/`height` em loop) — é isso que garante
+performance leve em celular, sem precisar de nenhuma técnica extra de otimização.
+
+### Origem dos assets visuais
+
+**Nenhum asset baixado** — o personagem e o cenário são 100% gerados via código (SVG + CSS), não
+um pacote importado. A missão permitia as duas abordagens ("use assets... **ou** elementos
+gerados/desenhados via código (SVG)") — optei por código por três motivos: (1) elimina qualquer
+risco de licença por completo, nunca é preciso verificar; (2) fica trivial reaproveitar a paleta de
+cor exata do app (variáveis CSS) em vez de reeditar cores de um asset importado; (3) não introduz
+nenhuma dependência de build nova. O estilo (formas geométricas simples, proporções "casuais",
+cores chapadas sem gradiente/sombra pesada) segue a mesma linguagem visual dos pacotes de
+personagem flat-design gratuitos citados na missão (ex.: Kenney.nl) — usados aqui como referência
+de estilo, não como arquivo importado.
+
+### Estados de animação implementados (5, como pedido)
+
+| Estado (`AvatarAction`) | O que anima | Quando aparece |
+|---|---|---|
+| `idle` | Respiração leve (tronco) + balanço leve (cabeça) | Parado sem tarefa ativa (chegada, cena de colega, decisão antes de responder) |
+| `walking` | Pernas/braços em ciclo alternado + leve bob vertical, enquanto a posição horizontal transiciona | Sempre que `scene.local` muda entre cenas |
+| `sitting` | Pernas dobradas (pose), sem loop — usado como base visual de `typing` | Implícito dentro de `typing` |
+| `typing` | Sentado + pequeno movimento alternado dos braços/mãos, em loop sutil | Tarefa tipo `email`, antes de responder |
+| `reacting-positive` | Um braço acena (rotação até quase acima da cabeça, 1 execução) | Resposta CORRETA revelada |
+| `reacting-negative` | Um braço sobe até coçar a cabeça (1 execução) | Resposta INCORRETA revelada |
+
+A escolha de qual estado mostrar (`computeArrivedAction`, em `[episodeId]/page.tsx`) é uma função
+pura só de apresentação — lê `scene`/`selected`/`revealed` (que já existiam) mas não escreve nada
+neles nem afeta `recordGameAttempt`.
+
+### Cenário
+
+`OfficeScene` desenha 4 pontos fixos, nas mesmas posições ao longo de uma "sala" horizontal —
+porta (corredor), mesa + computador + cadeira (mesa), mesa redonda (sala de reunião), armário
+(arquivo) — reaproveitando o mesmo `OfficeLocation` que já orientava a legenda de texto ("Mesa /
+computador" etc.) antes desta missão. `arquivo` aparece no cenário mesmo sem nenhuma tarefa hoje
+usando esse local, pra já ficar pronto pra quando um dia de trabalho futuro usar.
+
+### Validações executadas
+
+- `tsc --noEmit` limpo, `npm run build` limpo (55 rotas, incluindo as 3 do jogo).
+- Suíte completa: **118 testes passando**, nenhum teste mudou — confirma que a lógica de conteúdo
+  do Prompt 16/"Um Dia no Escritório" original não foi tocada.
+- Testado no navegador, "RH e Processos" do início ao fim: cena 1 (chegada) → personagem parado
+  perto da porta, `idle`; avançar → personagem anda visivelmente até a mesa (classe `walking` ativa
+  durante a transição, depois some) → chega e já mostra `avatar-typing-arm-r` ativa (digitando);
+  respondi ERRADO de propósito → classe `avatar-scratch-arm` ativa no braço esquerdo, ao mesmo
+  tempo que a explicação de erro universal apareceu normalmente ("Errou", alternativa certa,
+  alternativa errada) — confirmando que a camada visual não atrasa nem substitui a explicação real.
+  Completei o dia (3/4 igual a antes da mudança visual) e a tela de resultado também mostra o
+  personagem (parado no corredor, saindo).
+- **Teste em tela de celular** (375×812, preset mobile): cenário e personagem renderizam dentro
+  dos limites do card (`overflow-hidden`), sem corte nem desproporção — confirmado medindo o
+  `getBoundingClientRect()` do SVG contra o container (nem a borda direita nem a inferior
+  ultrapassam o cenário).
+
+---
+
+
 Primeiro de 7 jogos temáticos planejados para o ENSIPETRO. Este documento registra o motor
 genérico por trás de **"Um Dia no Escritório"** e como ele foi pensado para os próximos dois jogos
 ("Simulador de Gestor", "Detetive de Documentos") reaproveitarem sem reescrever do zero.

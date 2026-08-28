@@ -5,9 +5,24 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ArrowLeft, ArrowRight, Briefcase, CheckCircle2, Mail, MapPin, MessageCircle, Scale, XCircle } from "lucide-react";
 import { QuestionCard } from "@/components/questions/QuestionCard";
+import { OfficeScene } from "@/components/games/OfficeScene";
+import type { AvatarAction } from "@/components/games/OfficeAvatar";
 import { getEpisodeById, getQuestionForTask } from "@/lib/games/catalog";
 import { recordGameAttempt } from "@/lib/games/recordGameAttempt";
 import type { GameScene, OfficeLocation } from "@/lib/games/types";
+
+/** Estado visual do personagem uma vez que ele chega no ponto da cena — puramente de
+ * apresentação, não influencia em nada a lógica de conteúdo/registro (missão "camada visual",
+ * seção 2: "só a apresentação da cena muda"). */
+function computeArrivedAction(scene: GameScene, selected: string | undefined, revealed: boolean): AvatarAction {
+  if (scene.kind !== "tarefa" || !scene.task) return "idle";
+  if (revealed && selected) {
+    const question = getQuestionForTask(scene.task.questionId);
+    const isCorrect = question?.options.find((o) => o.isCorrect)?.key === selected;
+    return isCorrect ? "reacting-positive" : "reacting-negative";
+  }
+  return scene.task.kind === "email" ? "typing" : "idle";
+}
 
 const LOCATION_LABEL: Record<OfficeLocation, string> = {
   mesa: "Mesa / computador",
@@ -57,6 +72,7 @@ export default function UmDiaNoEscritorioEpisodioPage({ params }: { params: Prom
     return (
       <main className="flex-1 px-4 py-6 md:px-8 md:py-8 max-w-2xl mx-auto w-full animate-fade-in">
         <PageBack episode={episode} />
+        <OfficeScene location="corredor" arrivedAction="idle" />
         <div className="card-raised p-5 text-center mb-4">
           <Briefcase size={22} className="text-brand mx-auto mb-2" aria-hidden />
           <p className="text-[22px] font-display font-bold mb-1">{episode.title} concluído</p>
@@ -91,6 +107,8 @@ export default function UmDiaNoEscritorioEpisodioPage({ params }: { params: Prom
   return (
     <main className="flex-1 px-4 py-6 md:px-8 md:py-8 max-w-2xl mx-auto w-full animate-fade-in">
       <PageBack episode={episode} />
+
+      <OfficeScene location={scene.local} arrivedAction={computeArrivedAction(scene, selected, revealed)} />
 
       <div className="flex items-center gap-1.5 mb-4 text-[11px] text-foreground-muted">
         <MapPin size={12} aria-hidden />

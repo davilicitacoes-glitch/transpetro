@@ -335,6 +335,100 @@ h1, h2, h3, h4 {
   animation: fade-in 0.25s ease-out;
 }
 
+/* ------------------------------------------------------------------------------------------------
+ * Personagem 2D do motor de jogos ("Um Dia no Escritório" — camada visual, ver
+ * src/components/games/OfficeAvatar.tsx e docs/MOTOR_DE_JOGOS.md). Só `transform`/`opacity`, sem
+ * filtro/blur pesado — leve o suficiente pra rodar bem em celular (PWA).
+ * ---------------------------------------------------------------------------------------------- */
+
+@keyframes avatar-breathe {
+  0%, 100% { transform: scaleY(1); }
+  50% { transform: scaleY(1.025); }
+}
+.avatar-breathe {
+  animation: avatar-breathe 2.6s ease-in-out infinite;
+}
+
+@keyframes avatar-head-sway {
+  0%, 100% { transform: rotate(0deg); }
+  50% { transform: rotate(1.5deg); }
+}
+.avatar-head-sway {
+  animation: avatar-head-sway 3.2s ease-in-out infinite;
+}
+
+@keyframes avatar-walk-leg-l {
+  0%, 100% { transform: rotate(22deg); }
+  50% { transform: rotate(-22deg); }
+}
+@keyframes avatar-walk-leg-r {
+  0%, 100% { transform: rotate(-22deg); }
+  50% { transform: rotate(22deg); }
+}
+.avatar-walk-leg-l { animation: avatar-walk-leg-l 0.42s ease-in-out infinite; }
+.avatar-walk-leg-r { animation: avatar-walk-leg-r 0.42s ease-in-out infinite; }
+
+@keyframes avatar-walk-arm-l {
+  0%, 100% { transform: rotate(-18deg); }
+  50% { transform: rotate(18deg); }
+}
+@keyframes avatar-walk-arm-r {
+  0%, 100% { transform: rotate(18deg); }
+  50% { transform: rotate(-18deg); }
+}
+.avatar-walk-arm-l { animation: avatar-walk-arm-l 0.42s ease-in-out infinite; }
+.avatar-walk-arm-r { animation: avatar-walk-arm-r 0.42s ease-in-out infinite; }
+
+@keyframes avatar-bob {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-3px); }
+}
+.office-avatar-walking {
+  animation: avatar-bob 0.42s ease-in-out infinite;
+}
+
+@keyframes avatar-typing-arm-l {
+  0%, 100% { transform: rotate(4deg); }
+  50% { transform: rotate(-6deg); }
+}
+@keyframes avatar-typing-arm-r {
+  0%, 100% { transform: rotate(-4deg); }
+  50% { transform: rotate(6deg); }
+}
+.avatar-typing-arm-l { animation: avatar-typing-arm-l 0.5s ease-in-out infinite; }
+.avatar-typing-arm-r { animation: avatar-typing-arm-r 0.5s ease-in-out infinite 0.15s; }
+
+/* Reações — só rodam por um instante (o componente pai remove a classe depois), por isso ficam
+ * com poucas iterações em vez de `infinite`. */
+@keyframes avatar-wave-arm {
+  0% { transform: rotate(0deg); }
+  20% { transform: rotate(-140deg); }
+  40% { transform: rotate(-115deg); }
+  60% { transform: rotate(-140deg); }
+  80% { transform: rotate(-115deg); }
+  100% { transform: rotate(0deg); }
+}
+.avatar-wave-arm {
+  animation: avatar-wave-arm 1.1s ease-in-out 1;
+}
+
+@keyframes avatar-scratch-arm {
+  0% { transform: rotate(0deg) translate(0, 0); }
+  25% { transform: rotate(-95deg) translate(4px, -18px); }
+  50% { transform: rotate(-100deg) translate(4px, -20px); }
+  75% { transform: rotate(-95deg) translate(4px, -18px); }
+  100% { transform: rotate(0deg) translate(0, 0); }
+}
+.avatar-scratch-arm {
+  animation: avatar-scratch-arm 1.1s ease-in-out 1;
+}
+
+/* Cena do escritório — o personagem anda visivelmente de um ponto a outro (não só troca de
+ * imagem): transição suave da posição horizontal. */
+.office-scene-avatar-wrapper {
+  transition: left 0.7s ease-in-out;
+}
+
 /* Texto com gradiente da marca — usado com moderação em títulos de destaque. */
 .text-gradient-brand {
   background: linear-gradient(120deg, var(--brand), var(--accent));
