@@ -2,6 +2,7 @@ import type { LucideIcon } from "lucide-react";
 import {
   BookOpen,
   ClipboardList,
+  FlaskConical,
   GraduationCap,
   Headphones,
   Library,
@@ -36,6 +37,7 @@ export const PRIMARY_NAV: NavItem[] = [
 ];
 
 export const SECONDARY_NAV: NavItem[] = [
+  { href: "/laboratorio", label: "Laboratório", icon: FlaskConical },
   { href: "/questoes", label: "Questões", icon: ListChecks },
   { href: "/simulados", label: "Simulados", icon: ClipboardList },
   { href: "/redacao", label: "Redação", icon: PenSquare },

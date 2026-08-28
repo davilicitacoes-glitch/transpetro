@@ -1,3 +1,93 @@
+# Continuidade — Estucast + Recursos Extras / Laboratório (2026-08-28, EM ANDAMENTO)
+
+## Estucast (piloto de teste, concluído e em produção)
+
+Aba nova (`/estucast`, nav principal), independente de "Meu Curso", pedida como teste rápido pelo
+usuário: 2 áudios piloto (v03 openai) — uma aula narrada com a professora e uma discussão em
+podcast, ambos cobrindo AC-01 (Recursos Humanos) — tocáveis dentro do app. Estrutura final: lista
+de "competências" em acordeão (`src/content/estucast.ts` + `src/app/(main)/estucast/page.tsx`);
+quando o flashcard em revisão em `/revisoes` é da mesma competência, um botão "Ouvir esta
+competência" toca os mesmos áudios sem sair do fluxo de revisão espaçada. **Em produção** (commits
+`0e350a3`, `30438df`), validado local e na Vercel. Pendência conhecida, não bloqueante: os `.wav`
+(~52MB) foram commitados direto no repo (sem Git LFS) e `/audio/*.wav` cai atrás do gate de auth do
+middleware (só `.svg/.png/.jpg/.ico/.webmanifest/.json` são liberados sem login) — funciona normal
+pra aluno logado, mas não é baixável por URL direta sem sessão.
+
+## Recursos Extras / "Laboratório" — EM ANDAMENTO (não terminado, sem deploy ainda)
+
+Missão grande, pausada uma vez pro teste do Estucast acima, retomada em seguida. Decisões
+estruturais (seção 0 da missão):
+
+- **Nome da aba nova**: "Laboratório" (`/laboratorio`, nav secundária, ícone `FlaskConical`) —
+  isolada de "Meu Curso": nenhuma das 10 ferramentas aparece na navegação/calendário/jornada
+  diária, o aluno pode ignorar a aba inteira.
+- **Exceção transversal (explicação de erro universal)**: implementada como serviço único
+  (`src/lib/pedagogy/answerExplanation.ts`), não uma tela — ver seção abaixo.
+
+### Seção 1 — Explicação de erro universal: CONCLUÍDA
+
+`buildAnswerExplanation`/`explainAnswerById`/`explanationToCause` (`src/lib/pedagogy/
+answerExplanation.ts`) é o componente central único. Em qualquer resposta errada: mostra a
+alternativa certa e por quê (reaproveita `option.explanation`, já existente por questão), por que a
+alternativa marcada está errada (texto real da própria questão, nunca fabricado), e cita a
+pegadinha real do tema (`lesson.commonMistakes`) quando há overlap de palavras real — nunca força
+uma narrativa de confusão sem relação detectável.
+
+- `service.ts` (`recordAttempt`): calcula a explicação UMA vez, grava em `ErrorEntry.cause`/
+  `correctRule` — reaparece na revisão espaçada (Motor 1), não é só exibida e esquecida.
+- `QuestionCard.tsx` (componente compartilhado): ganhou o bloco de pegadinha. Usado por `/questoes`,
+  `/simulados`, `meu-curso/dia/[day]`, e agora também o miniquiz de aula (`curso/[slug]/page.tsx`,
+  que parou de duplicar a renderização de alternativas — busca a `Question` completa em
+  `ALL_QUESTIONS` pelo mesmo id `q-<lessonSlug>-<n>` e delega pro `QuestionCard`).
+- **Validado no navegador** em `/curso/ac-01-recursos-humanos`: errar a questão 1 mostra "Errou", a
+  explicação da alternativa certa, da errada, e cita "pegadinha nº 1 de 4 deste tema" corretamente.
+  Confirmado depois que o mesmo erro aparece, com o mesmo texto, no Cartão de Emergência (prova de
+  que é a MESMA fundação de dados, não uma cópia).
+- `revisao-vespera/page.tsx` (formato Verdadeiro/Falso, 2 opções) deliberadamente NÃO tocado — é
+  estruturalmente diferente do formato A-E do `QuestionCard`. `diagnostico/page.tsx` também não —
+  é a tela de onboarding legada, já órfã/inacessível desde a missão anterior.
+
+### Seção 2 — As 10 ferramentas do Laboratório: 4 de 10 concluídas, 6 pendentes
+
+**Concluídas (dado real, sem tela decorativa):**
+- **2.7 Cartão de emergência** (`/laboratorio/cartao-emergencia`): lê `errorEntries` abertos
+  (`status !== "superado"`) do aluno real, agrupados por tópico, ordenados por recorrência. Vazio
+  de verdade quando não há erro aberto (não inventa conteúdo). Tem botão de impressão.
+- **2.3 Checklist da véspera** (`/laboratorio/checklist-vespera`): itens vêm de `config/
+  concurso.ts` (datas/duração já auditadas contra o edital oficial); cada item cita a fonte exata
+  ou diz explicitamente "confirmar no edital/comunicado oficial mais próximo da prova" quando não
+  há citação exata disponível no código — nunca inventa uma regra do edital.
+- **2.6 Radar de tendência da banca** (`/laboratorio/radar-banca`): agrega `ALL_QUESTIONS` reais
+  por disciplina/ano (201 Específicas, 58 Português, 48 Matemática questões reais catalogadas,
+  todas CESGRANRIO — mesma banca do concurso). Marca amostra pequena quando `< 5` questões ou
+  `< 3` provas distintas, em vez de apresentar tendência como certeza.
+- **2.4 Cronotipo** (`/laboratorio/cronotipo`): lê `attempts` reais do aluno, agrupa por hora do
+  dia (madrugada/manhã/tarde/noite), cruza acerto e tempo médio de resposta. Estado honesto
+  "coletando dados" abaixo de 25 tentativas totais ou 8 por horário — testado, mostra
+  corretamente esse estado com 1 tentativa real registrada.
+
+**Pendentes (aparecem no hub `/laboratorio` como "Em construção", NÃO fingem funcionar):**
+- 2.1 Gerador de questão por analogia
+- 2.2 Simulado em condição real (cartão-resposta)
+- 2.5 Técnica de Feynman assistida pelo Professor
+- 2.8 Diário de confiança emocional
+- 2.9 Flashcards nascidos do Feynman (depende de 2.5)
+- 2.10 Simulado adaptativo
+
+Próxima sessão: seguir por 2.2/2.10 (reaproveitam o gerador de simulado do Motor 2, risco menor) e
+2.1 (swap de nome/cenário em questão real, sem arriscar recalcular resposta numérica); 2.5+2.9
+exigem integração com o sistema de ferramentas do Professor (`src/lib/professor/`); 2.8 exige uma
+tabela Dexie nova (`this.version(5)`).
+
+### Seção 5/6 — Validação e deploy
+
+`tsc --noEmit` limpo e suíte completa (102 testes) passando a cada checkpoint. **Ainda NÃO fez
+deploy desta parte** (Seção 1 + as 4 ferramentas do Laboratório) — commits locais (`e4342df` e
+seguintes), aguardando o restante das 10 ferramentas ou autorização explícita do usuário pra subir
+parcial.
+
+---
+
 # Continuidade — Motores Adaptativos (2026-08-27)
 
 Registra a missão "Motores Adaptativos": repetição espaçada real ligada ao erro (Motor 1), simulado cronometrado com diagnóstico de banca (Motor 2), previsão de nota e priorização automática (Motor 3). Confirmado com o usuário: "Ensipetro" é o nome do curso/produto; o código de verdade continua sendo esta pasta (`TRANSPETRO`) — a pasta irmã `D:\DOCUMENTOS DIVERSOS\ENSIPETRO` é só um workspace de docs/entregas de missões paralelas de conteúdo, sem código de app nenhum.
