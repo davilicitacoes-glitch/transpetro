@@ -207,7 +207,7 @@ export default function MeuCursoPage() {
           {scoreEstimate.hasEnoughData ? (
             <>
               <div className="flex items-baseline gap-2 mb-1 flex-wrap">
-                <span className="text-[30px] font-display font-bold text-brand leading-none">{Math.round(scoreEstimate.extrapolatedPoints)}</span>
+                <span className="text-[34px] font-display font-bold text-gradient-brand leading-none">{Math.round(scoreEstimate.extrapolatedPoints)}</span>
                 <span className="text-sm text-foreground-muted">/ {scoreEstimate.totalPoints} pts (estimativa)</span>
                 <TrendBadge trend={scoreTrend} current={scoreEstimate.extrapolatedPoints} />
               </div>
@@ -236,20 +236,20 @@ export default function MeuCursoPage() {
       )}
 
       <div className="card p-4 mb-4 flex items-center gap-4">
-        <ProgressRing percent={TOTAL_MISSIONS > 0 ? (daysCompleted / TOTAL_MISSIONS) * 100 : 0} size={64} strokeWidth={6}>
-          <span className="text-[14px] font-display font-bold">{Math.round((daysCompleted / Math.max(1, TOTAL_MISSIONS)) * 100)}%</span>
+        <ProgressRing percent={TOTAL_MISSIONS > 0 ? (daysCompleted / TOTAL_MISSIONS) * 100 : 0} size={72} strokeWidth={7}>
+          <span className="text-[15px] font-display font-bold">{Math.round((daysCompleted / Math.max(1, TOTAL_MISSIONS)) * 100)}%</span>
         </ProgressRing>
         <div className="min-w-0 flex-1">
-          <p className="text-[15px] font-display font-semibold mb-0.5">
+          <p className="text-[15px] font-display font-semibold mb-1.5">
             {daysCompleted} de {TOTAL_MISSIONS} dias concluídos
           </p>
-          <div className="flex items-center gap-3 text-[12px] text-foreground-muted flex-wrap">
-            <span className="flex items-center gap-1">
+          <div className="flex items-center gap-2 flex-wrap">
+            <span className="flex items-center gap-1 text-[11.5px] text-foreground-muted">
               <Clock size={12} aria-hidden />
               <strong className="text-foreground">{daysToExam}</strong> dia(s) até a prova
             </span>
             {streak > 0 && (
-              <span className="flex items-center gap-1 text-warning font-medium">
+              <span className="chip bg-warning-soft text-warning">
                 <Flame size={12} aria-hidden />
                 {streak} dia(s) seguidos
               </span>
@@ -277,42 +277,52 @@ export default function MeuCursoPage() {
         </div>
       )}
 
-      <div className="card p-5 mb-4">
-        <div className="flex items-center justify-between mb-2">
-          <span className="chip bg-brand-soft text-brand">Dia {currentDay.day} de {TOTAL_MISSIONS}</span>
-          <span className="chip bg-surface-muted text-foreground-muted">{PHASE_LABEL[currentDay.phase]}</span>
-        </div>
-        <h2 className="text-[19px] font-bold tracking-tight mb-1">{currentDay.title}</h2>
-        <p className="text-sm text-foreground-muted mb-3">Agendado para {formatDateBR(scheduledDate)}</p>
+      <div className="card-raised p-5 mb-4 relative overflow-hidden">
+        <div
+          className="absolute inset-0 pointer-events-none"
+          style={{ background: "radial-gradient(480px 240px at 100% 0%, color-mix(in srgb, var(--brand) 10%, transparent), transparent 65%)" }}
+          aria-hidden
+        />
+        <div className="relative">
+          <div className="flex items-center justify-between mb-2">
+            <span className="chip bg-brand-soft text-brand">Dia {currentDay.day} de {TOTAL_MISSIONS}</span>
+            <span className="chip bg-surface-muted text-foreground-muted">{PHASE_LABEL[currentDay.phase]}</span>
+          </div>
+          <p className="text-[11px] font-semibold uppercase tracking-wide text-brand mb-1">
+            {allDone ? "Dia concluído" : isResuming ? "Continue de onde parou" : "Seu dia de hoje"}
+          </p>
+          <h2 className="text-[21px] font-display font-bold tracking-tight leading-snug mb-1">{currentDay.title}</h2>
+          <p className="text-sm text-foreground-muted mb-3">Agendado para {formatDateBR(scheduledDate)}</p>
 
-        <div className="flex items-center gap-4 text-xs text-foreground-muted mb-4">
-          <span className="flex items-center gap-1">
-            <Clock size={13} aria-hidden />
-            {formatMinutes(currentDay.estimatedMinutesTotal)}
-          </span>
-          <span className="flex items-center gap-1">
-            <CalendarCheck2 size={13} aria-hidden />
-            Progresso: {completedSteps} de {totalSteps} etapas
-          </span>
-        </div>
+          <div className="flex items-center gap-4 text-xs text-foreground-muted mb-4">
+            <span className="flex items-center gap-1">
+              <Clock size={13} aria-hidden />
+              {formatMinutes(currentDay.estimatedMinutesTotal)}
+            </span>
+            <span className="flex items-center gap-1">
+              <CalendarCheck2 size={13} aria-hidden />
+              Progresso: {completedSteps} de {totalSteps} etapas
+            </span>
+          </div>
 
-        <div className="progress-track mb-4">
-          <div
-            className="progress-fill"
-            style={{ width: `${totalSteps > 0 ? Math.round((completedSteps / totalSteps) * 100) : 0}%` }}
-          />
-        </div>
+          <div className="progress-track mb-4">
+            <div
+              className="progress-fill"
+              style={{ width: `${totalSteps > 0 ? Math.round((completedSteps / totalSteps) * 100) : 0}%` }}
+            />
+          </div>
 
-        <button
-          type="button"
-          onClick={() => router.push(`/meu-curso/dia/${currentDay.day}`)}
-          disabled={allDone}
-          className="btn btn-primary w-full"
-        >
-          <Play size={16} aria-hidden />
-          {allDone ? "Dia concluído" : isResuming ? "Retomar de onde parei" : "Começar o dia"}
-          {!allDone && <ChevronRight size={16} aria-hidden />}
-        </button>
+          <button
+            type="button"
+            onClick={() => router.push(`/meu-curso/dia/${currentDay.day}`)}
+            disabled={allDone}
+            className="btn btn-primary w-full"
+          >
+            <Play size={16} aria-hidden />
+            {allDone ? "Dia concluído" : isResuming ? "Retomar de onde parei" : "Começar o dia"}
+            {!allDone && <ChevronRight size={16} aria-hidden />}
+          </button>
+        </div>
       </div>
 
       <div className="card p-4">
