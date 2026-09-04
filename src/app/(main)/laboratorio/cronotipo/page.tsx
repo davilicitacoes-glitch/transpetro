@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import Link from "next/link";
 import { ArrowLeft, Clock3 } from "lucide-react";
 import { PageHeader, EmptyState } from "@/components/ui/PageHeader";
+import { ListSkeleton } from "@/components/ui/PageSkeleton";
 import { getDB } from "@/lib/db/dexie";
 import { DEFAULT_STUDENT_ID } from "@/lib/models/schema";
 
@@ -72,7 +73,7 @@ export default function CronotipoPage() {
       />
 
       {buckets === null ? (
-        <p className="text-sm text-foreground-muted">Carregando seu histórico...</p>
+        <ListSkeleton />
       ) : !hasEnoughData ? (
         <EmptyState
           icon={Clock3}

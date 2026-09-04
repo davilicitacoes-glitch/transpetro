@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import Link from "next/link";
 import { CheckCircle2, PlayCircle } from "lucide-react";
 import { PageHeader, EmptyState } from "@/components/ui/PageHeader";
+import { ListSkeleton } from "@/components/ui/PageSkeleton";
 import { YouTubePlayer } from "@/components/video/YouTubePlayer";
 import { getCourseDay } from "@/lib/course/service";
 import { getDeferredComplementaryDays, setComplementaryReviewChoice } from "@/lib/course/service";
@@ -49,7 +50,7 @@ export default function RevisaoConteudosEstudadosPage() {
       />
 
       {entries === null ? (
-        <p className="text-sm text-foreground-muted">Carregando…</p>
+        <ListSkeleton />
       ) : entries.length === 0 ? (
         <EmptyState
           icon={PlayCircle}

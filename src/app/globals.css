@@ -335,6 +335,34 @@ h1, h2, h3, h4 {
   animation: fade-in 0.25s ease-out;
 }
 
+/* Placeholder de carregamento com brilho passando — usado no lugar do antigo "Carregando…" em
+   texto puro (ver src/components/ui/PageSkeleton.tsx). */
+@keyframes skeleton-sweep {
+  from { transform: translateX(-100%); }
+  to { transform: translateX(100%); }
+}
+.skeleton {
+  position: relative;
+  overflow: hidden;
+  background: var(--surface-muted);
+  border-radius: 10px;
+}
+.skeleton::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, transparent, color-mix(in srgb, var(--brand) 12%, transparent), transparent);
+  animation: skeleton-sweep 1.4s ease-in-out infinite;
+}
+
+@keyframes brand-pulse {
+  0%, 100% { transform: scale(1); opacity: 1; }
+  50% { transform: scale(1.06); opacity: 0.82; }
+}
+.animate-brand-pulse {
+  animation: brand-pulse 1.6s ease-in-out infinite;
+}
+
 /* ------------------------------------------------------------------------------------------------
  * Personagem 2D do motor de jogos ("Um Dia no Escritório" — camada visual, ver
  * src/components/games/OfficeAvatar.tsx e docs/MOTOR_DE_JOGOS.md). Só `transform`/`opacity`, sem

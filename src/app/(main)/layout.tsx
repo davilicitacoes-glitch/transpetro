@@ -1,6 +1,7 @@
 "use client";
 
 import { NavShell } from "@/components/nav/NavShell";
+import { AppBootScreen } from "@/components/ui/PageSkeleton";
 import { useTranspetroStore } from "@/lib/store/useTranspetroStore";
 
 /**
@@ -17,13 +18,7 @@ import { useTranspetroStore } from "@/lib/store/useTranspetroStore";
 export default function MainLayout({ children }: { children: React.ReactNode }) {
   const ready = useTranspetroStore((s) => s.ready);
 
-  if (!ready) {
-    return (
-      <main className="flex-1 flex items-center justify-center min-h-screen">
-        <p className="text-foreground-muted text-sm">Carregando o Transpetro Estudos…</p>
-      </main>
-    );
-  }
+  if (!ready) return <AppBootScreen />;
 
   return <NavShell>{children}</NavShell>;
 }

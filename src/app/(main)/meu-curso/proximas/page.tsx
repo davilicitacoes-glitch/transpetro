@@ -4,6 +4,7 @@ import { useEffect, useMemo, useState } from "react";
 import Link from "next/link";
 import { ListTodo, PlayCircle } from "lucide-react";
 import { PageHeader } from "@/components/ui/PageHeader";
+import { PageSkeleton } from "@/components/ui/PageSkeleton";
 import { PHASE_LABEL, formatMinutes } from "@/lib/course/labels";
 import { formatDateBR } from "@/lib/schedule/dates";
 import { LAST_STUDY_DATE } from "@config/concurso";
@@ -52,13 +53,7 @@ export default function ProximasPage() {
     );
   }
 
-  if (!entries) {
-    return (
-      <main className="flex-1 px-4 py-6 md:px-8 md:py-8 max-w-2xl mx-auto w-full">
-        <p className="text-sm text-foreground-muted">Carregando…</p>
-      </main>
-    );
-  }
+  if (!entries) return <PageSkeleton cards={4} />;
 
   const [nextDay, ...rest] = filtered;
 

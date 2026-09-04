@@ -4,6 +4,7 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import Link from "next/link";
 import { ArrowLeft, Info, SlidersHorizontal, TrendingDown, TrendingUp } from "lucide-react";
 import { PageHeader } from "@/components/ui/PageHeader";
+import { ListSkeleton } from "@/components/ui/PageSkeleton";
 import { QuestionCard } from "@/components/questions/QuestionCard";
 import { ALL_QUESTIONS } from "@/content/questions";
 import { topicNameOf, subjectOfTopic } from "@/lib/pedagogy/contentRef";
@@ -155,7 +156,7 @@ export default function SimuladoAdaptativoPage() {
       </div>
 
       {masteryByTopic === null ? (
-        <p className="text-sm text-foreground-muted">Carregando seu histórico...</p>
+        <ListSkeleton />
       ) : !finished && current ? (
         <>
           <div className="flex items-center justify-between mb-3">

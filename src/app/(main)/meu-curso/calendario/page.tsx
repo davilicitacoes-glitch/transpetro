@@ -4,6 +4,7 @@ import { useEffect, useMemo, useState } from "react";
 import Link from "next/link";
 import { CalendarDays, ChevronLeft, ChevronRight, List, LayoutGrid, Download, Image as ImageIcon, FileText, FileSpreadsheet, CalendarPlus, type LucideIcon } from "lucide-react";
 import { PageHeader } from "@/components/ui/PageHeader";
+import { PageSkeleton } from "@/components/ui/PageSkeleton";
 import { PHASE_LABEL, formatMinutes } from "@/lib/course/labels";
 import { formatDateBR, todayInExamTimezone } from "@/lib/schedule/dates";
 import { EXAM_DATE } from "@config/concurso";
@@ -73,13 +74,7 @@ export default function CalendarioPage() {
     );
   }
 
-  if (!entries || !monthCursor || !enrollment) {
-    return (
-      <main className="flex-1 px-4 py-6 md:px-8 md:py-8 max-w-3xl mx-auto w-full">
-        <p className="text-sm text-foreground-muted">Carregando…</p>
-      </main>
-    );
-  }
+  if (!entries || !monthCursor || !enrollment) return <PageSkeleton cards={2} />;
 
   const firstIncompleteDay = entries.find((e) => e.status !== "concluido")?.day ?? entries.length + 1;
 

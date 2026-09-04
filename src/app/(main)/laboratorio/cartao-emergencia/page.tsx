@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import Link from "next/link";
 import { ArrowLeft, Award, Printer } from "lucide-react";
 import { PageHeader, EmptyState } from "@/components/ui/PageHeader";
+import { ListSkeleton } from "@/components/ui/PageSkeleton";
 import { getDB } from "@/lib/db/dexie";
 import { TOPICS } from "@/content/curriculum";
 import { SUBJECTS } from "@/content/curriculum";
@@ -78,7 +79,7 @@ export default function CartaoEmergenciaPage() {
       </div>
 
       {groups === null ? (
-        <p className="text-sm text-foreground-muted">Carregando seu Caderno de Erros...</p>
+        <ListSkeleton />
       ) : groups.length === 0 ? (
         <EmptyState
           icon={Award}

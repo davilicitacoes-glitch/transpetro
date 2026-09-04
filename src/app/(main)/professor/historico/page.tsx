@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import Link from "next/link";
 import { ArrowLeft, Mic, Trash2 } from "lucide-react";
 import { PageHeader } from "@/components/ui/PageHeader";
+import { ListSkeleton } from "@/components/ui/PageSkeleton";
 import { deleteConversation, listConversations, summarizeConversation } from "@/lib/professor/history";
 import type { ProfessorConversation } from "@/lib/models/schema";
 import type { ProfessorFunction } from "@/lib/professor/types";
@@ -43,7 +44,7 @@ export default function ProfessorHistoricoPage() {
       />
 
       {!conversations ? (
-        <p className="text-sm text-foreground-muted">Carregando…</p>
+        <ListSkeleton />
       ) : conversations.length === 0 ? (
         <div className="card p-6 text-center text-sm text-foreground-muted">Nenhuma conversa salva ainda.</div>
       ) : (

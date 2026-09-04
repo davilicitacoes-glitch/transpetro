@@ -23,6 +23,7 @@ import {
 } from "lucide-react";
 import { PageHeader } from "@/components/ui/PageHeader";
 import { ProgressRing } from "@/components/ui/ProgressRing";
+import { PageSkeleton } from "@/components/ui/PageSkeleton";
 import { MigrationBanner } from "@/components/app/MigrationBanner";
 import { PHASE_LABEL, formatMinutes } from "@/lib/course/labels";
 import { formatDateBR, todayInExamTimezone, daysBetween } from "@/lib/schedule/dates";
@@ -110,13 +111,7 @@ export default function MeuCursoPage() {
     await load();
   }
 
-  if (loading) {
-    return (
-      <main className="flex-1 px-4 py-6 md:px-8 md:py-8 max-w-2xl mx-auto w-full">
-        <p className="text-sm text-foreground-muted">Carregando…</p>
-      </main>
-    );
-  }
+  if (loading) return <PageSkeleton cards={3} />;
 
   if (!enrollment) {
     return (

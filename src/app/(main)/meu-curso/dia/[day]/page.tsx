@@ -14,6 +14,7 @@ import { YouTubePlayer } from "@/components/video/YouTubePlayer";
 import { SlidePlayer } from "@/components/video/SlidePlayer";
 import { QuestionCard } from "@/components/questions/QuestionCard";
 import { StatTile } from "@/components/ui/StatTile";
+import { PageSkeleton } from "@/components/ui/PageSkeleton";
 import { buildSlides } from "@/lib/slides/buildSlides";
 import { STEP_TYPE_LABEL, formatMinutes } from "@/lib/course/labels";
 import { DEFAULT_STUDENT_ID, type CourseDay, type CourseDayProgress, type CourseStep, type Question } from "@/lib/models/schema";
@@ -123,13 +124,7 @@ export default function MeuCursoDiaPage({ params }: { params: Promise<{ day: str
     }
   }, [progress, dayNumber]);
 
-  if (loading || !planDay || !progress) {
-    return (
-      <main className="flex-1 px-4 py-6 md:px-8 md:py-8 max-w-2xl mx-auto w-full">
-        <p className="text-sm text-foreground-muted">Carregando o Dia {dayParam}…</p>
-      </main>
-    );
-  }
+  if (loading || !planDay || !progress) return <PageSkeleton cards={2} />;
 
   const currentStep = planDay.steps.find((s) => s.id === progress.currentStepId) ?? null;
   const currentIndex = currentStep ? planDay.steps.findIndex((s) => s.id === currentStep.id) : planDay.steps.length;
@@ -555,7 +550,11 @@ function FechamentoCard({
             <StatTile value={String(summary.reviewsScheduledDuringSession)} label="revisões" accent="accent" />
           </div>
         ) : (
-          <p className="text-sm text-foreground-muted mb-5">Carregando resumo…</p>
+          <div className="grid grid-cols-3 gap-2 mb-5" aria-busy="true">
+            <div className="skeleton h-[62px]" />
+            <div className="skeleton h-[62px]" />
+            <div className="skeleton h-[62px]" />
+          </div>
         )}
         {error && <p className="text-sm text-danger mb-3">{error}</p>}
         <div className="flex gap-2">

@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import Link from "next/link";
 import { AlertTriangle, CalendarClock, CheckCircle2, ExternalLink, RotateCcw } from "lucide-react";
 import { PageHeader } from "@/components/ui/PageHeader";
+import { PageSkeleton } from "@/components/ui/PageSkeleton";
 import { StatTile } from "@/components/ui/StatTile";
 import { formatDateBR } from "@/lib/schedule/dates";
 import { getReviewsOverview, type ReviewsOverview } from "@/lib/course/service";
@@ -46,13 +47,7 @@ export default function MeuCursoRevisoesPage() {
     getReviewsOverview().then(setOverview);
   }, []);
 
-  if (!overview) {
-    return (
-      <main className="flex-1 px-4 py-6 md:px-8 md:py-8 max-w-2xl mx-auto w-full">
-        <p className="text-sm text-foreground-muted">Carregando…</p>
-      </main>
-    );
-  }
+  if (!overview) return <PageSkeleton cards={3} />;
 
   const total = overview.overdue.length + overview.dueToday.length;
 
