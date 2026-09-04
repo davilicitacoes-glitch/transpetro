@@ -4,7 +4,7 @@ import { useEffect, useState, useCallback, useMemo } from "react";
 import { use as usePromise } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { ArrowLeft, ArrowRight, Briefcase, CheckCircle2, Circle, ExternalLink, List, LogOut, PlayCircle, Sparkles } from "lucide-react";
+import { ArrowLeft, ArrowRight, Briefcase, CheckCircle2, ExternalLink, List, LogOut, PlayCircle, Sparkles } from "lucide-react";
 import { findEpisodesForCodes } from "@/lib/games/catalog";
 import { ALL_LESSONS } from "@/content/lessons";
 import { ALL_QUESTIONS } from "@/content/questions";
@@ -145,19 +145,31 @@ export default function MeuCursoDiaPage({ params }: { params: Promise<{ day: str
       </h1>
       <p className="text-xs text-foreground-muted mb-5">{formatMinutes(planDay.estimatedMinutesTotal)} estimados no total</p>
 
-      {/* trilha discreta de etapas */}
-      <div className="flex items-center gap-1 mb-6 overflow-x-auto pb-1">
-        {planDay.steps.map((s) => {
-          const done = progress.completedStepIds.includes(s.id);
-          const active = s.id === currentStep?.id;
-          return (
-            <span
-              key={s.id}
-              title={s.title}
-              className={`h-1.5 flex-1 min-w-[10px] rounded-full ${done ? "bg-brand" : active ? "bg-brand/40" : "bg-surface-muted"}`}
-            />
-          );
-        })}
+      {/* trilha de etapas — segmentos mais grossos, etapa atual com destaque, nome da etapa
+          atual como legenda (antes só dava pra ver isso passando o mouse no title do segmento) */}
+      <div className="mb-6">
+        <div className="flex items-center gap-1.5 mb-2 overflow-x-auto pb-1">
+          {planDay.steps.map((s) => {
+            const done = progress.completedStepIds.includes(s.id);
+            const active = s.id === currentStep?.id;
+            return (
+              <span
+                key={s.id}
+                title={s.title}
+                className={`h-2 flex-1 min-w-[10px] rounded-full transition-all ${
+                  done
+                    ? "bg-gradient-to-r from-brand to-accent"
+                    : active
+                      ? "bg-brand/50 ring-2 ring-brand/25 scale-y-125"
+                      : "bg-surface-muted"
+                }`}
+              />
+            );
+          })}
+        </div>
+        {currentStep && (
+          <p className="text-[11px] font-semibold text-brand">{STEP_TYPE_LABEL[currentStep.type] ?? currentStep.type}</p>
+        )}
       </div>
 
       {currentStep ? (
@@ -321,10 +333,10 @@ function LessonStep({ step }: { step: CourseStep }) {
   const slides = useMemo(() => buildSlides(lesson), [lesson]);
   return (
     <div>
-      <h2 className="text-[17px] font-semibold mb-1">{lesson.title}</h2>
-      <p className="text-sm text-foreground-muted mb-4">{lesson.learningObjective}</p>
+      <h2 className="text-[21px] font-display font-bold tracking-tight leading-snug mb-2">{lesson.title}</h2>
+      <p className="text-[13.5px] text-foreground-muted leading-relaxed mb-5 pl-3 border-l-2 border-brand/30">{lesson.learningObjective}</p>
 
-      <div className="mb-4">
+      <div className="mb-5">
         <SlidePlayer slides={slides} title={lesson.title} />
       </div>
 
@@ -333,7 +345,7 @@ function LessonStep({ step }: { step: CourseStep }) {
       </Link>
 
       {lesson.mustMemorize.length > 0 && (
-        <div className="rounded-lg bg-surface-muted p-3.5 mb-4">
+        <div className="rounded-lg bg-surface-muted p-3.5 mb-4 border-l-4 border-accent">
           <p className="flex items-center gap-1.5 text-xs font-semibold uppercase tracking-wide text-foreground-muted mb-2">
             <Sparkles size={13} aria-hidden /> Memorize
           </p>
@@ -526,23 +538,21 @@ function FechamentoCard({
 
   return (
     <div className="space-y-4">
-      <div className="card p-5">
-        <h2 className="text-[17px] font-display font-semibold mb-4">Resumo do dia</h2>
+      <div className="card-raised p-6 text-center">
+        <div className="mx-auto mb-3 flex items-center justify-center w-16 h-16 rounded-full bg-brand-soft text-brand">
+          <CheckCircle2 size={30} aria-hidden />
+        </div>
+        <p className="text-[22px] font-display font-bold text-gradient-brand mb-1">Dia {dayNumber} concluído!</p>
+        <p className="text-[13px] text-foreground-muted mb-5">
+          Mais um passo rumo à aprovação — o que você estudou hoje já está registrado.
+        </p>
+
         {summary ? (
-          <ul className="space-y-2 text-sm mb-5">
-            <li className="flex items-center gap-2">
-              <CheckCircle2 size={15} className="text-success" aria-hidden />
-              {summary.completedSteps} de {summary.totalSteps} etapas concluídas
-            </li>
-            <li className="flex items-center gap-2">
-              <Circle size={15} className="text-foreground-muted" aria-hidden />
-              {summary.questionsAnswered} questão(ões) respondida(s), {summary.questionsCorrect} certa(s)
-            </li>
-            <li className="flex items-center gap-2">
-              <Circle size={15} className="text-foreground-muted" aria-hidden />
-              {summary.reviewsScheduledDuringSession} revisão(ões) nova(s) agendada(s)
-            </li>
-          </ul>
+          <div className="grid grid-cols-3 gap-2 mb-5">
+            <StatTile value={`${summary.completedSteps}/${summary.totalSteps}`} label="etapas" />
+            <StatTile value={`${summary.questionsCorrect}/${summary.questionsAnswered}`} label="acertos" accent="success" />
+            <StatTile value={String(summary.reviewsScheduledDuringSession)} label="revisões" accent="accent" />
+          </div>
         ) : (
           <p className="text-sm text-foreground-muted mb-5">Carregando resumo…</p>
         )}
@@ -612,6 +622,16 @@ function FechamentoCard({
       {hasComplementary && choice === "feito" && (
         <ComplementaryReviewBlock dayNumber={dayNumber} videos={videos} questions={questions} />
       )}
+    </div>
+  );
+}
+
+function StatTile({ value, label, accent }: { value: string; label: string; accent?: "success" | "accent" }) {
+  const color = accent === "success" ? "text-success" : accent === "accent" ? "text-accent-hover" : "text-brand";
+  return (
+    <div className="rounded-xl bg-surface-muted py-3 px-1">
+      <p className={`text-[19px] font-display font-bold leading-none mb-1 ${color}`}>{value}</p>
+      <p className="text-[10px] uppercase tracking-wide text-foreground-muted">{label}</p>
     </div>
   );
 }
