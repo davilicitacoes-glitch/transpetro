@@ -66,7 +66,7 @@ export default function CoberturaRealPage() {
           <span className="flex items-center gap-1.5 text-xs font-semibold uppercase tracking-wide text-foreground-muted mb-2">
             <FileCheck2 size={13} aria-hidden /> Questões reais de prova
           </span>
-          <p className="text-[28px] font-display font-bold text-brand leading-none mb-1">{stats.realQuestionsCount}</p>
+          <p className="text-[28px] font-display font-bold text-gradient-brand leading-none mb-1">{stats.realQuestionsCount}</p>
           <p className="text-[12px] text-foreground-muted">
             de {stats.totalQuestions} questões totais no banco · extraídas de {stats.provasCount} prova(s) reais catalogadas,{" "}
             {stats.bancasCount} banca(s): {stats.bancasList.join(", ") || "—"}.
@@ -77,7 +77,7 @@ export default function CoberturaRealPage() {
           <span className="flex items-center gap-1.5 text-xs font-semibold uppercase tracking-wide text-foreground-muted mb-2">
             <Database size={13} aria-hidden /> Códigos do edital cobertos
           </span>
-          <p className="text-[28px] font-display font-bold text-brand leading-none mb-1">
+          <p className="text-[28px] font-display font-bold text-gradient-brand leading-none mb-1">
             {stats.codesWithRealQuestionsCount}/{stats.totalCodes}
           </p>
           <p className="text-[12px] text-foreground-muted">códigos do Anexo IV com pelo menos 1 questão real catalogada.</p>
@@ -87,7 +87,7 @@ export default function CoberturaRealPage() {
           <span className="flex items-center gap-1.5 text-xs font-semibold uppercase tracking-wide text-foreground-muted mb-2">
             <MonitorPlay size={13} aria-hidden /> Videoaulas mapeadas
           </span>
-          <p className="text-[28px] font-display font-bold text-brand leading-none mb-1">{stats.videoCount}</p>
+          <p className="text-[28px] font-display font-bold text-gradient-brand leading-none mb-1">{stats.videoCount}</p>
           <p className="text-[12px] text-foreground-muted">
             vídeos públicos curados e justificados, cobrindo {stats.codesWithVideoCount}/{stats.totalCodes} códigos do edital.
           </p>
@@ -97,7 +97,7 @@ export default function CoberturaRealPage() {
           <span className="flex items-center gap-1.5 text-xs font-semibold uppercase tracking-wide text-foreground-muted mb-2">
             <Headphones size={13} aria-hidden /> Áudio original (Estucast)
           </span>
-          <p className="text-[28px] font-display font-bold text-brand leading-none mb-1">
+          <p className="text-[28px] font-display font-bold text-gradient-brand leading-none mb-1">
             {audioMinutes} min
           </p>
           <p className="text-[12px] text-foreground-muted">

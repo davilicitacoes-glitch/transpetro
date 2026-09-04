@@ -7,6 +7,7 @@ import { ALL_LESSONS } from "@/content/lessons";
 import { SUBJECTS } from "@/content/curriculum";
 import { REVIEW_SCHEDULE_DAYS } from "@/lib/schedule/priority";
 import { PageHeader } from "@/components/ui/PageHeader";
+import { StatTile } from "@/components/ui/StatTile";
 import { recordReviewResult, scheduleReview } from "@/lib/pedagogy/service";
 import { getDB } from "@/lib/db/dexie";
 import { subjectOfTopic, topicNameOf } from "@/lib/pedagogy/contentRef";
@@ -117,25 +118,10 @@ export default function RevisoesPage() {
       />
 
       {reviewed > 0 && (
-        <div className="card p-3 mb-5 flex items-center justify-around text-center">
-          <div>
-            <p className="text-[18px] font-bold text-success leading-none">
-              {Object.values(results).filter((r) => r === "dominado").length}
-            </p>
-            <p className="text-[11px] text-foreground-muted mt-1">dominados</p>
-          </div>
-          <div>
-            <p className="text-[18px] font-bold text-warning leading-none">
-              {Object.values(results).filter((r) => r === "duvida").length}
-            </p>
-            <p className="text-[11px] text-foreground-muted mt-1">em dúvida</p>
-          </div>
-          <div>
-            <p className="text-[18px] font-bold text-danger leading-none">
-              {Object.values(results).filter((r) => r === "erro").length}
-            </p>
-            <p className="text-[11px] text-foreground-muted mt-1">erros</p>
-          </div>
+        <div className="grid grid-cols-3 gap-2.5 mb-5">
+          <StatTile value={Object.values(results).filter((r) => r === "dominado").length} label="dominados" accent="success" />
+          <StatTile value={Object.values(results).filter((r) => r === "duvida").length} label="em dúvida" accent="warning" />
+          <StatTile value={Object.values(results).filter((r) => r === "erro").length} label="erros" accent="danger" />
         </div>
       )}
 

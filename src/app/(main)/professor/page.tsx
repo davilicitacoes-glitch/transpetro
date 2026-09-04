@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import Link from "next/link";
 import { AlertTriangle, CalendarClock, GraduationCap, HelpCircle, History, ListChecks, MessageCircle, PenLine, Sparkles } from "lucide-react";
 import { PageHeader } from "@/components/ui/PageHeader";
+import { StatTile } from "@/components/ui/StatTile";
 import { buildProfessorContext } from "@/lib/pedagogy/professorContext";
 import { DEFAULT_STUDENT_ID, type ProfessorContext } from "@/lib/models/schema";
 import type { ProfessorFunction } from "@/lib/professor/types";
@@ -39,19 +40,10 @@ export default function ProfessorHubPage() {
       />
 
       {context && (
-        <div className="card p-4 mb-5 grid grid-cols-3 gap-2 text-center">
-          <div>
-            <p className="text-[20px] font-bold leading-none">{context.reviewsDue.length}</p>
-            <p className="text-[10.5px] text-foreground-muted mt-1">revisões vencidas</p>
-          </div>
-          <div>
-            <p className="text-[20px] font-bold leading-none">{context.openDifficulties.length}</p>
-            <p className="text-[10.5px] text-foreground-muted mt-1">dificuldades abertas</p>
-          </div>
-          <div>
-            <p className="text-[20px] font-bold leading-none">{context.openDoubts.length}</p>
-            <p className="text-[10.5px] text-foreground-muted mt-1">dúvidas em aberto</p>
-          </div>
+        <div className="grid grid-cols-3 gap-2.5 mb-5">
+          <StatTile value={context.reviewsDue.length} label="revisões vencidas" accent={context.reviewsDue.length > 0 ? "warning" : "brand"} />
+          <StatTile value={context.openDifficulties.length} label="dificuldades abertas" accent={context.openDifficulties.length > 0 ? "danger" : "brand"} />
+          <StatTile value={context.openDoubts.length} label="dúvidas em aberto" />
         </div>
       )}
 

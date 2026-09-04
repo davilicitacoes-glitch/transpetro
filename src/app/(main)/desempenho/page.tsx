@@ -10,6 +10,7 @@ import { EXAM_BLUEPRINT, OBJECTIVE_MIN_PASSING_POINTS, OBJECTIVE_TOTAL_POINTS } 
 import { useCompletedLessons } from "@/lib/progress/useCompletedLessons";
 import { useAttemptStats } from "@/lib/progress/useAttemptStats";
 import { PageHeader } from "@/components/ui/PageHeader";
+import { StatTile } from "@/components/ui/StatTile";
 import { Target } from "lucide-react";
 
 export default function DesempenhoPage() {
@@ -45,29 +46,26 @@ export default function DesempenhoPage() {
         description="Cobertura das aulas e volume de questões disponíveis, ponderados pelo peso real de cada disciplina na prova."
       />
 
-      <div className="grid grid-cols-3 gap-3 mb-6">
-        <div className="card p-3 text-center">
-          <p className="text-[22px] font-bold leading-none">{totalDone}</p>
-          <p className="text-[11px] text-foreground-muted mt-1">de {totalLessons} aulas</p>
-        </div>
-        <div className="card p-3 text-center">
-          <p className="text-[22px] font-bold leading-none">{ALL_QUESTIONS.length}</p>
-          <p className="text-[11px] text-foreground-muted mt-1">questões no banco</p>
-        </div>
-        <div className="card p-3 text-center">
-          <p className="text-[22px] font-bold leading-none text-brand">{OBJECTIVE_MIN_PASSING_POINTS}</p>
-          <p className="text-[11px] text-foreground-muted mt-1">mínimo p/ passar / {OBJECTIVE_TOTAL_POINTS} pts</p>
-        </div>
+      <div className="grid grid-cols-3 gap-2.5 mb-6">
+        <StatTile value={totalDone} label={`de ${totalLessons} aulas`} />
+        <StatTile value={ALL_QUESTIONS.length} label="questões no banco" />
+        <StatTile value={OBJECTIVE_MIN_PASSING_POINTS} label={`mín. p/ passar / ${OBJECTIVE_TOTAL_POINTS} pts`} accent="accent" />
       </div>
 
       {attemptStats.totalAttempts > 0 && (
-        <section className="card p-5 mb-5">
+        <section className="card-raised p-5 mb-5 relative overflow-hidden">
+          <div
+            className="absolute inset-0 pointer-events-none"
+            style={{ background: "radial-gradient(480px 240px at 100% 0%, color-mix(in srgb, var(--brand) 10%, transparent), transparent 65%)" }}
+            aria-hidden
+          />
+          <div className="relative">
           <h2 className="font-semibold text-[14px] mb-4 flex items-center gap-2">
             <Target size={16} className="text-brand" aria-hidden />
             Acerto real em questões
           </h2>
           <div className="flex items-center gap-4 mb-4">
-            <p className="text-[28px] font-display font-bold text-brand leading-none">{attemptStats.overallAccuracy}%</p>
+            <p className="text-[30px] font-display font-bold text-gradient-brand leading-none">{attemptStats.overallAccuracy}%</p>
             <p className="text-[12px] text-foreground-muted">
               {attemptStats.totalCorrect} de {attemptStats.totalAttempts} questões respondidas certas, no total.
             </p>
@@ -90,6 +88,7 @@ export default function DesempenhoPage() {
                 </div>
               );
             })}
+          </div>
           </div>
         </section>
       )}

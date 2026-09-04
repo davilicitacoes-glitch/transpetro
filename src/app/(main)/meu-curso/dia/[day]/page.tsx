@@ -13,6 +13,7 @@ import { ESSAY_PROMPTS } from "@/content/essays/prompts";
 import { YouTubePlayer } from "@/components/video/YouTubePlayer";
 import { SlidePlayer } from "@/components/video/SlidePlayer";
 import { QuestionCard } from "@/components/questions/QuestionCard";
+import { StatTile } from "@/components/ui/StatTile";
 import { buildSlides } from "@/lib/slides/buildSlides";
 import { STEP_TYPE_LABEL, formatMinutes } from "@/lib/course/labels";
 import { DEFAULT_STUDENT_ID, type CourseDay, type CourseDayProgress, type CourseStep, type Question } from "@/lib/models/schema";
@@ -622,16 +623,6 @@ function FechamentoCard({
       {hasComplementary && choice === "feito" && (
         <ComplementaryReviewBlock dayNumber={dayNumber} videos={videos} questions={questions} />
       )}
-    </div>
-  );
-}
-
-function StatTile({ value, label, accent }: { value: string; label: string; accent?: "success" | "accent" }) {
-  const color = accent === "success" ? "text-success" : accent === "accent" ? "text-accent-hover" : "text-brand";
-  return (
-    <div className="rounded-xl bg-surface-muted py-3 px-1">
-      <p className={`text-[19px] font-display font-bold leading-none mb-1 ${color}`}>{value}</p>
-      <p className="text-[10px] uppercase tracking-wide text-foreground-muted">{label}</p>
     </div>
   );
 }

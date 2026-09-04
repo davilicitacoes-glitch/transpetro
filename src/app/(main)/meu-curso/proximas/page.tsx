@@ -100,7 +100,7 @@ export default function ProximasPage() {
           )}
 
           {nextDay && (
-            <Link href={`/meu-curso/dia/${nextDay.day}`} className="card p-4 mb-4 border-brand/40 bg-brand-soft/40 flex items-center gap-3">
+            <Link href={`/meu-curso/dia/${nextDay.day}`} className="card-raised p-4 mb-4 border-brand/40 bg-brand-soft/40 flex items-center gap-3">
               <PlayCircle size={22} className="text-brand shrink-0" aria-hidden />
               <div className="min-w-0 flex-1">
                 <p className="text-[11px] font-semibold uppercase tracking-wide text-brand mb-0.5">

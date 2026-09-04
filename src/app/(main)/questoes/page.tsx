@@ -96,11 +96,16 @@ export default function QuestoesPage() {
       />
 
       {answeredCount > 0 && (
-        <div className="card p-4 mb-5 flex items-center gap-4">
-          <div className="w-12 h-12 rounded-full bg-brand-soft text-brand flex items-center justify-center font-bold text-sm shrink-0">
+        <div className="card-raised p-4 mb-5 flex items-center gap-4 relative overflow-hidden">
+          <div
+            className="absolute inset-0 pointer-events-none"
+            style={{ background: "radial-gradient(400px 200px at 100% 0%, color-mix(in srgb, var(--brand) 10%, transparent), transparent 65%)" }}
+            aria-hidden
+          />
+          <p className="relative text-[26px] font-display font-bold text-gradient-brand leading-none shrink-0">
             {Math.round((correctCount / answeredCount) * 100)}%
-          </div>
-          <div>
+          </p>
+          <div className="relative">
             <p className="text-sm font-medium">Seu aproveitamento nesta sessão</p>
             <p className="text-xs text-foreground-muted">
               {correctCount} acertos em {answeredCount} questões respondidas

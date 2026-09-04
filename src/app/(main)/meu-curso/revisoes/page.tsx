@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import Link from "next/link";
 import { AlertTriangle, CalendarClock, CheckCircle2, ExternalLink, RotateCcw } from "lucide-react";
 import { PageHeader } from "@/components/ui/PageHeader";
+import { StatTile } from "@/components/ui/StatTile";
 import { formatDateBR } from "@/lib/schedule/dates";
 import { getReviewsOverview, type ReviewsOverview } from "@/lib/course/service";
 import { topicNameOf } from "@/lib/pedagogy/contentRef";
@@ -66,6 +67,12 @@ export default function MeuCursoRevisoesPage() {
             : "Nenhuma revisão pendente hoje. O que vencer aparece aqui automaticamente."
         }
       />
+
+      <div className="grid grid-cols-3 gap-2.5 mb-4">
+        <StatTile value={overview.overdue.length} label="vencidas" accent={overview.overdue.length > 0 ? "danger" : "brand"} />
+        <StatTile value={overview.dueToday.length} label="para hoje" accent={overview.dueToday.length > 0 ? "warning" : "brand"} />
+        <StatTile value={overview.upcoming.length} label="futuras" />
+      </div>
 
       <div className="grid grid-cols-2 gap-2 mb-5">
         <Link href="/revisoes" className="card p-3.5 flex items-center gap-2 hover:shadow-md transition-shadow">
