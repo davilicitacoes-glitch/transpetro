@@ -2,8 +2,8 @@
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
-import { ArrowLeft, Mic, Trash2 } from "lucide-react";
-import { PageHeader } from "@/components/ui/PageHeader";
+import { ArrowLeft, MessageSquare, Mic, Trash2 } from "lucide-react";
+import { PageHeader, EmptyState } from "@/components/ui/PageHeader";
 import { ListSkeleton } from "@/components/ui/PageSkeleton";
 import { deleteConversation, listConversations, summarizeConversation } from "@/lib/professor/history";
 import type { ProfessorConversation } from "@/lib/models/schema";
@@ -46,7 +46,16 @@ export default function ProfessorHistoricoPage() {
       {!conversations ? (
         <ListSkeleton />
       ) : conversations.length === 0 ? (
-        <div className="card p-6 text-center text-sm text-foreground-muted">Nenhuma conversa salva ainda.</div>
+        <EmptyState
+          icon={MessageSquare}
+          title="Nenhuma conversa salva ainda"
+          description="Quando você conversar com o Professor, cada sessão fica guardada aqui — só neste navegador — para você reler depois."
+          action={
+            <Link href="/professor" className="btn btn-primary">
+              Conversar com o Professor
+            </Link>
+          }
+        />
       ) : (
         <div className="space-y-2.5">
           {conversations.map((c) => {
