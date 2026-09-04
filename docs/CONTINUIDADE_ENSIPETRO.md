@@ -1,3 +1,62 @@
+# Continuidade — Correção do cronograma "Meu Curso" (2026-09-04, CONCLUÍDA, SEM DEPLOY)
+
+**Motivo**: usuário reportou que o cronograma "pulava dias" e que era esperado ter sempre 2
+unidades curriculares (códigos do edital) por dia.
+
+**Bug confirmado em `src/content/coursePlan.ts`**: dos 24 dias de conteúdo da Fase 1, 10 códigos do
+Anexo IV eram ensinados duas vezes — uma aula completa (aula + videoaula + checagem) na primeira
+ocorrência, e um dia posterior com um passo de "prática adicional" (`questoes`) reaproveitando o
+mesmo código, provavelmente resíduo do script de geração original (`scripts/merge-course-days.js`,
+já removido do repositório) que não existe mais para reexecutar. O antigo Dia 27 também fugia da
+regra de 2 códigos/dia (tinha 3, sendo 2 deles repetições). O efeito percebido: o cronograma parecia
+"voltar" a assuntos já vistos em vez de sempre avançar.
+
+**Correção**: `src/content/coursePlan.ts` foi reconstruído por script (não editado manualmente,
+dado o volume — ~3700 linhas) a partir do conteúdo real já existente:
+- Cada um dos 39 códigos do Anexo IV agora aparece em **exatamente 1 dia**, com a aula completa
+  (a mesma que já existia na primeira ocorrência original — nenhum conteúdo novo foi inventado).
+- Fase 1 passa de 24 para **19 dias de conteúdo**: 18 dias com 2 códigos + 1 dia com 3 (39 é ímpar,
+  então 1 dia com 3 é matematicamente necessário para nunca deixar 1 código isolado).
+- Os 6 dias de revisão de bloco foram mantidos com o mesmo conteúdo, mas **reposicionados** para
+  logo após o dia que completa aquele bloco de códigos (antes, 3 deles ficavam empilhados só no
+  fim da Fase 1, mesmo quando o bloco já tinha terminado bem antes — ex.: a revisão de Logística
+  (AC-10 a AC-17) agora vem logo depois do dia que ensina AC-17, não 8 dias depois).
+- Fase 2 (`reta_final`, 18 dias) não mudou em conteúdo, só foi renumerada.
+- **Fase 1: 30 → 25 dias (19 conteúdo + 6 revisão). Total do curso: 48 → 43 dias.**
+  `config/concurso.ts` (`TOTAL_MISSIONS`) atualizado para 43, em sincronia com
+  `COURSE_PLAN_V2.days.length` (a app quebraria se os dois divergissem — motor de calendário
+  depende dessa igualdade).
+
+**Validações executadas**:
+- `npx tsc --noEmit` limpo.
+- `npm run build` limpo (55 rotas geradas, incluindo `/meu-curso/dia/[day]` e `/meu-curso/calendario`).
+- `npm test -- --run`: 118 testes passando, sem alteração (nenhum teste existente referenciava o
+  cronograma antigo diretamente — a suíte que testaria isso, `service.test.ts`, já estava
+  `describe.skip` antes desta missão, por outro motivo documentado no próprio arquivo).
+- Suíte de verificação temporária (criada, rodada e removida nesta missão, não faz parte do
+  repositório): confirmou que `TOTAL_MISSIONS === COURSE_PLAN_V2.days.length`, que os 39 códigos
+  aparecem cada um exatamente 1 vez, que a numeração dos dias é sequencial sem lacunas, que todos os
+  ids de step são únicos no arquivo inteiro, e que `buildCourseCalendar` espalha os 43 dias sobre um
+  calendário real sem erro e com datas não decrescentes.
+- Landing page (`/`) verificada no navegador local: já reflete "43 dias de trilha" dinamicamente
+  (lida de `TOTAL_MISSIONS`, sem hardcode). Não foi possível testar `/meu-curso/calendario` ao vivo
+  nesta sessão por exigir login (sem credenciais de teste disponíveis) — a cobertura ficou na
+  verificação estrutural acima, que exercita exatamente a mesma função (`buildCourseCalendar`) que
+  a tela de calendário usa.
+
+**O que NÃO mudou**: nenhum conteúdo pedagógico foi reescrito ou removido — cada código manteve a
+aula, videoaula e questão de checagem que já tinha (só a segunda ocorrência redundante foi
+descartada). `src/lib/course/schedule.ts` (motor de espalhamento do calendário) não foi alterado —
+o bug estava só nos dados do plano, não no motor.
+
+**Efeito colateral esperado, avisado ao usuário**: como a numeração dos dias mudou a partir do Dia
+6 e o total caiu de 48 para 43, qualquer aluno que já tenha progresso salvo (`courseDayProgress`
+indexado por número do dia) ficará com o progresso desalinhado do novo plano. Como o projeto ainda
+não tem alunos reais em produção usando o curso, isso não foi tratado com uma migração — se
+precisar no futuro, ver `src/lib/course/service.ts` (`getDayProgress`/`upsertDayProgress`).
+
+---
+
 # Continuidade — Motor de Jogos: "Um Dia no Escritório" (2026-08-28, CONCLUÍDA, SEM DEPLOY)
 
 Primeiro de 7 jogos temáticos planejados. Arquitetura completa documentada em

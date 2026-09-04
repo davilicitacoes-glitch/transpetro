@@ -41,14 +41,20 @@ export const LAST_STUDY_DATE = "2026-11-28";
  * fixo aqui. */
 /**
  * Deve ser sempre igual a `COURSE_PLAN_V2.days.length` em `src/content/coursePlan.ts` (o motor de
- * calendário/dia-atual depende dessa igualdade). 30 dias de Fase 1 (conteúdo geral: 24 dias
- * combinando 2-3 códigos do edital cada, intercalando disciplinas, + 6 revisões de bloco) + 18 dias
- * de Fase 2 (revisão geral, mapeados 1:1 nas últimas datas antes da prova — só estrutura por
+ * calendário/dia-atual depende dessa igualdade). 25 dias de Fase 1 (conteúdo geral: 19 dias, cada
+ * código do edital ensinado uma única vez — 18 dias com 2 códigos + 1 dia com 3 — intercalando
+ * disciplinas, + 6 revisões de bloco posicionadas logo após o dia que completa cada bloco) + 18
+ * dias de Fase 2 (revisão geral, mapeados 1:1 nas últimas datas antes da prova — só estrutura por
  * enquanto, ver docs/CONTINUIDADE_ENSIPETRO.md). O motor de calendário (src/lib/course/schedule.ts)
  * espalha os dias de Fase 1 sobre os dias úteis disponíveis até a Fase 2 começar — reduzir esse
  * total não desperdiça nada, só dá mais fôlego por dia de estudo.
+ *
+ * Corrigido em 2026-09-04: a versão anterior (48 = 30+18) tinha 24 dias de conteúdo na Fase 1 com
+ * 10 códigos ensinados duas vezes (uma aula completa + um dia posterior de "prática adicional" no
+ * mesmo código) — consolidado para 19 dias sem repetição. Ver o comentário no topo de
+ * src/content/coursePlan.ts e docs/CONTINUIDADE_ENSIPETRO.md para o detalhe da correção.
  */
-export const TOTAL_MISSIONS = 48;
+export const TOTAL_MISSIONS = 43;
 
 /** Data padrão assumida para o início do plano quando o aluno ainda não confirmou a própria data
  * (nenhuma configuração de aluno existia no momento desta decisão — ver
